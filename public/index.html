@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gebetszeiten Weltweit</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #222;
+    }
+    .header {
+      background: rgba(255,255,255,0.95);
+      padding: 1.5rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      margin: 0;
+      color: #2d3748;
+      font-size: 1.8rem;
+    }
+    .header .subtitle {
+      color: #718096;
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tab {
+      padding: 0.75rem 1.5rem;
+      background: rgba(255,255,255,0.85);
+      border: none;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      background: white;
+      color: #2d3748;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    }
+    .panel {
+      background: white;
+      border-radius: 0 12px 12px 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .panel.hidden { display: none; }
+
+    /* Search box */
+    .search-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .search-row input, .search-row select {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      background: #f7fafc;
+    }
+    .search-row input { flex: 1; min-width: 240px; }
+    .search-row input:focus, .search-row select:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+    }
+    .results {
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+    .results:empty { display: none; }
+    .result-item {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid #edf2f7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .result-item:hover { background: #f7fafc; }
+    .result-item:last-child { border-bottom: none; }
+    .result-item .country { color: #718096; font-size: 0.9rem; }
+
+    /* Prayer times */
+    .prayer-card {
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    .prayer-card h2 {
+      margin: 0 0 1rem 0;
+      color: #2d3748;
+      font-size: 1.3rem;
+    }
+    .prayer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .prayer {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .prayer .name {
+      font-size: 0.85rem;
+      color: #718096;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .prayer .name .tr { display: block; font-style: italic; color: #a0aec0; font-size: 0.75rem; }
+    .prayer .time {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-top: 0.4rem;
+    }
+
+    /* API keys */
+    .key-form { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .key-form input { flex: 1; padding: 0.75rem 1rem; border: 2px solid #e2e8f0; border-radius: 8px; }
+    .btn {
+      padding: 0.75rem 1.25rem;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: #5568d3; }
+    .btn-danger { background: #e53e3e; }
+    .btn-danger:hover { background: #c53030; }
+    .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+    .key-list { width: 100%; border-collapse: collapse; }
+    .key-list th, .key-list td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .key-list th { color: #718096; font-size: 0.85rem; text-transform: uppercase; }
+    .key-list code { background: #f7fafc; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem; }
+    .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
+    .badge.on { background: #c6f6d5; color: #22543d; }
+    .badge.off { background: #fed7d7; color: #742a2a; }
+
+    .new-key-box {
+      background: #f0fff4;
+      border: 2px solid #9ae6b4;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .new-key-box .label { color: #22543d; font-weight: 500; margin-bottom: 0.5rem; }
+    .new-key-box code { font-size: 1rem; word-break: break-all; }
+
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #2d3748;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌙 Gebetszeiten Weltweit</h1>
+    <div class="subtitle">Daten aus IGMG · 331 deutsche Städte · API-Key-Verwaltung</div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" data-tab="times">🕌 Gebetszeiten</button>
+      <button class="tab" data-tab="keys">🔑 API-Keys</button>
+      <button class="tab" data-tab="api">📡 API-Doku</button>
+    </div>
+
+    <!-- GEBETSZEITEN PANEL -->
+    <div class="panel" id="panel-times">
+      <div class="search-row">
+        <input type="text" id="citySearch" placeholder="Stadt suchen (z.B. München, Berlin, Köln)...">
+        <select id="dateSelect"></select>
+      </div>
+      <div class="results" id="cityResults"></div>
+      <div class="prayer-card hidden" id="prayerCard">
+        <h2 id="prayerCityName">—</h2>
+        <div class="prayer-grid" id="prayerGrid"></div>
+      </div>
+    </div>
+
+    <!-- API KEYS PANEL -->
+    <div class="panel hidden" id="panel-keys">
+      <h2 style="margin-top:0">API-Keys verwalten</h2>
+      <div class="new-key-box hidden" id="newKeyBox">
+        <div class="label">✓ Neuer Key erstellt (wird nur EINMAL angezeigt!):</div>
+        <code id="newKeyValue"></code>
+      </div>
+      <div class="key-form">
+        <input type="text" id="keyName" placeholder="Name (z.B. Mobile App, Server, Test)">
+        <button class="btn" id="createKeyBtn">+ Key erstellen</button>
+      </div>
+      <table class="key-list" id="keyList">
+        <thead><tr><th>ID</th><th>Name</th><th>Status</th><th>Requests</th><th>Letzte Nutzung</th><th>Aktion</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- API DOCU PANEL -->
+    <div class="panel hidden" id="panel-api">
+      <h2 style="margin-top:0">JSON-API</h2>
+      <p>Alle Endpoints geben JSON zurück.</p>
+      <h3>Ohne API-Key (öffentlich)</h3>
+      <pre style="background:#f7fafc;padding:1rem;border-radius:8px;overflow-x:auto">
+GET /api/cities?country=DE&q=münchen
+GET /api/times?city=20166&date=2026-06-25</pre>
+
+      <h3>Mit API-Key (authentifiziert)</h3>
+      <pre style="background:#f7fafc;padding:1rem;border-radius:8px;overflow-x:auto">
+GET /api/v1/times?city=20166&date=2026-06-25
+Header: X-Api-Key: gk_xxxxxxxxxxxxxxxxxxxx</pre>
+
+      <h3>Antwort-Beispiel</h3>
+      <pre style="background:#f7fafc;padding:1rem;border-radius:8px;overflow-x:auto">
+{
+  "city": "20166",
+  "date": "2026-06-25",
+  "times": {
+    "date": "2026-06-25",
+    "imsak": "03:45",
+    "sunrise": "05:09",
+    "dhuhr": "13:33",
+    "asr": "17:51",
+    "maghrib": "21:46",
+    "isha": "23:01",
+    "source": "igmg"
+  }
+}</pre>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ============ TABS ============
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.tab).classList.remove('hidden');
+      });
+    });
+
+    // ============ TOAST ============
+    function toast(msg, ms = 2500) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), ms);
+    }
+
+    // ============ DATES ============
+    const dateSelect = document.getElementById('dateSelect');
+    const today = new Date();
+    for (let i = 0; i < 30; i++) {
+      const d = new Date(today); d.setDate(today.getDate() + i);
+      const iso = d.toISOString().slice(0, 10);
+      const opt = document.createElement('option');
+      opt.value = iso;
+      opt.textContent = d.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' });
+      if (i === 0) opt.selected = true;
+      dateSelect.appendChild(opt);
+    }
+
+    // ============ CITY SEARCH ============
+    let allCities = [];
+    const citySearch = document.getElementById('citySearch');
+    const cityResults = document.getElementById('cityResults');
+
+    fetch('/api/cities?country=DE').then(r => r.json()).then(d => {
+      allCities = d.cities;
+    });
+
+    citySearch.addEventListener('input', () => {
+      const q = citySearch.value.toLowerCase().trim();
+      cityResults.innerHTML = '';
+      if (q.length < 2) return;
+      const matches = allCities.filter(c => c.name.toLowerCase().includes(q)).slice(0, 50);
+      matches.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'result-item';
+        div.innerHTML = `<span>${c.name}</span><span class="country">${c.country}</span>`;
+        div.onclick = () => selectCity(c);
+        cityResults.appendChild(div);
+      });
+    });
+
+    async function selectCity(city) {
+      citySearch.value = city.name;
+      cityResults.innerHTML = '';
+      const date = dateSelect.value;
+      const r = await fetch(`/api/times?city=${city.id}&date=${date}`);
+      const d = await r.json();
+      if (!d.times) { toast('Keine Daten für diese Stadt'); return; }
+      const card = document.getElementById('prayerCard');
+      card.classList.remove('hidden');
+      document.getElementById('prayerCityName').textContent = `${city.name} · ${date}`;
+      const grid = document.getElementById('prayerGrid');
+      const labels = {
+        imsak:   { de: 'Morgen (İmsak)',  tr: 'İmsak' },
+        sunrise: { de: 'Sonnenaufgang',   tr: 'Güneş' },
+        dhuhr:   { de: 'Mittag (Öğle)',   tr: 'Öğle' },
+        asr:     { de: 'Nachmittag (İkindi)', tr: 'İkindi' },
+        maghrib: { de: 'Abend (Akşam)',   tr: 'Akşam' },
+        isha:    { de: 'Nacht (Yatsı)',   tr: 'Yatsı' },
+      };
+      grid.innerHTML = Object.entries(d.times).filter(([k]) => labels[k]).map(([k, v]) => `
+        <div class="prayer">
+          <div class="name">${labels[k].de}<span class="tr">${labels[k].tr}</span></div>
+          <div class="time">${v}</div>
+        </div>
+      `).join('');
+    }
+
+    dateSelect.addEventListener('change', () => {
+      if (citySearch.value) {
+        const c = allCities.find(x => x.name === citySearch.value);
+        if (c) selectCity(c);
+      }
+    });
+
+    // ============ API KEYS ============
+    async function refreshKeys() {
+      const r = await fetch('/api/keys');
+      const d = await r.json();
+      const tbody = document.querySelector('#keyList tbody');
+      tbody.innerHTML = d.keys.map(k => `
+        <tr>
+          <td><code>${k.id.substring(0, 16)}…</code></td>
+          <td>${k.name}</td>
+          <td><span class="badge ${k.enabled ? 'on' : 'off'}">${k.enabled ? 'aktiv' : 'deaktiviert'}</span></td>
+          <td>${k.requests}</td>
+          <td>${k.last_used || '—'}</td>
+          <td>
+            ${k.enabled ? `<button class="btn btn-sm btn-danger" onclick="disableKey('${k.id}')">Deaktivieren</button>` : ''}
+            <button class="btn btn-sm btn-danger" onclick="deleteKey('${k.id}')">Löschen</button>
+          </td>
+        </tr>
+      `).join('') || '<tr><td colspan="6" style="text-align:center;color:#718096;padding:2rem">Noch keine Keys erstellt</td></tr>';
+    }
+    refreshKeys();
+
+    document.getElementById('createKeyBtn').addEventListener('click', async () => {
+      const name = document.getElementById('keyName').value.trim();
+      if (!name) { toast('Name eingeben'); return; }
+      const r = await fetch('/api/keys', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name }) });
+      const d = await r.json();
+      if (d.error) { toast(d.error); return; }
+      document.getElementById('newKeyValue').textContent = d.id;
+      document.getElementById('newKeyBox').classList.remove('hidden');
+      document.getElementById('keyName').value = '';
+      refreshKeys();
+    });
+
+    async function disableKey(id) {
+      await fetch(`/api/keys/${id}/disable`, { method: 'POST' });
+      refreshKeys();
+    }
+    async function deleteKey(id) {
+      if (!confirm('Key wirklich löschen?')) return;
+      await fetch(`/api/keys/${id}`, { method: 'DELETE' });
+      refreshKeys();
+    }
+  </script>
+</body>
+</html>
