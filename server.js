@@ -131,6 +131,41 @@ app.get('/api/times', async (req, res) => {
   }
 });
 
+// Get a month of prayer times for a city (e.g. for kiosk calendar view)
+app.get('/api/times/month', async (req, res) => {
+  try {
+    const { city, year, month } = req.query;
+    if (!city || !year || !month) {
+      return res.status(400).json({ error: 'city, year, month required' });
+    }
+    const y = parseInt(year), m = parseInt(month);
+    if (isNaN(y) || isNaN(m) || m < 1 || m > 12) {
+      return res.status(400).json({ error: 'year must be int, month 1-12' });
+    }
+    const daysInMonth = new Date(y, m, 0).getDate();
+    const queries = [
+      Query.equal('city_igmg_id', city),
+      Query.greaterThanEqual('date', `${y}-${String(m).padStart(2, '0')}-01`),
+      Query.lessThanEqual('date', `${y}-${String(m).padStart(2, '0')}-${daysInMonth}`),
+      Query.limit(31),
+      Query.orderAsc('date'),
+    ];
+    const resp = await databases.listDocuments(DB_ID, PRAYERS_COLL, queries);
+    res.json({
+      city,
+      year: y,
+      month: m,
+      days: resp.documents.map(d => ({
+        date: d.date,
+        imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr,
+        asr: d.asr, maghrib: d.maghrib, isha: d.isha,
+      })),
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // ============ API-KEY ROUTES (require auth) ============
 
 // Authenticated version with monthly aggregate
@@ -144,6 +179,41 @@ app.get('/api/v1/times', requireApiKey, async (req, res) => {
       city, date: date || times[0]?.date,
       times: times[0] || null,
       key_info: { name: req.apiKey.name, requests: req.apiKey.requests + 1 }
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Authenticated month view
+app.get('/api/v1/times/month', requireApiKey, async (req, res) => {
+  try {
+    const { city, year, month } = req.query;
+    if (!city || !year || !month) {
+      return res.status(400).json({ error: 'city, year, month required' });
+    }
+    const y = parseInt(year), m = parseInt(month);
+    if (isNaN(y) || isNaN(m) || m < 1 || m > 12) {
+      return res.status(400).json({ error: 'year must be int, month 1-12' });
+    }
+    const daysInMonth = new Date(y, m, 0).getDate();
+    const queries = [
+      Query.equal('city_igmg_id', city),
+      Query.greaterThanEqual('date', `${y}-${String(m).padStart(2, '0')}-01`),
+      Query.lessThanEqual('date', `${y}-${String(m).padStart(2, '0')}-${daysInMonth}`),
+      Query.limit(31),
+      Query.orderAsc('date'),
+    ];
+    const resp = await databases.listDocuments(DB_ID, PRAYERS_COLL, queries);
+    res.json({
+      api_key: req.apiKey.id,
+      city, year: y, month: m,
+      days: resp.documents.map(d => ({
+        date: d.date,
+        imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr,
+        asr: d.asr, maghrib: d.maghrib, isha: d.isha,
+      })),
+      key_info: { name: req.apiKey.name, requests: req.apiKey.requests + 1 },
     });
   } catch (e) {
     res.status(500).json({ error: e.message });
