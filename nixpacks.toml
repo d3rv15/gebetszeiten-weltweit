@@ -1,0 +1,16 @@
+# Nixpacks-Konfig - verhindert, dass Nixpacks auf Node 24 defaulted
+# (was den Build wegen better-sqlite3@11 ohne prebuilt binaries killt)
+# Wird automatisch von Nixpacks gelesen, wenn im Repo-Root vorhanden.
+
+[phases.setup]
+nixPkgs = ["nodejs-20_x", "python3", "gcc", "g++", "make"]
+
+[phases.install]
+cmds = ["npm ci --omit=dev --include=optional --no-audit --no-fund"]
+
+[start]
+cmd = "node server.js"
+
+[variables]
+NODE_ENV = "production"
+NPM_CONFIG_LOGLEVEL = "warn"
