@@ -1644,6 +1644,24 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
           lang: 'text',
           code: `Hole die heutigen Gebetszeiten für ${cityName} per HTTP:\nGET ${baseUrl}/api/times?city=${enc}&date=${dateStr}\n\nDie Antwort ist JSON mit Feldern:\n- imsak, sunrise, dhuhr, asr, maghrib, isha (jeweils "HH:MM" in lokaler Zeit)\n- method: "Turkey (Diyanet)" (= IGMG-treu)\n- city.name, city.timezone, city.lat, city.lng\n\nZeige die Zeiten in der Landessprache des Users an.`,
         },
+        {
+          label: CURRENT_LANG === 'de' ? 'Custom Widget (zum Download/Einbetten)' : (CURRENT_LANG === 'tr' ? 'Özel Widget (indir/göm)' : (CURRENT_LANG === 'ar' ? 'ودجت مخصص (تنزيل/تضمين)' : 'Custom Widget (for download/embed)')),
+          lang: 'html',
+          code: `<!-- ${cityName} Gebetszeiten Widget -->
+<iframe src="${baseUrl}/widget?city=${enc}&lang=de"
+        width="100%" height="380" frameborder="0"
+        style="border:2px solid #c8a86b;border-radius:12px;max-width:480px">
+</iframe>
+
+<!-- Customized version with your colors: -->
+<iframe src="${baseUrl}/widget?city=${enc}&lang=de&bg=%23064e3b&fg=%23ffffff&accent=%23d4af37&days=7"
+        width="100%" height="500" frameborder="0"
+        style="border:0;border-radius:12px">
+</iframe>
+
+<!-- OR download as standalone HTML file: -->
+<!-- ${baseUrl}/widget?city=${enc}&lang=de (right-click → Save As) -->`,
+        },
       ];
       return `
         <div class="api-snippet-card">
