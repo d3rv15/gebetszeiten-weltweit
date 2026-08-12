@@ -513,7 +513,7 @@ const ISLAMIC_HOLIDAYS = {
   1447: { // 2026-2027
     'muharram': { '1': { name: 'Hicri Yılbaşı', tr: 'Hicri Yılbaşı' }, '10': { name: 'Aşure Günü', tr: 'Aşure Günü' } },
     'rabi1': { '12': { name: 'Mevlid Kandili', tr: 'Mevlid Kandili' } },
-    'rajab': { '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
+    'rajab': { '1': { name: 'Regaib Kandili', tr: 'Regaib Kandili' }, '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
     'shaban': { '15': { name: 'Berat Kandili', tr: 'Berat Kandili' } },
     'ramadan': { '27': { name: 'Kadir Gecesi', tr: 'Kadir Gecesi' } },
     'shawwal': { '1-3': { name: 'Ramazan Bayramı', tr: 'Ramazan Bayramı (1. Gün)', span: 3 } },
@@ -522,7 +522,7 @@ const ISLAMIC_HOLIDAYS = {
   1448: { // 2027-2028
     'muharram': { '1': { name: 'Hicri Yılbaşı', tr: 'Hicri Yılbaşı' }, '10': { name: 'Aşure Günü', tr: 'Aşure Günü' } },
     'rabi1': { '12': { name: 'Mevlid Kandili', tr: 'Mevlid Kandili' } },
-    'rajab': { '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
+    'rajab': { '1': { name: 'Regaib Kandili', tr: 'Regaib Kandili' }, '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
     'shaban': { '15': { name: 'Berat Kandili', tr: 'Berat Kandili' } },
     'ramadan': { '27': { name: 'Kadir Gecesi', tr: 'Kadir Gecesi' } },
     'shawwal': { '1-3': { name: 'Ramazan Bayramı', tr: 'Ramazan Bayramı (1. Gün)', span: 3 } },
@@ -546,52 +546,57 @@ function getHolidaysForGregorian(gregDate) {
   // gregDate = 'YYYY-MM-DD'
   const target = new Date(gregDate + 'T00:00:00Z');
   const out = [];
+  // Iterate through Hijri years; find which one contains the target date
   for (const [yearStr, startDate] of Object.entries(HIJRI_YEAR_STARTS)) {
     const year = parseInt(yearStr, 10);
     const start = new Date(startDate + 'T00:00:00Z');
+    const yearEnd = new Date(start.getTime() + 354 * 86400000);
+    if (target < start || target >= yearEnd) continue;
     // Compute days since start of this Hijri year
     const diffDays = Math.floor((target - start) / 86400000);
-    if (diffDays < 0) continue;
     // Find the month + day within the year
     let acc = 0;
+    let foundMonth = -1;
     for (let m = 0; m < 12; m++) {
       const mlen = HIJRI_MONTH_LENGTHS[m];
       if (diffDays < acc + mlen) {
-        const day = (diffDays - acc) + 1; // 1-based
-        const monthNames = ['muharram','safar','rabi1','rabi2','jumada1','jumada2','rajab','shaban','ramadan','shawwal','dhulqadah','dhulhijjah'];
-        const monthKey = monthNames[m];
-        const monthHols = ISLAMIC_HOLIDAYS[year]?.[monthKey] || {};
-        for (const [dayKey, hol] of Object.entries(monthHols)) {
-          if (dayKey.includes('-')) {
-            const [from, to] = dayKey.split('-').map(Number);
-            if (day >= from && day <= to) {
-              out.push({
-                name: hol.name,
-                name_tr: hol.tr,
-                hijri_date: `${day} ${monthKey} ${year}`,
-                greg_date: gregDate,
-                day_of_holiday: day - from + 1,
-                span: to - from + 1,
-                type: hol.name.includes('Bayramı') ? 'bayram' : (hol.name.includes('Kandili') || hol.name.includes('Gecesi') ? 'kandil' : 'ozel'),
-              });
-            }
-          } else if (parseInt(dayKey, 10) === day) {
-            out.push({
-              name: hol.name,
-              name_tr: hol.tr,
-              hijri_date: `${day} ${monthKey} ${year}`,
-              greg_date: gregDate,
-              day_of_holiday: 1,
-              span: 1,
-              type: hol.name.includes('Bayramı') ? 'bayram' : (hol.name.includes('Kandili') || hol.name.includes('Gecesi') ? 'kandil' : 'ozel'),
-            });
-          }
-        }
+        foundMonth = m;
         break;
       }
       acc += mlen;
     }
-    break; // we only need the matching year
+    if (foundMonth < 0) continue;
+    const day = (diffDays - acc) + 1; // 1-based
+    const monthNames = ['muharram','safar','rabi1','rabi2','jumada1','jumada2','rajab','shaban','ramadan','shawwal','dhulqadah','dhulhijjah'];
+    const monthKey = monthNames[foundMonth];
+    const monthHols = ISLAMIC_HOLIDAYS[year]?.[monthKey] || {};
+    for (const [dayKey, hol] of Object.entries(monthHols)) {
+      if (dayKey.includes('-')) {
+        const [from, to] = dayKey.split('-').map(Number);
+        if (day >= from && day <= to) {
+          out.push({
+            name: hol.name,
+            name_tr: hol.tr,
+            hijri_date: `${day} ${monthKey} ${year}`,
+            greg_date: gregDate,
+            day_of_holiday: day - from + 1,
+            span: to - from + 1,
+            type: hol.name.includes('Bayramı') ? 'bayram' : (hol.name.includes('Kandili') || hol.name.includes('Gecesi') ? 'kandil' : 'ozel'),
+          });
+        }
+      } else if (parseInt(dayKey, 10) === day) {
+        out.push({
+          name: hol.name,
+          name_tr: hol.tr,
+          hijri_date: `${day} ${monthKey} ${year}`,
+          greg_date: gregDate,
+          day_of_holiday: 1,
+          span: 1,
+          type: hol.name.includes('Bayramı') ? 'bayram' : (hol.name.includes('Kandili') || hol.name.includes('Gecesi') ? 'kandil' : 'ozel'),
+        });
+      }
+    }
+    break; // found the year that contains target; done
   }
   return out;
 }
