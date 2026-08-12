@@ -375,6 +375,227 @@ app.get('/embed', async (req, res) => {
   }
 });
 
+// ============ WIDGET (downloadable HTML file with config) ============
+// Returns a complete, customizable HTML widget for use on any site.
+// Examples:
+//   /widget?city=Offenbach                  → simple today widget
+//   /widget?city=Offenbach&days=7           → 7-day widget
+//   /widget?city=Offenbach&lang=tr&theme=light
+//   /widget?city=Offenbach&bg=%23064e3b&fg=%23ffffff&accent=%23d4af37
+app.get('/widget', async (req, res) => {
+  try {
+    const { city, date, lang, days, theme, bg, fg, accent } = req.query;
+    if (!city) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(`<!doctype html><html><body style="font-family:sans-serif;padding:2rem;color:#c14545">Missing ?city= parameter. Use: <code>/widget?city=Offenbach</code></body></html>`);
+    }
+    const langNorm = (lang || 'de').toLowerCase();
+    const supported = ['de', 'tr', 'ar', 'en'];
+    const L = supported.includes(langNorm) ? langNorm : 'de';
+    const numDays = Math.min(Math.max(parseInt(days, 10) || 1, 1), 30);
+    const startDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) ? date : new Date().toISOString().slice(0, 10);
+    const resolved = await resolveCityWithAutoCreate(city);
+    if (!resolved) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(`<!doctype html><html><body style="font-family:sans-serif;padding:2rem;color:#c14545">City "${city}" not found</body></html>`);
+    }
+    const c = resolved.city;
+    // Compute days
+    const daysData = [];
+    for (let i = 0; i < numDays; i++) {
+      const d = new Date(startDate + 'T00:00:00Z');
+      d.setUTCDate(d.getUTCDate() + i);
+      const dateStr = d.toISOString().slice(0, 10);
+      const t = await getTimesForCity(c, dateStr);
+      // Load holidays for this range
+      const hols = await fetch(`${req.protocol}://${req.get('host')}/api/holidays?from=${dateStr}&to=${dateStr}`)
+        .then(r => r.json()).catch(() => ({ holidays: [] }));
+      const h = (hols.holidays || [])[0];
+      daysData.push({ date: dateStr, ...t, holiday: h || null });
+    }
+    // Load holidays for the full range (for multi-day view)
+    let holidaysMap = {};
+    if (numDays > 1) {
+      const lastDate = daysData[daysData.length - 1].date;
+      const hols = await fetch(`${req.protocol}://${req.get('host')}/api/holidays?from=${startDate}&to=${lastDate}`)
+        .then(r => r.json()).catch(() => ({ holidays: [] }));
+      for (const h of (hols.holidays || [])) holidaysMap[h.greg_date] = h;
+    }
+    // Theme
+    const T = {
+      bg: bg || '#0a4a32',
+      fg: fg || '#f0f5e8',
+      accent: accent || '#c8a86b',
+      cardBg: theme === 'light' ? '#ffffff' : 'rgba(0,0,0,0.25)',
+      cardFg: theme === 'light' ? '#0a4a32' : '#f0f5e8',
+      muted: theme === 'light' ? '#6b8270' : '#b8c9a8',
+    };
+    // Translations
+    const labelMap = {
+      de: { imsak:'İmsak', sunrise:'Sonnenaufgang', dhuhr:'Öğle', asr:'İkindi', maghrib:'Akşam', isha:'Yatsı', header:'Gebetszeiten', next:'Als Nächstes', today:'Heute' },
+      tr: { imsak:'İmsak', sunrise:'Güneş', dhuhr:'Öğle', asr:'İkindi', maghrib:'Akşam', isha:'Yatsı', header:'Namaz Vakitleri', next:'Sıradaki', today:'Bugün' },
+      ar: { imsak:'الإمساك', sunrise:'الشروق', dhuhr:'الظهر', asr:'العصر', maghrib:'المغرب', isha:'العشاء', header:'مواقيت الصلاة', next:'التالي', today:'اليوم' },
+      en: { imsak:'Imsak', sunrise:'Sunrise', dhuhr:'Dhuhr', asr:'Asr', maghrib:'Maghrib', isha:'Isha', header:'Prayer Times', next:'Next', today:'Today' },
+    };
+    const LBL = labelMap[L];
+    const localeMap = { de:'de-DE', tr:'tr-TR', ar:'ar-SA', en:'en-US' };
+    const isRtl = L === 'ar';
+    // Build days HTML
+    const daysHtml = daysData.map(d => {
+      const ds = new Date(d.date + 'T00:00:00Z');
+      const dateStr = ds.toLocaleDateString(localeMap[L], { weekday: 'short', day: '2-digit', month: '2-digit' });
+      const h = holidaysMap[d.date] || d.holiday;
+      return `<tr${h ? ' class="has-holiday"' : ''}>
+        <td><strong>${dateStr}</strong>${h ? `<br><small>${h.type === 'bayram' ? '🌙' : '✨'} ${h.name}</small>` : ''}</td>
+        <td>${d.imsak}</td>
+        <td>${d.sunrise}</td>
+        <td>${d.dhuhr}</td>
+        <td>${d.asr}</td>
+        <td>${d.maghrib}</td>
+        <td>${d.isha}</td>
+      </tr>`;
+    }).join('');
+    // Find next prayer (only for 1-day view)
+    let nextPrayerHtml = '';
+    if (numDays === 1) {
+      const order = ['imsak', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+      const now = new Date();
+      const mins = now.getHours() * 60 + now.getMinutes();
+      for (const k of order) {
+        const [h, m] = daysData[0][k].split(':').map(Number);
+        if (h * 60 + m > mins) { nextPrayerHtml = `<div class="next-pill">${LBL.next}: ${LBL[k]} (${daysData[0][k]})</div>`; break; }
+      }
+    }
+    const multiDayTable = numDays > 1 ? `
+      <table class="wd-table">
+        <thead><tr><th>${L === 'de' ? 'Tag' : (L === 'tr' ? 'Gün' : (L === 'ar' ? 'يوم' : 'Day'))}</th>
+          <th>${LBL.imsak}</th><th>${LBL.sunrise}</th><th>${LBL.dhuhr}</th>
+          <th>${LBL.asr}</th><th>${LBL.maghrib}</th><th>${LBL.isha}</th></tr></thead>
+        <tbody>${daysHtml}</tbody>
+      </table>` : '';
+    const oneDayView = numDays === 1 ? `
+      <div class="wd-grid">
+        ${['imsak','sunrise','dhuhr','asr','maghrib','isha'].map(k => `
+          <div class="wd-cell${k === 'fajr' ? '' : ''}">
+            <span class="wd-label">${LBL[k]}</span>
+            <span class="wd-time">${daysData[0][k]}</span>
+          </div>`).join('')}
+      </div>` : '';
+    const cityName = c.name;
+    const dateObj = new Date(startDate + 'T00:00:00Z');
+    const dateStr = dateObj.toLocaleDateString(localeMap[L], { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+    const today = daysData[0].date === new Date().toISOString().slice(0, 10);
+    const html = `<!doctype html>
+<html lang="${L}" dir="${isRtl ? 'rtl' : 'ltr'}">
+<head>
+<meta charset="utf-8">
+<title>${LBL.header} — ${cityName}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="${LBL.header} für ${cityName} — IGMG/Diyanet-Methode">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: ${L === 'ar' ? "'Amiri', serif" : "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"};
+    background: ${T.bg};
+    color: ${T.fg};
+    min-height: 100vh;
+    padding: 12px;
+  }
+  .wd-card {
+    background: ${T.cardBg};
+    color: ${T.cardFg};
+    border: 2px solid ${T.accent};
+    border-radius: 12px;
+    padding: 16px 18px;
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .wd-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .wd-title { font-size: 1.2rem; font-weight: 700; color: ${T.accent}; margin: 0; }
+  .wd-today-tag {
+    display: inline-block;
+    background: ${T.accent};
+    color: ${T.bg};
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .wd-date { font-size: 0.85rem; color: ${T.muted}; margin-bottom: 4px; }
+  .wd-tz { font-size: 0.75rem; color: ${T.muted}; margin-bottom: 12px; }
+  .wd-next-pill {
+    display: inline-block;
+    background: ${T.accent};
+    color: ${T.bg};
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .wd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .wd-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: ${theme === 'light' ? '#f8f8f8' : 'rgba(255,255,255,0.08)'};
+    border-radius: 6px;
+    border-${isRtl ? 'right' : 'left'}: 3px solid ${T.accent};
+  }
+  .wd-label { font-size: 0.85rem; color: ${T.muted}; }
+  .wd-time { font-family: 'Courier New', monospace; font-size: 1.05rem; font-weight: 700; color: ${T.cardFg}; }
+  .wd-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.82rem; }
+  .wd-table th, .wd-table td { padding: 6px 4px; text-align: center; border-bottom: 1px solid ${theme === 'light' ? '#eee' : 'rgba(255,255,255,0.1)'}; }
+  .wd-table th { color: ${T.muted}; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; }
+  .wd-table tr.has-holiday { background: rgba(212, 175, 55, 0.1); }
+  .wd-table small { display: block; color: ${T.accent}; font-size: 0.7rem; }
+  .wd-footer { margin-top: 12px; padding-top: 8px; border-top: 1px solid ${theme === 'light' ? '#eee' : 'rgba(255,255,255,0.1)'}; font-size: 0.7rem; color: ${T.muted}; text-align: center; }
+  .wd-footer a { color: ${T.accent}; text-decoration: none; font-weight: 600; }
+  .wd-footer a:hover { text-decoration: underline; }
+  .wd-holiday-banner {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+    border: 1px solid ${T.accent};
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="wd-card">
+    <div class="wd-header">
+      <h2 class="wd-title">☪ ${cityName}</h2>
+      ${today ? `<span class="wd-today-tag">${LBL.today}</span>` : ''}
+    </div>
+    <div class="wd-date">${dateStr}</div>
+    <div class="wd-tz">${c.timezone} · ${c.lat.toFixed(3)}, ${c.lng.toFixed(3)}</div>
+    ${daysData[0].holiday ? `<div class="wd-holiday-banner">${daysData[0].holiday.type === 'bayram' ? '🌙' : '✨'} <strong>${daysData[0].holiday.name}</strong></div>` : ''}
+    ${nextPrayerHtml}
+    ${oneDayView}
+    ${multiDayTable}
+    <div class="wd-footer">
+      <a href="https://salah.chargedesk.de/?city=${encodeURIComponent(cityName)}" target="_blank" rel="noopener">Gebetszeiten Weltweit</a>
+      · IGMG/Diyanet-Methode
+    </div>
+  </div>
+</body>
+</html>`;
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('Content-Disposition', `inline; filename="gebetszeiten-${cityName.replace(/\s+/g, '-')}.html"`);
+    res.send(html);
+  } catch (e) {
+    logErr('/widget error:', e);
+    res.status(500).send(`<!doctype html><body>Error: ${e.message}</body>`);
+  }
+});
+
 // Health
 app.get('/health', (req, res) => {
   res.json({
