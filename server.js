@@ -111,7 +111,19 @@ app.get('/api/cities', async (req, res) => {
     const search = req.query.q?.toLowerCase();
     let filtered = cities;
     if (country) filtered = filtered.filter(c => c.country === country);
-    if (search) filtered = filtered.filter(c => c.name.toLowerCase().includes(search));
+    if (search) {
+      // Diacritic-insensitive: 'münchen' / 'munich' / 'MUNCHEN' all match
+      const normalize = (s) => s
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip accents
+        .replace(/ı/g, 'i')   // Turkish dotless i
+        .replace(/İ/g, 'i')   // Turkish dotted I
+        .replace(/ß/g, 'ss')  // German sharp s
+        .replace(/ø/g, 'o')   // Nordic
+        .replace(/æ/g, 'ae');
+      const needle = normalize(search);
+      filtered = filtered.filter(c => normalize(c.name).includes(needle));
+    }
     res.json({ total: filtered.length, cities: filtered });
   } catch (e) {
     res.status(500).json({ error: e.message });
