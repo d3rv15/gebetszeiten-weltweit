@@ -155,6 +155,8 @@ async function writeTimesToAppwrite(city, result) {
     // Strip 'coord:' prefix for Appwrite (it doesn't allow : in IDs)
     const safeCityId = String(cityId).replace(/[^a-zA-Z0-9_-]/g, '_');
     const docId = `${safeCityId}_${result.date}`;
+    // prayer_times_data collection has: city_igmg_id, date, imsak..isha, source,
+    // lat, lng, calc_method. NO timezone column — keep this lean.
     const data = {
       city_igmg_id: String(safeCityId),
       date: result.date,
@@ -168,7 +170,6 @@ async function writeTimesToAppwrite(city, result) {
       calc_method: 13,  // Diyanet/Turkey = method 13 in AlAdhan taxonomy
       lat: city.lat,
       lng: city.lng,
-      timezone: city.timezone,
     };
     // Try update first, fall back to create
     try {
