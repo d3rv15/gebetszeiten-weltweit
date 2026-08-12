@@ -1,5 +1,7 @@
 node_modules/
-data/
+data/*.db
+data/*.db-journal
 *.log
 .env
 .DS_Store
+.claude/
