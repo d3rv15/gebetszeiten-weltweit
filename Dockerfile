@@ -19,7 +19,9 @@ RUN npm ci --omit=dev --include=optional --no-audit --no-fund \
 COPY server.js ./
 COPY igmg-calc.mjs ./
 COPY public ./public
-COPY data/cities.json ./data/cities.json
+# cities.json is in /app/ (NOT /app/data/) because /app/data/ is
+# a Docker volume mount that would shadow the bundled file.
+COPY data/cities.json ./cities.json
 
 # Persistenzverzeichnis für SQLite (API keys + custom cities)
 # In Dokploy MUSS ein Volume auf /app/data gemountet werden,
