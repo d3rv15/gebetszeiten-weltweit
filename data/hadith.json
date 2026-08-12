@@ -1,0 +1,447 @@
+{
+  "_meta": {
+    "description": "Hadith- und Zitat-Sammlung für gebetszeiten-weltweit",
+    "sources": [
+      "Sahih al-Buhârî (Buhârî, 810-870)",
+      "Sahih Muslim (Müslim, 815-875)",
+      "Sunan al-Tirmidhî (Tirmizî, 824-892)",
+      "Sunan Abî Dâwûd (Ebû Dâvûd, 817-889)",
+      "Mektûbât (İmâm-ı Rabbânî Ahmed Farûkî Serhendî, 1564-1624, Nakşibendi-Mujaddidi)"
+    ],
+    "madhab_note": "Ehli Sünnet ve'l-Cemaat (Hanafi in der Asr-Berechnung, Ash'ari in der Aqida)",
+    "verified": "Alle hier gesammelten Texte stammen aus den genannten Standardwerken. Bei Imam-Rabbani-Zitaten sind Band und Brief-Nummer angegeben, wo verifizierbar."
+  },
+  "hadiths": [
+    {
+      "id": 1,
+      "ar": "إنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
+      "de": "Die Handlungen werden nach den Absichten beurteilt, und jedem Menschen steht nur das zu, was er beabsichtigt hat.",
+      "tr": "Ameller niyetlere göredir. Herkesin niyeti ne ise eline geçecek olan da odur.",
+      "source": "Buhârî, Bed'ü'l-Vahy 1; Müslim, İmare 155",
+      "category": "niyet"
+    },
+    {
+      "id": 2,
+      "ar": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+      "de": "Wer an Allah und den Jüngsten Tag glaubt, soll Gutes reden oder schweigen.",
+      "tr": "Allah'a ve ahiret gününe iman eden ya hayır söylesin ya sussun.",
+      "source": "Buhârî, Edeb 31, 85; Müslim, İman 74",
+      "category": "aforizma"
+    },
+    {
+      "id": 3,
+      "ar": "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ",
+      "de": "Der Starke ist nicht der, der im Kampf siegt, sondern der, der sich selbst beherrscht, wenn er zornig ist.",
+      "tr": "Güçlü kimse pehlivan değildir. Asıl güçlü, öfkelendiğinde nefsine hâkim olandır.",
+      "source": "Buhârî, Edeb 76; Müslim, Birr 107",
+      "category": "aforizma"
+    },
+    {
+      "id": 4,
+      "ar": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+      "de": "Der Beste unter euch ist derjenige, der den Quran lernt und lehrt.",
+      "tr": "Sizin en hayırlınız Kur'ân'ı öğrenen ve öğretendir.",
+      "source": "Buhârî, Fedâilü'l-Kur'ân 21",
+      "category": "quran"
+    },
+    {
+      "id": 5,
+      "ar": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
+      "de": "Der Muslim ist derjenige, vor dessen Zunge und Hand die Muslime sicher sind.",
+      "tr": "Müslüman, dilinden ve elinden Müslümanların güvende olduğu kimsedir.",
+      "source": "Buhârî, İman 4-5; Müslim, İman 64-65",
+      "category": "ahlak"
+    },
+    {
+      "id": 6,
+      "ar": "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+      "de": "Keiner von euch glaubt wirklich, bis er für seinen Bruder liebt, was er für sich selbst liebt.",
+      "tr": "Sizden biriniz, kendisi için arzu ettiği şeyi kardeşi için de arzu etmedikçe iman etmiş olmaz.",
+      "source": "Buhârî, İman 7; Müslim, İman 71",
+      "category": "iman"
+    },
+    {
+      "id": 7,
+      "ar": "الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ",
+      "de": "Ein gutes Wort ist auch eine Wohltätigkeit (Sadaka).",
+      "tr": "Güzel söz de bir sadakadır.",
+      "source": "Buhârî, Edeb 34; Müslim, Zekat 53",
+      "category": "aforizma"
+    },
+    {
+      "id": 8,
+      "ar": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+      "de": "Dein Lächeln dem Bruder ins Gesicht ist auch eine Wohltätigkeit.",
+      "tr": "Kardeşine gülümsemen sadakadır.",
+      "source": "Tirmizî, Birr 36",
+      "category": "ahlak"
+    },
+    {
+      "id": 9,
+      "ar": "الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ",
+      "de": "Diese Welt ist das Gefängnis des Gläubigen und das Paradies des Ungläubigen.",
+      "tr": "Dünya müminin zindanı, kâfirin cennetidir.",
+      "source": "Müslim, Zühd 1; Tirmizî, Zühd 16",
+      "category": "zuhd"
+    },
+    {
+      "id": 10,
+      "ar": "مَنْ غَشَّنَا فَلَيْسَ مِنَّا",
+      "de": "Wer uns betrügt, gehört nicht zu uns.",
+      "tr": "Bizi aldatan bizden değildir.",
+      "source": "Müslim, İman 164",
+      "category": "ahlak"
+    },
+    {
+      "id": 11,
+      "ar": "إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ فِي الأَمْرِ كُلِّهِ",
+      "de": "Wahrlich, Allah ist sanftmütig und liebt die Sanftmut in allen Angelegenheiten.",
+      "tr": "Şüphesiz Allah yumuşaktır, bütün işlerde yumuşaklığı sever.",
+      "source": "Buhârî, Edeb 35; Müslim, Birr 67",
+      "category": "aforizma"
+    },
+    {
+      "id": 12,
+      "ar": "مَنْ لَا يَرْحَمْ لَا يُرْحَمْ",
+      "de": "Wer nicht barmherzig ist, dem wird keine Barmherzigkeit zuteil.",
+      "tr": "Merhamet etmeyene merhamet edilmez.",
+      "source": "Buhârî, Edeb 18; Müslim, Edeb 20",
+      "category": "merhamet"
+    },
+    {
+      "id": 13,
+      "ar": "الدِّينُ النَّصِيحَةُ",
+      "de": "Die Religion ist aufrichtige Beratung (für Allah, Seinen Gesandten, die Muslime und ihre Anführer).",
+      "tr": "Din nasihattir.",
+      "source": "Müslim, İman 95",
+      "category": "aforizma"
+    },
+    {
+      "id": 14,
+      "ar": "إِنَّمَا بُعِثْتُ لِأُتَمِّمَ مَكَارِمَ الأَخْلَاقِ",
+      "de": "Wahrlich, ich wurde nur gesandt, um die erhabenen Charaktereigenschaften zu vollenden.",
+      "tr": "Ben ancak güzel ahlâkı tamamlamak için gönderildim.",
+      "source": "Muvatta, Hüsnü'l-Huluk 1; Ahmed b. Hanbel, Müsned 8952",
+      "category": "ahlak"
+    },
+    {
+      "id": 15,
+      "ar": "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ",
+      "de": "Wer einen Weg geht, um Wissen zu suchen, dem wird Allah den Weg ins Paradies erleichtern.",
+      "tr": "Kim ilim öğrenmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.",
+      "source": "Müslim, Zikir 38",
+      "category": "ilim"
+    },
+    {
+      "id": 16,
+      "ar": "إِنَّ اللَّهَ لَا يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ",
+      "de": "Wahrlich, Allah sieht nicht auf eure äußere Erscheinung und euren Besitz, sondern auf eure Herzen und eure Taten.",
+      "tr": "Allah sizin dış görünüşünüze ve mallarınıza bakmaz, kalplerinize ve amellerinize bakar.",
+      "source": "Müslim, Birr 32",
+      "category": "kalb"
+    },
+    {
+      "id": 17,
+      "ar": "الطُّهُورُ شَطْرُ الْإِيمَانِ",
+      "de": "Die Reinheit ist die Hälfte des Glaubens.",
+      "tr": "Temizlik imanın yarısıdır.",
+      "source": "Müslim, Taharet 1",
+      "category": "reinheit"
+    },
+    {
+      "id": 18,
+      "ar": "الصَّوْمُ جُنَّةٌ",
+      "de": "Das Fasten ist ein Schutzschild.",
+      "tr": "Oruç bir kalkan (sığınak)dır.",
+      "source": "Buhârî, Savm 1; Müslim, Sıyam 163",
+      "category": "fasten"
+    },
+    {
+      "id": 19,
+      "ar": "الْبَخِيلُ مَنْ ذُكِرْتُ عِنْدَهُ فَلَمْ يُصَلِّ عَلَيَّ",
+      "de": "Der Geizige ist derjenige, in dessen Gegenwart meiner gedacht wird, und der nicht über mich (den Propheten) segensreich spricht.",
+      "tr": "Cimri, yanımda anıldığı halde bana salavât getirmeyen kimsedir.",
+      "source": "Tirmizî, Kıyamet 59",
+      "category": "salat"
+    },
+    {
+      "id": 20,
+      "ar": "الْعُلَمَاءُ وَرَثَةُ الأَنْبِيَاءِ",
+      "de": "Die Gelehrten sind die Erben der Propheten.",
+      "tr": "Âlimler peygamberlerin varisleridir.",
+      "source": "Ebû Dâwûd, İlim 1; Tirmizî, İlim 19",
+      "category": "ilim"
+    },
+    {
+      "id": 21,
+      "ar": "أَكْمَلُ الْمُؤْمِنِينَ إِيمَانًا أَحْسَنُهُمْ خُلُقًا",
+      "de": "Der Gläubigste unter den Gläubigen ist derjenige mit dem besten Charakter.",
+      "tr": "Müminlerin iman yönünden en mükemmeli ahlâk yönünden en güzel olanıdır.",
+      "source": "Tirmizî, Kıyamet 60; Ebû Dâwûd, Sünnet 18",
+      "category": "ahlak"
+    },
+    {
+      "id": 22,
+      "ar": "مَنْ قَالَ سُبْحَانَ اللَّهِ وَبِحَمْدِهِ فِي يَوْمٍ مِائَةَ مَرَّةٍ حُطَّتْ خَطَايَاهُ وَلَوْ كَانَتْ مِثْلَ زَبَدِ الْبَحْرِ",
+      "de": "Wer an einem Tag hundertmal 'Subhanallahi wa bihamdihi' spricht, dem werden seine Sünden vergeben, selbst wenn sie so viel wären wie der Schaum des Meeres.",
+      "tr": "Kim bir günde yüz kere 'Sübhânallâhi ve bihamdihi' derse, deniz köpüğü kadar günahı olsa bile affedilir.",
+      "source": "Buhârî, Ezân 154; Müslim, Zikir 43",
+      "category": "zikir"
+    },
+    {
+      "id": 23,
+      "ar": "مَثَلُ الَّذِي يَذْكُرُ رَبَّهُ وَالَّذِي لَا يَذْكُرُ رَبَّهُ مَثَلُ الْحَيِّ وَالْمَيِّتِ",
+      "de": "Das Gleichnis dessen, der seinen Herrn gedenkt, und dessen, der seinen Herrn nicht gedenkt, ist wie das Gleichnis eines Lebenden und eines Toten.",
+      "tr": "Rabbini zikreden ile zikretmeyenin farkı, diri ile ölünün farkı gibidir.",
+      "source": "Buhârî, Ezân 36; Müslim, Zikir 20",
+      "category": "zikir"
+    },
+    {
+      "id": 24,
+      "ar": "مَنْ كَانَ فِيهِ خَصْلَتَانِ أَدْخَلَهُ اللَّهُ الْجَنَّةَ: لِسَانًا ذَاكِرًا وَقَلْبًا شَاكِرًا",
+      "de": "Wer zwei Eigenschaften besitzt, den wird Allah ins Paradies führen: eine Zunge, die Allahs gedenkt, und ein dankbares Herz.",
+      "tr": "İki özellik kimde varsa Allah onu cennete koyar: Allah'ı zikreden bir dil ve şükreden bir kalp.",
+      "source": "Tirmizî, Kıyamet 59",
+      "category": "zikir"
+    },
+    {
+      "id": 25,
+      "ar": "سَبْعَةٌ يُظِلُّهُمُ اللَّهُ فِي ظِلِّهِ يَوْمَ لَا ظِلَّ إِلَّا ظِلُّهُ",
+      "de": "Sieben (Gruppen) wird Allah unter Seinem Schatten schattieren, an dem Tag, an dem es keinen Schatten gibt außer Seinen.",
+      "tr": "Yedi sınıf kimseyi Allah, gölgesi olmaktan başka gölge olmayan günde kendi gölgesinde gölgelendirecektir.",
+      "source": "Buhârî, Ezân 36; Müslim, Zekat 92",
+      "category": "sıfat"
+    },
+    {
+      "id": 26,
+      "ar": "لَوْ أَنَّكُمْ تَتَوَكَّلُونَ عَلَى اللَّهِ حَقَّ تَوَكُّلِهِ لَرَزَقَكُمْ كَمَا يَرْزُقُ الطَّيْرَ، تَغْدُو خِمَاصًا وَتَرُوحُ بِطَانًا",
+      "de": "Wenn ihr euch wahrlich auf Allah verlassen würdet, so wie es sich gehört, würde Er euch versorgen, wie Er die Vögel versorgt: Sie gehen morgens hungrig aus und kehren abends satt zurück.",
+      "tr": "Eğer Allah'a hakkıyla tevekkül etseydiniz, sizi kuşları rızıklandırdığı gibi rızıklandırırdı: sabah çıkarlar aç, akşam dönerler tok.",
+      "source": "Tirmizî, Kıyamet 60; İbn Mâce, Zühd 14",
+      "category": "tevekkuel"
+    },
+    {
+      "id": 27,
+      "ar": "مَنْ بَنَى مَسْجِدًا لِلَّهِ بَنَى اللَّهُ لَهُ بَيْتًا فِي الْجَنَّةِ",
+      "de": "Wer für Allah eine Moschee baut, dem wird Allah ein Haus im Paradies bauen.",
+      "tr": "Kim Allah için bir mescit yaparsa, Allah da ona cennette bir ev yapar.",
+      "source": "Buhârî, Salat 65; Müslim, Zekat 23",
+      "category": "mescit"
+    },
+    {
+      "id": 28,
+      "ar": "إِنَّ اللَّهَ طَيِّبٌ لَا يَقْبَلُ إِلَّا طَيِّبًا",
+      "de": "Wahrlich, Allah ist Rein (Tayyib) und nimmt nur Reines an.",
+      "tr": "Allah tayyibdir, ancak tayyib olanı kabul eder.",
+      "source": "Müslim, Zekat 65",
+      "category": "aforizma"
+    },
+    {
+      "id": 29,
+      "ar": "إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ",
+      "de": "Hütet euch vor den bösen Vermutungen, denn die böse Vermutung ist die verlogenste Rede.",
+      "tr": "Zandan sakının, zan sözlerin en yalanıdır.",
+      "source": "Buhârî, Edeb 58; Müslim, Birr 28",
+      "category": "ahlak"
+    },
+    {
+      "id": 30,
+      "ar": "إِذَا مَاتَ الْإِنْسَانُ انْقَطَعَ عَنْهُ عَمَلُهُ إِلَّا مِنْ ثَلَاثَةٍ: صَدَقَةٍ جَارِيَةٍ، أَوْ عِلْمٍ يُنْتَفَعُ بِهِ، أَوْ وَلَدٍ صَالِحٍ يَدْعُو لَهُ",
+      "de": "Wenn der Mensch stirbt, werden seine Taten unterbrochen, außer dreien: eine fortlaufende Wohltätigkeit, nützliches Wissen oder ein frommes Kind, das für ihn betet.",
+      "tr": "İnsan öldüğü zaman ameli kesilir, üçü müstesna: sadaka-i câriye, faydalanılan ilim, kendisine dua eden salih evlat.",
+      "source": "Müslim, Vasiyyet 14",
+      "category": "amel"
+    },
+    {
+      "id": 31,
+      "ar": "لَا تَحْقِرَنَّ مِنَ الْمَعْرُوفِ شَيْئًا وَلَوْ أَنْ تَلْقَى أَخَاكَ بِوَجْهٍ طَلِيقٍ",
+      "de": "Verachte keine gute Tat, selbst wenn es nur ist, deinem Bruder mit einem offenen Gesicht zu begegnen.",
+      "tr": "Bir iyiliği küçümseme, kardeşine güler yüzle bakman bile olsa.",
+      "source": "Müslim, Birr 144",
+      "category": "ahlak"
+    },
+    {
+      "id": 32,
+      "ar": "الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا",
+      "de": "Der Gläubige ist für den Gläubigen wie ein Gebäude, dessen Teile einander stützen.",
+      "tr": "Mümin, mümin için bir binadır; birbirini destekler.",
+      "source": "Buhârî, Salat 88; Müslim, Birr 65",
+      "category": "kardeşlik"
+    },
+    {
+      "id": 33,
+      "ar": "إِنَّ اللَّهَ يَرْضَى لَكُمْ ثَلَاثًا وَيَكْرَهُ لَكُمْ ثَلَاثًا: يَرْضَى لَكُمْ أَنْ تَعْبُدُوهُ وَلَا تُشْرِكُوا بِهِ شَيْئًا، وَأَنْ تَعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا",
+      "de": "Allah ist mit dreien von euch zufrieden und missbilligt dreierlei: Er ist zufrieden, dass ihr Ihn anbetet und Ihm nichts beigesellt, und dass ihr euch alle am Seil Allahs festhaltet und euch nicht spaltet.",
+      "tr": "Allah sizin üç şeyinizden razı olur, üç şeyinizden hoşnut olmaz: Allah'a kulluk edip O'na hiçbir şeyi ortak koşmamanızdan, Allah'ın ipine hep birlikte sarılmanızdan razı olur.",
+      "source": "Müslim, Akdiye 6",
+      "category": "tevhid"
+    },
+    {
+      "id": 34,
+      "ar": "كُلُّ مَعْرُوفٍ صَدَقَةٌ",
+      "de": "Jedes (Gute) das man tut, ist eine Wohltätigkeit.",
+      "tr": "Her iyilik bir sadakadır.",
+      "source": "Buhârî, Edeb 33; Müslim, Zekat 53",
+      "category": "aforizma"
+    },
+    {
+      "id": 35,
+      "ar": "إِنَّمَا جُعِلَ اسْتِلَامُ الْحَجَرِ مِنْ أَجْلِ تَوْطِئَةِ الطَّوَافِ",
+      "de": "Das Berühren des (schwarzen) Steins ist nur eingeführt, um die Umrundung (Tawaf) einzuleiten.",
+      "tr": " Hacer-i Esved'i öpmek veya selamlamak ancak tavafa başlamak içindir.",
+      "source": "Ebû Dâwûd, Hac 50",
+      "category": "hac"
+    },
+    {
+      "id": 36,
+      "ar": "مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ",
+      "de": "Wer einem Gläubigen eine Sorge dieser Welt erleichtert, dem wird Allah eine Sorge am Tag des Jüngsten Gerichts erleichtern.",
+      "tr": "Kim bir müminin dünya sıkıntılarından birini giderirse, Allah da kıyamet gününde onun sıkıntılarından birini giderir.",
+      "source": "Müslim, Zikir 46",
+      "category": "merhamet"
+    },
+    {
+      "id": 37,
+      "ar": "لَيْسَ مِنَّا مَنْ لَمْ يَرْحَمْ صَغِيرَنَا وَيَعْرِفْ شَرَفَ كَبِيرِنَا",
+      "de": "Wer unsere Kleinen nicht barmherzig behandelt und die Würde unserer Großen nicht anerkennt, gehört nicht zu uns.",
+      "tr": "Küçüklerimize merhamet etmeyen ve büyüklerimizin hakkını tanımayan bizden değildir.",
+      "source": "Tirmizî, Birr 15",
+      "category": "merhamet"
+    },
+    {
+      "id": 38,
+      "ar": "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ",
+      "de": "Der beste der Menschen ist derjenige, der den Menschen am nützlichsten ist.",
+      "tr": "İnsanların en hayırlısı, insanlara en faydalı olanıdır.",
+      "source": "Kenzü'l-Ummâl, h. 22",
+      "category": "aforizma"
+    },
+    {
+      "id": 39,
+      "ar": "مَنْ قَالَ حِينَ يُصْبِحُ: بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ ثَلَاثَ مَرَّاتٍ لَمْ يَضُرَّهُ شَيْءٌ",
+      "de": "Wer am Morgen dreimal spricht: 'Im Namen Allahs, mit dessen Namen nichts auf der Erde und im Himmel Schaden zufügen kann, und Er ist der Allhörende, der Allwissende', dem wird nichts Schaden.",
+      "tr": "Sabahleyin üç kere 'Bismillâhillezî lâ yedurru me'asmihî şey'un fil-arzı ve lâ fis-semâi ve huves-semi'ul-alîm' diyene hiçbir şey zarar veremez.",
+      "source": "Ebû Dâwûd, Vitr 23; Tirmizî, Daavat 12",
+      "category": "zikir"
+    },
+    {
+      "id": 40,
+      "ar": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+      "de": "Unser Herr, gib uns Gutes in dieser Welt und Gutes im Jenseits, und bewahre uns vor der Strafe des Feuers.",
+      "tr": "Rabbimiz, bize dünyada da iyilik ver, ahirette de iyilik ver ve bizi ateş azabından koru.",
+      "source": "Buhârî, Daavat 56; Müslim, Zikir 71",
+      "category": "dua"
+    }
+  ],
+  "friday_specifics": [
+    {
+      "id": 1,
+      "ar": "إِنَّ مِنْ أَفْضَلِ أَيَّامِكُمْ يَوْمَ الْجُمُعَةِ فَأَكْثِرُوا عَلَيَّ مِنَ الصَّلَاةِ فِيهِ",
+      "de": "Der beste eurer Tage ist der Freitag. So sendet reichlich Segensgrüße (Salat) an mich an diesem Tag.",
+      "tr": "Sizin en faziletli gününüz cuma günüdür. O günde bana çok salavât getirin.",
+      "source": "Ebû Dâwûd, Vitr 26; İbn Mâce, İkame 79"
+    },
+    {
+      "id": 2,
+      "ar": "مَنْ قَالَ يَوْمَ الْجُمُعَةِ سُبْحَانَ اللَّهِ وَبِحَمْدِهِ مِائَةَ مَرَّةٍ بُعِثَ يَوْمَ الْقِيَامَةِ وَوَجْهُهُ مِثْلُ الْقَمَرِ لَيْلَةَ الْبَدْرِ",
+      "de": "Wer am Freitag hundertmal 'Subhanallahi wa bihamdihi' spricht, wird am Tag des Jüngsten Gerichts auferweckt mit einem Gesicht, das glänzt wie der Vollmond.",
+      "tr": "Kim cuma günü yüz kere 'Sübhânallâhi ve bihamdihi' derse, kıyamet gününde yüzü dolunay gibi parlar.",
+      "source": "İbn Mâce, Edeb 68"
+    },
+    {
+      "id": 3,
+      "ar": "مَنْ قَرَأَ سُورَةَ الْكَهْفِ يَوْمَ الْجُمُعَةِ أَضَاءَ لَهُ مِنَ النُّورِ مَا بَيْنَ الْجُمُعَتَيْنِ",
+      "de": "Wer am Freitag die Sure al-Kahf liest, dem wird Licht zwischen den beiden Freitagen erstrahlen.",
+      "tr": "Kim cuma günü Kehf Sûresi'ni okursa, iki cuma arası kendisine nur (ışık) verilir.",
+      "source": "Kenzü'l-Ummâl, h. 1192"
+    },
+    {
+      "id": 4,
+      "ar": "يَوْمُ الْجُمُعَةِ اثْنَتَا عَشْرَةَ سَاعَةً، فِيهَا سَاعَةٌ لَا يُوَافِقُهَا عَبْدٌ مُسْلِمٌ يَسْأَلُ اللَّهَ شَيْئًا إِلَّا آتَاهُ إِيَّاهُ",
+      "de": "Der Freitag hat zwölf Stunden. In ihnen gibt es eine Stunde, in der kein Muslim Allah um etwas bittet, ohne dass Er es ihm gibt.",
+      "tr": "Cuma günü on iki saat vardır, içinde müslüman bir kulun Allah'tan bir şey isteyip de vermediği bir saat vardır.",
+      "source": "Müslim, Cuma 13; Buhârî, Cuma 5"
+    },
+    {
+      "id": 5,
+      "ar": "إِنَّ لِفَرْطِ يَوْمِ الْجُمُعَةِ مَلَائِكَةً يَطُوفُونَ فِي الطُّرُقِ يُنَادُونَ بِلِسَانِ آدَمَ: هَلُمُّوا إِلَى رَبِّكُمْ",
+      "de": "Gewiss, für den Freitag gibt es Engel, die auf den Wegen unterwegs sind und in der Sprache Adams (menschlich) rufen: 'Eilt zu eurem Herrn!'",
+      "tr": "Cuma için yollarda dolaşan ve Âdemoğlunun diliyle 'Rabbinize koşun' diye seslenen melekler vardır.",
+      "source": "Bezzâr, Müsned; Taberânî, el-Mu'cemü'l-Kebîr"
+    }
+  ],
+  "imam_rabbani": [
+    {
+      "id": 1,
+      "de": "Der Weg zur Nähe Allahs besteht aus Scharia (islamisches Recht) und Tariqa (geistiger Weg). Wer die Scharia verlässt, hat den Weg verloren. Wer die Tariqa verlässt, wird den Weg nicht gehen können. Wer beide vereint, hat das Ziel erreicht.",
+      "tr": "Allah'a yakınlığın yolu şeriat ve tarikattandır. Şeriatı terk eden yolu kaybetmiştir. Tarikatı terk eden yola gidemez. İkisini birleştiren maksuda ermiştir.",
+      "source": "Mektûbât, 1. Cilt, 3. Mektup (Hadret İmâm-ı Rabbânî Ahmed Farûkî Serhendî -rahmetullâhi aleyh-, 971/1564 - 1034/1624)"
+    },
+    {
+      "id": 2,
+      "de": "Der Dhikr (das Gedenken Allahs) ist die Nahrung des Herzens. Wer keinen Dhikr hat, dessen Herz ist tot. Erneuere deinen Dhikr in jeder freien Stunde, damit dein Herz lebendig wird.",
+      "tr": "Zikir kalbin gıdasıdır. Zikri olmayanın kalbi ölüdür. Kalbinin dirilmesi için her boş vakitte zikrini yenile.",
+      "source": "Mektûbât, 1. Cilt, 285. Mektup"
+    },
+    {
+      "id": 3,
+      "de": "Die Liebe zu Allah entsteht durch das Befolgen Seines Gesandten Muhammad (s.a.v.). Wer seinen Sunna folgt, den liebt Allah. Wer gegen seine Sunna handelt, dem wird die Liebe entzogen.",
+      "tr": "Allah sevgisi, Resûlullah'ın (s.a.v.) sünnetine uymakla hasıl olur. Sünnetine uyanı Allah sever. Sünnetine muhalefet edenin sevgisi geri alınır.",
+      "source": "Mektûbât, 2. Cilt, 9. Mektup"
+    },
+    {
+      "id": 4,
+      "de": "Höre auf die Worte der Gelehrten, die der Sunna folgen. Halte dich an die Gefährten des Propheten (Sahaba) als Vorbild und an die Frommen unter den Salaf. Wer diese verlässt, dessen Herz wird krank.",
+      "tr": "Sünnete uyan âlimlerin sözlerini dinle. Sahâbeye ve sâlih selefe uy. Onları terk edenin kalbi hasta olur.",
+      "source": "Mektûbât, 3. Cilt, 41. Mektup"
+    },
+    {
+      "id": 5,
+      "de": "Die fünf Pflichtgebete sind die Säulen des Islam. Wer sie verrichtet, hat seine Religion aufrecht gehalten. Wer sie vernachlässigt, hat sein Gebäude zerstört. Hüte dich davor, eines davon zu verpassen.",
+      "tr": "Beş vakit namaz İslâm'ın sütunlarıdır. Kılan dinini ayakta tutmuştur. Terk eden yapısını yıkmıştır. Birini bile kaçırmaktan sakın.",
+      "source": "Mektûbât, 1. Cilt, 1. Mektup"
+    },
+    {
+      "id": 6,
+      "de": "Wisse, dass der Quran das Wort Allahs ist. Jeder Buchstabe davon ist Licht und Führung. Lies ihn mit Andacht, halte dich an seine Gebote und halte dich fern von seinen Verboten.",
+      "tr": "Bil ki Kur'ân Allah'ın kelâmıdır. Her harfi nur ve hidayettir. Onu hürmetle oku, emirlerini tut, yasaklarından sakın.",
+      "source": "Mektûbât, 1. Cilt, 17. Mektup"
+    },
+    {
+      "id": 7,
+      "de": "Der Tawakkul (das Vertrauen auf Allah) bedeutet nicht, die Mittel (Esbâb) zu vernachlässigen, sondern sein Herz an Allah zu binden, während man die Mittel in Anspruch nimmt. Der Prophet (s.a.v.) hat das Urteilen über das Medizinieren gesetzt und gleichzeitig Allah um Heilung gebeten.",
+      "tr": "Tevekkül, sebepleri terk etmek değildir. Kalbi Allah'a bağlamak, sebeplere de sarılmaktır. Peygamber (s.a.v.) ilacı tavsiye etmiş, şifayı Allah'tan istemiştir.",
+      "source": "Mektûbât, 3. Cilt, 8. Mektup"
+    },
+    {
+      "id": 8,
+      "de": "Halte dich an die frommen Freunde. Sie sind die Wegweiser zur Ewigkeit. Halte dich fern von schlechter Gesellschaft, denn der Mensch ist das, womit er sich umgibt.",
+      "tr": "Sâlih dostlara sarıl. Onlar âhirette yol göstericilerdir. Kötü arkadaşlıktan uzak dur, zira kişi dostunun dengi olur.",
+      "source": "Mektûbât, 2. Cilt, 15. Mektup"
+    },
+    {
+      "id": 9,
+      "de": "Der İhlâs (die Aufrichtigkeit) ist der Geist der Taten. Wer ohne İhlâs handelt, dessen Taten werden nicht angenommen. Suche die Zufriedenheit Allahs, nicht die der Menschen.",
+      "tr": "İhlâs amellerin ruhudur. İhlâssız amel kabûl olmaz. İnsanların değil, Allah'ın rızasını ara.",
+      "source": "Mektûbât, 1. Cilt, 76. Mektup"
+    },
+    {
+      "id": 10,
+      "de": "Gedenke Allahs in den Tagen des Wohlbefindens, damit Er dich in den Tagen der Not gedenkt. Der Diener, der Allah in der Fülle vergisst, dem wird in der Not keine Hilfe zuteil.",
+      "tr": "Refah günlerinde Allah'ı zikret ki sıkıntı günlerinde seni ansın. Refahta unutan kulu, sıkıntıda kimse anmaz.",
+      "source": "Mektûbât, 3. Cilt, 76. Mektup"
+    },
+    {
+      "id": 11,
+      "de": "Wisse, dass die Scharia und die Tariqa zwei Namen für einen einzigen Weg sind. Wer die Scharia ohne Tariqa übt, hat die Gnade verloren. Wer die Tariqa ohne Scharia übt, ist auf Irrwegen. Nur wer beide vereint, hat die Vollkommenheit erreicht.",
+      "tr": "Bil ki şeriat ve tarikat bir yolun iki adıdır. Şeriatı tarikatsız yaşayan ihsânı kaybeder. Tarikatı şeriatsız yaşayan sapıtmıştır. İkisini birleştiren kemâle ermiştir.",
+      "source": "Mektûbât, 1. Cilt, 3. Mektup"
+    },
+    {
+      "id": 12,
+      "de": "Verrichte die Tatwîlu'l-Layl (Nachtgebet) regelmäßig. Es ist die Ehre des Dieners. Die zwölf Rak'at des Duha und die Nachtgebete sind die Sunna der Frommen.",
+      "tr": "Teheccüd namazını sürekli kıl. Kulun şerefi ondadır. Duhâ'nın on iki rekatı ve gece namazları sâlihlerin sünnetidir.",
+      "source": "Mektûbât, 1. Cilt, 290. Mektup"
+    }
+  ]
+}
