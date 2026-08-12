@@ -112,10 +112,10 @@
     "sources": "Buhârî, Taksîr 12; Müslim, Hac 252; İmâm-ı Rabbânî, Mektûbât 1. Cilt, 17. Mektup"
   },
   "igmg_fetva": {
-    "url": "https://www.igmg.org/gebetskalender?stadt=_DEUTSCHLAND_&id=please_choose",
-    "title_de": "Offizieller IGMG-Gebetskalender",
-    "title_tr": "IGMG Resmi Gebetskalender",
-    "description_de": "Für offizielle IGMG-Fetwas und den vollständigen Gebetskalender aller IGMG-Gemeinden in Deutschland.",
-    "description_tr": "Almanya'daki tüm IGMG cemaatlerinin resmi namaz vakitleri ve fetvaları için."
+    "url": "https://www.igmg.org/islam",
+    "title_de": "Offizielle IGMG-Quelle (Islam-Bereich)",
+    "title_tr": "Resmi IGMG Kaynağı (İslam Bölümü)",
+    "description_de": "Die IGMG-Hauptseite mit dem Islam-Bereich (Gebetskalender, Fatwas, Moscheefinder). Hinweis: Der direkte Gebetskalender-Link erfordert eine manuelle Stadtauswahl auf deren Seite und hat aktuell Backend-Fehler. Diese App verwendet dieselbe IGMG/Diyanet-Berechnungsmethode und ist immer verfügbar.",
+    "description_tr": "IGMG ana sayfası, İslam bölümü (namaz takvimi, fetvalar, cami bulucu). Not: Doğrudan gebetskalender-linki kullanıcının şehir seçmesini gerektirir ve şu anda backend hataları var. Bu uygulama aynı IGMG/Diyanet hesaplama yöntemini kullanır ve her zaman kullanılabilir."
   }
 }

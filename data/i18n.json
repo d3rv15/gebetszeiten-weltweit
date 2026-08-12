@@ -276,6 +276,15 @@
       "en": "For the complete IGMG prayer calendar and official fatwas:"
     },
     "igmg_link_text": "🔗 igmg.org/islam →",
+    "official_sources_title_de": "🏛️ Offizielle Quellen — IGMG & Diyanet",
+    "official_sources_title_tr": "🏛️ Resmi Kaynaklar — IGMG & Diyanet",
+    "official_sources_title_ar": "🏛️ المصادر الرسمية — IGMG وديانت",
+    "official_sources_title_en": "🏛️ Official Sources — IGMG & Diyanet",
+    "official_sources_desc_de": "Beide Institutionen verwenden dieselbe Diyanet-Turkey-Berechnungsmethode. Diese App nutzt exakt diese Methode (Adhan-Bibliothek, validiert gegen IGMG-Serverdaten).",
+    "official_sources_desc_tr": "Her iki kurum da aynı Diyanet-Türkiye hesaplama yöntemini kullanır. Bu uygulama tam olarak bu yöntemi kullanır (Adhan kütüphanesi, IGMG sunucu verileriyle doğrulanmış).",
+    "official_sources_desc_ar": "كلتا المؤسستين تستخدمان نفس طريقة حساب ديانت-تركيا. هذا التطبيق يستخدم نفس هذه الطريقة بالضبط (مكتبة Adhan، مُتحقَّق منها مع بيانات خادم IGMG).",
+    "official_sources_desc_en": "Both institutions use the same Diyanet-Turkey calculation method. This app uses exactly that method (Adhan library, validated against IGMG server data).",
+    "diyanet_link_text": "🔗 namazvakti.diyanet.gov.tr →",
     "igmg_note": {
       "de": "ℹ️ Hinweis: Der IGMG-Gebetskalender erfordert die manuelle Stadtauswahl auf deren Seite. Diese App berechnet die Zeiten lokal nach derselben IGMG/Diyanet-Methode und ist immer verfügbar.",
       "tr": "ℹ️ Not: IGMG gebetskalender, kendi sitesinde şehir seçimi gerektirir. Bu uygulama aynı IGMG/Diyanet yöntemiyle vakitleri lokal olarak hesaplar ve her zaman kullanılabilir.",
