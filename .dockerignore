@@ -1,12 +1,7 @@
-# Vermeidet, dass lokale node_modules / data / .git in den Docker-Build wandern.
-# Nixpacks ignoriert .dockerignore normalerweise, aber sobald du in Dokploy
-# auf "Use Dockerfile" umschaltest, zählt es.
-
 node_modules
 npm-debug.log
 .env
 .env.*
-data
 *.db
 *.db-journal
 .git
@@ -19,5 +14,4 @@ data
 coverage
 .nyc_output
 README-DEPLOY.md
-.github
 .claude
