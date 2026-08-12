@@ -227,12 +227,6 @@
       "ar": "✅ أنت <strong>مسافر</strong> — رخص السفر الإسلامية تنطبق عليك.",
       "en": "✅ You are <strong>SEFERÎ</strong> (Traveler/Musafir) — Islamic travel concessions apply to you."
     },
-    "verdict_no": {
-      "de": "❌ Du bist <strong>MUKÎM</strong> (Ansässig) — die Entfernung ist unter der Sefer-Mesafesi, keine Reiseerleichterungen.",
-      "tr": "❌ <strong>MUKÎM</strong>'sin (Yerleşik) — mesafe sefer mesafesinin altında, yolculuk ruhsatı yok.",
-      "ar": "❌ أنت <strong>مُقيم</strong> — المسافة أقل من مسافة السفر، لا توجد رخص.",
-      "en": "❌ You are <strong>MUKÎM</strong> (Resident) — distance is below the travel threshold, no concessions."
-    },
     "madhab_hanafi": {
       "de": "Hanefî (Diyanet/IGMG)",
       "tr": "Hanefî (Diyanet/IGMG)",
@@ -290,6 +284,9 @@
       "tr": "ℹ️ Not: IGMG gebetskalender, kendi sitesinde şehir seçimi gerektirir. Bu uygulama aynı IGMG/Diyanet yöntemiyle vakitleri lokal olarak hesaplar ve her zaman kullanılabilir.",
       "ar": "ℹ️ ملاحظة: تقويم IGMG يتطلب اختيار المدينة يدويًا على موقعهم. هذا التطبيق يحسب المواقيت محليًا بنفس طريقة IGMG/Diyanet وهو متاح دائمًا.",
       "en": "ℹ️ Note: The IGMG prayer calendar requires manual city selection on their site. This app computes times locally using the same IGMG/Diyanet method and is always available."
+    },
+    "verdict": {
+      "no": "❌ Du bist <strong>MUKÎM</strong> (Ansässig) — die Entfernung ist unter der Sefer-Mesafesi, keine Reiseerleichterungen."
     }
   },
   "friday": {
