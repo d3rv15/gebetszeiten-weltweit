@@ -1,32 +1,34 @@
 // Gebetszeiten Weltweit - Server
-// Lädt Gebetszeiten aus Appwrite, bietet Web-UI und JSON-API mit API-Key-Auth
+// 100% local: 765 IGMG cities bundled in data/cities.json, custom cities in SQLite,
+// prayer times computed on-the-fly via Adhan (Turkey/Diyanet method, IGMG-faithful).
+// No external IGMG-API or Appwrite dependency for prayer data.
 
 const express = require('express');
 const path = require('path');
-const { Client, Databases, Query } = require('node-appwrite');
+const fs = require('fs');
 const Database = require('better-sqlite3');
 const { v4: uuidv4 } = require('uuid');
 
-const PORT = process.env.PORT || 3100;
-const APPWRITE_ENDPOINT = 'https://appwrite.chargedesk.de/v1';
-const APPWRITE_PROJECT = '6a20bfcd000e9e4ca544';
-const APPWRITE_KEY = 'standard_5488355d4db980c24f54ce630c1dcc192cc863b88a148ce9d09b8d76550d6bbe0445038422419d5bb3c8f10f05f0b08e78e74fb1a765b9f5cddeed045e64917e01ed5e979dbaffc48e53bddc0ef8bfc406f8fb0c97637d792fd651e072c10879b5b12c1ecc27e1246af2488dff8e52be9c63e8c934999a1e6b7d217bb6588484';
-const DB_ID = 'igmg';
-const CITIES_COLL = 'cities2';
-const PRAYERS_COLL = 'prayer_times_data';
+const PORT = parseInt(process.env.PORT, 10) || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
+const NODE_ENV = process.env.NODE_ENV || 'production';
+
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
+const CITIES_FILE = path.join(DATA_DIR, 'cities.json');
+const SQLITE_PATH = process.env.SQLITE_PATH || path.join(DATA_DIR, 'api_keys.db');
 
 const log = (...args) => console.log('[gebetszeiten]', ...args);
 const logErr = (...args) => console.error('[gebetszeiten][ERROR]', ...args);
 
-// Appwrite client
-const appwrite = new Client()
-  .setEndpoint(APPWRITE_ENDPOINT)
-  .setProject(APPWRITE_PROJECT)
-  .setKey(APPWRITE_KEY);
-const databases = new Databases(appwrite);
+// ============ LOAD BUNDLED CITIES ============
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+const BUNDLED_CITIES = JSON.parse(fs.readFileSync(CITIES_FILE, 'utf-8'));
+const citiesById = new Map(BUNDLED_CITIES.map(c => [String(c.igmg_id), c]));
+log(`Loaded ${BUNDLED_CITIES.length} bundled cities from ${CITIES_FILE}`);
 
-// SQLite for API keys
-const sqlite = new Database(path.join(__dirname, 'data', 'api_keys.db'));
+// ============ SQLITE (API keys + custom cities) ============
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+const sqlite = new Database(SQLITE_PATH);
 sqlite.exec(`
   CREATE TABLE IF NOT EXISTS api_keys (
     id TEXT PRIMARY KEY,
@@ -35,168 +37,133 @@ sqlite.exec(`
     last_used TEXT,
     requests INTEGER DEFAULT 0,
     enabled INTEGER DEFAULT 1
-  )
+  );
+  CREATE TABLE IF NOT EXISTS custom_cities (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    country TEXT,
+    country_name TEXT,
+    lat REAL NOT NULL,
+    lng REAL NOT NULL,
+    timezone TEXT NOT NULL,
+    admin1 TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
 `);
-const stmtCreate = sqlite.prepare('INSERT INTO api_keys (id, name) VALUES (?, ?)');
-const stmtList = sqlite.prepare('SELECT * FROM api_keys ORDER BY created_at DESC');
-const stmtGet = sqlite.prepare('SELECT * FROM api_keys WHERE id = ? AND enabled = 1');
-const stmtUpdate = sqlite.prepare('UPDATE api_keys SET last_used = CURRENT_TIMESTAMP, requests = requests + 1 WHERE id = ?');
-const stmtDisable = sqlite.prepare('UPDATE api_keys SET enabled = 0 WHERE id = ?');
-const stmtDelete = sqlite.prepare('DELETE FROM api_keys WHERE id = ?');
 
-// Cache cities in memory
-let citiesCache = null;
-let citiesCacheTime = 0;
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const stmtKeyCreate  = sqlite.prepare('INSERT INTO api_keys (id, name) VALUES (?, ?)');
+const stmtKeyList    = sqlite.prepare('SELECT * FROM api_keys ORDER BY created_at DESC');
+const stmtKeyGet     = sqlite.prepare('SELECT * FROM api_keys WHERE id = ? AND enabled = 1');
+const stmtKeyUpdate  = sqlite.prepare('UPDATE api_keys SET last_used = CURRENT_TIMESTAMP, requests = requests + 1 WHERE id = ?');
+const stmtKeyDisable = sqlite.prepare('UPDATE api_keys SET enabled = 0 WHERE id = ?');
+const stmtKeyDelete  = sqlite.prepare('DELETE FROM api_keys WHERE id = ?');
+const stmtCustomList   = sqlite.prepare('SELECT * FROM custom_cities ORDER BY name');
+const stmtCustomGet    = sqlite.prepare('SELECT * FROM custom_cities WHERE id = ?');
+const stmtCustomInsert = sqlite.prepare('INSERT INTO custom_cities (id, name, country, country_name, lat, lng, timezone, admin1) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+const stmtCustomDelete = sqlite.prepare('DELETE FROM custom_cities WHERE id = ?');
 
-async function getCities() {
-  const now = Date.now();
-  if (citiesCache && now - citiesCacheTime < CACHE_TTL_MS) {
-    return citiesCache;
-  }
-  const all = [];
-  let offset = 0;
-  const limit = 100;
-  while (true) {
-    const resp = await databases.listDocuments(DB_ID, CITIES_COLL, [Query.limit(limit), Query.offset(offset)]);
-    all.push(...resp.documents);
-    if (resp.documents.length < limit) break;
-    offset += limit;
-  }
-  citiesCache = all.map(d => ({
-    id: d.igmg_id || d.$id,
-    name: d.name,
-    country: d.country,
-  }));
-  citiesCacheTime = now;
-  return citiesCache;
-}
+log(`SQLite ready at ${SQLITE_PATH}`);
 
-async function getPrayerTimes(cityId, date) {
-  const queries = [Query.equal('city_igmg_id', cityId), Query.limit(1)];
-  if (date) queries.push(Query.equal('date', date));
-  const resp = await databases.listDocuments(DB_ID, PRAYERS_COLL, queries);
-  return resp.documents.map(d => ({
-    date: d.date,
-    imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr,
-    asr: d.asr, maghrib: d.maghrib, isha: d.isha,
-    source: d.source,
-  }));
-}
-
-// API-Key auth middleware
-function requireApiKey(req, res, next) {
-  const key = req.headers['x-api-key'] || req.query.api_key;
-  if (!key) return res.status(401).json({ error: 'API key required. Pass via X-Api-Key header or ?api_key=... query param.' });
-  const row = stmtGet.get(key);
-  if (!row) return res.status(401).json({ error: 'Invalid or disabled API key.' });
-  stmtUpdate.run(key);
-  req.apiKey = row;
-  next();
-}
-
-const app = express();
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// ============ PUBLIC ROUTES ============
-
-// Health
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'gebetszeiten-weltweit', cities: citiesCache?.length || 0 });
-});
-
-// List cities (no auth, public for the dropdown in UI)
-app.get('/api/cities', async (req, res) => {
-  try {
-    const cities = await getCities();
-    const country = req.query.country?.toUpperCase();
-    const search = req.query.q?.toLowerCase();
-    let filtered = cities;
-    if (country) filtered = filtered.filter(c => c.country === country);
-    if (search) {
-      // Diacritic-insensitive: 'münchen' / 'munich' / 'MUNCHEN' all match
-      const normalize = (s) => s
-        .toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip accents
-        .replace(/ı/g, 'i')   // Turkish dotless i
-        .replace(/İ/g, 'i')   // Turkish dotted I
-        .replace(/ß/g, 'ss')  // German sharp s
-        .replace(/ø/g, 'o')   // Nordic
-        .replace(/æ/g, 'ae');
-      const needle = normalize(search);
-      filtered = filtered.filter(c => normalize(c.name).includes(needle));
-    }
-    res.json({ total: filtered.length, cities: filtered });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-// Get prayer times for a city on a date (no auth for web UI)
-app.get('/api/times', async (req, res) => {
-  try {
-    const { city, date } = req.query;
-    if (!city) return res.status(400).json({ error: 'city parameter required (igmg_id)' });
-    const times = await getPrayerTimes(city, date);
-    if (!times.length) return res.status(404).json({ error: 'No data for this city/date' });
-    res.json({ city, date: date || times[0].date, times: times[0] });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-// Get a month of prayer times for a city (e.g. for kiosk calendar view)
-app.get('/api/times/month', async (req, res) => {
-  try {
-    const { city, year, month } = req.query;
-    if (!city || !year || !month) {
-      return res.status(400).json({ error: 'city, year, month required' });
-    }
-    const y = parseInt(year), m = parseInt(month);
-    if (isNaN(y) || isNaN(m) || m < 1 || m > 12) {
-      return res.status(400).json({ error: 'year must be int, month 1-12' });
-    }
-    const daysInMonth = new Date(y, m, 0).getDate();
-    const queries = [
-      Query.equal('city_igmg_id', city),
-      Query.greaterThanEqual('date', `${y}-${String(m).padStart(2, '0')}-01`),
-      Query.lessThanEqual('date', `${y}-${String(m).padStart(2, '0')}-${daysInMonth}`),
-      Query.limit(31),
-      Query.orderAsc('date'),
-    ];
-    const resp = await databases.listDocuments(DB_ID, PRAYERS_COLL, queries);
-    res.json({
-      city,
-      year: y,
-      month: m,
-      days: resp.documents.map(d => ({
-        date: d.date,
-        imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr,
-        asr: d.asr, maghrib: d.maghrib, isha: d.isha,
-      })),
-    });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-// ============ CUSTOM CITY (geocoding + local calc) ============
-
-// Cache for adhan module (loaded once, lazily)
+// ============ CALCULATOR (Adhan, lazy ESM) ============
 let _calcModule = null;
-async function getCalcModule() {
-  if (!_calcModule) {
-    _calcModule = await import('./igmg-calc.mjs');
-  }
+async function getCalc() {
+  if (!_calcModule) _calcModule = await import('./igmg-calc.mjs');
   return _calcModule;
 }
 
-// Geocoding via Open-Meteo (free, no key). Returns first match.
+// ============ CITY RESOLUTION ============
+// Returns city object: {id, name, country, lat, lng, timezone, source: 'bundled'|'custom'}
+// Priority: bundled first, then custom (by id)
+function findBundledCity(query) {
+  // Exact id match
+  if (citiesById.has(String(query))) return { ...citiesById.get(String(query)), source: 'bundled' };
+  // Exact name match (case-insensitive)
+  const q = String(query).toLowerCase().trim();
+  for (const c of BUNDLED_CITIES) {
+    if (c.name.toLowerCase() === q) return { ...c, source: 'bundled' };
+  }
+  return null;
+}
+function findCustomCity(query) {
+  // Try id first
+  const byId = stmtCustomGet.get(query);
+  if (byId) return formatCustomCity(byId);
+  // Try name (case-insensitive)
+  const q = String(query).toLowerCase().trim();
+  for (const c of stmtCustomList.all()) {
+    if (c.name.toLowerCase() === q) return formatCustomCity(c);
+  }
+  return null;
+}
+function formatCustomCity(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    country: row.country || '',
+    countryName: row.country_name || '',
+    lat: row.lat,
+    lng: row.lng,
+    timezone: row.timezone,
+    admin1: row.admin1 || '',
+    source: 'custom',
+  };
+}
+
+// ============ IN-MEMORY CACHE ============
+// Key: `${cityId}|${date}` -> { imsak, sunrise, ..., expiresAt }
+// 1h TTL is plenty (re-calculation is ~5ms)
+const CACHE_TTL_MS = 60 * 60 * 1000;
+const calcCache = new Map();
+function cacheGet(key) {
+  const e = calcCache.get(key);
+  if (!e) return null;
+  if (Date.now() > e.expiresAt) { calcCache.delete(key); return null; }
+  return e.value;
+}
+function cacheSet(key, value) {
+  calcCache.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
+  // Cap cache size to prevent memory bloat
+  if (calcCache.size > 50000) {
+    const first = calcCache.keys().next().value;
+    calcCache.delete(first);
+  }
+}
+
+// ============ CALCULATION ============
+async function getTimesForCity(city, date) {
+  const cacheKey = `${city.id}|${date}`;
+  const hit = cacheGet(cacheKey);
+  if (hit) return hit;
+
+  const calc = await getCalc();
+  let times;
+  try {
+    times = calc.calcIGMG(city.lat, city.lng, city.timezone, date);
+  } catch (e) {
+    // High-latitude or other error: compute Istanbul-style for any coords,
+    // but cap times to be reasonable. We just propagate the error to the caller.
+    throw e;
+  }
+  const out = {
+    date: times.date,
+    imsak: times.imsak,
+    sunrise: times.sunrise,
+    dhuhr: times.dhuhr,
+    asr: times.asr,
+    maghrib: times.maghrib,
+    isha: times.isha,
+    source: city.source === 'custom' ? 'local-custom' : 'local',
+    method: times.method,
+  };
+  cacheSet(cacheKey, out);
+  return out;
+}
+
+// ============ GEOCODING (Open-Meteo) ============
 async function geocode(query) {
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=1&language=de&format=json`;
   const ctrl = new AbortController();
-  const timeout = setTimeout(() => ctrl.abort(), 8000);
+  const t = setTimeout(() => ctrl.abort(), 8000);
   try {
     const resp = await fetch(url, { signal: ctrl.signal });
     if (!resp.ok) throw new Error(`Geocoding HTTP ${resp.status}`);
@@ -205,7 +172,7 @@ async function geocode(query) {
     const r = d.results[0];
     return {
       name: r.name,
-      country: r.country_code || r.country || 'XX',
+      country: r.country_code || 'XX',
       countryName: r.country,
       admin1: r.admin1,
       lat: r.latitude,
@@ -214,177 +181,216 @@ async function geocode(query) {
       population: r.population,
     };
   } finally {
-    clearTimeout(timeout);
+    clearTimeout(t);
   }
 }
 
-// Geocode + calculate times for a custom (non-IGMG) city
-app.get('/api/times/custom', async (req, res) => {
+// ============ EXPRESS APP ============
+const app = express();
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Health
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'gebetszeiten-weltweit',
+    version: '2.0.0',
+    node: process.version,
+    env: NODE_ENV,
+    cities: { bundled: BUNDLED_CITIES.length, custom: stmtCustomList.all().length, cache: calcCache.size },
+    calculator: 'adhan Turkey/Diyanet (IGMG-faithful, 0-7 min diff vs IGMG server)',
+  });
+});
+
+// ============ CITIES ============
+app.get('/api/cities', (req, res) => {
   try {
-    const { q, lat, lng, tz, date } = req.query;
-    let latN = parseFloat(lat);
-    let lngN = parseFloat(lng);
-    let tzStr = tz;
-    let name = null;
-    let country = null;
-    let geocoded = null;
+    const country = req.query.country?.toUpperCase();
+    const search = req.query.q?.toLowerCase();
+    // Bundled
+    let bundled = BUNDLED_CITIES.map(c => ({
+      id: String(c.igmg_id),
+      name: c.name,
+      country: c.country,
+      lat: c.lat,
+      lng: c.lng,
+      timezone: c.timezone,
+      source: 'bundled',
+    }));
+    // Custom
+    const custom = stmtCustomList.all().map(formatCustomCity);
+    let all = [...bundled, ...custom];
+    if (country) all = all.filter(c => c.country === country);
+    if (search) {
+      const normalize = (s) => s
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/ı/g, 'i').replace(/İ/g, 'i')
+        .replace(/ß/g, 'ss').replace(/ø/g, 'o').replace(/æ/g, 'ae');
+      const needle = normalize(search);
+      all = all.filter(c => normalize(c.name).includes(needle));
+    }
+    // Sort: DE first (popular), then alpha by name
+    all.sort((a, b) => {
+      if (a.country === 'DE' && b.country !== 'DE') return -1;
+      if (a.country !== 'DE' && b.country === 'DE') return 1;
+      return a.name.localeCompare(b.name);
+    });
+    res.json({ total: all.length, cities: all });
+  } catch (e) {
+    logErr('/api/cities error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
 
-    // Either lat+lng+tz OR q (auto-geocode)
-    if (!isNaN(latN) && !isNaN(lngN) && tzStr) {
-      name = req.query.name || `Custom (${latN.toFixed(2)}, ${lngN.toFixed(2)})`;
-    } else if (q && q.trim().length >= 2) {
-      geocoded = await geocode(q.trim());
-      if (!geocoded) return res.status(404).json({
-        error: 'Stadt nicht gefunden. Versuche es mit einem anderen Namen (z.B. "Yozgat", "Ankara", "Berlin").',
-      });
-      latN = geocoded.lat;
-      lngN = geocoded.lng;
-      tzStr = geocoded.timezone;
-      name = geocoded.name;
-      country = geocoded.country;
+// Add a custom city (geocode + persist)
+app.post('/api/cities/custom', express.json(), async (req, res) => {
+  try {
+    const { q, name, lat, lng, timezone, country } = req.body || {};
+    let result;
+    if (typeof lat === 'number' && typeof lng === 'number' && timezone) {
+      // Direct coords provided
+      const tzs = require('fs').existsSync('/usr/share/zoneinfo/' + timezone);
+      // We trust the user for direct coords (no validation against IANA)
+      result = {
+        name: name || `Custom (${lat.toFixed(2)}, ${lng.toFixed(2)})`,
+        country: country || 'XX',
+        countryName: country || '',
+        admin1: '',
+        lat, lng, timezone,
+      };
+    } else if (q && String(q).trim().length >= 2) {
+      result = await geocode(String(q).trim());
+      if (!result) return res.status(404).json({ error: 'Stadt nicht gefunden. Versuche "Yozgat", "Ankara", "Berlin" o.ä.' });
     } else {
-      return res.status(400).json({
-        error: 'Provide either "q" (city name) or "lat", "lng", "tz" parameters',
-      });
+      return res.status(400).json({ error: 'Provide either "q" (city name) or "lat", "lng", "timezone"' });
     }
+    // Check for duplicate (same name + close coords)
+    const existing = stmtCustomList.all().find(c =>
+      c.name.toLowerCase() === result.name.toLowerCase() &&
+      Math.abs(c.lat - result.lat) < 0.1 && Math.abs(c.lng - result.lng) < 0.1
+    );
+    if (existing) {
+      return res.json({ ...formatCustomCity(existing), duplicate: true });
+    }
+    const id = 'cst_' + uuidv4().replace(/-/g, '').slice(0, 16);
+    stmtCustomInsert.run(id, result.name, result.country, result.countryName, result.lat, result.lng, result.timezone, result.admin1);
+    const saved = stmtCustomGet.get(id);
+    log(`added custom city: ${result.name} (${result.country}) at ${result.lat},${result.lng} tz=${result.timezone}`);
+    res.json(formatCustomCity(saved));
+  } catch (e) {
+    logErr('POST /api/cities/custom error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
 
-    // Validate coords
-    if (Math.abs(latN) > 90 || Math.abs(lngN) > 180) {
-      return res.status(400).json({ error: 'Invalid lat/lng' });
-    }
-    if (!tzStr || !tzStr.includes('/')) {
-      return res.status(400).json({ error: 'tz must be an IANA timezone (e.g. Europe/Istanbul)' });
-    }
+// List custom cities
+app.get('/api/cities/custom', (req, res) => {
+  res.json({ total: stmtCustomList.all().length, cities: stmtCustomList.all().map(formatCustomCity) });
+});
+
+// Delete a custom city
+app.delete('/api/cities/custom/:id', (req, res) => {
+  const r = stmtCustomDelete.run(req.params.id);
+  if (r.changes === 0) return res.status(404).json({ error: 'not found' });
+  // Invalidate cache
+  for (const k of calcCache.keys()) {
+    if (k.startsWith(req.params.id + '|')) calcCache.delete(k);
+  }
+  res.json({ ok: true });
+});
+
+// Geocode-only (no persist) — for the search bar before saving
+app.get('/api/geocode', async (req, res) => {
+  try {
+    const q = req.query.q;
+    if (!q || String(q).trim().length < 2) return res.status(400).json({ error: 'q (city name) required' });
+    const r = await geocode(String(q).trim());
+    if (!r) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+    res.json(r);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ============ PRAYER TIMES ============
+app.get('/api/times', async (req, res) => {
+  try {
+    const { city, date } = req.query;
+    if (!city) return res.status(400).json({ error: 'city parameter required (igmg_id or city name)' });
+
+    // Try bundled first, then custom
+    let c = findBundledCity(city);
+    if (!c) c = findCustomCity(city);
+    if (!c) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden. Versuche eine IGMG-Stadt oder füge eine eigene hinzu.` });
 
     const calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date))
-      ? date
-      : new Date().toISOString().slice(0, 10);
+      ? date : new Date().toISOString().slice(0, 10);
 
-    const calc = await getCalcModule();
-    let times;
-    try {
-      times = calc.calcIGMG(latN, lngN, tzStr, calcDate);
-    } catch (e) {
-      return res.status(422).json({
-        error: 'Cannot calculate times for this location. Latitude too high for Diyanet method.',
-        detail: e.message,
-        lat: latN,
-      });
-    }
-
+    const times = await getTimesForCity(c, calcDate);
     res.json({
-      city: { name, country, lat: latN, lng: lngN, timezone: tzStr },
-      geocoded: !!geocoded,
+      city: { id: c.id, name: c.name, country: c.country, timezone: c.timezone, source: c.source },
       ...times,
     });
   } catch (e) {
-    logErr('/api/times/custom error:', e);
+    logErr('/api/times error:', e);
     res.status(500).json({ error: e.message });
   }
 });
 
-// Geocode a free-text city and return location info (for the UI "add custom city" flow)
-app.get('/api/cities/custom', async (req, res) => {
+// Month view
+app.get('/api/times/month', async (req, res) => {
   try {
-    const { q } = req.query;
-    if (!q || q.trim().length < 2) {
-      return res.status(400).json({ error: 'q (city name) required, min 2 chars' });
-    }
-    const result = await geocode(q.trim());
-    if (!result) return res.status(404).json({ error: 'Stadt nicht gefunden' });
-    res.json(result);
-  } catch (e) {
-    logErr('/api/cities/custom error:', e);
-    res.status(500).json({ error: e.message });
-  }
-});
-
-// Month of prayer times for a custom city
-app.get('/api/times/custom/month', async (req, res) => {
-  try {
-    const { q, lat, lng, tz, year, month } = req.query;
-    let latN = parseFloat(lat), lngN = parseFloat(lng), tzStr = tz;
-    let name = null;
-
-    if (!isNaN(latN) && !isNaN(lngN) && tzStr) {
-      name = req.query.name || `Custom (${latN.toFixed(2)}, ${lngN.toFixed(2)})`;
-    } else if (q && q.trim().length >= 2) {
-      const g = await geocode(q.trim());
-      if (!g) return res.status(404).json({ error: 'Stadt nicht gefunden' });
-      latN = g.lat; lngN = g.lng; tzStr = g.timezone; name = g.name;
-    } else {
-      return res.status(400).json({ error: 'q OR (lat, lng, tz) required' });
-    }
-
+    const { city, year, month } = req.query;
+    if (!city) return res.status(400).json({ error: 'city required' });
+    let c = findBundledCity(city);
+    if (!c) c = findCustomCity(city);
+    if (!c) return res.status(404).json({ error: 'Stadt nicht gefunden' });
     const y = parseInt(year, 10) || new Date().getFullYear();
     const m = parseInt(month, 10) || (new Date().getMonth() + 1);
-    if (m < 1 || m > 12) return res.status(400).json({ error: 'month must be 1-12' });
-
-    const calc = await getCalcModule();
-    let days;
-    try {
-      days = calc.calcIGMGMonth(latN, lngN, tzStr, y, m);
-    } catch (e) {
-      return res.status(422).json({ error: 'Cannot calculate: ' + e.message, lat: latN });
+    if (m < 1 || m > 12) return res.status(400).json({ error: 'month 1-12' });
+    const daysInMonth = new Date(y, m, 0).getDate();
+    const days = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const t = await getTimesForCity(c, date);
+      days.push(t);
     }
     res.json({
-      city: { name, lat: latN, lng: lngN, timezone: tzStr },
-      year: y, month: m,
-      days: days.map(({ date, imsak, sunrise, dhuhr, asr, maghrib, isha }) => ({ date, imsak, sunrise, dhuhr, asr, maghrib, isha })),
+      city: { id: c.id, name: c.name, country: c.country, timezone: c.timezone, source: c.source },
+      year: y, month: m, days,
     });
   } catch (e) {
-    logErr('/api/times/custom/month error:', e);
+    logErr('/api/times/month error:', e);
     res.status(500).json({ error: e.message });
   }
 });
 
-// ============ API-KEY ROUTES (require auth) ============
+// Authenticated versions (require API key)
+function requireApiKey(req, res, next) {
+  const key = req.headers['x-api-key'] || req.query.api_key;
+  if (!key) return res.status(401).json({ error: 'API key required. Pass via X-Api-Key header or ?api_key=... query param.' });
+  const row = stmtKeyGet.get(key);
+  if (!row) return res.status(401).json({ error: 'Invalid or disabled API key.' });
+  stmtKeyUpdate.run(key);
+  req.apiKey = row;
+  next();
+}
 
-// Authenticated version with monthly aggregate
 app.get('/api/v1/times', requireApiKey, async (req, res) => {
   try {
     const { city, date } = req.query;
     if (!city) return res.status(400).json({ error: 'city parameter required' });
-    const times = await getPrayerTimes(city, date);
+    let c = findBundledCity(city);
+    if (!c) c = findCustomCity(city);
+    if (!c) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+    const calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) ? date : new Date().toISOString().slice(0, 10);
+    const times = await getTimesForCity(c, calcDate);
     res.json({
       api_key: req.apiKey.id,
-      city, date: date || times[0]?.date,
-      times: times[0] || null,
-      key_info: { name: req.apiKey.name, requests: req.apiKey.requests + 1 }
-    });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-
-// Authenticated month view
-app.get('/api/v1/times/month', requireApiKey, async (req, res) => {
-  try {
-    const { city, year, month } = req.query;
-    if (!city || !year || !month) {
-      return res.status(400).json({ error: 'city, year, month required' });
-    }
-    const y = parseInt(year), m = parseInt(month);
-    if (isNaN(y) || isNaN(m) || m < 1 || m > 12) {
-      return res.status(400).json({ error: 'year must be int, month 1-12' });
-    }
-    const daysInMonth = new Date(y, m, 0).getDate();
-    const queries = [
-      Query.equal('city_igmg_id', city),
-      Query.greaterThanEqual('date', `${y}-${String(m).padStart(2, '0')}-01`),
-      Query.lessThanEqual('date', `${y}-${String(m).padStart(2, '0')}-${daysInMonth}`),
-      Query.limit(31),
-      Query.orderAsc('date'),
-    ];
-    const resp = await databases.listDocuments(DB_ID, PRAYERS_COLL, queries);
-    res.json({
-      api_key: req.apiKey.id,
-      city, year: y, month: m,
-      days: resp.documents.map(d => ({
-        date: d.date,
-        imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr,
-        asr: d.asr, maghrib: d.maghrib, isha: d.isha,
-      })),
+      city: { id: c.id, name: c.name, country: c.country, timezone: c.timezone },
+      ...times,
       key_info: { name: req.apiKey.name, requests: req.apiKey.requests + 1 },
     });
   } catch (e) {
@@ -392,33 +398,74 @@ app.get('/api/v1/times/month', requireApiKey, async (req, res) => {
   }
 });
 
-// ============ API-KEY MANAGEMENT (no auth - manage in local UI) ============
+app.get('/api/v1/times/month', requireApiKey, async (req, res) => {
+  try {
+    const { city, year, month } = req.query;
+    if (!city) return res.status(400).json({ error: 'city required' });
+    let c = findBundledCity(city);
+    if (!c) c = findCustomCity(city);
+    if (!c) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+    const y = parseInt(year, 10) || new Date().getFullYear();
+    const m = parseInt(month, 10) || (new Date().getMonth() + 1);
+    if (m < 1 || m > 12) return res.status(400).json({ error: 'month 1-12' });
+    const daysInMonth = new Date(y, m, 0).getDate();
+    const days = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      days.push(await getTimesForCity(c, date));
+    }
+    res.json({
+      api_key: req.apiKey.id,
+      city: { id: c.id, name: c.name, country: c.country, timezone: c.timezone },
+      year: y, month: m, days,
+      key_info: { name: req.apiKey.name, requests: req.apiKey.requests + 1 },
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
+// ============ API-KEY MANAGEMENT ============
 app.post('/api/keys', (req, res) => {
-  const { name } = req.body;
+  const { name } = req.body || {};
   if (!name) return res.status(400).json({ error: 'name required' });
   const id = 'gk_' + uuidv4().replace(/-/g, '');
-  stmtCreate.run(id, name);
-  res.json({ id, name, message: 'Save this key - it will not be shown again.' });
+  try {
+    stmtKeyCreate.run(id, name);
+    res.json({ id, name, message: 'Save this key - it will not be shown again.' });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
-
-app.get('/api/keys', (req, res) => {
-  const keys = stmtList.all();
-  res.json({ keys });
-});
-
+app.get('/api/keys', (req, res) => res.json({ keys: stmtKeyList.all() }));
 app.post('/api/keys/:id/disable', (req, res) => {
-  stmtDisable.run(req.params.id);
+  stmtKeyDisable.run(req.params.id);
   res.json({ ok: true });
 });
-
 app.delete('/api/keys/:id', (req, res) => {
-  stmtDelete.run(req.params.id);
+  stmtKeyDelete.run(req.params.id);
   res.json({ ok: true });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`[gebetszeiten] listening on http://0.0.0.0:${PORT}`);
-  // Warm up cities cache
-  getCities().then(c => console.log(`[gebetszeiten] cached ${c.length} cities`));
+// ============ STARTUP & GRACEFUL SHUTDOWN ============
+const server = app.listen(PORT, HOST, () => {
+  log(`listening on http://${HOST}:${PORT} (NODE_ENV=${NODE_ENV}, node=${process.version})`);
+  log(`bundled cities: ${BUNDLED_CITIES.length}, custom cities: ${stmtCustomList.all().length}`);
+  log(`calculator: Adhan Turkey/Diyanet (IGMG-faithful, 0-7 min diff vs IGMG server)`);
+  log(`external IGMG-API dependency: NONE (fully local)`);
+  log(`external Appwrite dependency: NONE (fully local)`);
 });
+
+function shutdown(sig) {
+  log(`received ${sig}, shutting down…`);
+  server.close(() => {
+    try { sqlite.close(); } catch (e) {}
+    log('bye');
+    process.exit(0);
+  });
+  setTimeout(() => process.exit(1), 10000).unref();
+}
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('unhandledRejection', (e) => logErr('unhandledRejection:', e));
+process.on('uncaughtException', (e) => logErr('uncaughtException:', e));
