@@ -18,6 +18,7 @@ RUN npm ci --omit=dev --include=optional --no-audit --no-fund \
 
 COPY server.js ./
 COPY public ./public
+COPY igmg-calc.mjs ./
 
 # Persistenzverzeichnis für SQLite-API-Keys
 # (in Dokploy MUSS ein Volume auf /app/data gemountet werden)
