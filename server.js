@@ -811,6 +811,28 @@ app.get('/api/seferi/info', (req, res) => {
   }
 });
 
+// ============ i18n ============
+let I18N_DATA = null;
+function loadI18nData() {
+  if (I18N_DATA) return I18N_DATA;
+  const candidates = [
+    path.join(__dirname, 'i18n.json'),
+    path.join(__dirname, 'data', 'i18n.json'),
+  ];
+  for (const p of candidates) {
+    try {
+      I18N_DATA = JSON.parse(require('fs').readFileSync(p, 'utf8'));
+      console.log(`[gebetszeiten] Loaded i18n.json (${(I18N_DATA._meta?.languages || []).length} languages) from ${p}`);
+      return I18N_DATA;
+    } catch (e) { /* try next */ }
+  }
+  console.error('[gebetszeiten] failed to load i18n.json');
+  I18N_DATA = { _meta: { languages: ['de'], default: 'de', rtl: [] } };
+  return I18N_DATA;
+}
+loadI18nData();
+app.get('/api/i18n', (req, res) => res.json(I18N_DATA));
+
 // ============ API-KEY AUTH (for v1) ============
 function requireApiKey(req, res, next) {
   const key = req.headers['x-api-key'] || req.query.api_key;
