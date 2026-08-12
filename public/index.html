@@ -606,7 +606,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       }
     });
 
-    // ============ CUSTOM CITY (geocoding + local calc) ============
+    // ============ CUSTOM CITY (geocoding via Open-Meteo, save to Appwrite, compute via Adhan) ============
     async function loadCustomCity() {
       const input = document.getElementById('customCityInput');
       const q = input.value.trim();
@@ -618,20 +618,32 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         resultEl.innerHTML = '<div class="result-empty">Bitte mindestens 2 Zeichen eingeben.</div>';
         return;
       }
-      resultEl.innerHTML = '<div class="result-empty">⏳ Suche "' + q + '" und berechne Zeiten…</div>';
       const date = dateSelect.value;
+      resultEl.innerHTML = '<div class="result-empty">⏳ Suche "' + q + '" und berechne Zeiten (IGMG/Diyanet-Methode)…</div>';
       try {
-        const r = await fetch(`/api/times/custom?q=${encodeURIComponent(q)}&date=${date}`);
-        if (!r.ok) {
-          const e = await r.json().catch(() => ({ error: 'Fehler ' + r.status }));
+        // Step 1: geocode + save to Appwrite via POST /api/cities/custom
+        const r1 = await fetch('/api/cities/custom', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ q }),
+        });
+        if (!r1.ok) {
+          const e = await r1.json().catch(() => ({ error: 'Fehler ' + r1.status }));
           resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">❌ ' + (e.error || 'Fehler') + '</div>';
           return;
         }
-        const d = await r.json();
+        const city = await r1.json();
+        // Step 2: fetch prayer times via GET /api/times (now works since city is saved)
+        const r2 = await fetch(`/api/times?city=${encodeURIComponent(city.name)}&date=${date}`);
+        if (!r2.ok) {
+          resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">❌ Stadt gefunden, aber Zeiten nicht: ' + r2.status + '</div>';
+          return;
+        }
+        const d = await r2.json();
+        // Render result + card
         resultEl.innerHTML = '';
-        const cityLine = `<div class="result-item" style="cursor:default"><span class="name">${d.city.name}</span><span class="country">${d.city.country || ''}</span><div style="font-size:11px;color:#7f8c8d;margin-top:2px">📍 ${d.city.lat.toFixed(3)}, ${d.city.lng.toFixed(3)} · ${d.city.timezone}</div></div>`;
+        const cityLine = `<div class="result-item" style="cursor:default"><span class="name">${d.city.name}</span><span class="country">${d.city.country || ''}</span><div style="font-size:11px;color:#7f8c8d;margin-top:2px">📍 ${d.city.lat ? d.city.lat.toFixed(3) : '?'}, ${d.city.lng ? d.city.lng.toFixed(3) : '?'} · ${d.city.timezone}</div></div>`;
         resultEl.innerHTML = cityLine;
-        // Reuse the prayer card renderer
         const labels = {
           imsak:   { de: 'Morgen (İmsak)',  tr: 'İmsak' },
           sunrise: { de: 'Sonnenaufgang',   tr: 'Güneş' },
@@ -644,7 +656,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         const customTimes = { imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr, asr: d.asr, maghrib: d.maghrib, isha: d.isha };
         cardEl.innerHTML = `
           <div class="prayer-card">
-            <h2>${d.city.name} <span style="font-size:14px;color:#7f8c8d;font-weight:400">(berechnet, ${d.method})</span></h2>
+            <h2>${d.city.name} <span style="font-size:14px;color:#7f8c8d;font-weight:400">(${d.method || 'Adhan Diyanet/IGMG'})</span></h2>
             <div class="date">${dateStr} · örtliche Zeit (${d.city.timezone})</div>
             <div class="prayer-grid">
               ${Object.entries(customTimes).filter(([k]) => labels[k]).map(([k, v]) => `
@@ -655,7 +667,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
               `).join('')}
             </div>
             <div style="margin-top:14px;font-size:12px;color:#7f8c8d;text-align:center">
-              ⚠️ Diese Zeiten werden lokal mit der Diyanet-Methode (IGMG-konform) berechnet — kein Sync mit IGMG-Server.
+              ✅ In Appwrite gespeichert (custom_cities) · Berechnet mit IGMG/Diyanet-Methode (Adhan)
             </div>
           </div>
         `;
