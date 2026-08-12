@@ -340,7 +340,10 @@
     <div class="panel active" id="panel-times">
       <div class="card">
         <div class="search-row">
-          <input class="input" type="text" id="citySearch" placeholder="Stadt suchen (z.B. Offenbach, München, Berlin)...">
+          <input class="input" type="text" id="citySearch" placeholder="Stadt suchen (z.B. Offenbach, München, Istanbul)...">
+          <select class="select" id="countryFilter" style="min-width:120px">
+            <option value="">🌍 Alle Länder</option>
+          </select>
           <select class="select" id="dateSelect" style="min-width:200px"></select>
         </div>
         <div class="results" id="cityResults"></div>
@@ -471,15 +474,25 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
     const citySearch = document.getElementById('citySearch');
     const cityResults = document.getElementById('cityResults');
 
-    fetch('/api/cities?country=DE').then(r => r.json()).then(d => {
-      allCities = d.cities;
-    });
+    // Diacritic-insensitive normalize for client-side search
+    const normalize = (s) => s
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/ı/g, 'i')
+      .replace(/İ/g, 'i')
+      .replace(/ß/g, 'ss')
+      .replace(/ø/g, 'o')
+      .replace(/æ/g, 'ae');
 
     citySearch.addEventListener('input', () => {
       const q = citySearch.value.toLowerCase().trim();
+      const country = document.getElementById('countryFilter').value;
       cityResults.innerHTML = '';
       if (q.length < 2) return;
-      const matches = allCities.filter(c => c.name.toLowerCase().includes(q)).slice(0, 50);
+      const needle = normalize(q);
+      let candidates = allCities;
+      if (country) candidates = candidates.filter(c => c.country === country);
+      const matches = candidates.filter(c => normalize(c.name).includes(needle)).slice(0, 50);
       matches.forEach(c => {
         const div = document.createElement('div');
         div.className = 'result-item';
@@ -487,6 +500,45 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         div.onclick = () => selectCity(c);
         cityResults.appendChild(div);
       });
+      if (matches.length === 0) {
+        const div = document.createElement('div');
+        div.className = 'result-empty';
+        div.textContent = 'Keine Stadt gefunden. Versuche: münchen, istanbul, paris, oslo …';
+        cityResults.appendChild(div);
+      }
+    });
+
+    // Populate country filter from loaded cities
+    function populateCountryFilter() {
+      const sel = document.getElementById('countryFilter');
+      const cc = {};
+      for (const c of allCities) cc[c.country] = (cc[c.country] || 0) + 1;
+      const labels = {
+        DE:'🇩🇪 Deutschland', FR:'🇫🇷 Frankreich', TR:'🇹🇷 Türkei', AT:'🇦🇹 Österreich',
+        NL:'🇳🇱 Niederlande', DK:'🇩🇰 Dänemark', BE:'🇧🇪 Belgien', EN:'🇬🇧 England',
+        CH:'🇨🇭 Schweiz', AU:'🇦🇺 Australien', NO:'🇳🇴 Norwegen', SE:'🇸🇪 Schweden',
+        IT:'🇮🇹 Italien', CA:'🇨🇦 Kanada', JP:'🇯🇵 Japan', US:'🇺🇸 USA',
+        SG:'🇸🇬 Singapur', BA:'🇧🇦 Bosnien', MK:'🇲🇰 Mazedonien', MD:'🇲🇩 Moldau',
+        LI:'🇱🇮 Liechtenstein', NZ:'🇳🇿 Neuseeland', MY:'🇲🇾 Malaysia', QA:'🇶🇦 Katar',
+      };
+      const sorted = Object.keys(cc).sort();
+      for (const k of sorted) {
+        const opt = document.createElement('option');
+        opt.value = k;
+        opt.textContent = (labels[k] || k) + ' (' + cc[k] + ')';
+        sel.appendChild(opt);
+      }
+    }
+
+    // Load all cities (no country filter — let the user choose)
+    fetch('/api/cities').then(r => r.json()).then(d => {
+      allCities = d.cities;
+      console.log('Loaded ' + d.total + ' cities');
+      populateCountryFilter();
+    }).catch(e => console.error('Failed to load cities:', e));
+
+    document.getElementById('countryFilter').addEventListener('change', () => {
+      citySearch.dispatchEvent(new Event('input'));
     });
 
     // Determine which prayer is "next" given current time
