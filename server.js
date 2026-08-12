@@ -283,6 +283,19 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ============ CORS ============
+// Allow any origin to use our public endpoints (no auth required).
+// Authenticated /api/v1/* still requires the X-Api-Key header.
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Api-Key, Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
+
 // ============ EMBED (read-only widget for other sites) ============
 // Returns a minimal HTML page with today's times for ?city=X
 app.get('/embed', async (req, res) => {
