@@ -27,8 +27,9 @@ RUN npm ci --omit=dev --include=optional --no-audit --no-fund \
 COPY server.js ./
 COPY igmg-calc.mjs ./
 COPY public ./public
-# cities.json in /app/ (nicht /app/data/ - das wird vom Volume überschattet)
+# cities.json + hadith.json in /app/ (nicht /app/data/ - das wird vom Volume überschattet)
 COPY data/cities.json ./cities.json
+COPY data/hadith.json ./hadith.json
 
 # Persistenzverzeichnis für SQLite (API keys + custom cities)
 # In Dokploy MUSS ein Volume auf /app/data gemountet werden,

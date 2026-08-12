@@ -643,13 +643,21 @@ app.get('/api/holidays', async (req, res) => {
 let HADITH_DATA = null;
 function loadHadithData() {
   if (HADITH_DATA) return HADITH_DATA;
-  try {
-    HADITH_DATA = JSON.parse(require('fs').readFileSync(path.join(__dirname, 'data', 'hadith.json'), 'utf8'));
-    console.log(`[gebetszeiten] Loaded ${HADITH_DATA.hadiths.length} daily hadiths, ${HADITH_DATA.friday_specifics.length} friday hadiths, ${HADITH_DATA.imam_rabbani.length} Imam Rabbani quotes`);
-  } catch (e) {
-    console.error('[gebetszeiten] failed to load hadith.json:', e.message);
-    HADITH_DATA = { hadiths: [], friday_specifics: [], imam_rabbani: [] };
+  // Try /app/hadith.json first (Docker), then /app/data/hadith.json (dev), then ./hadith.json
+  const candidates = [
+    path.join(__dirname, 'hadith.json'),
+    path.join(__dirname, 'data', 'hadith.json'),
+    path.join(__dirname, '..', 'hadith.json'),
+  ];
+  for (const p of candidates) {
+    try {
+      HADITH_DATA = JSON.parse(require('fs').readFileSync(p, 'utf8'));
+      console.log(`[gebetszeiten] Loaded ${HADITH_DATA.hadiths.length} daily hadiths, ${HADITH_DATA.friday_specifics.length} friday hadiths, ${HADITH_DATA.imam_rabbani.length} Imam Rabbani quotes from ${p}`);
+      return HADITH_DATA;
+    } catch (e) { /* try next */ }
   }
+  console.error('[gebetszeiten] failed to load hadith.json from any path');
+  HADITH_DATA = { hadiths: [], friday_specifics: [], imam_rabbani: [] };
   return HADITH_DATA;
 }
 // Load on startup
