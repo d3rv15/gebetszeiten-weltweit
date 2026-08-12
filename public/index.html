@@ -349,6 +349,16 @@
         <div class="results" id="cityResults"></div>
         <div id="prayerCard"></div>
       </div>
+      <div class="card" style="margin-top:20px">
+        <h2 class="card-title">📍 Eigene Stadt hinzufügen</h2>
+        <p class="card-subtitle">Stadt ist nicht in der IGMG-Liste? Gib einen beliebigen Ort ein — wir berechnen die Zeiten lokal (Diyanet-Methode) in der örtlichen Zeitzone.</p>
+        <div class="search-row">
+          <input class="input" type="text" id="customCityInput" placeholder="z.B. Yozgat, Schönefeld, Ankara, München-Augsburg ...">
+          <button class="btn" id="customCityBtn">+ Stadt laden</button>
+        </div>
+        <div id="customCityResult"></div>
+        <div id="customCityCard"></div>
+      </div>
     </div>
 
     <!-- API KEYS PANEL -->
@@ -594,6 +604,68 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         const c = allCities.find(x => x.name === citySearch.value);
         if (c) selectCity(c);
       }
+    });
+
+    // ============ CUSTOM CITY (geocoding + local calc) ============
+    async function loadCustomCity() {
+      const input = document.getElementById('customCityInput');
+      const q = input.value.trim();
+      const resultEl = document.getElementById('customCityResult');
+      const cardEl = document.getElementById('customCityCard');
+      resultEl.innerHTML = '';
+      cardEl.innerHTML = '';
+      if (q.length < 2) {
+        resultEl.innerHTML = '<div class="result-empty">Bitte mindestens 2 Zeichen eingeben.</div>';
+        return;
+      }
+      resultEl.innerHTML = '<div class="result-empty">⏳ Suche "' + q + '" und berechne Zeiten…</div>';
+      const date = dateSelect.value;
+      try {
+        const r = await fetch(`/api/times/custom?q=${encodeURIComponent(q)}&date=${date}`);
+        if (!r.ok) {
+          const e = await r.json().catch(() => ({ error: 'Fehler ' + r.status }));
+          resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">❌ ' + (e.error || 'Fehler') + '</div>';
+          return;
+        }
+        const d = await r.json();
+        resultEl.innerHTML = '';
+        const cityLine = `<div class="result-item" style="cursor:default"><span class="name">${d.city.name}</span><span class="country">${d.city.country || ''}</span><div style="font-size:11px;color:#7f8c8d;margin-top:2px">📍 ${d.city.lat.toFixed(3)}, ${d.city.lng.toFixed(3)} · ${d.city.timezone}</div></div>`;
+        resultEl.innerHTML = cityLine;
+        // Reuse the prayer card renderer
+        const labels = {
+          imsak:   { de: 'Morgen (İmsak)',  tr: 'İmsak' },
+          sunrise: { de: 'Sonnenaufgang',   tr: 'Güneş' },
+          dhuhr:   { de: 'Mittag (Öğle)',   tr: 'Öğle' },
+          asr:     { de: 'Nachmittag (İkindi)', tr: 'İkindi' },
+          maghrib: { de: 'Abend (Akşam)',   tr: 'Akşam' },
+          isha:    { de: 'Nacht (Yatsı)',   tr: 'Yatsı' },
+        };
+        const dateStr = new Date(d.date).toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+        const customTimes = { imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr, asr: d.asr, maghrib: d.maghrib, isha: d.isha };
+        cardEl.innerHTML = `
+          <div class="prayer-card">
+            <h2>${d.city.name} <span style="font-size:14px;color:#7f8c8d;font-weight:400">(berechnet, ${d.method})</span></h2>
+            <div class="date">${dateStr} · örtliche Zeit (${d.city.timezone})</div>
+            <div class="prayer-grid">
+              ${Object.entries(customTimes).filter(([k]) => labels[k]).map(([k, v]) => `
+                <div class="prayer">
+                  <div class="name">${labels[k].de}<span class="tr">${labels[k].tr}</span></div>
+                  <div class="time">${v}</div>
+                </div>
+              `).join('')}
+            </div>
+            <div style="margin-top:14px;font-size:12px;color:#7f8c8d;text-align:center">
+              ⚠️ Diese Zeiten werden lokal mit der Diyanet-Methode (IGMG-konform) berechnet — kein Sync mit IGMG-Server.
+            </div>
+          </div>
+        `;
+      } catch (e) {
+        resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">❌ Netzwerkfehler: ' + e.message + '</div>';
+      }
+    }
+    document.getElementById('customCityBtn').addEventListener('click', loadCustomCity);
+    document.getElementById('customCityInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loadCustomCity();
     });
 
     // ============ API KEYS ============
