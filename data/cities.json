@@ -1,0 +1,6886 @@
+[
+  {
+    "igmg_id": "1",
+    "name": "Attnang-Puchheim",
+    "country": "AT",
+    "lat": 48.00833,
+    "lng": 13.71667,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "2",
+    "name": "Bad Ischl",
+    "country": "AT",
+    "lat": 47.71109,
+    "lng": 13.61893,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "3",
+    "name": "Bad Vöslau",
+    "country": "AT",
+    "lat": 47.96533,
+    "lng": 16.21359,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "4",
+    "name": "Bludenz",
+    "country": "AT",
+    "lat": 47.15476,
+    "lng": 9.82255,
+    "timezone": "Europe/Vienna",
+    "admin1": "Vorarlberg"
+  },
+  {
+    "igmg_id": "5",
+    "name": "Bregenz",
+    "country": "AT",
+    "lat": 47.50311,
+    "lng": 9.7471,
+    "timezone": "Europe/Vienna",
+    "admin1": "Vorarlberg"
+  },
+  {
+    "igmg_id": "6",
+    "name": "Brixlegg",
+    "country": "AT",
+    "lat": 47.42942,
+    "lng": 11.87794,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "7",
+    "name": "Dornbirn",
+    "country": "AT",
+    "lat": 47.41427,
+    "lng": 9.74195,
+    "timezone": "Europe/Vienna",
+    "admin1": "Vorarlberg"
+  },
+  {
+    "igmg_id": "8",
+    "name": "Feldkirch",
+    "country": "AT",
+    "lat": 47.23645,
+    "lng": 9.59734,
+    "timezone": "Europe/Vienna",
+    "admin1": "Vorarlberg"
+  },
+  {
+    "igmg_id": "9",
+    "name": "Freistadt",
+    "country": "AT",
+    "lat": 48.51103,
+    "lng": 14.50453,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "10",
+    "name": "Gänserndorf",
+    "country": "AT",
+    "lat": 48.33925,
+    "lng": 16.72016,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "11",
+    "name": "Graz",
+    "country": "AT",
+    "lat": 47.06733,
+    "lng": 15.44197,
+    "timezone": "Europe/Vienna",
+    "admin1": "Steiermark"
+  },
+  {
+    "igmg_id": "12",
+    "name": "Hall in Tirol",
+    "country": "AT",
+    "lat": 47.28333,
+    "lng": 11.51667,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "13",
+    "name": "Hallein",
+    "country": "AT",
+    "lat": 47.68333,
+    "lng": 13.1,
+    "timezone": "Europe/Vienna",
+    "admin1": "Land Salzburg"
+  },
+  {
+    "igmg_id": "14",
+    "name": "Herzogenburg",
+    "country": "AT",
+    "lat": 48.28137,
+    "lng": 15.69431,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "15",
+    "name": "Innsbruck",
+    "country": "AT",
+    "lat": 47.26266,
+    "lng": 11.39454,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "16",
+    "name": "Jenbach",
+    "country": "AT",
+    "lat": 47.39173,
+    "lng": 11.77245,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "17",
+    "name": "Landeck",
+    "country": "AT",
+    "lat": 47.13988,
+    "lng": 10.56593,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "18",
+    "name": "Leobersdorf",
+    "country": "AT",
+    "lat": 47.92796,
+    "lng": 16.21651,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "19",
+    "name": "Linz",
+    "country": "AT",
+    "lat": 48.30639,
+    "lng": 14.28611,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "20",
+    "name": "Lustenau",
+    "country": "AT",
+    "lat": 47.42642,
+    "lng": 9.65851,
+    "timezone": "Europe/Vienna",
+    "admin1": "Vorarlberg"
+  },
+  {
+    "igmg_id": "21",
+    "name": "Mattighofen",
+    "country": "AT",
+    "lat": 48.10732,
+    "lng": 13.15081,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "22",
+    "name": "Neunkirchen",
+    "country": "AT",
+    "lat": 47.72096,
+    "lng": 16.08107,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "23",
+    "name": "Perg",
+    "country": "AT",
+    "lat": 48.25,
+    "lng": 14.63333,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "24",
+    "name": "Pottendorf",
+    "country": "AT",
+    "lat": 47.9,
+    "lng": 16.38333,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "25",
+    "name": "Reutte",
+    "country": "AT",
+    "lat": 47.48333,
+    "lng": 10.71667,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "26",
+    "name": "Rohrendorf",
+    "country": "AT",
+    "lat": 48.41935,
+    "lng": 15.65772,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "27",
+    "name": "Salzburg",
+    "country": "AT",
+    "lat": 47.79941,
+    "lng": 13.04399,
+    "timezone": "Europe/Vienna",
+    "admin1": "Land Salzburg"
+  },
+  {
+    "igmg_id": "28",
+    "name": "Sollenau",
+    "country": "AT",
+    "lat": 47.89834,
+    "lng": 16.24833,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "29",
+    "name": "St. Pölten",
+    "country": "AT",
+    "lat": 48.20762,
+    "lng": 15.63725,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "30",
+    "name": "Steyr",
+    "country": "AT",
+    "lat": 48.04274,
+    "lng": 14.42127,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "31",
+    "name": "Traiskirchen",
+    "country": "AT",
+    "lat": 48.01485,
+    "lng": 16.29324,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "32",
+    "name": "Traun",
+    "country": "AT",
+    "lat": 48.22086,
+    "lng": 14.23833,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "33",
+    "name": "Wien",
+    "country": "AT",
+    "lat": 48.20849,
+    "lng": 16.37208,
+    "timezone": "Europe/Vienna",
+    "admin1": "Bundesland Wien"
+  },
+  {
+    "igmg_id": "34",
+    "name": "Vomp",
+    "country": "AT",
+    "lat": 47.33333,
+    "lng": 11.68333,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "35",
+    "name": "Vorchdorf",
+    "country": "AT",
+    "lat": 48.00388,
+    "lng": 13.92122,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "36",
+    "name": "Wels",
+    "country": "AT",
+    "lat": 48.16667,
+    "lng": 14.03333,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "37",
+    "name": "Wörgl",
+    "country": "AT",
+    "lat": 47.48906,
+    "lng": 12.06174,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "38",
+    "name": "Zirl",
+    "country": "AT",
+    "lat": 47.2741,
+    "lng": 11.23961,
+    "timezone": "Europe/Vienna",
+    "admin1": "Tirol"
+  },
+  {
+    "igmg_id": "39",
+    "name": "Adelaide",
+    "country": "AU",
+    "lat": -34.92866,
+    "lng": 138.59863,
+    "timezone": "Australia/Adelaide",
+    "admin1": "Südaustralien"
+  },
+  {
+    "igmg_id": "40",
+    "name": "Canberra",
+    "country": "AU",
+    "lat": -35.28346,
+    "lng": 149.12807,
+    "timezone": "Australia/Sydney",
+    "admin1": "Australian Capital Territory"
+  },
+  {
+    "igmg_id": "41",
+    "name": "Melbourne",
+    "country": "AU",
+    "lat": -37.814,
+    "lng": 144.96332,
+    "timezone": "Australia/Melbourne",
+    "admin1": "Victoria"
+  },
+  {
+    "igmg_id": "42",
+    "name": "Sydney",
+    "country": "AU",
+    "lat": -33.86785,
+    "lng": 151.20732,
+    "timezone": "Australia/Sydney",
+    "admin1": "New South Wales"
+  },
+  {
+    "igmg_id": "45",
+    "name": "Anderlecht",
+    "country": "BE",
+    "lat": 50.83619,
+    "lng": 4.31454,
+    "timezone": "Europe/Brussels",
+    "admin1": "Region Brüssel-Hauptstadt"
+  },
+  {
+    "igmg_id": "46",
+    "name": "Antwerpen",
+    "country": "BE",
+    "lat": 51.22047,
+    "lng": 4.40026,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "47",
+    "name": "Berchem",
+    "country": "BE",
+    "lat": 51.19021,
+    "lng": 4.43264,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "48",
+    "name": "Beringen",
+    "country": "BE",
+    "lat": 51.04954,
+    "lng": 5.22606,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "50",
+    "name": "Charleroi",
+    "country": "BE",
+    "lat": 50.41136,
+    "lng": 4.44448,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "51",
+    "name": "Cheratte",
+    "country": "BE",
+    "lat": 50.68237,
+    "lng": 5.66955,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "52",
+    "name": "Diest",
+    "country": "BE",
+    "lat": 50.98923,
+    "lng": 5.05062,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "53",
+    "name": "Eisden",
+    "country": "BE",
+    "lat": 50.98463,
+    "lng": 5.71433,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "55",
+    "name": "Genk",
+    "country": "BE",
+    "lat": 50.965,
+    "lng": 5.50082,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "56",
+    "name": "Gent",
+    "country": "BE",
+    "lat": 51.05,
+    "lng": 3.71667,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "57",
+    "name": "Hensies",
+    "country": "BE",
+    "lat": 50.43263,
+    "lng": 3.68411,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "58",
+    "name": "Odense",
+    "country": "DK",
+    "lat": 55.39594,
+    "lng": 10.38831,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Süddänemark"
+  },
+  {
+    "igmg_id": "59",
+    "name": "Heusden-Zolder",
+    "country": "BE",
+    "lat": 51.03729,
+    "lng": 5.29653,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "60",
+    "name": "Hoboken",
+    "country": "BE",
+    "lat": 51.17611,
+    "lng": 4.34844,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "61",
+    "name": "La Louviere",
+    "country": "BE",
+    "lat": 50.48657,
+    "lng": 4.18785,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "62",
+    "name": "Leopoldsburg",
+    "country": "BE",
+    "lat": 51.11667,
+    "lng": 5.25,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "63",
+    "name": "Liege",
+    "country": "BE",
+    "lat": 50.63373,
+    "lng": 5.56749,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "64",
+    "name": "Lier",
+    "country": "BE",
+    "lat": 51.13128,
+    "lng": 4.57041,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "65",
+    "name": "Lommel",
+    "country": "BE",
+    "lat": 51.23074,
+    "lng": 5.31349,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "66",
+    "name": "Mol",
+    "country": "BE",
+    "lat": 51.19188,
+    "lng": 5.11662,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "67",
+    "name": "Monceau-sur-Sambre",
+    "country": "BE",
+    "lat": 50.41694,
+    "lng": 4.37668,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "68",
+    "name": "Mons",
+    "country": "BE",
+    "lat": 50.45413,
+    "lng": 3.95229,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "69",
+    "name": "Namur",
+    "country": "BE",
+    "lat": 50.4669,
+    "lng": 4.86746,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "70",
+    "name": "Saint-Nicolas",
+    "country": "BE",
+    "lat": 50.62837,
+    "lng": 5.53243,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "71",
+    "name": "Sint-Amands",
+    "country": "BE",
+    "lat": 51.05645,
+    "lng": 4.20957,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "73",
+    "name": "Strombeek",
+    "country": "BE",
+    "lat": 50.91039,
+    "lng": 4.35582,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "74",
+    "name": "Temse",
+    "country": "BE",
+    "lat": 51.12794,
+    "lng": 4.21372,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "75",
+    "name": "Verviers",
+    "country": "BE",
+    "lat": 50.58907,
+    "lng": 5.86241,
+    "timezone": "Europe/Brussels",
+    "admin1": "Wallonien"
+  },
+  {
+    "igmg_id": "76",
+    "name": "Wilrijk",
+    "country": "BE",
+    "lat": 51.16734,
+    "lng": 4.39513,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "77",
+    "name": "Zaventem",
+    "country": "BE",
+    "lat": 50.88365,
+    "lng": 4.47298,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "78",
+    "name": "Hamilton",
+    "country": "CA",
+    "lat": 43.25011,
+    "lng": -79.84963,
+    "timezone": "America/Toronto",
+    "admin1": "Ontario"
+  },
+  {
+    "igmg_id": "79",
+    "name": "Montreal",
+    "country": "CA",
+    "lat": 45.50884,
+    "lng": -73.58781,
+    "timezone": "America/Toronto",
+    "admin1": "Québec"
+  },
+  {
+    "igmg_id": "80",
+    "name": "Toronto",
+    "country": "CA",
+    "lat": 43.70643,
+    "lng": -79.39864,
+    "timezone": "America/Toronto",
+    "admin1": "Ontario"
+  },
+  {
+    "igmg_id": "81",
+    "name": "Basel",
+    "country": "CH",
+    "lat": 47.55839,
+    "lng": 7.57327,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Basel-Stadt"
+  },
+  {
+    "igmg_id": "82",
+    "name": "Bern",
+    "country": "CH",
+    "lat": 46.94809,
+    "lng": 7.44744,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Bern"
+  },
+  {
+    "igmg_id": "85",
+    "name": "Cham",
+    "country": "CH",
+    "lat": 47.18213,
+    "lng": 8.46358,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Zug"
+  },
+  {
+    "igmg_id": "86",
+    "name": "Chur",
+    "country": "CH",
+    "lat": 46.84986,
+    "lng": 9.53287,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Graubünden"
+  },
+  {
+    "igmg_id": "87",
+    "name": "Dietikon",
+    "country": "CH",
+    "lat": 47.40165,
+    "lng": 8.40015,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Zürich"
+  },
+  {
+    "igmg_id": "88",
+    "name": "Liestal",
+    "country": "CH",
+    "lat": 47.48455,
+    "lng": 7.73446,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Basel-Landschaft"
+  },
+  {
+    "igmg_id": "89",
+    "name": "Lugano",
+    "country": "CH",
+    "lat": 46.01008,
+    "lng": 8.96004,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Tessin"
+  },
+  {
+    "igmg_id": "90",
+    "name": "Luzern",
+    "country": "CH",
+    "lat": 47.05048,
+    "lng": 8.30635,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Luzern"
+  },
+  {
+    "igmg_id": "91",
+    "name": "Oberuzwil",
+    "country": "CH",
+    "lat": 47.43076,
+    "lng": 9.12724,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton St. Gallen"
+  },
+  {
+    "igmg_id": "92",
+    "name": "Olten",
+    "country": "CH",
+    "lat": 47.34999,
+    "lng": 7.90329,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Solothurn"
+  },
+  {
+    "igmg_id": "93",
+    "name": "Sion",
+    "country": "CH",
+    "lat": 46.21959,
+    "lng": 7.32676,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Wallis"
+  },
+  {
+    "igmg_id": "94",
+    "name": "Solothurn",
+    "country": "CH",
+    "lat": 47.20791,
+    "lng": 7.53714,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Solothurn"
+  },
+  {
+    "igmg_id": "95",
+    "name": "Wetzikon",
+    "country": "CH",
+    "lat": 47.3264,
+    "lng": 8.79779,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Zürich"
+  },
+  {
+    "igmg_id": "96",
+    "name": "Winterthur",
+    "country": "CH",
+    "lat": 47.50564,
+    "lng": 8.72413,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Zürich"
+  },
+  {
+    "igmg_id": "97",
+    "name": "Wohlen",
+    "country": "CH",
+    "lat": 47.35066,
+    "lng": 8.27517,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Aargau"
+  },
+  {
+    "igmg_id": "98",
+    "name": "Zürich",
+    "country": "CH",
+    "lat": 47.36667,
+    "lng": 8.55,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Zürich"
+  },
+  {
+    "igmg_id": "99",
+    "name": "Aarhus",
+    "country": "DK",
+    "lat": 56.15674,
+    "lng": 10.21076,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Mitteljütland"
+  },
+  {
+    "igmg_id": "100",
+    "name": "Brabrand",
+    "country": "DK",
+    "lat": 56.15306,
+    "lng": 10.10571,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Mitteljütland"
+  },
+  {
+    "igmg_id": "101",
+    "name": "Brøndby",
+    "country": "DK",
+    "lat": 55.6455,
+    "lng": 12.41008,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "102",
+    "name": "Fuglebjerg",
+    "country": "DK",
+    "lat": 55.30604,
+    "lng": 11.54766,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "103",
+    "name": "Helsingør",
+    "country": "DK",
+    "lat": 56.03606,
+    "lng": 12.6136,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "104",
+    "name": "København",
+    "country": "DK",
+    "lat": 55.65059,
+    "lng": 12.5978,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "105",
+    "name": "Nivå",
+    "country": "DK",
+    "lat": 55.93405,
+    "lng": 12.50485,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "106",
+    "name": "Roskilde",
+    "country": "DK",
+    "lat": 55.64152,
+    "lng": 12.08035,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "107",
+    "name": "Slagelse",
+    "country": "DK",
+    "lat": 55.40276,
+    "lng": 11.35459,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "108",
+    "name": "Taastrup",
+    "country": "DK",
+    "lat": 55.65006,
+    "lng": 12.3016,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "109",
+    "name": "Vejle",
+    "country": "DK",
+    "lat": 55.70927,
+    "lng": 9.5357,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Süddänemark"
+  },
+  {
+    "igmg_id": "110",
+    "name": "Albertville",
+    "country": "FR",
+    "lat": 45.67452,
+    "lng": 6.39061,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "111",
+    "name": "Ambérieu-en-Bugey",
+    "country": "FR",
+    "lat": 45.95932,
+    "lng": 5.3516,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "112",
+    "name": "Angoulême",
+    "country": "FR",
+    "lat": 45.64997,
+    "lng": 0.15345,
+    "timezone": "Europe/Paris",
+    "admin1": "Neuguitanien"
+  },
+  {
+    "igmg_id": "113",
+    "name": "Annecy",
+    "country": "FR",
+    "lat": 45.90878,
+    "lng": 6.12565,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "114",
+    "name": "Annemasse",
+    "country": "FR",
+    "lat": 46.19439,
+    "lng": 6.23775,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "115",
+    "name": "Annonay",
+    "country": "FR",
+    "lat": 45.23992,
+    "lng": 4.6707,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "116",
+    "name": "Avignon",
+    "country": "FR",
+    "lat": 43.94834,
+    "lng": 4.80892,
+    "timezone": "Europe/Paris",
+    "admin1": "Provence-Alpes-Côte d’Azur"
+  },
+  {
+    "igmg_id": "117",
+    "name": "Barberaz",
+    "country": "FR",
+    "lat": 45.56179,
+    "lng": 5.94306,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "118",
+    "name": "Beauvais",
+    "country": "FR",
+    "lat": 49.43333,
+    "lng": 2.08333,
+    "timezone": "Europe/Paris",
+    "admin1": "Hauts-de-France"
+  },
+  {
+    "igmg_id": "119",
+    "name": "Belfort",
+    "country": "FR",
+    "lat": 47.64218,
+    "lng": 6.85385,
+    "timezone": "Europe/Paris",
+    "admin1": "Bourgogne"
+  },
+  {
+    "igmg_id": "120",
+    "name": "Besançon",
+    "country": "FR",
+    "lat": 47.24878,
+    "lng": 6.01815,
+    "timezone": "Europe/Paris",
+    "admin1": "Bourgogne"
+  },
+  {
+    "igmg_id": "121",
+    "name": "Blois",
+    "country": "FR",
+    "lat": 47.59432,
+    "lng": 1.32912,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "122",
+    "name": "Bordeaux",
+    "country": "FR",
+    "lat": 44.84124,
+    "lng": -0.58046,
+    "timezone": "Europe/Paris",
+    "admin1": "Neuguitanien"
+  },
+  {
+    "igmg_id": "124",
+    "name": "Cenon",
+    "country": "FR",
+    "lat": 44.85614,
+    "lng": -0.53355,
+    "timezone": "Europe/Paris",
+    "admin1": "Neuguitanien"
+  },
+  {
+    "igmg_id": "125",
+    "name": "Châlette-sur-Loing",
+    "country": "FR",
+    "lat": 48.01337,
+    "lng": 2.73587,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "126",
+    "name": "Chambery",
+    "country": "FR",
+    "lat": 45.56628,
+    "lng": 5.92079,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "127",
+    "name": "Charleville-Mézières",
+    "country": "FR",
+    "lat": 49.7685,
+    "lng": 4.72487,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "128",
+    "name": "Châteaudun",
+    "country": "FR",
+    "lat": 48.07086,
+    "lng": 1.33783,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "129",
+    "name": "Chatillon",
+    "country": "FR",
+    "lat": 48.8024,
+    "lng": 2.29346,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "130",
+    "name": "Chaumont",
+    "country": "FR",
+    "lat": 48.11121,
+    "lng": 5.14134,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "131",
+    "name": "Clermont-Ferrand",
+    "country": "FR",
+    "lat": 45.77969,
+    "lng": 3.08682,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "132",
+    "name": "Cluses",
+    "country": "FR",
+    "lat": 46.06251,
+    "lng": 6.57497,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "133",
+    "name": "Colmar",
+    "country": "FR",
+    "lat": 48.08078,
+    "lng": 7.35584,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "134",
+    "name": "Épinal",
+    "country": "FR",
+    "lat": 48.18324,
+    "lng": 6.45304,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "135",
+    "name": "Feurs",
+    "country": "FR",
+    "lat": 45.73337,
+    "lng": 4.22755,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "136",
+    "name": "Firminy",
+    "country": "FR",
+    "lat": 45.38956,
+    "lng": 4.2886,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "137",
+    "name": "Fontenay-sous-Bois",
+    "country": "FR",
+    "lat": 48.85442,
+    "lng": 2.48268,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "138",
+    "name": "Grenoble",
+    "country": "FR",
+    "lat": 45.17869,
+    "lng": 5.71479,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "139",
+    "name": "Le Creusot",
+    "country": "FR",
+    "lat": 46.80714,
+    "lng": 4.41632,
+    "timezone": "Europe/Paris",
+    "admin1": "Bourgogne"
+  },
+  {
+    "igmg_id": "140",
+    "name": "Le Mans",
+    "country": "FR",
+    "lat": 48.0021,
+    "lng": 0.20251,
+    "timezone": "Europe/Paris",
+    "admin1": "Pays de la Loire"
+  },
+  {
+    "igmg_id": "141",
+    "name": "Le Péage-de-Roussillon",
+    "country": "FR",
+    "lat": 45.3738,
+    "lng": 4.79727,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "142",
+    "name": "Lille",
+    "country": "FR",
+    "lat": 50.63391,
+    "lng": 3.05512,
+    "timezone": "Europe/Paris",
+    "admin1": "Hauts-de-France"
+  },
+  {
+    "igmg_id": "143",
+    "name": "Lyon",
+    "country": "FR",
+    "lat": 45.74906,
+    "lng": 4.84789,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "144",
+    "name": "Mantes-la-Jolie",
+    "country": "FR",
+    "lat": 48.99048,
+    "lng": 1.7167,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "146",
+    "name": "Marseille",
+    "country": "FR",
+    "lat": 43.29695,
+    "lng": 5.38107,
+    "timezone": "Europe/Paris",
+    "admin1": "Provence-Alpes-Côte d’Azur"
+  },
+  {
+    "igmg_id": "147",
+    "name": "Metz",
+    "country": "FR",
+    "lat": 49.11911,
+    "lng": 6.17269,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "148",
+    "name": "Modane",
+    "country": "FR",
+    "lat": 45.20032,
+    "lng": 6.66871,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "149",
+    "name": "Molsheim",
+    "country": "FR",
+    "lat": 48.54042,
+    "lng": 7.49199,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "150",
+    "name": "Montargis",
+    "country": "FR",
+    "lat": 47.99696,
+    "lng": 2.73261,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "151",
+    "name": "Montpellier",
+    "country": "FR",
+    "lat": 43.61093,
+    "lng": 3.87635,
+    "timezone": "Europe/Paris",
+    "admin1": "Okzitanien"
+  },
+  {
+    "igmg_id": "152",
+    "name": "Morhange",
+    "country": "FR",
+    "lat": 48.92359,
+    "lng": 6.64163,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "153",
+    "name": "Mulhouse",
+    "country": "FR",
+    "lat": 47.75205,
+    "lng": 7.32866,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "154",
+    "name": "Nantua",
+    "country": "FR",
+    "lat": 46.15343,
+    "lng": 5.60601,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "156",
+    "name": "Neuville-sur-Saône",
+    "country": "FR",
+    "lat": 45.87615,
+    "lng": 4.84099,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "157",
+    "name": "Nice",
+    "country": "FR",
+    "lat": 43.70313,
+    "lng": 7.26608,
+    "timezone": "Europe/Paris",
+    "admin1": "Provence-Alpes-Côte d’Azur"
+  },
+  {
+    "igmg_id": "158",
+    "name": "Niederhaslach",
+    "country": "FR",
+    "lat": 48.54264,
+    "lng": 7.34282,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "159",
+    "name": "Nogent-sur-Oise",
+    "country": "FR",
+    "lat": 49.27158,
+    "lng": 2.47074,
+    "timezone": "Europe/Paris",
+    "admin1": "Hauts-de-France"
+  },
+  {
+    "igmg_id": "160",
+    "name": "Orleans",
+    "country": "FR",
+    "lat": 47.90248,
+    "lng": 1.90407,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "161",
+    "name": "Oyonnax",
+    "country": "FR",
+    "lat": 46.25917,
+    "lng": 5.65727,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "162",
+    "name": "Paris",
+    "country": "FR",
+    "lat": 48.85341,
+    "lng": 2.3488,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "163",
+    "name": "Perpignan",
+    "country": "FR",
+    "lat": 42.69764,
+    "lng": 2.89541,
+    "timezone": "Europe/Paris",
+    "admin1": "Okzitanien"
+  },
+  {
+    "igmg_id": "164",
+    "name": "Provins",
+    "country": "FR",
+    "lat": 48.55897,
+    "lng": 3.29939,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "165",
+    "name": "Quimper",
+    "country": "FR",
+    "lat": 47.99597,
+    "lng": -4.09795,
+    "timezone": "Europe/Paris",
+    "admin1": "Bretagne"
+  },
+  {
+    "igmg_id": "166",
+    "name": "Rennes",
+    "country": "FR",
+    "lat": 48.11109,
+    "lng": -1.67431,
+    "timezone": "Europe/Paris",
+    "admin1": "Bretagne"
+  },
+  {
+    "igmg_id": "167",
+    "name": "Ris-Orangis",
+    "country": "FR",
+    "lat": 48.6511,
+    "lng": 2.41406,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "168",
+    "name": "Rouen",
+    "country": "FR",
+    "lat": 49.44313,
+    "lng": 1.09932,
+    "timezone": "Europe/Paris",
+    "admin1": "Normandie"
+  },
+  {
+    "igmg_id": "170",
+    "name": "Salbris",
+    "country": "FR",
+    "lat": 47.4242,
+    "lng": 2.05124,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "171",
+    "name": "Salon-de-Provence",
+    "country": "FR",
+    "lat": 43.64229,
+    "lng": 5.09478,
+    "timezone": "Europe/Paris",
+    "admin1": "Provence-Alpes-Côte d’Azur"
+  },
+  {
+    "igmg_id": "172",
+    "name": "Sarcelles",
+    "country": "FR",
+    "lat": 48.99739,
+    "lng": 2.37821,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "173",
+    "name": "Saverne",
+    "country": "FR",
+    "lat": 48.74164,
+    "lng": 7.36221,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "174",
+    "name": "Schirmeck",
+    "country": "FR",
+    "lat": 48.48313,
+    "lng": 7.22004,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "175",
+    "name": "Sevran",
+    "country": "FR",
+    "lat": 48.94472,
+    "lng": 2.52746,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "176",
+    "name": "Soyaux",
+    "country": "FR",
+    "lat": 45.64052,
+    "lng": 0.19752,
+    "timezone": "Europe/Paris",
+    "admin1": "Neuguitanien"
+  },
+  {
+    "igmg_id": "179",
+    "name": "Strasbourg",
+    "country": "FR",
+    "lat": 48.58392,
+    "lng": 7.74553,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "181",
+    "name": "Thann",
+    "country": "FR",
+    "lat": 47.80789,
+    "lng": 7.10301,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "182",
+    "name": "Thionville",
+    "country": "FR",
+    "lat": 49.35994,
+    "lng": 6.16044,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "183",
+    "name": "Toulouse",
+    "country": "FR",
+    "lat": 43.60426,
+    "lng": 1.44367,
+    "timezone": "Europe/Paris",
+    "admin1": "Okzitanien"
+  },
+  {
+    "igmg_id": "184",
+    "name": "Triel-sur-Seine",
+    "country": "FR",
+    "lat": 48.97818,
+    "lng": 2.00743,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "185",
+    "name": "Ugine",
+    "country": "FR",
+    "lat": 45.75571,
+    "lng": 6.41503,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "186",
+    "name": "Vendôme",
+    "country": "FR",
+    "lat": 47.79292,
+    "lng": 1.06556,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "187",
+    "name": "Vénissieux",
+    "country": "FR",
+    "lat": 45.69706,
+    "lng": 4.88593,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "188",
+    "name": "Vienne",
+    "country": "FR",
+    "lat": 45.52569,
+    "lng": 4.87484,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "189",
+    "name": "Villefontaine",
+    "country": "FR",
+    "lat": 45.61278,
+    "lng": 5.15058,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "190",
+    "name": "Villefranche-sur-Saône",
+    "country": "FR",
+    "lat": 45.98967,
+    "lng": 4.71961,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "191",
+    "name": "Villeneuve-d'Ascq",
+    "country": "FR",
+    "lat": 50.61669,
+    "lng": 3.16664,
+    "timezone": "Europe/Paris",
+    "admin1": "Hauts-de-France"
+  },
+  {
+    "igmg_id": "192",
+    "name": "Birmingham",
+    "country": "EN",
+    "lat": 52.48142,
+    "lng": -1.89983,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "193",
+    "name": "Brighton",
+    "country": "EN",
+    "lat": 50.82838,
+    "lng": -0.13947,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "194",
+    "name": "Bristol",
+    "country": "EN",
+    "lat": 51.45523,
+    "lng": -2.59665,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "195",
+    "name": "Cambridge",
+    "country": "EN",
+    "lat": 52.2,
+    "lng": 0.11667,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "196",
+    "name": "Leicester",
+    "country": "EN",
+    "lat": 52.6386,
+    "lng": -1.13169,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "197",
+    "name": "London",
+    "country": "EN",
+    "lat": 51.50853,
+    "lng": -0.12574,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "198",
+    "name": "Luton",
+    "country": "EN",
+    "lat": 51.87967,
+    "lng": -0.41748,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "199",
+    "name": "Oxford",
+    "country": "EN",
+    "lat": 51.75222,
+    "lng": -1.25596,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "200",
+    "name": "Portslade",
+    "country": "EN",
+    "lat": 50.84286,
+    "lng": -0.21608,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "201",
+    "name": "Como",
+    "country": "IT",
+    "lat": 45.80819,
+    "lng": 9.0832,
+    "timezone": "Europe/Rome",
+    "admin1": "Lombardei"
+  },
+  {
+    "igmg_id": "202",
+    "name": "Imperia",
+    "country": "IT",
+    "lat": 43.88917,
+    "lng": 8.03933,
+    "timezone": "Europe/Rome",
+    "admin1": "Ligurien"
+  },
+  {
+    "igmg_id": "203",
+    "name": "Milano",
+    "country": "IT",
+    "lat": 42.78235,
+    "lng": 12.59836,
+    "timezone": "Europe/Rome",
+    "admin1": "Umbrien"
+  },
+  {
+    "igmg_id": "204",
+    "name": "Modena",
+    "country": "IT",
+    "lat": 44.64783,
+    "lng": 10.92539,
+    "timezone": "Europe/Rome",
+    "admin1": "Emilia-Romagna"
+  },
+  {
+    "igmg_id": "205",
+    "name": "Roma",
+    "country": "IT",
+    "lat": 44.99364,
+    "lng": 11.10642,
+    "timezone": "Europe/Rome",
+    "admin1": "Lombardei"
+  },
+  {
+    "igmg_id": "206",
+    "name": "Vaduz",
+    "country": "LI",
+    "lat": 47.14151,
+    "lng": 9.52154,
+    "timezone": "Europe/Vaduz",
+    "admin1": "Vaduz"
+  },
+  {
+    "igmg_id": "207",
+    "name": "Skopje",
+    "country": "MK",
+    "lat": 41.99646,
+    "lng": 21.43141,
+    "timezone": "Europe/Skopje",
+    "admin1": "Grad Skopje"
+  },
+  {
+    "igmg_id": "209",
+    "name": "Rotterdam",
+    "country": "NL",
+    "lat": 51.9225,
+    "lng": 4.47917,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Südholland"
+  },
+  {
+    "igmg_id": "210",
+    "name": "Almere",
+    "country": "NL",
+    "lat": 52.37025,
+    "lng": 5.21413,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Flevoland"
+  },
+  {
+    "igmg_id": "211",
+    "name": "Amersfoort",
+    "country": "NL",
+    "lat": 52.155,
+    "lng": 5.3875,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Utrecht"
+  },
+  {
+    "igmg_id": "212",
+    "name": "Amsterdam",
+    "country": "NL",
+    "lat": 52.37403,
+    "lng": 4.88969,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "213",
+    "name": "Apeldoorn",
+    "country": "NL",
+    "lat": 52.21,
+    "lng": 5.96944,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Gelderland"
+  },
+  {
+    "igmg_id": "214",
+    "name": "Arnhem",
+    "country": "NL",
+    "lat": 51.98,
+    "lng": 5.91111,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Gelderland"
+  },
+  {
+    "igmg_id": "216",
+    "name": "Baarn",
+    "country": "NL",
+    "lat": 52.21167,
+    "lng": 5.2875,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Utrecht"
+  },
+  {
+    "igmg_id": "217",
+    "name": "Barneveld",
+    "country": "NL",
+    "lat": 52.14,
+    "lng": 5.58472,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Gelderland"
+  },
+  {
+    "igmg_id": "218",
+    "name": "Beverwijk",
+    "country": "NL",
+    "lat": 52.48333,
+    "lng": 4.65694,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "219",
+    "name": "Den Haag",
+    "country": "NL",
+    "lat": 52.07667,
+    "lng": 4.29861,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Südholland"
+  },
+  {
+    "igmg_id": "220",
+    "name": "Den Helder",
+    "country": "NL",
+    "lat": 52.95988,
+    "lng": 4.75933,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "221",
+    "name": "Deventer",
+    "country": "NL",
+    "lat": 52.255,
+    "lng": 6.16389,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Overijssel"
+  },
+  {
+    "igmg_id": "222",
+    "name": "Dordrecht",
+    "country": "NL",
+    "lat": 51.81,
+    "lng": 4.67361,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Südholland"
+  },
+  {
+    "igmg_id": "223",
+    "name": "Ede",
+    "country": "NL",
+    "lat": 52.03333,
+    "lng": 5.65833,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Gelderland"
+  },
+  {
+    "igmg_id": "224",
+    "name": "Eindhoven",
+    "country": "NL",
+    "lat": 51.44083,
+    "lng": 5.47778,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordbrabant"
+  },
+  {
+    "igmg_id": "225",
+    "name": "Enschede",
+    "country": "NL",
+    "lat": 52.21833,
+    "lng": 6.89583,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Overijssel"
+  },
+  {
+    "igmg_id": "227",
+    "name": "Groningen",
+    "country": "NL",
+    "lat": 53.21917,
+    "lng": 6.56667,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Groningen"
+  },
+  {
+    "igmg_id": "228",
+    "name": "Haarlem",
+    "country": "NL",
+    "lat": 52.38084,
+    "lng": 4.63683,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "229",
+    "name": "Heemskerk",
+    "country": "NL",
+    "lat": 52.51108,
+    "lng": 4.67165,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "230",
+    "name": "Hilversum",
+    "country": "NL",
+    "lat": 52.22333,
+    "lng": 5.17639,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "231",
+    "name": "Hoofddorp",
+    "country": "NL",
+    "lat": 52.3025,
+    "lng": 4.68889,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "232",
+    "name": "Hoogezand",
+    "country": "NL",
+    "lat": 53.16167,
+    "lng": 6.76111,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Groningen"
+  },
+  {
+    "igmg_id": "233",
+    "name": "Leerdam",
+    "country": "NL",
+    "lat": 51.89333,
+    "lng": 5.09167,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Utrecht"
+  },
+  {
+    "igmg_id": "234",
+    "name": "Leiden",
+    "country": "NL",
+    "lat": 52.15833,
+    "lng": 4.49306,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Südholland"
+  },
+  {
+    "igmg_id": "236",
+    "name": "Oldenzaal",
+    "country": "NL",
+    "lat": 52.31333,
+    "lng": 6.92917,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Overijssel"
+  },
+  {
+    "igmg_id": "237",
+    "name": "Oss",
+    "country": "NL",
+    "lat": 51.765,
+    "lng": 5.51806,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordbrabant"
+  },
+  {
+    "igmg_id": "238",
+    "name": "Schiedam",
+    "country": "NL",
+    "lat": 51.91917,
+    "lng": 4.38889,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Südholland"
+  },
+  {
+    "igmg_id": "239",
+    "name": "Soest",
+    "country": "NL",
+    "lat": 52.17333,
+    "lng": 5.29167,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Utrecht"
+  },
+  {
+    "igmg_id": "240",
+    "name": "Tilburg",
+    "country": "NL",
+    "lat": 51.55551,
+    "lng": 5.0913,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordbrabant"
+  },
+  {
+    "igmg_id": "242",
+    "name": "Uden",
+    "country": "NL",
+    "lat": 51.66083,
+    "lng": 5.61944,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordbrabant"
+  },
+  {
+    "igmg_id": "243",
+    "name": "Ulft",
+    "country": "NL",
+    "lat": 51.89,
+    "lng": 6.37778,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Gelderland"
+  },
+  {
+    "igmg_id": "245",
+    "name": "Utrecht",
+    "country": "NL",
+    "lat": 52.09083,
+    "lng": 5.12222,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Utrecht"
+  },
+  {
+    "igmg_id": "246",
+    "name": "Veenendaal",
+    "country": "NL",
+    "lat": 52.02863,
+    "lng": 5.55891,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Utrecht"
+  },
+  {
+    "igmg_id": "247",
+    "name": "Weesp",
+    "country": "NL",
+    "lat": 52.3075,
+    "lng": 5.04167,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "248",
+    "name": "Zaandam",
+    "country": "NL",
+    "lat": 52.43854,
+    "lng": 4.82643,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Nordholland"
+  },
+  {
+    "igmg_id": "249",
+    "name": "Zwolle",
+    "country": "NL",
+    "lat": 52.5125,
+    "lng": 6.09444,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Overijssel"
+  },
+  {
+    "igmg_id": "250",
+    "name": "Bergen",
+    "country": "NO",
+    "lat": 60.39299,
+    "lng": 5.32415,
+    "timezone": "Europe/Oslo",
+    "admin1": "Vestland"
+  },
+  {
+    "igmg_id": "251",
+    "name": "Drammen",
+    "country": "NO",
+    "lat": 59.74389,
+    "lng": 10.20449,
+    "timezone": "Europe/Oslo",
+    "admin1": "Buskerud"
+  },
+  {
+    "igmg_id": "252",
+    "name": "Kristiansand",
+    "country": "NO",
+    "lat": 58.14671,
+    "lng": 7.9956,
+    "timezone": "Europe/Oslo",
+    "admin1": "Agder"
+  },
+  {
+    "igmg_id": "253",
+    "name": "Oslo",
+    "country": "NO",
+    "lat": 59.91273,
+    "lng": 10.74609,
+    "timezone": "Europe/Oslo",
+    "admin1": "Oslo"
+  },
+  {
+    "igmg_id": "254",
+    "name": "Stavanger",
+    "country": "NO",
+    "lat": 58.97005,
+    "lng": 5.73332,
+    "timezone": "Europe/Oslo",
+    "admin1": "Rogaland"
+  },
+  {
+    "igmg_id": "255",
+    "name": "Göteborg",
+    "country": "SE",
+    "lat": 57.70716,
+    "lng": 11.96679,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Västra Götalands län"
+  },
+  {
+    "igmg_id": "256",
+    "name": "Helsingborg",
+    "country": "SE",
+    "lat": 56.04673,
+    "lng": 12.69437,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Skåne län"
+  },
+  {
+    "igmg_id": "257",
+    "name": "Malmö",
+    "country": "SE",
+    "lat": 55.60587,
+    "lng": 13.00073,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Skåne län"
+  },
+  {
+    "igmg_id": "258",
+    "name": "Norsborg",
+    "country": "SE",
+    "lat": 59.71667,
+    "lng": 17.81667,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Uppsala län"
+  },
+  {
+    "igmg_id": "259",
+    "name": "Spånga",
+    "country": "SE",
+    "lat": 60.03333,
+    "lng": 18.03333,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Uppsala län"
+  },
+  {
+    "igmg_id": "260",
+    "name": "Stockholm",
+    "country": "SE",
+    "lat": 59.32938,
+    "lng": 18.06871,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Stockholm"
+  },
+  {
+    "igmg_id": "261",
+    "name": "New York",
+    "country": "US",
+    "lat": 40.86807,
+    "lng": -97.592,
+    "timezone": "America/Chicago",
+    "admin1": "Nebraska"
+  },
+  {
+    "igmg_id": "262",
+    "name": "Sandnes",
+    "country": "NO",
+    "lat": 58.85244,
+    "lng": 5.73521,
+    "timezone": "Europe/Oslo",
+    "admin1": "Rogaland"
+  },
+  {
+    "igmg_id": "263",
+    "name": "Trondheim",
+    "country": "NO",
+    "lat": 63.43049,
+    "lng": 10.39506,
+    "timezone": "Europe/Oslo",
+    "admin1": "Tröndelag"
+  },
+  {
+    "igmg_id": "264",
+    "name": "Montbéliard",
+    "country": "FR",
+    "lat": 47.50957,
+    "lng": 6.79823,
+    "timezone": "Europe/Paris",
+    "admin1": "Bourgogne"
+  },
+  {
+    "igmg_id": "265",
+    "name": "Grigny",
+    "country": "FR",
+    "lat": 48.65412,
+    "lng": 2.39343,
+    "timezone": "Europe/Paris",
+    "admin1": "Île-de-France"
+  },
+  {
+    "igmg_id": "266",
+    "name": "Nantes",
+    "country": "FR",
+    "lat": 47.21725,
+    "lng": -1.55336,
+    "timezone": "Europe/Paris",
+    "admin1": "Pays de la Loire"
+  },
+  {
+    "igmg_id": "267",
+    "name": "Périgueux",
+    "country": "FR",
+    "lat": 45.18691,
+    "lng": 0.71439,
+    "timezone": "Europe/Paris",
+    "admin1": "Neuguitanien"
+  },
+  {
+    "igmg_id": "268",
+    "name": "Margate",
+    "country": "EN",
+    "lat": 51.38132,
+    "lng": 1.38617,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "269",
+    "name": "Manchester",
+    "country": "EN",
+    "lat": 53.48095,
+    "lng": -2.23743,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "270",
+    "name": "Liverpool",
+    "country": "EN",
+    "lat": 53.41058,
+    "lng": -2.97794,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "271",
+    "name": "Colchester",
+    "country": "EN",
+    "lat": 51.88921,
+    "lng": 0.90421,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "272",
+    "name": "Southampton",
+    "country": "EN",
+    "lat": 50.90395,
+    "lng": -1.40428,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "273",
+    "name": "Edinburgh",
+    "country": "EN",
+    "lat": 55.95206,
+    "lng": -3.19648,
+    "timezone": "Europe/London",
+    "admin1": "Schottland"
+  },
+  {
+    "igmg_id": "274",
+    "name": "Dublin",
+    "country": "EN",
+    "lat": 52.28102,
+    "lng": 1.17081,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "275",
+    "name": "Leeds",
+    "country": "EN",
+    "lat": 53.79648,
+    "lng": -1.54785,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "276",
+    "name": "Cardiff",
+    "country": "EN",
+    "lat": 51.48,
+    "lng": -3.18,
+    "timezone": "Europe/London",
+    "admin1": "Wales"
+  },
+  {
+    "igmg_id": "277",
+    "name": "Newcastle",
+    "country": "EN",
+    "lat": 54.21804,
+    "lng": -5.88979,
+    "timezone": "Europe/London",
+    "admin1": "Nordirland"
+  },
+  {
+    "igmg_id": "278",
+    "name": "Romorantin",
+    "country": "FR",
+    "lat": 47.36667,
+    "lng": 1.75,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "279",
+    "name": "Egersund",
+    "country": "NO",
+    "lat": 58.45133,
+    "lng": 5.9997,
+    "timezone": "Europe/Oslo",
+    "admin1": "Rogaland"
+  },
+  {
+    "igmg_id": "280",
+    "name": "Fredrikstad",
+    "country": "NO",
+    "lat": 59.2181,
+    "lng": 10.9298,
+    "timezone": "Europe/Oslo",
+    "admin1": "Østfold"
+  },
+  {
+    "igmg_id": "281",
+    "name": "Askim",
+    "country": "NO",
+    "lat": 59.58326,
+    "lng": 11.16286,
+    "timezone": "Europe/Oslo",
+    "admin1": "Østfold"
+  },
+  {
+    "igmg_id": "282",
+    "name": "Dijon",
+    "country": "FR",
+    "lat": 47.31344,
+    "lng": 5.01391,
+    "timezone": "Europe/Paris",
+    "admin1": "Bourgogne"
+  },
+  {
+    "igmg_id": "283",
+    "name": "Sélestat",
+    "country": "FR",
+    "lat": 48.26195,
+    "lng": 7.4489,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "284",
+    "name": "Haguenau",
+    "country": "FR",
+    "lat": 48.81557,
+    "lng": 7.79051,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "285",
+    "name": "Saint-Dié",
+    "country": "FR",
+    "lat": 45.67596,
+    "lng": 3.48251,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "286",
+    "name": "Nancy",
+    "country": "FR",
+    "lat": 48.68439,
+    "lng": 6.18496,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "287",
+    "name": "Luneville",
+    "country": "FR",
+    "lat": 48.59273,
+    "lng": 6.49383,
+    "timezone": "Europe/Paris",
+    "admin1": "Grand Est"
+  },
+  {
+    "igmg_id": "288",
+    "name": "Vierzon",
+    "country": "FR",
+    "lat": 47.22186,
+    "lng": 2.0684,
+    "timezone": "Europe/Paris",
+    "admin1": "Centre-Val de Loire"
+  },
+  {
+    "igmg_id": "614",
+    "name": "Bergisch Gladbach",
+    "country": "DE",
+    "lat": 50.9856,
+    "lng": 7.13298,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "615",
+    "name": "Bayreuth",
+    "country": "DE",
+    "lat": 49.94782,
+    "lng": 11.57893,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "616",
+    "name": "Bamberg",
+    "country": "DE",
+    "lat": 49.89873,
+    "lng": 10.90067,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "617",
+    "name": "Schwandorf",
+    "country": "DE",
+    "lat": 49.32534,
+    "lng": 12.1098,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "618",
+    "name": "Ansbach",
+    "country": "DE",
+    "lat": 49.30481,
+    "lng": 10.5931,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "619",
+    "name": "Schrozberg",
+    "country": "DE",
+    "lat": 49.34528,
+    "lng": 9.97944,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "620",
+    "name": "Feuchtwangen",
+    "country": "DE",
+    "lat": 49.16287,
+    "lng": 10.3385,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "621",
+    "name": "Neustadt an der Aisch",
+    "country": "DE",
+    "lat": 49.57953,
+    "lng": 10.61126,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "622",
+    "name": "Neumarkt in der Oberpfalz",
+    "country": "DE",
+    "lat": 49.28028,
+    "lng": 11.46278,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "623",
+    "name": "Erlangen",
+    "country": "DE",
+    "lat": 49.59099,
+    "lng": 11.00783,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "1204",
+    "name": "Tønsberg",
+    "country": "NO",
+    "lat": 59.26754,
+    "lng": 10.40762,
+    "timezone": "Europe/Oslo",
+    "admin1": "Vestfold"
+  },
+  {
+    "igmg_id": "1205",
+    "name": "Bærum",
+    "country": "NO",
+    "lat": 59.94148,
+    "lng": 10.50273,
+    "timezone": "Europe/Oslo",
+    "admin1": "Akershus"
+  },
+  {
+    "igmg_id": "1206",
+    "name": "Køge",
+    "country": "DK",
+    "lat": 55.45802,
+    "lng": 12.18214,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "1218",
+    "name": "Adana",
+    "country": "TR",
+    "lat": 36.98615,
+    "lng": 35.32531,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Adana"
+  },
+  {
+    "igmg_id": "1219",
+    "name": "Adıyaman",
+    "country": "TR",
+    "lat": 37.76441,
+    "lng": 38.27629,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Adıyaman"
+  },
+  {
+    "igmg_id": "1220",
+    "name": "Afyonkarahisar",
+    "country": "TR",
+    "lat": 38.75667,
+    "lng": 30.54333,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Afyonkarahisar"
+  },
+  {
+    "igmg_id": "1221",
+    "name": "Ağrı",
+    "country": "TR",
+    "lat": 39.71467,
+    "lng": 43.04015,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Ağrı"
+  },
+  {
+    "igmg_id": "1222",
+    "name": "Aksaray",
+    "country": "TR",
+    "lat": 38.37255,
+    "lng": 34.02537,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Aksaray"
+  },
+  {
+    "igmg_id": "1223",
+    "name": "Amasya",
+    "country": "TR",
+    "lat": 40.65333,
+    "lng": 35.83306,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Amasya"
+  },
+  {
+    "igmg_id": "1224",
+    "name": "Ankara",
+    "country": "TR",
+    "lat": 39.91987,
+    "lng": 32.85427,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Ankara"
+  },
+  {
+    "igmg_id": "1225",
+    "name": "Antalya",
+    "country": "TR",
+    "lat": 36.90812,
+    "lng": 30.69556,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Antalya"
+  },
+  {
+    "igmg_id": "1226",
+    "name": "Ardahan",
+    "country": "TR",
+    "lat": 41.10871,
+    "lng": 42.70222,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Ardahan"
+  },
+  {
+    "igmg_id": "1227",
+    "name": "Artvin",
+    "country": "TR",
+    "lat": 41.18161,
+    "lng": 41.82172,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Artvin"
+  },
+  {
+    "igmg_id": "1228",
+    "name": "Aydın",
+    "country": "TR",
+    "lat": 37.84501,
+    "lng": 27.83963,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Aydın"
+  },
+  {
+    "igmg_id": "1229",
+    "name": "Balıkesir",
+    "country": "TR",
+    "lat": 39.64917,
+    "lng": 27.88611,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Balıkesir"
+  },
+  {
+    "igmg_id": "1230",
+    "name": "Bartın",
+    "country": "TR",
+    "lat": 41.63583,
+    "lng": 32.3375,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Bartın"
+  },
+  {
+    "igmg_id": "1231",
+    "name": "Batman",
+    "country": "TR",
+    "lat": 37.88738,
+    "lng": 41.13221,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Batman"
+  },
+  {
+    "igmg_id": "1232",
+    "name": "Bayburt",
+    "country": "TR",
+    "lat": 40.25631,
+    "lng": 40.22289,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Bayburt"
+  },
+  {
+    "igmg_id": "1233",
+    "name": "Bilecik",
+    "country": "TR",
+    "lat": 40.14192,
+    "lng": 29.97932,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Bilecik"
+  },
+  {
+    "igmg_id": "1234",
+    "name": "Bingöl",
+    "country": "TR",
+    "lat": 38.88472,
+    "lng": 40.49389,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Bingöl"
+  },
+  {
+    "igmg_id": "1235",
+    "name": "Bitlis",
+    "country": "TR",
+    "lat": 38.40115,
+    "lng": 42.10784,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Bitlis"
+  },
+  {
+    "igmg_id": "1236",
+    "name": "Bolu",
+    "country": "TR",
+    "lat": 40.73583,
+    "lng": 31.60611,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Bolu"
+  },
+  {
+    "igmg_id": "1237",
+    "name": "Burdur",
+    "country": "TR",
+    "lat": 37.72028,
+    "lng": 30.29083,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Burdur"
+  },
+  {
+    "igmg_id": "1238",
+    "name": "Bursa",
+    "country": "TR",
+    "lat": 40.19559,
+    "lng": 29.06013,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Bursa"
+  },
+  {
+    "igmg_id": "1239",
+    "name": "Çanakkale",
+    "country": "TR",
+    "lat": 40.15552,
+    "lng": 26.41271,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Çanakkale"
+  },
+  {
+    "igmg_id": "1240",
+    "name": "Çankırı",
+    "country": "TR",
+    "lat": 40.59995,
+    "lng": 33.6153,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Çankırı"
+  },
+  {
+    "igmg_id": "1241",
+    "name": "Çorum",
+    "country": "TR",
+    "lat": 40.54889,
+    "lng": 34.95333,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Çorum"
+  },
+  {
+    "igmg_id": "1242",
+    "name": "Denizli",
+    "country": "TR",
+    "lat": 37.77417,
+    "lng": 29.0875,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Denizli"
+  },
+  {
+    "igmg_id": "1243",
+    "name": "Diyarbakır",
+    "country": "TR",
+    "lat": 37.91363,
+    "lng": 40.21721,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Diyarbakır"
+  },
+  {
+    "igmg_id": "1244",
+    "name": "Düzce",
+    "country": "TR",
+    "lat": 40.83889,
+    "lng": 31.16389,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Düzce"
+  },
+  {
+    "igmg_id": "1245",
+    "name": "Edirne",
+    "country": "TR",
+    "lat": 41.67719,
+    "lng": 26.55597,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Edirne"
+  },
+  {
+    "igmg_id": "1246",
+    "name": "Elazığ",
+    "country": "TR",
+    "lat": 38.67431,
+    "lng": 39.22321,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Elazığ"
+  },
+  {
+    "igmg_id": "1247",
+    "name": "Erzincan",
+    "country": "TR",
+    "lat": 39.73919,
+    "lng": 39.49015,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Erzincan"
+  },
+  {
+    "igmg_id": "1248",
+    "name": "Erzurum",
+    "country": "TR",
+    "lat": 39.90861,
+    "lng": 41.27694,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Erzurum"
+  },
+  {
+    "igmg_id": "1249",
+    "name": "Eskişehir",
+    "country": "TR",
+    "lat": 39.77667,
+    "lng": 30.52056,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Eskişehir"
+  },
+  {
+    "igmg_id": "1250",
+    "name": "Gaziantep",
+    "country": "TR",
+    "lat": 37.05944,
+    "lng": 37.3825,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Gaziantep"
+  },
+  {
+    "igmg_id": "1251",
+    "name": "Giresun",
+    "country": "TR",
+    "lat": 40.91698,
+    "lng": 38.38741,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Giresun"
+  },
+  {
+    "igmg_id": "1252",
+    "name": "Gümüşhane",
+    "country": "TR",
+    "lat": 40.46001,
+    "lng": 39.47176,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Gümüşhane"
+  },
+  {
+    "igmg_id": "1253",
+    "name": "Hakkari",
+    "country": "TR",
+    "lat": 37.57444,
+    "lng": 43.74083,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Hakkâri"
+  },
+  {
+    "igmg_id": "1254",
+    "name": "Hatay",
+    "country": "TR",
+    "lat": 36.20655,
+    "lng": 36.15722,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Hatay"
+  },
+  {
+    "igmg_id": "1255",
+    "name": "Iğdır",
+    "country": "TR",
+    "lat": 39.92371,
+    "lng": 44.045,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Iğdır"
+  },
+  {
+    "igmg_id": "1256",
+    "name": "Isparta",
+    "country": "TR",
+    "lat": 37.76444,
+    "lng": 30.55222,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Isparta"
+  },
+  {
+    "igmg_id": "1257",
+    "name": "İstanbul",
+    "country": "TR",
+    "lat": 41.01384,
+    "lng": 28.94966,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Istanbul"
+  },
+  {
+    "igmg_id": "1258",
+    "name": "İzmir",
+    "country": "TR",
+    "lat": 38.41273,
+    "lng": 27.13838,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Izmir"
+  },
+  {
+    "igmg_id": "1259",
+    "name": "Kahramanmaraş",
+    "country": "TR",
+    "lat": 37.5847,
+    "lng": 36.92641,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kahramanmaraş"
+  },
+  {
+    "igmg_id": "1260",
+    "name": "Karabük",
+    "country": "TR",
+    "lat": 41.20488,
+    "lng": 32.62768,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Karabük"
+  },
+  {
+    "igmg_id": "1261",
+    "name": "Karaman",
+    "country": "TR",
+    "lat": 37.18111,
+    "lng": 33.215,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Karaman"
+  },
+  {
+    "igmg_id": "1262",
+    "name": "Kars",
+    "country": "TR",
+    "lat": 40.59825,
+    "lng": 43.08548,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Provinz Kars"
+  },
+  {
+    "igmg_id": "1263",
+    "name": "Kastamonu",
+    "country": "TR",
+    "lat": 41.37805,
+    "lng": 33.77528,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kastamonu"
+  },
+  {
+    "igmg_id": "1264",
+    "name": "Kayseri",
+    "country": "TR",
+    "lat": 38.73222,
+    "lng": 35.48528,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kayseri"
+  },
+  {
+    "igmg_id": "1265",
+    "name": "Kilis",
+    "country": "TR",
+    "lat": 36.71611,
+    "lng": 37.115,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kilis"
+  },
+  {
+    "igmg_id": "1266",
+    "name": "Kırıkkale",
+    "country": "TR",
+    "lat": 39.84528,
+    "lng": 33.50639,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kırıkkale"
+  },
+  {
+    "igmg_id": "1267",
+    "name": "Kırklareli",
+    "country": "TR",
+    "lat": 41.73508,
+    "lng": 27.22521,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kırklareli"
+  },
+  {
+    "igmg_id": "1268",
+    "name": "Kırşehir",
+    "country": "TR",
+    "lat": 39.14583,
+    "lng": 34.16389,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kırşehir"
+  },
+  {
+    "igmg_id": "1269",
+    "name": "Kocaeli",
+    "country": "TR",
+    "lat": 39.62497,
+    "lng": 27.51145,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Balıkesir"
+  },
+  {
+    "igmg_id": "1270",
+    "name": "Konya",
+    "country": "TR",
+    "lat": 37.87135,
+    "lng": 32.48464,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Konya"
+  },
+  {
+    "igmg_id": "1271",
+    "name": "Kütahya",
+    "country": "TR",
+    "lat": 39.42417,
+    "lng": 29.98333,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Kütahya"
+  },
+  {
+    "igmg_id": "1272",
+    "name": "Malatya",
+    "country": "TR",
+    "lat": 38.35018,
+    "lng": 38.31667,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Malatya"
+  },
+  {
+    "igmg_id": "1273",
+    "name": "Manisa",
+    "country": "TR",
+    "lat": 38.61202,
+    "lng": 27.42647,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Manisa"
+  },
+  {
+    "igmg_id": "1274",
+    "name": "Mardin",
+    "country": "TR",
+    "lat": 37.31309,
+    "lng": 40.74357,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Mardin"
+  },
+  {
+    "igmg_id": "1275",
+    "name": "Mersin",
+    "country": "TR",
+    "lat": 36.81196,
+    "lng": 34.63886,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Mersin"
+  },
+  {
+    "igmg_id": "1276",
+    "name": "Muğla",
+    "country": "TR",
+    "lat": 37.21807,
+    "lng": 28.3665,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Muğla"
+  },
+  {
+    "igmg_id": "1277",
+    "name": "Muş",
+    "country": "TR",
+    "lat": 38.73163,
+    "lng": 41.48482,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Muş"
+  },
+  {
+    "igmg_id": "1278",
+    "name": "Nevşehir",
+    "country": "TR",
+    "lat": 38.625,
+    "lng": 34.71222,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Nevşehir"
+  },
+  {
+    "igmg_id": "1279",
+    "name": "Niğde",
+    "country": "TR",
+    "lat": 37.96583,
+    "lng": 34.67935,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Niğde"
+  },
+  {
+    "igmg_id": "1280",
+    "name": "Ordu",
+    "country": "TR",
+    "lat": 40.97782,
+    "lng": 37.89047,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Ordu"
+  },
+  {
+    "igmg_id": "1281",
+    "name": "Osmaniye",
+    "country": "TR",
+    "lat": 37.07417,
+    "lng": 36.24778,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Osmaniye"
+  },
+  {
+    "igmg_id": "1282",
+    "name": "Rize",
+    "country": "TR",
+    "lat": 41.02083,
+    "lng": 40.52194,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Rize"
+  },
+  {
+    "igmg_id": "1283",
+    "name": "Sakarya",
+    "country": "TR",
+    "lat": 39.50333,
+    "lng": 32.07583,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Ankara"
+  },
+  {
+    "igmg_id": "1284",
+    "name": "Samsun",
+    "country": "TR",
+    "lat": 41.27976,
+    "lng": 36.3361,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Samsun"
+  },
+  {
+    "igmg_id": "1285",
+    "name": "Şanlıurfa",
+    "country": "TR",
+    "lat": 37.16708,
+    "lng": 38.79392,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Şanlıurfa"
+  },
+  {
+    "igmg_id": "1286",
+    "name": "Siirt",
+    "country": "TR",
+    "lat": 37.9293,
+    "lng": 41.94134,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Siirt"
+  },
+  {
+    "igmg_id": "1287",
+    "name": "Sinop",
+    "country": "TR",
+    "lat": 42.02683,
+    "lng": 35.16253,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Sinop"
+  },
+  {
+    "igmg_id": "1288",
+    "name": "Şırnak",
+    "country": "TR",
+    "lat": 37.51393,
+    "lng": 42.45432,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Şırnak"
+  },
+  {
+    "igmg_id": "1289",
+    "name": "Sivas",
+    "country": "TR",
+    "lat": 39.74833,
+    "lng": 37.01611,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Sivas"
+  },
+  {
+    "igmg_id": "1290",
+    "name": "Tekirdağ",
+    "country": "TR",
+    "lat": 40.9781,
+    "lng": 27.51101,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Tekirdağ"
+  },
+  {
+    "igmg_id": "1291",
+    "name": "Tokat",
+    "country": "TR",
+    "lat": 40.31389,
+    "lng": 36.55444,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Tokat"
+  },
+  {
+    "igmg_id": "1292",
+    "name": "Trabzon",
+    "country": "TR",
+    "lat": 41.005,
+    "lng": 39.72694,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Trabzon"
+  },
+  {
+    "igmg_id": "1293",
+    "name": "Tunceli",
+    "country": "TR",
+    "lat": 39.09921,
+    "lng": 39.54351,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Tunceli"
+  },
+  {
+    "igmg_id": "1294",
+    "name": "Uşak",
+    "country": "TR",
+    "lat": 38.67351,
+    "lng": 29.4058,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Uşak"
+  },
+  {
+    "igmg_id": "1295",
+    "name": "Van",
+    "country": "TR",
+    "lat": 38.49457,
+    "lng": 43.38323,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Van"
+  },
+  {
+    "igmg_id": "1296",
+    "name": "Yalova",
+    "country": "TR",
+    "lat": 40.65501,
+    "lng": 29.27693,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Yalova"
+  },
+  {
+    "igmg_id": "1297",
+    "name": "Yozgat",
+    "country": "TR",
+    "lat": 39.82,
+    "lng": 34.80444,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Yozgat"
+  },
+  {
+    "igmg_id": "1298",
+    "name": "Zonguldak",
+    "country": "TR",
+    "lat": 41.45139,
+    "lng": 31.79305,
+    "timezone": "Europe/Istanbul",
+    "admin1": "Zonguldak"
+  },
+  {
+    "igmg_id": "1433",
+    "name": "Tokio",
+    "country": "JP",
+    "lat": 35.6895,
+    "lng": 139.69171,
+    "timezone": "Asia/Tokyo",
+    "admin1": "Tokio"
+  },
+  {
+    "igmg_id": "1434",
+    "name": "Wellington",
+    "country": "NZ",
+    "lat": -41.28664,
+    "lng": 174.77557,
+    "timezone": "Pacific/Auckland",
+    "admin1": "Wellington"
+  },
+  {
+    "igmg_id": "1435",
+    "name": "Alice Springs",
+    "country": "AU",
+    "lat": -23.69748,
+    "lng": 133.88362,
+    "timezone": "Australia/Darwin",
+    "admin1": "Nordterritorium"
+  },
+  {
+    "igmg_id": "1436",
+    "name": "Wollongong",
+    "country": "AU",
+    "lat": -34.424,
+    "lng": 150.89345,
+    "timezone": "Australia/Sydney",
+    "admin1": "New South Wales"
+  },
+  {
+    "igmg_id": "1438",
+    "name": "Singapur",
+    "country": "SG",
+    "lat": 1.28967,
+    "lng": 103.85007,
+    "timezone": "Asia/Singapore"
+  },
+  {
+    "igmg_id": "1439",
+    "name": "Shepparton",
+    "country": "AU",
+    "lat": -36.38047,
+    "lng": 145.39867,
+    "timezone": "Australia/Melbourne",
+    "admin1": "Victoria"
+  },
+  {
+    "igmg_id": "1440",
+    "name": "Renmark",
+    "country": "AU",
+    "lat": -34.17702,
+    "lng": 140.74696,
+    "timezone": "Australia/Adelaide",
+    "admin1": "Südaustralien"
+  },
+  {
+    "igmg_id": "1441",
+    "name": "Perth",
+    "country": "AU",
+    "lat": -31.95224,
+    "lng": 115.8614,
+    "timezone": "Australia/Perth",
+    "admin1": "Westaustralien"
+  },
+  {
+    "igmg_id": "1442",
+    "name": "Brisbane",
+    "country": "AU",
+    "lat": -27.46794,
+    "lng": 153.02809,
+    "timezone": "Australia/Brisbane",
+    "admin1": "Queensland"
+  },
+  {
+    "igmg_id": "1444",
+    "name": "Darwin",
+    "country": "AU",
+    "lat": -12.46113,
+    "lng": 130.84184,
+    "timezone": "Australia/Darwin",
+    "admin1": "Nordterritorium"
+  },
+  {
+    "igmg_id": "1445",
+    "name": "Geelong",
+    "country": "AU",
+    "lat": -38.14711,
+    "lng": 144.36069,
+    "timezone": "Australia/Melbourne",
+    "admin1": "Victoria"
+  },
+  {
+    "igmg_id": "1446",
+    "name": "Griffith",
+    "country": "AU",
+    "lat": -34.28853,
+    "lng": 146.05093,
+    "timezone": "Australia/Sydney",
+    "admin1": "New South Wales"
+  },
+  {
+    "igmg_id": "1447",
+    "name": "Hobart",
+    "country": "AU",
+    "lat": -42.87936,
+    "lng": 147.3294,
+    "timezone": "Australia/Hobart",
+    "admin1": "Tasmanien"
+  },
+  {
+    "igmg_id": "1448",
+    "name": "Kalgoorlie",
+    "country": "AU",
+    "lat": -30.74614,
+    "lng": 121.4742,
+    "timezone": "Australia/Perth",
+    "admin1": "Westaustralien"
+  },
+  {
+    "igmg_id": "1449",
+    "name": "Mildura",
+    "country": "AU",
+    "lat": -34.18551,
+    "lng": 142.1625,
+    "timezone": "Australia/Melbourne",
+    "admin1": "Victoria"
+  },
+  {
+    "igmg_id": "1450",
+    "name": "Nagoya",
+    "country": "JP",
+    "lat": 35.18147,
+    "lng": 136.9064,
+    "timezone": "Asia/Tokyo",
+    "admin1": "Präfektur Aichi"
+  },
+  {
+    "igmg_id": "1451",
+    "name": "Osaka",
+    "country": "JP",
+    "lat": 34.69379,
+    "lng": 135.50107,
+    "timezone": "Asia/Tokyo",
+    "admin1": "Präfektur Osaka"
+  },
+  {
+    "igmg_id": "1453",
+    "name": "Kuala Lumpur",
+    "country": "MY",
+    "lat": 3.1412,
+    "lng": 101.68653,
+    "timezone": "Asia/Kuala_Lumpur",
+    "admin1": "Kuala Lumpur"
+  },
+  {
+    "igmg_id": "1454",
+    "name": "Bundaberg",
+    "country": "AU",
+    "lat": -24.86621,
+    "lng": 152.3479,
+    "timezone": "Australia/Brisbane",
+    "admin1": "Queensland"
+  },
+  {
+    "igmg_id": "1455",
+    "name": "Newcastle",
+    "country": "AU",
+    "lat": -32.92953,
+    "lng": 151.7801,
+    "timezone": "Australia/Sydney",
+    "admin1": "New South Wales"
+  },
+  {
+    "igmg_id": "1456",
+    "name": "Overath",
+    "country": "DE",
+    "lat": 50.93275,
+    "lng": 7.28389,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "1458",
+    "name": "Glarus",
+    "country": "CH",
+    "lat": 47.04057,
+    "lng": 9.06804,
+    "timezone": "Europe/Zurich",
+    "admin1": "Kanton Glarus"
+  },
+  {
+    "igmg_id": "1531",
+    "name": "Haugesund",
+    "country": "NO",
+    "lat": 59.41378,
+    "lng": 5.268,
+    "timezone": "Europe/Oslo",
+    "admin1": "Rogaland"
+  },
+  {
+    "igmg_id": "1532",
+    "name": "Reading",
+    "country": "EN",
+    "lat": 51.45625,
+    "lng": -0.97113,
+    "timezone": "Europe/London",
+    "admin1": "England"
+  },
+  {
+    "igmg_id": "1533",
+    "name": "Rothenburg ob der Tauber",
+    "country": "DE",
+    "lat": 49.37885,
+    "lng": 10.18711,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "1534",
+    "name": "Schorndorf",
+    "country": "DE",
+    "lat": 49.16041,
+    "lng": 12.59316,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "1535",
+    "name": "Franeker",
+    "country": "NL",
+    "lat": 53.18546,
+    "lng": 5.54123,
+    "timezone": "Europe/Amsterdam",
+    "admin1": "Friesland"
+  },
+  {
+    "igmg_id": "20002",
+    "name": "Aalen",
+    "country": "DE",
+    "lat": 48.83777,
+    "lng": 10.0933,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20003",
+    "name": "Achern",
+    "country": "DE",
+    "lat": 48.63115,
+    "lng": 8.07607,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20004",
+    "name": "Achim",
+    "country": "DE",
+    "lat": 53.01416,
+    "lng": 9.0263,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20005",
+    "name": "Aichach",
+    "country": "DE",
+    "lat": 48.45755,
+    "lng": 11.13413,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20006",
+    "name": "Aldingen",
+    "country": "DE",
+    "lat": 48.1,
+    "lng": 8.7,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20007",
+    "name": "Alzenau",
+    "country": "DE",
+    "lat": 50.0888,
+    "lng": 9.06455,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20008",
+    "name": "Aschaffenburg",
+    "country": "DE",
+    "lat": 49.97704,
+    "lng": 9.15214,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20009",
+    "name": "Augsburg",
+    "country": "DE",
+    "lat": 48.37154,
+    "lng": 10.89851,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20010",
+    "name": "Bad Salzuflen",
+    "country": "DE",
+    "lat": 52.0862,
+    "lng": 8.74434,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20011",
+    "name": "Bad Tölz",
+    "country": "DE",
+    "lat": 47.76111,
+    "lng": 11.5589,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20012",
+    "name": "Baesweiler",
+    "country": "DE",
+    "lat": 50.90964,
+    "lng": 6.18874,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20013",
+    "name": "Balingen",
+    "country": "DE",
+    "lat": 48.27525,
+    "lng": 8.85464,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20014",
+    "name": "Bergkamen",
+    "country": "DE",
+    "lat": 51.61633,
+    "lng": 7.64451,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20015",
+    "name": "Berlin",
+    "country": "DE",
+    "lat": 52.52437,
+    "lng": 13.41053,
+    "timezone": "Europe/Berlin",
+    "admin1": "Land Berlin"
+  },
+  {
+    "igmg_id": "20016",
+    "name": "Biberach",
+    "country": "DE",
+    "lat": 48.09345,
+    "lng": 9.79053,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20017",
+    "name": "Bielefeld",
+    "country": "DE",
+    "lat": 52.03333,
+    "lng": 8.53333,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20019",
+    "name": "Blaubeuren",
+    "country": "DE",
+    "lat": 48.41215,
+    "lng": 9.78427,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20020",
+    "name": "Blumberg",
+    "country": "DE",
+    "lat": 47.84058,
+    "lng": 8.53329,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20021",
+    "name": "Bobingen",
+    "country": "DE",
+    "lat": 49.28444,
+    "lng": 8.23667,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20022",
+    "name": "Bochum",
+    "country": "DE",
+    "lat": 51.48165,
+    "lng": 7.21648,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20023",
+    "name": "Bönen",
+    "country": "DE",
+    "lat": 51.6,
+    "lng": 7.76667,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20024",
+    "name": "Bonn",
+    "country": "DE",
+    "lat": 50.73438,
+    "lng": 7.09549,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20025",
+    "name": "Borken",
+    "country": "DE",
+    "lat": 51.84382,
+    "lng": 6.85774,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20026",
+    "name": "Bottrop",
+    "country": "DE",
+    "lat": 51.52392,
+    "lng": 6.9285,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20027",
+    "name": "Braunschweig",
+    "country": "DE",
+    "lat": 52.26594,
+    "lng": 10.52673,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20028",
+    "name": "Bremen",
+    "country": "DE",
+    "lat": 53.07582,
+    "lng": 8.80717,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie Hansestadt Bremen"
+  },
+  {
+    "igmg_id": "20029",
+    "name": "Bremerhaven",
+    "country": "DE",
+    "lat": 53.55357,
+    "lng": 8.57553,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie Hansestadt Bremen"
+  },
+  {
+    "igmg_id": "20030",
+    "name": "Bretten",
+    "country": "DE",
+    "lat": 49.03685,
+    "lng": 8.70745,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20031",
+    "name": "Bruchsal",
+    "country": "DE",
+    "lat": 49.12426,
+    "lng": 8.59804,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20032",
+    "name": "Bruckmühl",
+    "country": "DE",
+    "lat": 47.87859,
+    "lng": 11.91098,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20033",
+    "name": "Brühl",
+    "country": "DE",
+    "lat": 50.82928,
+    "lng": 6.90499,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20034",
+    "name": "Burscheid",
+    "country": "DE",
+    "lat": 51.08468,
+    "lng": 7.11393,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20035",
+    "name": "Buxtehude",
+    "country": "DE",
+    "lat": 53.46994,
+    "lng": 9.68968,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20036",
+    "name": "Castrop-Rauxel",
+    "country": "DE",
+    "lat": 51.55657,
+    "lng": 7.31155,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20037",
+    "name": "Dannstadt",
+    "country": "DE",
+    "lat": 49.425,
+    "lng": 8.3175,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20038",
+    "name": "Darmstadt",
+    "country": "DE",
+    "lat": 49.87167,
+    "lng": 8.65027,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20039",
+    "name": "Deggendorf",
+    "country": "DE",
+    "lat": 48.84085,
+    "lng": 12.96068,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20040",
+    "name": "Delmenhorst",
+    "country": "DE",
+    "lat": 53.0511,
+    "lng": 8.63091,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20041",
+    "name": "Detmold",
+    "country": "DE",
+    "lat": 51.93855,
+    "lng": 8.87318,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20042",
+    "name": "Dinslaken",
+    "country": "DE",
+    "lat": 51.56227,
+    "lng": 6.7434,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20043",
+    "name": "Dormagen",
+    "country": "DE",
+    "lat": 51.09683,
+    "lng": 6.83167,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20044",
+    "name": "Dortmund",
+    "country": "DE",
+    "lat": 51.51494,
+    "lng": 7.466,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20045",
+    "name": "Duisburg",
+    "country": "DE",
+    "lat": 51.43247,
+    "lng": 6.76516,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20046",
+    "name": "Düren",
+    "country": "DE",
+    "lat": 50.80434,
+    "lng": 6.49299,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20047",
+    "name": "Düsseldorf",
+    "country": "DE",
+    "lat": 51.22319,
+    "lng": 6.77927,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20049",
+    "name": "Ebingen",
+    "country": "DE",
+    "lat": 48.2114,
+    "lng": 9.01943,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20051",
+    "name": "Eching",
+    "country": "DE",
+    "lat": 48.3,
+    "lng": 11.61667,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20052",
+    "name": "Eitorf",
+    "country": "DE",
+    "lat": 50.76667,
+    "lng": 7.45,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20053",
+    "name": "Elsenfeld",
+    "country": "DE",
+    "lat": 49.84289,
+    "lng": 9.16355,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20054",
+    "name": "Enzweihingen",
+    "country": "DE",
+    "lat": 48.91696,
+    "lng": 8.98338,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20055",
+    "name": "Erding",
+    "country": "DE",
+    "lat": 48.30603,
+    "lng": 11.90686,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20056",
+    "name": "Espelkamp",
+    "country": "DE",
+    "lat": 52.38251,
+    "lng": 8.62127,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20057",
+    "name": "Essen",
+    "country": "DE",
+    "lat": 51.45657,
+    "lng": 7.01228,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20058",
+    "name": "Esslingen",
+    "country": "DE",
+    "lat": 48.73961,
+    "lng": 9.30473,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20059",
+    "name": "Finnentrop",
+    "country": "DE",
+    "lat": 51.1736,
+    "lng": 7.9664,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20060",
+    "name": "Forchheim",
+    "country": "DE",
+    "lat": 49.71754,
+    "lng": 11.05877,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20061",
+    "name": "Frankenthal",
+    "country": "DE",
+    "lat": 49.53414,
+    "lng": 8.35357,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20062",
+    "name": "Frankfurt",
+    "country": "DE",
+    "lat": 50.11552,
+    "lng": 8.68417,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20064",
+    "name": "Freiburg",
+    "country": "DE",
+    "lat": 47.9959,
+    "lng": 7.85222,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20065",
+    "name": "Freising",
+    "country": "DE",
+    "lat": 48.40351,
+    "lng": 11.74876,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20066",
+    "name": "Friedrichshafen",
+    "country": "DE",
+    "lat": 47.65689,
+    "lng": 9.47554,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20067",
+    "name": "Fürstenfeldbrück",
+    "country": "DE",
+    "lat": 48.17904,
+    "lng": 11.2547,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20068",
+    "name": "Garbsen",
+    "country": "DE",
+    "lat": 52.41371,
+    "lng": 9.5899,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20069",
+    "name": "Garmisch-Partenkirchen",
+    "country": "DE",
+    "lat": 47.49209,
+    "lng": 11.09576,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20070",
+    "name": "Gelnhausen",
+    "country": "DE",
+    "lat": 50.20164,
+    "lng": 9.18742,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20071",
+    "name": "Gelsenkirchen",
+    "country": "DE",
+    "lat": 51.50508,
+    "lng": 7.09654,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20073",
+    "name": "Germersheim",
+    "country": "DE",
+    "lat": 49.2144,
+    "lng": 8.36687,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20074",
+    "name": "Giessen",
+    "country": "DE",
+    "lat": 50.56667,
+    "lng": 8.86667,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20075",
+    "name": "Gladbeck",
+    "country": "DE",
+    "lat": 51.57077,
+    "lng": 6.98593,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20076",
+    "name": "Glinde",
+    "country": "DE",
+    "lat": 53.54046,
+    "lng": 10.21301,
+    "timezone": "Europe/Berlin",
+    "admin1": "Schleswig-Holstein"
+  },
+  {
+    "igmg_id": "20077",
+    "name": "Goslar",
+    "country": "DE",
+    "lat": 51.90425,
+    "lng": 10.42766,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20079",
+    "name": "Gummersbach",
+    "country": "DE",
+    "lat": 51.02608,
+    "lng": 7.56473,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20080",
+    "name": "Günzburg",
+    "country": "DE",
+    "lat": 48.45599,
+    "lng": 10.27695,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20081",
+    "name": "Hagen",
+    "country": "DE",
+    "lat": 51.36081,
+    "lng": 7.47168,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20082",
+    "name": "Haiger",
+    "country": "DE",
+    "lat": 50.74162,
+    "lng": 8.20778,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20083",
+    "name": "Hamburg",
+    "country": "DE",
+    "lat": 53.55073,
+    "lng": 9.99302,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie und Hansestadt Hamburg"
+  },
+  {
+    "igmg_id": "20084",
+    "name": "Hameln",
+    "country": "DE",
+    "lat": 52.10397,
+    "lng": 9.35623,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20085",
+    "name": "Hamm",
+    "country": "DE",
+    "lat": 51.68033,
+    "lng": 7.82089,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20086",
+    "name": "Hanau",
+    "country": "DE",
+    "lat": 50.13423,
+    "lng": 8.91418,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20087",
+    "name": "Hannover",
+    "country": "DE",
+    "lat": 52.37052,
+    "lng": 9.73322,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20088",
+    "name": "Hattersheim",
+    "country": "DE",
+    "lat": 50.06906,
+    "lng": 8.48632,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20089",
+    "name": "Hausham",
+    "country": "DE",
+    "lat": 47.7466,
+    "lng": 11.84069,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20090",
+    "name": "Heidenheim",
+    "country": "DE",
+    "lat": 49.01719,
+    "lng": 10.74347,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20091",
+    "name": "Heilbronn",
+    "country": "DE",
+    "lat": 49.13995,
+    "lng": 9.22054,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20092",
+    "name": "Heilsbronn",
+    "country": "DE",
+    "lat": 49.33572,
+    "lng": 10.78741,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20093",
+    "name": "Herford",
+    "country": "DE",
+    "lat": 52.11457,
+    "lng": 8.67343,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20094",
+    "name": "Herne",
+    "country": "DE",
+    "lat": 51.5388,
+    "lng": 7.22572,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20095",
+    "name": "Herrenberg",
+    "country": "DE",
+    "lat": 48.59523,
+    "lng": 8.86648,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20096",
+    "name": "Hersbruck",
+    "country": "DE",
+    "lat": 49.51083,
+    "lng": 11.43151,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20097",
+    "name": "Herzberg",
+    "country": "DE",
+    "lat": 51.68692,
+    "lng": 13.22016,
+    "timezone": "Europe/Berlin",
+    "admin1": "Brandenburg"
+  },
+  {
+    "igmg_id": "20098",
+    "name": "Hildesheim",
+    "country": "DE",
+    "lat": 52.15077,
+    "lng": 9.95112,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20099",
+    "name": "Hof",
+    "country": "DE",
+    "lat": 50.31297,
+    "lng": 11.91261,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20100",
+    "name": "Hüfingen",
+    "country": "DE",
+    "lat": 47.92543,
+    "lng": 8.48831,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20101",
+    "name": "Ibbenbüren",
+    "country": "DE",
+    "lat": 52.27964,
+    "lng": 7.71457,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20102",
+    "name": "Illertissen",
+    "country": "DE",
+    "lat": 48.22336,
+    "lng": 10.10347,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20103",
+    "name": "Ingolstadt",
+    "country": "DE",
+    "lat": 48.76508,
+    "lng": 11.42372,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20104",
+    "name": "Iserlohn",
+    "country": "DE",
+    "lat": 51.37547,
+    "lng": 7.70281,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20105",
+    "name": "Kamen",
+    "country": "DE",
+    "lat": 51.59231,
+    "lng": 7.6638,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20106",
+    "name": "Karlsruhe",
+    "country": "DE",
+    "lat": 49.00937,
+    "lng": 8.40444,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20107",
+    "name": "Kassel",
+    "country": "DE",
+    "lat": 51.31667,
+    "lng": 9.5,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20108",
+    "name": "Kelsterbach",
+    "country": "DE",
+    "lat": 50.06135,
+    "lng": 8.52916,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20109",
+    "name": "Kempten",
+    "country": "DE",
+    "lat": 47.72674,
+    "lng": 10.31389,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20110",
+    "name": "Kerpen",
+    "country": "DE",
+    "lat": 50.86991,
+    "lng": 6.69691,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20111",
+    "name": "Kiel",
+    "country": "DE",
+    "lat": 54.32133,
+    "lng": 10.13489,
+    "timezone": "Europe/Berlin",
+    "admin1": "Schleswig-Holstein"
+  },
+  {
+    "igmg_id": "20112",
+    "name": "Köln",
+    "country": "DE",
+    "lat": 50.93333,
+    "lng": 6.95,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20113",
+    "name": "Krefeld",
+    "country": "DE",
+    "lat": 51.33645,
+    "lng": 6.55381,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20114",
+    "name": "Krumbach",
+    "country": "DE",
+    "lat": 48.24182,
+    "lng": 10.3632,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20115",
+    "name": "Laatzen",
+    "country": "DE",
+    "lat": 52.31506,
+    "lng": 9.79739,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20116",
+    "name": "Lage",
+    "country": "DE",
+    "lat": 51.99223,
+    "lng": 8.79301,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20117",
+    "name": "Landshut",
+    "country": "DE",
+    "lat": 48.52961,
+    "lng": 12.16179,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20118",
+    "name": "Lauchringen",
+    "country": "DE",
+    "lat": 47.62699,
+    "lng": 8.31442,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20119",
+    "name": "Lauffen",
+    "country": "DE",
+    "lat": 49.0734,
+    "lng": 9.14567,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20120",
+    "name": "Lehrberg",
+    "country": "DE",
+    "lat": 49.34568,
+    "lng": 10.51101,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20121",
+    "name": "Leipzig",
+    "country": "DE",
+    "lat": 51.33962,
+    "lng": 12.37129,
+    "timezone": "Europe/Berlin",
+    "admin1": "Sachsen"
+  },
+  {
+    "igmg_id": "20122",
+    "name": "Lemgo",
+    "country": "DE",
+    "lat": 52.02786,
+    "lng": 8.89901,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20123",
+    "name": "Lengerich",
+    "country": "DE",
+    "lat": 52.55381,
+    "lng": 7.53164,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20124",
+    "name": "Leverkusen",
+    "country": "DE",
+    "lat": 51.0303,
+    "lng": 6.98432,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20125",
+    "name": "Limburg",
+    "country": "DE",
+    "lat": 50.3836,
+    "lng": 8.0503,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20127",
+    "name": "Lohne",
+    "country": "DE",
+    "lat": 52.18848,
+    "lng": 8.6922,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20128",
+    "name": "Löhne",
+    "country": "DE",
+    "lat": 52.18848,
+    "lng": 8.6922,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20129",
+    "name": "Lollar",
+    "country": "DE",
+    "lat": 50.64652,
+    "lng": 8.70495,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20130",
+    "name": "Lörrach",
+    "country": "DE",
+    "lat": 47.61497,
+    "lng": 7.66457,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20131",
+    "name": "Lübeck",
+    "country": "DE",
+    "lat": 53.86893,
+    "lng": 10.68729,
+    "timezone": "Europe/Berlin",
+    "admin1": "Schleswig-Holstein"
+  },
+  {
+    "igmg_id": "20132",
+    "name": "Ludwigsburg",
+    "country": "DE",
+    "lat": 48.89731,
+    "lng": 9.19161,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20133",
+    "name": "Ludwigshafen",
+    "country": "DE",
+    "lat": 49.48121,
+    "lng": 8.44641,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20134",
+    "name": "Lünen",
+    "country": "DE",
+    "lat": 51.61634,
+    "lng": 7.52872,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20135",
+    "name": "Mainburg",
+    "country": "DE",
+    "lat": 48.64182,
+    "lng": 11.78093,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20136",
+    "name": "Mainz",
+    "country": "DE",
+    "lat": 49.98185,
+    "lng": 8.28008,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20137",
+    "name": "Mannheim",
+    "country": "DE",
+    "lat": 49.4891,
+    "lng": 8.46694,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20138",
+    "name": "Marl",
+    "country": "DE",
+    "lat": 51.65671,
+    "lng": 7.09038,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20139",
+    "name": "Massing",
+    "country": "DE",
+    "lat": 48.39118,
+    "lng": 12.60947,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20141",
+    "name": "Meschede",
+    "country": "DE",
+    "lat": 51.3502,
+    "lng": 8.28332,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20142",
+    "name": "Mettmann",
+    "country": "DE",
+    "lat": 51.2504,
+    "lng": 6.97536,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20143",
+    "name": "Möckmühl",
+    "country": "DE",
+    "lat": 49.3249,
+    "lng": 9.35837,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20144",
+    "name": "Mögglingen",
+    "country": "DE",
+    "lat": 48.8232,
+    "lng": 9.9625,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20145",
+    "name": "Mönchengladbach",
+    "country": "DE",
+    "lat": 51.18539,
+    "lng": 6.44172,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20146",
+    "name": "Moosburg",
+    "country": "DE",
+    "lat": 48.47089,
+    "lng": 11.93811,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20147",
+    "name": "Mössingen",
+    "country": "DE",
+    "lat": 48.40567,
+    "lng": 9.05419,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20148",
+    "name": "Mühlacker",
+    "country": "DE",
+    "lat": 48.94754,
+    "lng": 8.83675,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20149",
+    "name": "Mühldorf",
+    "country": "DE",
+    "lat": 48.2467,
+    "lng": 12.52155,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20151",
+    "name": "München",
+    "country": "DE",
+    "lat": 48.13743,
+    "lng": 11.57549,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20152",
+    "name": "Münster",
+    "country": "DE",
+    "lat": 51.96236,
+    "lng": 7.62571,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20153",
+    "name": "Nagold",
+    "country": "DE",
+    "lat": 48.5498,
+    "lng": 8.72366,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20154",
+    "name": "Neuenkirchen",
+    "country": "DE",
+    "lat": 52.24472,
+    "lng": 7.37183,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20155",
+    "name": "Neuenrade",
+    "country": "DE",
+    "lat": 51.28278,
+    "lng": 7.7825,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20156",
+    "name": "Neumünster",
+    "country": "DE",
+    "lat": 54.07399,
+    "lng": 9.98456,
+    "timezone": "Europe/Berlin",
+    "admin1": "Schleswig-Holstein"
+  },
+  {
+    "igmg_id": "20157",
+    "name": "Neuss",
+    "country": "DE",
+    "lat": 51.19807,
+    "lng": 6.68504,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20158",
+    "name": "Neustadt",
+    "country": "DE",
+    "lat": 50.32174,
+    "lng": 10.20673,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20159",
+    "name": "Neu-Ulm",
+    "country": "DE",
+    "lat": 48.39279,
+    "lng": 10.01112,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20160",
+    "name": "Neuwied",
+    "country": "DE",
+    "lat": 50.4336,
+    "lng": 7.47057,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20161",
+    "name": "Nordenham",
+    "country": "DE",
+    "lat": 53.50098,
+    "lng": 8.48965,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20162",
+    "name": "Nürnberg",
+    "country": "DE",
+    "lat": 49.45421,
+    "lng": 11.07752,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20163",
+    "name": "Nürtingen",
+    "country": "DE",
+    "lat": 48.62565,
+    "lng": 9.34203,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20164",
+    "name": "Oberhausen",
+    "country": "DE",
+    "lat": 51.47805,
+    "lng": 6.8625,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20165",
+    "name": "Oer-Erkenschwick",
+    "country": "DE",
+    "lat": 51.64198,
+    "lng": 7.26451,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20166",
+    "name": "Offenbach",
+    "country": "DE",
+    "lat": 50.10061,
+    "lng": 8.76647,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20167",
+    "name": "Oldenburg",
+    "country": "DE",
+    "lat": 53.14039,
+    "lng": 8.21479,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20168",
+    "name": "Opladen",
+    "country": "DE",
+    "lat": 51.06863,
+    "lng": 7.00387,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20169",
+    "name": "Osnabrück",
+    "country": "DE",
+    "lat": 52.27264,
+    "lng": 8.0498,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20170",
+    "name": "Osterode am Harz",
+    "country": "DE",
+    "lat": 51.72686,
+    "lng": 10.25089,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20171",
+    "name": "Östringen",
+    "country": "DE",
+    "lat": 49.21911,
+    "lng": 8.71192,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20172",
+    "name": "Paderborn",
+    "country": "DE",
+    "lat": 51.71905,
+    "lng": 8.75439,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20173",
+    "name": "Peine",
+    "country": "DE",
+    "lat": 52.31928,
+    "lng": 10.2352,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20174",
+    "name": "Peißenberg",
+    "country": "DE",
+    "lat": 47.80466,
+    "lng": 11.0699,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20175",
+    "name": "Pforzheim",
+    "country": "DE",
+    "lat": 48.88436,
+    "lng": 8.69892,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20176",
+    "name": "Pfungstadt",
+    "country": "DE",
+    "lat": 49.80557,
+    "lng": 8.60307,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20177",
+    "name": "Philippsburg",
+    "country": "DE",
+    "lat": 49.2317,
+    "lng": 8.46074,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20178",
+    "name": "Pleidelsheim",
+    "country": "DE",
+    "lat": 48.9592,
+    "lng": 9.20311,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20179",
+    "name": "Rastatt",
+    "country": "DE",
+    "lat": 48.85851,
+    "lng": 8.20965,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20180",
+    "name": "Ratingen",
+    "country": "DE",
+    "lat": 51.29724,
+    "lng": 6.84929,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20181",
+    "name": "Raunheim",
+    "country": "DE",
+    "lat": 50.0132,
+    "lng": 8.45253,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20182",
+    "name": "Ravensburg",
+    "country": "DE",
+    "lat": 47.78198,
+    "lng": 9.61062,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20183",
+    "name": "Recklinghausen",
+    "country": "DE",
+    "lat": 51.61379,
+    "lng": 7.19738,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20184",
+    "name": "Regensburg",
+    "country": "DE",
+    "lat": 49.01513,
+    "lng": 12.10161,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20185",
+    "name": "Remscheid",
+    "country": "DE",
+    "lat": 51.17983,
+    "lng": 7.1925,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20186",
+    "name": "Rendsburg",
+    "country": "DE",
+    "lat": 54.30182,
+    "lng": 9.67175,
+    "timezone": "Europe/Berlin",
+    "admin1": "Schleswig-Holstein"
+  },
+  {
+    "igmg_id": "20187",
+    "name": "Reutlingen",
+    "country": "DE",
+    "lat": 48.49144,
+    "lng": 9.20427,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20188",
+    "name": "Rheda-Wiedenbrück",
+    "country": "DE",
+    "lat": 51.84967,
+    "lng": 8.30017,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20189",
+    "name": "Rodgau",
+    "country": "DE",
+    "lat": 50.02627,
+    "lng": 8.88588,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20190",
+    "name": "Rosenheim",
+    "country": "DE",
+    "lat": 47.85637,
+    "lng": 12.12247,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20191",
+    "name": "Rotenburg",
+    "country": "DE",
+    "lat": 53.11032,
+    "lng": 9.4036,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20192",
+    "name": "Rüdesheim am Rhein",
+    "country": "DE",
+    "lat": 49.9789,
+    "lng": 7.92442,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20193",
+    "name": "Rüsselsheim",
+    "country": "DE",
+    "lat": 49.98955,
+    "lng": 8.42251,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20194",
+    "name": "Saarbrücken",
+    "country": "DE",
+    "lat": 49.23262,
+    "lng": 7.00982,
+    "timezone": "Europe/Berlin",
+    "admin1": "Saarland"
+  },
+  {
+    "igmg_id": "20195",
+    "name": "Salzgitter",
+    "country": "DE",
+    "lat": 52.15705,
+    "lng": 10.4154,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20196",
+    "name": "Saterland",
+    "country": "DE",
+    "lat": 53.03208,
+    "lng": 7.74382,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20197",
+    "name": "Schongau",
+    "country": "DE",
+    "lat": 47.8124,
+    "lng": 10.89664,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20198",
+    "name": "Schwabach",
+    "country": "DE",
+    "lat": 49.33047,
+    "lng": 11.02346,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20199",
+    "name": "Schwäbisch Gmünd",
+    "country": "DE",
+    "lat": 48.79947,
+    "lng": 9.79809,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20200",
+    "name": "Schweinfurt",
+    "country": "DE",
+    "lat": 50.04937,
+    "lng": 10.22175,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20201",
+    "name": "Schwerte",
+    "country": "DE",
+    "lat": 51.44387,
+    "lng": 7.5675,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20202",
+    "name": "Senden",
+    "country": "DE",
+    "lat": 51.85645,
+    "lng": 7.48327,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20203",
+    "name": "Siegen",
+    "country": "DE",
+    "lat": 50.87481,
+    "lng": 8.02431,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20204",
+    "name": "Sindelfingen",
+    "country": "DE",
+    "lat": 48.7,
+    "lng": 9.01667,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20205",
+    "name": "Sinsheim",
+    "country": "DE",
+    "lat": 49.2529,
+    "lng": 8.87867,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20206",
+    "name": "Sinzig",
+    "country": "DE",
+    "lat": 50.54384,
+    "lng": 7.24639,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20207",
+    "name": "Sittensen",
+    "country": "DE",
+    "lat": 53.27615,
+    "lng": 9.50429,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20208",
+    "name": "Soest",
+    "country": "DE",
+    "lat": 51.57558,
+    "lng": 8.10619,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20209",
+    "name": "Solingen",
+    "country": "DE",
+    "lat": 51.17343,
+    "lng": 7.0845,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20210",
+    "name": "Speyer",
+    "country": "DE",
+    "lat": 49.32083,
+    "lng": 8.43111,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20211",
+    "name": "Stade",
+    "country": "DE",
+    "lat": 53.59407,
+    "lng": 9.47302,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20212",
+    "name": "Stadtallendorf",
+    "country": "DE",
+    "lat": 50.82261,
+    "lng": 9.01294,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20213",
+    "name": "Stadthagen",
+    "country": "DE",
+    "lat": 52.32333,
+    "lng": 9.20311,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20214",
+    "name": "Steinhagen",
+    "country": "DE",
+    "lat": 52,
+    "lng": 8.4,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20215",
+    "name": "Stolberg",
+    "country": "DE",
+    "lat": 50.77368,
+    "lng": 6.22595,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20216",
+    "name": "Stuttgart",
+    "country": "DE",
+    "lat": 48.78232,
+    "lng": 9.17702,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20217",
+    "name": "Sulingen",
+    "country": "DE",
+    "lat": 52.68373,
+    "lng": 8.80949,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20218",
+    "name": "Thannhausen",
+    "country": "DE",
+    "lat": 48.28334,
+    "lng": 10.46917,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20219",
+    "name": "Treuchtlingen",
+    "country": "DE",
+    "lat": 48.95473,
+    "lng": 10.90833,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20220",
+    "name": "Triberg",
+    "country": "DE",
+    "lat": 48.13175,
+    "lng": 8.23317,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20221",
+    "name": "Troisdorf",
+    "country": "DE",
+    "lat": 50.80901,
+    "lng": 7.14968,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20222",
+    "name": "Tübingen",
+    "country": "DE",
+    "lat": 48.52266,
+    "lng": 9.05222,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20223",
+    "name": "Tuttlingen",
+    "country": "DE",
+    "lat": 47.98464,
+    "lng": 8.8177,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20224",
+    "name": "Ulm",
+    "country": "DE",
+    "lat": 48.39841,
+    "lng": 9.99155,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20225",
+    "name": "Velbert",
+    "country": "DE",
+    "lat": 51.33537,
+    "lng": 7.04348,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20226",
+    "name": "Viernheim",
+    "country": "DE",
+    "lat": 49.54033,
+    "lng": 8.5782,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20227",
+    "name": "Viersen",
+    "country": "DE",
+    "lat": 51.25435,
+    "lng": 6.39441,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20228",
+    "name": "Villingen-Schwenningen",
+    "country": "DE",
+    "lat": 48.06226,
+    "lng": 8.49358,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20229",
+    "name": "Völklingen",
+    "country": "DE",
+    "lat": 49.25162,
+    "lng": 6.85873,
+    "timezone": "Europe/Berlin",
+    "admin1": "Saarland"
+  },
+  {
+    "igmg_id": "20230",
+    "name": "Waiblingen",
+    "country": "DE",
+    "lat": 48.83241,
+    "lng": 9.31641,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20231",
+    "name": "Walldorf",
+    "country": "DE",
+    "lat": 50.61667,
+    "lng": 10.38333,
+    "timezone": "Europe/Berlin",
+    "admin1": "Thüringen"
+  },
+  {
+    "igmg_id": "20232",
+    "name": "Wangen im Allgäu",
+    "country": "DE",
+    "lat": 47.6895,
+    "lng": 9.83247,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20233",
+    "name": "Warendorf",
+    "country": "DE",
+    "lat": 51.95109,
+    "lng": 7.98756,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20234",
+    "name": "Wasserburg",
+    "country": "DE",
+    "lat": 47.57223,
+    "lng": 9.63215,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20235",
+    "name": "Weißenburg",
+    "country": "DE",
+    "lat": 51.73675,
+    "lng": 13.35653,
+    "timezone": "Europe/Berlin",
+    "admin1": "Brandenburg"
+  },
+  {
+    "igmg_id": "20236",
+    "name": "Werdohl",
+    "country": "DE",
+    "lat": 51.26011,
+    "lng": 7.76608,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20237",
+    "name": "Werl",
+    "country": "DE",
+    "lat": 51.55493,
+    "lng": 7.91403,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20238",
+    "name": "Wetzlar",
+    "country": "DE",
+    "lat": 50.56109,
+    "lng": 8.50495,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20239",
+    "name": "Wiesbaden",
+    "country": "DE",
+    "lat": 50.08601,
+    "lng": 8.24435,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20240",
+    "name": "Willich",
+    "country": "DE",
+    "lat": 51.26371,
+    "lng": 6.54734,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20241",
+    "name": "Wirges",
+    "country": "DE",
+    "lat": 50.47195,
+    "lng": 7.79844,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20242",
+    "name": "Witten",
+    "country": "DE",
+    "lat": 51.44362,
+    "lng": 7.35258,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20243",
+    "name": "Worms",
+    "country": "DE",
+    "lat": 49.63278,
+    "lng": 8.35916,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "20244",
+    "name": "Wuppertal",
+    "country": "DE",
+    "lat": 51.25627,
+    "lng": 7.14816,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20245",
+    "name": "Würzburg",
+    "country": "DE",
+    "lat": 49.79391,
+    "lng": 9.95121,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20247",
+    "name": "Schöneberg",
+    "country": "DE",
+    "lat": 52.49801,
+    "lng": 13.3443,
+    "timezone": "Europe/Berlin",
+    "admin1": "Land Berlin"
+  },
+  {
+    "igmg_id": "20249",
+    "name": "Neuköln",
+    "country": "DE",
+    "lat": 51.56876,
+    "lng": 6.82976,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20250",
+    "name": "Mariendorf",
+    "country": "DE",
+    "lat": 52.4378,
+    "lng": 13.38109,
+    "timezone": "Europe/Berlin",
+    "admin1": "Land Berlin"
+  },
+  {
+    "igmg_id": "20253",
+    "name": "Veddel",
+    "country": "DE",
+    "lat": 53.52016,
+    "lng": 10.03687,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie und Hansestadt Hamburg"
+  },
+  {
+    "igmg_id": "20254",
+    "name": "Harburg",
+    "country": "DE",
+    "lat": 53.46057,
+    "lng": 9.98388,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie und Hansestadt Hamburg"
+  },
+  {
+    "igmg_id": "20255",
+    "name": "Wilhelmsburg",
+    "country": "DE",
+    "lat": 53.64219,
+    "lng": 13.85825,
+    "timezone": "Europe/Berlin",
+    "admin1": "Mecklenburg-Vorpommern"
+  },
+  {
+    "igmg_id": "20256",
+    "name": "Neuenfelde",
+    "country": "DE",
+    "lat": 53.25489,
+    "lng": 8.42772,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20257",
+    "name": "Neugraben",
+    "country": "DE",
+    "lat": 53.46579,
+    "lng": 9.84344,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie und Hansestadt Hamburg"
+  },
+  {
+    "igmg_id": "20258",
+    "name": "Eidelstedt",
+    "country": "DE",
+    "lat": 53.60697,
+    "lng": 9.90538,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie und Hansestadt Hamburg"
+  },
+  {
+    "igmg_id": "20259",
+    "name": "Ramsloh",
+    "country": "DE",
+    "lat": 53.10263,
+    "lng": 7.67876,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20260",
+    "name": "Esterwegen",
+    "country": "DE",
+    "lat": 52.99288,
+    "lng": 7.63327,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20262",
+    "name": "Huchting",
+    "country": "DE",
+    "lat": 53.05762,
+    "lng": 8.73593,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie Hansestadt Bremen"
+  },
+  {
+    "igmg_id": "20263",
+    "name": "Hemelingen",
+    "country": "DE",
+    "lat": 53.05045,
+    "lng": 8.89635,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie Hansestadt Bremen"
+  },
+  {
+    "igmg_id": "20264",
+    "name": "Tenever",
+    "country": "DE",
+    "lat": 53.06497,
+    "lng": 8.96171,
+    "timezone": "Europe/Berlin",
+    "admin1": "Freie Hansestadt Bremen"
+  },
+  {
+    "igmg_id": "20265",
+    "name": "Blumenthal",
+    "country": "DE",
+    "lat": 54.23333,
+    "lng": 10,
+    "timezone": "Europe/Berlin",
+    "admin1": "Schleswig-Holstein"
+  },
+  {
+    "igmg_id": "20266",
+    "name": "Misburg",
+    "country": "DE",
+    "lat": 52.39006,
+    "lng": 9.85199,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20267",
+    "name": "Schotmar",
+    "country": "DE",
+    "lat": 52.07017,
+    "lng": 8.7543,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20268",
+    "name": "Jöllenbeck",
+    "country": "DE",
+    "lat": 52.09658,
+    "lng": 8.51294,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20269",
+    "name": "Felsberg",
+    "country": "DE",
+    "lat": 51.13763,
+    "lng": 9.42139,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20270",
+    "name": "Lebenstedt",
+    "country": "DE",
+    "lat": 52.15935,
+    "lng": 10.32883,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20271",
+    "name": "Watenstedt",
+    "country": "DE",
+    "lat": 52.08858,
+    "lng": 10.83715,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20272",
+    "name": "Rheydt",
+    "country": "DE",
+    "lat": 51.16363,
+    "lng": 6.45022,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20274",
+    "name": "Derne",
+    "country": "DE",
+    "lat": 51.57081,
+    "lng": 7.52013,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20275",
+    "name": "Mengede",
+    "country": "DE",
+    "lat": 51.57246,
+    "lng": 7.38392,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20277",
+    "name": "Katernberg",
+    "country": "DE",
+    "lat": 51.49649,
+    "lng": 7.02898,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20278",
+    "name": "Hassel",
+    "country": "DE",
+    "lat": 52.63952,
+    "lng": 11.92635,
+    "timezone": "Europe/Berlin",
+    "admin1": "Sachsen-Anhalt"
+  },
+  {
+    "igmg_id": "20279",
+    "name": "Buer",
+    "country": "DE",
+    "lat": 52.24683,
+    "lng": 8.40302,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20283",
+    "name": "Walsum",
+    "country": "DE",
+    "lat": 51.53424,
+    "lng": 6.70561,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20284",
+    "name": "Rheinhausen",
+    "country": "DE",
+    "lat": 51.40055,
+    "lng": 6.71187,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20285",
+    "name": "Wanheim",
+    "country": "DE",
+    "lat": 51.38643,
+    "lng": 6.75198,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20286",
+    "name": "Köln-Deutz",
+    "country": "DE",
+    "lat": 50.93463,
+    "lng": 6.97495,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20290",
+    "name": "Köln-Ehrenfeld",
+    "country": "DE",
+    "lat": 50.94911,
+    "lng": 6.91155,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "20298",
+    "name": "Griesheim",
+    "country": "DE",
+    "lat": 49.86085,
+    "lng": 8.5725,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "20299",
+    "name": "Wangen",
+    "country": "DE",
+    "lat": 48.72933,
+    "lng": 9.61175,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "20300",
+    "name": "Cuxhaven",
+    "country": "DE",
+    "lat": 53.86828,
+    "lng": 8.69902,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20301",
+    "name": "Barnstorf",
+    "country": "DE",
+    "lat": 52.71009,
+    "lng": 8.50256,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20302",
+    "name": "Osterholz-Scharmbeck",
+    "country": "DE",
+    "lat": 53.22659,
+    "lng": 8.7923,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20303",
+    "name": "Scharrel",
+    "country": "DE",
+    "lat": 53.18479,
+    "lng": 7.69359,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "20304",
+    "name": "Eggenfelden",
+    "country": "DE",
+    "lat": 48.40509,
+    "lng": 12.75752,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20305",
+    "name": "Vilsbiburg",
+    "country": "DE",
+    "lat": 48.45296,
+    "lng": 12.35604,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "20306",
+    "name": "Magdeburg",
+    "country": "DE",
+    "lat": 52.13129,
+    "lng": 11.63189,
+    "timezone": "Europe/Berlin",
+    "admin1": "Sachsen-Anhalt"
+  },
+  {
+    "igmg_id": "20307",
+    "name": "Schmelz",
+    "country": "DE",
+    "lat": 49.43333,
+    "lng": 6.85,
+    "timezone": "Europe/Berlin",
+    "admin1": "Saarland"
+  },
+  {
+    "igmg_id": "20308",
+    "name": "Heidelberg",
+    "country": "DE",
+    "lat": 49.40768,
+    "lng": 8.69079,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "271298",
+    "name": "Minden",
+    "country": "DE",
+    "lat": 52.28953,
+    "lng": 8.91455,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "29811790",
+    "name": "Beziers",
+    "country": "FR",
+    "lat": 43.34122,
+    "lng": 3.21402,
+    "timezone": "Europe/Paris",
+    "admin1": "Okzitanien"
+  },
+  {
+    "igmg_id": "30207103",
+    "name": "Ottawa",
+    "country": "CA",
+    "lat": 45.41117,
+    "lng": -75.69812,
+    "timezone": "America/Toronto",
+    "admin1": "Ontario"
+  },
+  {
+    "igmg_id": "30207122",
+    "name": "Edmonton",
+    "country": "CA",
+    "lat": 53.55014,
+    "lng": -113.46871,
+    "timezone": "America/Edmonton",
+    "admin1": "Alberta"
+  },
+  {
+    "igmg_id": "31323993",
+    "name": "Göppingen",
+    "country": "DE",
+    "lat": 48.70354,
+    "lng": 9.65209,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "32647068",
+    "name": "Albertslund",
+    "country": "DK",
+    "lat": 55.65691,
+    "lng": 12.36381,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "32647277",
+    "name": "Ishøj",
+    "country": "DK",
+    "lat": 55.61543,
+    "lng": 12.35182,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "32648562",
+    "name": "Ballerup",
+    "country": "DK",
+    "lat": 55.73165,
+    "lng": 12.36328,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "32648769",
+    "name": "Hvidovre",
+    "country": "DK",
+    "lat": 55.64297,
+    "lng": 12.47708,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "32649013",
+    "name": "Ringsted",
+    "country": "DK",
+    "lat": 55.4426,
+    "lng": 11.79011,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "32649164",
+    "name": "Holbæk",
+    "country": "DK",
+    "lat": 55.7175,
+    "lng": 11.71279,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "32649240",
+    "name": "Kalundborg",
+    "country": "DK",
+    "lat": 55.67954,
+    "lng": 11.08864,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "32649377",
+    "name": "Frederikssund",
+    "country": "DK",
+    "lat": 55.83956,
+    "lng": 12.06896,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Hauptstadtregion"
+  },
+  {
+    "igmg_id": "32649529",
+    "name": "Næstved",
+    "country": "DK",
+    "lat": 55.22992,
+    "lng": 11.76092,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "32649655",
+    "name": "Vordingborg",
+    "country": "DK",
+    "lat": 55.00801,
+    "lng": 11.91057,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "32649820",
+    "name": "Lolland",
+    "country": "DK",
+    "lat": 54.76667,
+    "lng": 11.5,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Seeland"
+  },
+  {
+    "igmg_id": "32649955",
+    "name": "Esbjerg",
+    "country": "DK",
+    "lat": 55.47028,
+    "lng": 8.45187,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Süddänemark"
+  },
+  {
+    "igmg_id": "32650126",
+    "name": "Svendborg",
+    "country": "DK",
+    "lat": 55.05982,
+    "lng": 10.60677,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Süddänemark"
+  },
+  {
+    "igmg_id": "32650289",
+    "name": "Kolding",
+    "country": "DK",
+    "lat": 55.4904,
+    "lng": 9.47216,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Süddänemark"
+  },
+  {
+    "igmg_id": "32650436",
+    "name": "Fredericia",
+    "country": "DK",
+    "lat": 55.56568,
+    "lng": 9.75257,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Süddänemark"
+  },
+  {
+    "igmg_id": "32650629",
+    "name": "Horsens",
+    "country": "DK",
+    "lat": 55.86066,
+    "lng": 9.85034,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Mitteljütland"
+  },
+  {
+    "igmg_id": "32650752",
+    "name": "Randers",
+    "country": "DK",
+    "lat": 56.4607,
+    "lng": 10.03639,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Mitteljütland"
+  },
+  {
+    "igmg_id": "32650888",
+    "name": "Silkeborg",
+    "country": "DK",
+    "lat": 56.1697,
+    "lng": 9.54508,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Mitteljütland"
+  },
+  {
+    "igmg_id": "32651065",
+    "name": "Herning",
+    "country": "DK",
+    "lat": 56.13615,
+    "lng": 8.97662,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Mitteljütland"
+  },
+  {
+    "igmg_id": "32651198",
+    "name": "Holstebro",
+    "country": "DK",
+    "lat": 56.36009,
+    "lng": 8.61607,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Mitteljütland"
+  },
+  {
+    "igmg_id": "32651787",
+    "name": "Aalborg",
+    "country": "DK",
+    "lat": 57.048,
+    "lng": 9.9187,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Nordjütland"
+  },
+  {
+    "igmg_id": "32651869",
+    "name": "Frederikshavn",
+    "country": "DK",
+    "lat": 57.44073,
+    "lng": 10.53661,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Nordjütland"
+  },
+  {
+    "igmg_id": "32652017",
+    "name": "Aabenraa",
+    "country": "DK",
+    "lat": 55.04434,
+    "lng": 9.41741,
+    "timezone": "Europe/Copenhagen",
+    "admin1": "Region Süddänemark"
+  },
+  {
+    "igmg_id": "34218097",
+    "name": "Napoli",
+    "country": "IT",
+    "lat": 40.87618,
+    "lng": 14.5195,
+    "timezone": "Europe/Rome",
+    "admin1": "Kampanien"
+  },
+  {
+    "igmg_id": "60680379",
+    "name": "Marburg",
+    "country": "DE",
+    "lat": 50.80904,
+    "lng": 8.77069,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "61826857",
+    "name": "Birmingham",
+    "country": "US",
+    "lat": 33.52066,
+    "lng": -86.80249,
+    "timezone": "America/Chicago",
+    "admin1": "Alabama"
+  },
+  {
+    "igmg_id": "88902073",
+    "name": "Gifhorn",
+    "country": "DE",
+    "lat": 52.47774,
+    "lng": 10.5511,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "89167503",
+    "name": "Koblenz",
+    "country": "DE",
+    "lat": 50.35357,
+    "lng": 7.57883,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "99098234",
+    "name": "Dietzenbach",
+    "country": "DE",
+    "lat": 50.00976,
+    "lng": 8.77783,
+    "timezone": "Europe/Berlin",
+    "admin1": "Hessen"
+  },
+  {
+    "igmg_id": "105706270",
+    "name": "Västerås",
+    "country": "SE",
+    "lat": 59.61617,
+    "lng": 16.55276,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Västmanlands län"
+  },
+  {
+    "igmg_id": "105706319",
+    "name": "Uppsala",
+    "country": "SE",
+    "lat": 59.85882,
+    "lng": 17.63889,
+    "timezone": "Europe/Stockholm",
+    "admin1": "Uppsala län"
+  },
+  {
+    "igmg_id": "183604082",
+    "name": "Hasselt",
+    "country": "BE",
+    "lat": 50.93106,
+    "lng": 5.33781,
+    "timezone": "Europe/Brussels",
+    "admin1": "Flandern"
+  },
+  {
+    "igmg_id": "184264904",
+    "name": "Marchtrenk",
+    "country": "AT",
+    "lat": 48.19022,
+    "lng": 14.10908,
+    "timezone": "Europe/Vienna",
+    "admin1": "Oberösterreich"
+  },
+  {
+    "igmg_id": "203549545",
+    "name": "Moers",
+    "country": "DE",
+    "lat": 51.45342,
+    "lng": 6.6326,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "203810643",
+    "name": "Doha",
+    "country": "QA",
+    "lat": 25.28545,
+    "lng": 51.53096,
+    "timezone": "Asia/Qatar",
+    "admin1": "Baladiyat ad Dawhah"
+  },
+  {
+    "igmg_id": "204432266",
+    "name": "Sallanches",
+    "country": "FR",
+    "lat": 45.94423,
+    "lng": 6.63162,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "204432595",
+    "name": "Bellegarde-sur-Valserine",
+    "country": "FR",
+    "lat": 46.10787,
+    "lng": 5.82421,
+    "timezone": "Europe/Paris",
+    "admin1": "Rhône-Alpes"
+  },
+  {
+    "igmg_id": "204723448",
+    "name": "Laichingen",
+    "country": "DE",
+    "lat": 48.48939,
+    "lng": 9.68612,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "204723783",
+    "name": "Schelklingen",
+    "country": "DE",
+    "lat": 48.37575,
+    "lng": 9.73273,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "204724586",
+    "name": "Wiblingen",
+    "country": "DE",
+    "lat": 48.36001,
+    "lng": 9.98898,
+    "timezone": "Europe/Berlin",
+    "admin1": "Baden-Württemberg"
+  },
+  {
+    "igmg_id": "204730805",
+    "name": "Pont-Saint-Esprit",
+    "country": "FR",
+    "lat": 44.25656,
+    "lng": 4.6478,
+    "timezone": "Europe/Paris",
+    "admin1": "Okzitanien"
+  },
+  {
+    "igmg_id": "204731110",
+    "name": "Cannes",
+    "country": "FR",
+    "lat": 43.55135,
+    "lng": 7.01275,
+    "timezone": "Europe/Paris",
+    "admin1": "Provence-Alpes-Côte d’Azur"
+  },
+  {
+    "igmg_id": "204733883",
+    "name": "L'Argentière-la-Bessée",
+    "country": "FR",
+    "lat": 44.79451,
+    "lng": 6.55862,
+    "timezone": "Europe/Paris",
+    "admin1": "Provence-Alpes-Côte d’Azur"
+  },
+  {
+    "igmg_id": "206551976",
+    "name": "Bad Kreuznach",
+    "country": "DE",
+    "lat": 49.8414,
+    "lng": 7.86713,
+    "timezone": "Europe/Berlin",
+    "admin1": "Rheinland-Pfalz"
+  },
+  {
+    "igmg_id": "210082123",
+    "name": "Burghausen",
+    "country": "DE",
+    "lat": 48.16925,
+    "lng": 12.83139,
+    "timezone": "Europe/Berlin",
+    "admin1": "Bayern"
+  },
+  {
+    "igmg_id": "223795116",
+    "name": "Bremervörde",
+    "country": "DE",
+    "lat": 53.48513,
+    "lng": 9.14644,
+    "timezone": "Europe/Berlin",
+    "admin1": "Niedersachsen"
+  },
+  {
+    "igmg_id": "406886993",
+    "name": "Wiener Neustadt",
+    "country": "AT",
+    "lat": 47.80485,
+    "lng": 16.23196,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "406887053",
+    "name": "Eisenstadt",
+    "country": "AT",
+    "lat": 47.84565,
+    "lng": 16.52327,
+    "timezone": "Europe/Vienna",
+    "admin1": "Burgenland"
+  },
+  {
+    "igmg_id": "406887091",
+    "name": "Klagenfurt",
+    "country": "AT",
+    "lat": 46.62472,
+    "lng": 14.30528,
+    "timezone": "Europe/Vienna",
+    "admin1": "Kärnten"
+  },
+  {
+    "igmg_id": "406887171",
+    "name": "Krems an der Donau",
+    "country": "AT",
+    "lat": 48.40921,
+    "lng": 15.61415,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "406887215",
+    "name": "Villach",
+    "country": "AT",
+    "lat": 46.61028,
+    "lng": 13.85583,
+    "timezone": "Europe/Vienna",
+    "admin1": "Kärnten"
+  },
+  {
+    "igmg_id": "406887295",
+    "name": "Amstetten",
+    "country": "AT",
+    "lat": 48.1229,
+    "lng": 14.87206,
+    "timezone": "Europe/Vienna",
+    "admin1": "Niederösterreich"
+  },
+  {
+    "igmg_id": "429619722",
+    "name": "Aachen",
+    "country": "DE",
+    "lat": 50.77664,
+    "lng": 6.08342,
+    "timezone": "Europe/Berlin",
+    "admin1": "Nordrhein-Westfalen"
+  },
+  {
+    "igmg_id": "43",
+    "name": "Saraybosna",
+    "country": "BA",
+    "lat": 43.8563,
+    "lng": 18.4131,
+    "timezone": "Europe/Sarajevo",
+    "manual": true
+  },
+  {
+    "igmg_id": "49",
+    "name": "Brüksel",
+    "country": "BE",
+    "lat": 50.8503,
+    "lng": 4.3517,
+    "timezone": "Europe/Brussels",
+    "manual": true
+  },
+  {
+    "igmg_id": "54",
+    "name": "Fraciennes",
+    "country": "BE",
+    "lat": 50.4108,
+    "lng": 3.8964,
+    "timezone": "Europe/Brussels",
+    "manual": true
+  },
+  {
+    "igmg_id": "72",
+    "name": "St. Niklaas",
+    "country": "BE",
+    "lat": 51.1651,
+    "lng": 4.1434,
+    "timezone": "Europe/Brussels",
+    "manual": true
+  },
+  {
+    "igmg_id": "83",
+    "name": "Bürgeln",
+    "country": "CH",
+    "lat": 47.4667,
+    "lng": 8.0833,
+    "timezone": "Europe/Zurich",
+    "manual": true
+  },
+  {
+    "igmg_id": "84",
+    "name": "Cenevre",
+    "country": "CH",
+    "lat": 46.2044,
+    "lng": 6.1432,
+    "timezone": "Europe/Zurich",
+    "manual": true
+  },
+  {
+    "igmg_id": "123",
+    "name": "Bourgoin-Jallieu",
+    "country": "FR",
+    "lat": 45.5861,
+    "lng": 5.2736,
+    "timezone": "Europe/Paris",
+    "manual": true
+  },
+  {
+    "igmg_id": "145",
+    "name": "Marche-en Famenne",
+    "country": "BE",
+    "lat": 50.2267,
+    "lng": 5.3444,
+    "timezone": "Europe/Brussels",
+    "manual": true
+  },
+  {
+    "igmg_id": "169",
+    "name": "Saint Avold",
+    "country": "FR",
+    "lat": 49.1044,
+    "lng": 6.7086,
+    "timezone": "Europe/Paris",
+    "manual": true
+  },
+  {
+    "igmg_id": "177",
+    "name": "St. Chamond",
+    "country": "FR",
+    "lat": 45.4775,
+    "lng": 4.5153,
+    "timezone": "Europe/Paris",
+    "manual": true
+  },
+  {
+    "igmg_id": "178",
+    "name": "St. Etienne",
+    "country": "FR",
+    "lat": 45.4397,
+    "lng": 4.3872,
+    "timezone": "Europe/Paris",
+    "manual": true
+  },
+  {
+    "igmg_id": "226",
+    "name": "Groinchem",
+    "country": "NL",
+    "lat": 51.8363,
+    "lng": 4.9742,
+    "timezone": "Europe/Amsterdam",
+    "manual": true
+  },
+  {
+    "igmg_id": "20018",
+    "name": "Bielefeld-Jöllenbeck",
+    "country": "DE",
+    "lat": 52.0464,
+    "lng": 8.4536,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20063",
+    "name": "Frankfurt Höchst",
+    "country": "DE",
+    "lat": 50.1109,
+    "lng": 8.6821,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20072",
+    "name": "Gelsingen",
+    "country": "DE",
+    "lat": 48.2877,
+    "lng": 8.8124,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20078",
+    "name": "Groß Gerau",
+    "country": "DE",
+    "lat": 49.9211,
+    "lng": 8.4825,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20140",
+    "name": "Melle Buer",
+    "country": "DE",
+    "lat": 52.2033,
+    "lng": 8.3389,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20150",
+    "name": "Mülheim an der Ruhr",
+    "country": "DE",
+    "lat": 51.4262,
+    "lng": 6.8827,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20248",
+    "name": "Kreuzberg (Berlin)",
+    "country": "DE",
+    "lat": 52.4985,
+    "lng": 13.4034,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20246",
+    "name": "Tiergarten (Berlin)",
+    "country": "DE",
+    "lat": 52.5145,
+    "lng": 13.3576,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20251",
+    "name": "Wedding (Berlin)",
+    "country": "DE",
+    "lat": 52.5471,
+    "lng": 13.3553,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20252",
+    "name": "Charlottenburg (Berlin)",
+    "country": "DE",
+    "lat": 52.5048,
+    "lng": 13.3055,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20261",
+    "name": "Neustadt (Bremen)",
+    "country": "DE",
+    "lat": 53.0793,
+    "lng": 8.8017,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20273",
+    "name": "Oberbarmen",
+    "country": "DE",
+    "lat": 51.2562,
+    "lng": 7.1508,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20276",
+    "name": "Kupferdreh (Essen)",
+    "country": "DE",
+    "lat": 51.4556,
+    "lng": 7.0116,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20280",
+    "name": "Hochfeld (Duisburg)",
+    "country": "DE",
+    "lat": 51.4344,
+    "lng": 6.7623,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20281",
+    "name": "Meiderich (Duisburg)",
+    "country": "DE",
+    "lat": 51.4344,
+    "lng": 6.7623,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20282",
+    "name": "Marxloh (Duisburg)",
+    "country": "DE",
+    "lat": 51.4344,
+    "lng": 6.7623,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20288",
+    "name": "Köln-Weidenpesch",
+    "country": "DE",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20289",
+    "name": "Köln-Chorweiler",
+    "country": "DE",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20287",
+    "name": "Köln-Nippes",
+    "country": "DE",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20292",
+    "name": "Köln-Mülheim",
+    "country": "DE",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20293",
+    "name": "Köln-Kalk",
+    "country": "DE",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20294",
+    "name": "Hamm-Heessen",
+    "country": "DE",
+    "lat": 51.6791,
+    "lng": 7.8154,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20291",
+    "name": "Köln-Meschenich",
+    "country": "DE",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20295",
+    "name": "Hamm-Hövel",
+    "country": "DE",
+    "lat": 51.6791,
+    "lng": 7.8154,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20296",
+    "name": "Hamm-Herringen",
+    "country": "DE",
+    "lat": 51.6791,
+    "lng": 7.8154,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "20297",
+    "name": "Hamm-Pelkum",
+    "country": "DE",
+    "lat": 51.6791,
+    "lng": 7.8154,
+    "timezone": "Europe/Berlin",
+    "manual": true
+  },
+  {
+    "igmg_id": "32651532",
+    "name": "Ikast-Brande",
+    "country": "DK",
+    "lat": 56.1389,
+    "lng": 9.0167,
+    "timezone": "Europe/Copenhagen",
+    "manual": true
+  },
+  {
+    "igmg_id": "268400929",
+    "name": "Kisinev",
+    "country": "MD",
+    "lat": 47.0105,
+    "lng": 28.8638,
+    "timezone": "Europe/Chisinau",
+    "manual": true
+  }
+]
