@@ -320,18 +320,28 @@ app.get('/api/geocode', async (req, res) => {
 });
 
 // ============ PRAYER TIMES ============
+// /api/times?city=X&date=Y            (city by id or name)
+// /api/times?lat=X&lng=Y&tz=...&date=  (direct coordinates)
 app.get('/api/times', async (req, res) => {
   try {
-    const { city, date } = req.query;
-    if (!city) return res.status(400).json({ error: 'city parameter required (igmg_id or city name)' });
-
-    // Try bundled first, then custom
-    let c = findBundledCity(city);
-    if (!c) c = findCustomCity(city);
-    if (!c) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden. Versuche eine IGMG-Stadt oder füge eine eigene hinzu.` });
-
-    const calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date))
+    const { city, date, lat, lng, tz, name } = req.query;
+    let c = null;
+    let calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date))
       ? date : new Date().toISOString().slice(0, 10);
+
+    if (lat !== undefined && lng !== undefined && tz) {
+      // Direct coordinates
+      const latN = parseFloat(lat), lngN = parseFloat(lng);
+      if (isNaN(latN) || isNaN(lngN)) return res.status(400).json({ error: 'lat/lng must be numbers' });
+      c = { id: `coord:${latN.toFixed(3)},${lngN.toFixed(3)}`, name: name || `(${latN.toFixed(2)}, ${lngN.toFixed(2)})`, country: '', timezone: tz, lat: latN, lng: lngN, source: 'direct' };
+    } else if (city) {
+      // Try bundled first, then custom
+      c = findBundledCity(city);
+      if (!c) c = findCustomCity(city);
+      if (!c) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden. Versuche eine IGMG-Stadt oder füge eine eigene hinzu.` });
+    } else {
+      return res.status(400).json({ error: 'Provide either "city" or "lat", "lng", "tz" parameters' });
+    }
 
     const times = await getTimesForCity(c, calcDate);
     res.json({
