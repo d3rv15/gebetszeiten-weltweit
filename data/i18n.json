@@ -275,7 +275,13 @@
       "ar": "للحصول على تقويم IGMG الكامل والفتاوى الرسمية:",
       "en": "For the complete IGMG prayer calendar and official fatwas:"
     },
-    "igmg_link_text": "🔗 igmg.org/gebetskalender →"
+    "igmg_link_text": "🔗 igmg.org/islam →",
+    "igmg_note": {
+      "de": "ℹ️ Hinweis: Der IGMG-Gebetskalender erfordert die manuelle Stadtauswahl auf deren Seite. Diese App berechnet die Zeiten lokal nach derselben IGMG/Diyanet-Methode und ist immer verfügbar.",
+      "tr": "ℹ️ Not: IGMG gebetskalender, kendi sitesinde şehir seçimi gerektirir. Bu uygulama aynı IGMG/Diyanet yöntemiyle vakitleri lokal olarak hesaplar ve her zaman kullanılabilir.",
+      "ar": "ℹ️ ملاحظة: تقويم IGMG يتطلب اختيار المدينة يدويًا على موقعهم. هذا التطبيق يحسب المواقيت محليًا بنفس طريقة IGMG/Diyanet وهو متاح دائمًا.",
+      "en": "ℹ️ Note: The IGMG prayer calendar requires manual city selection on their site. This app computes times locally using the same IGMG/Diyanet method and is always available."
+    }
   },
   "friday": {
     "title": {
