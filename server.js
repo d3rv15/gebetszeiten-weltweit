@@ -639,6 +639,103 @@ app.get('/api/holidays', async (req, res) => {
   }
 });
 
+// ============ HADITH (Sahih + İmâm-ı Rabbânî) ============
+let HADITH_DATA = null;
+function loadHadithData() {
+  if (HADITH_DATA) return HADITH_DATA;
+  try {
+    HADITH_DATA = JSON.parse(require('fs').readFileSync(path.join(__dirname, 'data', 'hadith.json'), 'utf8'));
+    console.log(`[gebetszeiten] Loaded ${HADITH_DATA.hadiths.length} daily hadiths, ${HADITH_DATA.friday_specifics.length} friday hadiths, ${HADITH_DATA.imam_rabbani.length} Imam Rabbani quotes`);
+  } catch (e) {
+    console.error('[gebetszeiten] failed to load hadith.json:', e.message);
+    HADITH_DATA = { hadiths: [], friday_specifics: [], imam_rabbani: [] };
+  }
+  return HADITH_DATA;
+}
+// Load on startup
+loadHadithData();
+
+// Hash a string to an integer in [0, max) — deterministic
+function hashStr(s, max) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h) % max;
+}
+
+// Get today's daily hadith: rotates daily based on date
+app.get('/api/hadith/today', (req, res) => {
+  try {
+    const d = loadHadithData();
+    const date = req.query.date || new Date().toISOString().slice(0, 10);
+    const dayOfYear = (() => {
+      const dt = new Date(date + 'T00:00:00Z');
+      const start = new Date(Date.UTC(dt.getUTCFullYear(), 0, 0));
+      return Math.floor((dt - start) / 86400000);
+    })();
+    const idx = dayOfYear % d.hadiths.length;
+    const h = d.hadiths[idx];
+    res.json({
+      date,
+      day_of_year: dayOfYear,
+      index: idx,
+      hadith: h,
+      // Also include a random Imam Rabbani quote for today
+      imam_rabbani: d.imam_rabbani[hashStr(date + 'imam', d.imam_rabbani.length)],
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get Friday-specific hadith + "Hayırlı Cumalar" greeting
+app.get('/api/hadith/friday', (req, res) => {
+  try {
+    const d = loadHadithData();
+    const date = req.query.date || new Date().toISOString().slice(0, 10);
+    const dayOfYear = (() => {
+      const dt = new Date(date + 'T00:00:00Z');
+      const start = new Date(Date.UTC(dt.getUTCFullYear(), 0, 0));
+      return Math.floor((dt - start) / 86400000);
+    })();
+    const idx = dayOfYear % d.friday_specifics.length;
+    const h = d.friday_specifics[idx];
+    const isFriday = new Date(date + 'T00:00:00').getDay() === 5;
+    res.json({
+      date,
+      is_friday: isFriday,
+      greeting: isFriday ? 'Hayırlı Cumalar!' : 'Hayırlı Cumalar (vorgreifend)',
+      greeting_de: isFriday ? 'Ein gesegneter Freitag!' : null,
+      hadith: h,
+      imam_rabbani: d.imam_rabbani[hashStr(date + 'friday', d.imam_rabbani.length)],
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get all Imam Rabbani quotes (for browsing)
+app.get('/api/hadith/imam-rabbani', (req, res) => {
+  try {
+    const d = loadHadithData();
+    res.json({ total: d.imam_rabbani.length, quotes: d.imam_rabbani });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Random hadith (for variety on refresh)
+app.get('/api/hadith/random', (req, res) => {
+  try {
+    const d = loadHadithData();
+    const h = d.hadiths[Math.floor(Math.random() * d.hadiths.length)];
+    res.json({ hadith: h });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // ============ API-KEY AUTH (for v1) ============
 function requireApiKey(req, res, next) {
   const key = req.headers['x-api-key'] || req.query.api_key;

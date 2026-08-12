@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gebetszeiten Weltweit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     :root {
@@ -383,13 +384,221 @@
       font-size: 0.7rem;
       margin-left: 6px;
     }
+
+    .header-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .header-meta .badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text-primary);
+    }
+    #liveClock { font-family: 'Courier New', monospace; font-weight: 600; }
+    #hijriDate { color: var(--accent); }
+
+    .friday-banner {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 50%, #2d4a3a 100%);
+      border: 1px solid rgba(241,196,15,0.4);
+      border-radius: 12px;
+      margin: 20px auto 0;
+      max-width: 1100px;
+      padding: 18px 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 30px rgba(241,196,15,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .friday-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(241,196,15,0.08) 0%, transparent 50%);
+      animation: shimmer 6s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.2); }
+    }
+    .banner-content {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      gap: 20px;
+      align-items: center;
+      position: relative;
+    }
+    .banner-icon { font-size: 2.5rem; }
+    .banner-title-tr {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f1c40f;
+    }
+    .banner-title-de {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .banner-hadith {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+      padding-left: 20px;
+      border-left: 2px solid rgba(241,196,15,0.4);
+    }
+    .hidden { display: none !important; }
+
+    .hadith-section {
+      max-width: 1100px;
+      margin: 20px auto 0;
+      padding: 0 20px;
+    }
+    .hadith-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(30,58,95,0.3) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      position: relative;
+    }
+    .hadith-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hadith-icon { font-size: 1.8rem; }
+    .hadith-title .title-tr {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .hadith-title .title-de {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .hadith-refresh {
+      margin-left: auto;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hadith-refresh:hover { background: var(--bg-page); color: var(--accent); }
+
+    .hadith-content { padding: 4px 0; }
+    .hadith-arabic {
+      font-size: 1.3rem;
+      line-height: 1.9;
+      color: var(--text-primary);
+      font-family: 'Amiri', 'Times New Arabic', serif;
+      direction: rtl;
+      text-align: right;
+      margin-bottom: 12px;
+      padding: 8px 0;
+    }
+    .hadith-de {
+      font-size: 1rem;
+      color: var(--text-primary);
+      font-style: italic;
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    .hadith-tr {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .hadith-source {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      background: var(--bg-page);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      display: inline-block;
+    }
+
+    .imam-rabbani {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--border);
+    }
+    .ir-header {
+      font-size: 0.8rem;
+      color: #f1c40f;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .ir-text {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .ir-source {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
   <div class="header">
     <div class="header-content">
       <h1><span class="moon">☪</span> Gebetszeiten Weltweit</h1>
-      <span class="badge">v1.0</span>
+      <div class="header-meta">
+        <span class="badge" id="liveClock">--:--:--</span>
+        <span class="badge" id="hijriDate">--.--.----</span>
+        <span class="badge">v2.1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAYIRLI CUMALAR BANNER (shown on Fridays) -->
+  <div id="fridayBanner" class="friday-banner hidden">
+    <div class="banner-content">
+      <div class="banner-icon">🕌</div>
+      <div class="banner-text">
+        <div class="banner-title-tr">Hayırlı Cumalar!</div>
+        <div class="banner-title-de">Ein gesegneter Freitag</div>
+      </div>
+      <div class="banner-hadith" id="fridayHadith">—</div>
+    </div>
+  </div>
+
+  <!-- TÄGLICHER HADITH + IMAM RABBANI -->
+  <div class="hadith-section" id="hadithSection">
+    <div class="hadith-card">
+      <div class="hadith-header">
+        <div class="hadith-icon">📖</div>
+        <div class="hadith-title">
+          <div class="title-tr">Günün Hadisi</div>
+          <div class="title-de">Hadith des Tages</div>
+        </div>
+        <button class="hadith-refresh" onclick="loadDailyHadith()" title="Neuer Hadith">🔄</button>
+      </div>
+      <div class="hadith-content" id="dailyHadith">
+        <div class="hadith-arabic" id="hadithArabic">—</div>
+        <div class="hadith-de" id="hadithDe">—</div>
+        <div class="hadith-tr" id="hadithTr">—</div>
+        <div class="hadith-source" id="hadithSource">—</div>
+      </div>
+      <div class="imam-rabbani" id="imamRabbani">
+        <div class="ir-header">İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:</div>
+        <div class="ir-text" id="imamRabbaniText">—</div>
+        <div class="ir-source" id="imamRabbaniSource">—</div>
+      </div>
     </div>
   </div>
 
@@ -512,6 +721,57 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
   <div class="toast" id="toast"></div>
 
   <script>
+    // ============ LIVE CLOCK + HIJRI DATE ============
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('liveClock').textContent = now.toLocaleTimeString('de-DE');
+      // Hijri date (rough — Diyanet official)
+      const h = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
+      document.getElementById('hijriDate').textContent = h.replace(/\u200f/g, '');
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // ============ DAILY HADITH + IMAM RABBANI ============
+    async function loadDailyHadith() {
+      try {
+        const r = await fetch('/api/hadith/today');
+        const d = await r.json();
+        if (d.hadith) {
+          document.getElementById('hadithArabic').textContent = d.hadith.ar;
+          document.getElementById('hadithDe').textContent = d.hadith.de;
+          document.getElementById('hadithTr').textContent = d.hadith.tr;
+          document.getElementById('hadithSource').textContent = '📚 ' + d.hadith.source;
+        }
+        if (d.imam_rabbani) {
+          document.getElementById('imamRabbaniText').innerHTML =
+            '<div style="margin-bottom:4px">' + d.imam_rabbani.de + '</div>' +
+            '<div style="color:var(--text-muted);font-size:0.9em">' + d.imam_rabbani.tr + '</div>';
+          document.getElementById('imamRabbaniSource').textContent = '📖 ' + d.imam_rabbani.source;
+        }
+      } catch (e) { console.error('loadDailyHadith:', e); }
+    }
+    loadDailyHadith();
+
+    // ============ FRIDAY BANNER ============
+    async function checkFridayBanner() {
+      const today = new Date();
+      if (today.getDay() !== 5) {
+        document.getElementById('fridayBanner').classList.add('hidden');
+        return;
+      }
+      try {
+        const r = await fetch('/api/hadith/friday');
+        const d = await r.json();
+        document.getElementById('fridayHadith').innerHTML =
+          '<strong>' + d.hadith.de + '</strong><br><span style="color:var(--text-muted);font-size:0.85em">📚 ' + d.hadith.source + '</span>';
+        document.getElementById('fridayBanner').classList.remove('hidden');
+      } catch (e) { console.error('checkFridayBanner:', e); }
+    }
+    checkFridayBanner();
+    // Re-check every hour (in case page is open across midnight)
+    setInterval(checkFridayBanner, 3600 * 1000);
+
     // ============ TABS ============
     document.querySelectorAll('.tab').forEach(tab => {
       tab.addEventListener('click', () => {
