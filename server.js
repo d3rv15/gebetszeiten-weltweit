@@ -744,6 +744,73 @@ app.get('/api/hadith/random', (req, res) => {
   }
 });
 
+// ============ SEFERI (Musafirlik) ============
+let SEFERI_DATA = null;
+function loadSefData() {
+  if (SEFERI_DATA) return SEFERI_DATA;
+  const candidates = [
+    path.join(__dirname, 'seferi.json'),
+    path.join(__dirname, 'data', 'seferi.json'),
+  ];
+  for (const p of candidates) {
+    try {
+      SEFERI_DATA = JSON.parse(require('fs').readFileSync(p, 'utf8'));
+      console.log(`[gebetszeiten] Loaded seferi.json from ${p}`);
+      return SEFERI_DATA;
+    } catch (e) { /* try next */ }
+  }
+  console.error('[gebetszeiten] failed to load seferi.json');
+  SEFERI_DATA = { distances: {}, concessions: [], conditions: { points: [] } };
+  return SEFERI_DATA;
+}
+loadSefData();
+
+// Haversine formula — great-circle distance in km
+function haversineKm(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
+
+// /api/distance?from=Berlin&to=Munich — resolves both cities + computes great-circle distance
+app.get('/api/distance', async (req, res) => {
+  try {
+    const { from, to } = req.query;
+    if (!from || !to) return res.status(400).json({ error: 'from and to required' });
+    const [a, b] = await Promise.all([resolveCityWithAutoCreate(from), resolveCityWithAutoCreate(to)]);
+    if (!a) return res.status(404).json({ error: `Stadt "${from}" nicht gefunden` });
+    if (!b) return res.status(404).json({ error: `Stadt "${to}" nicht gefunden` });
+    const dist = haversineKm(a.city.lat, a.city.lng, b.city.lat, b.city.lng);
+    const sef = loadSefData().distances;
+    res.json({
+      from: { name: a.city.name, country: a.city.country, lat: a.city.lat, lng: a.city.lng, auto_created: a.created },
+      to:   { name: b.city.name, country: b.city.country, lat: b.city.lat, lng: b.city.lng, auto_created: b.created },
+      distance_km: Math.round(dist * 10) / 10,
+      seferi: {
+        hanafi: { is_musafir: dist >= sef.hanafi_km, threshold_km: sef.hanafi_km, max_km: sef.hanafi_max_km },
+        shafii: { is_musafir: dist >= sef.shafii_km, threshold_km: sef.shafii_km },
+        maliki: { is_musafir: dist >= sef.maliki_km, threshold_km: sef.maliki_km },
+        hanbali: { is_musafir: dist >= sef.hanbali_km, threshold_km: sef.hanbali_km },
+      },
+      rationale: { hanafi: sef.rationale_de, hanafi_tr: sef.rationale_tr },
+    });
+  } catch (e) {
+    logErr('/api/distance error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// /api/seferi/info — full educational content
+app.get('/api/seferi/info', (req, res) => {
+  try {
+    res.json(loadSefData());
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // ============ API-KEY AUTH (for v1) ============
 function requireApiKey(req, res, next) {
   const key = req.headers['x-api-key'] || req.query.api_key;

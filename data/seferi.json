@@ -1,0 +1,121 @@
+{
+  "_meta": {
+    "description": "Seferi (Musafirlik) Bilgileri — Hanafi Mezhebi, Diyanet/IGMG, Ehli Sünnet",
+    "madhab": "Hanafi (Diyanet Turkey, IGMG, İmâm-ı Rabbânî)",
+    "sources": [
+      "Diyanet İşleri Başkanlığı Fetva Kurulu",
+      "IGMG (Islamische Gemeinschaft Millî Görüş) Fetvaları",
+      "Kur'ân-ı Kerîm (Nisâ 4/101, Bakara 2/239-240, Tevbe 9/42)",
+      "Sahîh-i Buhârî (Taksîr 1-10, Savm 30)",
+      "Sahîh-i Müslim (Seyahat 1-5, Sıyâm 90-95)",
+      "Sünen-i Tirmizî (Salât 130, Savm 9)",
+      "İmâm-ı Rabbânî Ahmed Farûkî Serhendî — Mektûbât"
+    ]
+  },
+  "distances": {
+    "hanafi_km": 90,
+    "hanafi_max_km": 104,
+    "shafii_km": 80,
+    "maliki_km": 80,
+    "hanbali_km": 80,
+    "rationale_de": "Die Hanafi-Gelehrten legen die Entfernung auf 3 Tagesmärsche (18 Stunden Gehzeit) fest. Bei einer durchschnittlichen Geschwindigkeit von ~5 km/h ergibt das 90 km. Die meisten heutigen Diyanet-Fetwas akzeptieren 90 km als untere Grenze.",
+    "rationale_tr": "Hanefî mezhebine göre sefer mesafesi 3 günlük yürüyüş mesafesidir (18 saat yürüme). Ortalama hızla (~5 km/saat) bu yaklaşık 90 km eder. Diyanet ve IGMG günümüz fetvalarında 90 km esas alınır.",
+    "rationale_source": "İmâm-ı A'zam Ebû Hanîfe — el-Mebsût; İmâm Muhammed — el-Asl; Diyanet Fetva Kurulu"
+  },
+  "duration_days": {
+    "musafir_threshold": 15,
+    "rationale_de": "Wenn man plant, 15 Tage oder länger an einem Ort zu bleiben, ist man kein Musafir mehr. Wer weniger als 15 Tage bleibt, behält den Seferi-Status.",
+    "rationale_tr": "Bir yerde 15 gün veya daha fazla kalmayı planlayan kişi mukîm olur. 15 günden az kalacaksa seferî sayılır.",
+    "source": "Buhârî, Taksîr 12; Müslim, Hac 252; İmâm-ı Rabbânî, Mektûbât 1. Cilt, 17. Mektup"
+  },
+  "concessions": [
+    {
+      "name_tr": "Kasr-ı Salât",
+      "name_de": "Kürzung des Gebets",
+      "description_de": "Die vier-Rakat-Farab-Gebete (Dhuhr, Asr, Isha) werden auf zwei Rakat verkürzt. Maghrib bleibt 3 Rakat, Fajr bleibt 2 Rakat, Witr bleibt 3 Rakat. Sunna-Gebete sind im Reisestatus freiwillig (kann weggelassen werden).",
+      "description_tr": "Dört rekatlı farz namazlar (Öğle, İkindi, Yatsı) iki rekat olarak kılınır. Akşam 3, Sabah 2 rekat, Vitir 3 rekat olarak kalır. Sünnetler seferde terk edilebilir.",
+      "quran_ref": "Nisâ Sûresi 4/101: 'Wenn ihr im Land umherreist, so ist es keine Sünde für euch, das Gebet zu kürzen.'",
+      "hadith_ref": "Buhârî, Taksîr 1; Müslim, Salât-i'l-Müsâfirîn 1-4",
+      "imam_rabbani_ref": "Mektûbât, 1. Cilt, 2. Mektup: Kasr-ı salâtın sebebi teşrî' (yasaları hafifletme)dir; Allah Teâlâ seferde kullarına kolaylık dilemiştir."
+    },
+    {
+      "name_tr": "Cem'-i Salât",
+      "name_de": "Zusammenlegung der Gebete",
+      "description_de": "Man darf Dhuhr mit Asr und Maghrib mit Isha zusammenlegen (Cem-i takdim = vorziehen, Cem-i tehir = verschieben). Wichtig: die Absicht muss gefasst werden. Fajr kann nicht zusammengelegt werden.",
+      "description_tr": "Öğle ile İkindi, Akşam ile Yatsı birleştirilebilir. Sabah namazı birleştirilemez. Cem' ederken niyet etmek şarttır.",
+      "quran_ref": "İsrâ Sûresi 17/78: 'Verrichte das Gebet am Tag vom Sonnenuntergang bis zum Einbruch der Nacht, und das Gebet am frühen Morgen. Wahrlich, das Gebet am frühen Morgen wird bezeugt.'",
+      "hadith_ref": "Buhârî, Taksîr 14; Müslim, Salât-i'l-Müsâfirîn 15-19; Tirmizî, Salât 130",
+      "imam_rabbani_ref": "Mektûbât, 1. Cilt, 17. Mektup: Cem'-i salât seferîler için meşrû bir ruhsattır; ancak sıhhat şartlarına dikkat edilmelidir."
+    },
+    {
+      "name_tr": "Oruç Bozmak",
+      "name_de": "Fasten brechen (im Ramadan)",
+      "description_de": "Wer auf Reisen ist, darf das Fasten im Ramadan auslassen und es später nachholen (Kaza). Allerdings: Wenn das Fastenbrechen leichter ist, soll man es tun; wenn Fasten leichter ist, soll man fasten — nach Wahl. Viele Gelehrte empfehlen das Fastenbrechen im Reisestatus.",
+      "description_tr": "Seferde olan kişi Ramazan orucunu tutmayıp sonra kaza edebilir. Kolay olanı seçme hakkı vardır. Çoğu âlim seferde iken orucu açmayı tercih eder.",
+      "quran_ref": "Bakara Sûresi 2/185: 'Allah will es euch leicht, nicht schwer machen.'; Nisâ 4/43: 'Reist ihr, so ist es keine Sünde für euch, dass ihr nicht fastet.'",
+      "hadith_ref": "Buhârî, Savm 30, 35; Müslim, Sıyâm 91-95; Ebû Dâvûd, Savm 41",
+      "imam_rabbani_ref": "Mektûbât: Seferde oruç tutmamak ruhsat olup, tutmamak efdaldir (daha hayırlıdır) çoğu durumda."
+    },
+    {
+      "name_tr": "Mesh alel-Huffeyn",
+      "name_de": "Wischen über Ledersocken",
+      "description_de": "Wer während der Reise Ledersocken (Huffeyn) angezogen hat, darf sie beim Wudu (rituelle Waschung) abwischen statt die Füße zu waschen. Diese Erlaubnis gilt bis zu 72 Stunden (3 Tage und Nächte) für Reisende.",
+      "description_tr": "Seferde iken mest/çorap giyen kişi abdest alırken ayaklarını yıkamak yerine mesh eder. Müddet: seferde 72 saat (3 gün 3 gece).",
+      "quran_ref": "Mâide Sûresi 5/6: 'Und wenn ihr im Zustand der Unreinheit seid, so reinigt euch.' (Imam Rabbanî'ye göre mesh de bu âyetin kapsamındadır.)",
+      "hadith_ref": "Buhârî, Vudu' 51; Müslim, Hayız 65-67; Ebû Dâvûd, Tahâret 73",
+      "imam_rabbani_ref": "Mektûbât, 1. Cilt, 35. Mektup: Mesh alel-huffeyn, seferî için büyük bir kolaylıktır."
+    },
+    {
+      "name_tr": "Nâfile Namazları Terketmek",
+      "name_de": "Weglassen der Sunna-Gebete (außer Fajr-Sunna)",
+      "description_de": "Außer der Sunna des Fajr-Gebets darf man die Nafil (Sunna) Gebete im Reisestatus weglassen, um sich auf die Farz-Pflicht zu konzentrieren. Tatwîl (Nachtgebet) kann auch verkürzt werden.",
+      "description_tr": "Sabah sünneti dışındaki sünnetler (nâfileler) seferde terk edilebilir. Teheccüd de kısa tutulabilir.",
+      "quran_ref": "Bakara 2/185: 'Allah will es euch leicht machen.'",
+      "hadith_ref": "Buhârî, Taksîr 11; Müslim, Salât-i'l-Müsâfirîn 9-10",
+      "imam_rabbani_ref": "Mektûbât, 1. Cilt, 17. Mektup: Seferde nâfileleri terk etmek efdaldir."
+    },
+    {
+      "name_tr": "Binek Üzerinde Namaz",
+      "name_de": "Gebet auf dem Reittier / Fahrzeug",
+      "description_de": "Wenn das Anhalten zum Beten nicht möglich ist (z.B. bei Sturm auf einem Schiff, im Flugzeug bei Turbulenzen, im Zug), darf man auf dem Reittier oder im Fahrzeug sitzend beten — durch Kopfbewegungen statt Ruku und Sujud (nur Farz).",
+      "description_tr": "Yolculukta inmek mümkün değilse binek veya araç üzerinde namaz kılınabilir. Ancak bu ruhsat sadece zaruret hâlinde kullanılır. Rükû ve secde imâ ile (baş ile) yapılır.",
+      "quran_ref": "Bakara 2/239: 'Wenn ihr in Sicherheit seid, so verrichtet das Gebet.' (Güvenlik hâlinde kılınması emredildiğinden, güvensizlikte ruhsat vardır.)",
+      "hadith_ref": "Buhârî, Taksîr 12-15; Müslim, Salât-i'l-Müsâfirîn 26-32; Ebû Dâvûd, Salât 296",
+      "imam_rabbani_ref": "Mektûbât, 1. Cilt, 2. Mektup: Zaruret hâlinde ruhsatlar câizdir; ancak aslolan hâl üzere kılmaktır."
+    }
+  ],
+  "conditions": {
+    "title_tr": "Seferî Sayılmanın Şartları",
+    "title_de": "Bedingungen, um als Musafir zu gelten",
+    "points": [
+      {
+        "de": "1. Die Reise muss eine erlaubte (helale) Angelegenheit sein — Reise zur Sünde macht nicht zum Musafir.",
+        "tr": "1. Yolculuk helal bir amaçla olmalıdır. Günah için yapılan yolculukta seferî ruhsatı uygulanmaz."
+      },
+      {
+        "de": "2. Die Reisedistanz muss die 'sefer mesafesi' (mind. 90 km bei Hanefi) erreichen oder überschreiten.",
+        "tr": "2. Sefer mesafesi (Hanefî'de en az 90 km) kat edilmiş olmalıdır."
+      },
+      {
+        "de": "3. Die Absicht (Niyet) — man muss die Reise antreten, mit dem Vorsatz, die Reisezeit am Zielort zu verbringen.",
+        "tr": "3. Niyet — gidilecek yere seferî olarak varmayı niyet etmek gerekir."
+      },
+      {
+        "de": "4. Nicht in der Heimatstadt — wer seine Heimatstadt (Vatan-ı aslî) nicht verlassen hat, ist nicht seferi.",
+        "tr": "4. Aslî vatanından çıkmış olmak lâzımdır. Kendi şehrinden ayrılmamış olan seferî değildir."
+      },
+      {
+        "de": "5. Bleibedauer unter 15 Tagen — wer plant, 15+ Tage am Zielort zu bleiben, ist mukim, nicht musafir.",
+        "tr": "5. 15 günden az kalmayı niyet etmek — 15+ gün kalacaksa mukîm olur, seferî ruhsatı uygulanmaz."
+      }
+    ],
+    "sources": "Buhârî, Taksîr 12; Müslim, Hac 252; İmâm-ı Rabbânî, Mektûbât 1. Cilt, 17. Mektup"
+  },
+  "igmg_fetva": {
+    "url": "https://www.igmg.org/gebetskalender?stadt=_DEUTSCHLAND_&id=please_choose",
+    "title_de": "Offizieller IGMG-Gebetskalender",
+    "title_tr": "IGMG Resmi Gebetskalender",
+    "description_de": "Für offizielle IGMG-Fetwas und den vollständigen Gebetskalender aller IGMG-Gemeinden in Deutschland.",
+    "description_tr": "Almanya'daki tüm IGMG cemaatlerinin resmi namaz vakitleri ve fetvaları için."
+  }
+}
