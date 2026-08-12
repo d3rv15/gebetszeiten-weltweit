@@ -287,6 +287,18 @@
     },
     "verdict": {
       "no": "❌ Du bist <strong>MUKÎM</strong> (Ansässig) — die Entfernung ist unter der Sefer-Mesafesi, keine Reiseerleichterungen."
+    },
+    "official_sources_title": {
+      "de": "🏛️ Offizielle Quellen — IGMG & Diyanet",
+      "tr": "🏛️ Resmi Kaynaklar — IGMG & Diyanet",
+      "ar": "🏛️ المصادر الرسمية — IGMG وديانت",
+      "en": "🏛️ Official Sources — IGMG & Diyanet"
+    },
+    "official_sources_desc": {
+      "de": "Beide Institutionen verwenden dieselbe Diyanet-Turkey-Berechnungsmethode. Diese App nutzt exakt diese Methode (Adhan-Bibliothek, validiert gegen IGMG-Serverdaten).",
+      "tr": "Her iki kurum da aynı Diyanet-Türkiye hesaplama yöntemini kullanır. Bu uygulama tam olarak bu yöntemi kullanır (Adhan kütüphanesi, IGMG sunucu verileriyle doğrulanmış).",
+      "ar": "كلتا المؤسستين تستخدمان نفس طريقة حساب ديانت-تركيا. هذا التطبيق يستخدم نفس هذه الطريقة بالضبط (مكتبة Adhan، مُتحقَّق منها مع بيانات خادم IGMG).",
+      "en": "Both institutions use the same Diyanet-Turkey calculation method. This app uses exactly that method (Adhan library, validated against IGMG server data)."
     }
   },
   "friday": {
