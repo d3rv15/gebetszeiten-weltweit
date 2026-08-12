@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gebetszeiten Weltweit</title>
+  <title data-i18n="header.title">Gebetszeiten Weltweit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
@@ -651,6 +651,49 @@
       color: var(--bg-page);
     }
 
+    /* Language switcher */
+    .lang-switcher {
+      display: flex;
+      gap: 4px;
+      background: rgba(0,0,0,0.2);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid rgba(200,168,107,0.3);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      padding: 4px 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      opacity: 0.45;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+    .lang-btn:hover { opacity: 0.8; background: rgba(255,255,255,0.05); }
+    .lang-btn.active {
+      opacity: 1;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    /* RTL for Arabic */
+    [dir="rtl"] .header-left { flex-direction: row-reverse; }
+    [dir="rtl"] .seferi-input-row { direction: rtl; }
+    [dir="rtl"] .seferi-input-row .arrow { transform: scaleX(-1); }
+    [dir="rtl"] .arrow { transform: scaleX(-1); }
+    [dir="rtl"] .result-item { flex-direction: row-reverse; }
+    [dir="rtl"] .concession-item { border-left: none; border-right: 3px solid var(--accent); }
+    [dir="rtl"] .madhab-cell { border-left: none; border-right: 3px solid var(--border); }
+    [dir="rtl"] .madhab-cell.musafir { border-right-color: var(--emerald); }
+    [dir="rtl"] .hadith-source { border-left: none; border-right: 2px solid var(--accent); border-radius: 4px 0 0 4px; }
+    [dir="rtl"] .header-content { direction: rtl; }
+    [dir="rtl"] .header-meta { flex-direction: row-reverse; }
+    [dir="rtl"] body { font-family: 'Amiri', 'Inter', sans-serif; }
+    [dir="rtl"] .hadith-arabic { direction: rtl; text-align: right; }
+    [dir="rtl"] .header-sub { direction: ltr; text-align: right; }
+
     .friday-banner {
       background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 50%, #2d4a3a 100%);
       border: 1px solid rgba(241,196,15,0.4);
@@ -810,14 +853,22 @@
       <div class="header-left">
         <div class="logo">☪</div>
         <div>
-          <h1>Namaz Vakitleri <span class="h1-light">— Gebetszeiten Weltweit</span></h1>
-          <div class="header-sub">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ — IGMG-faithful · Diyanet-Methode</div>
+          <h1>
+            <span data-i18n="header.title" data-i18n-attr="text">Gebetszeiten Weltweit</span>
+          </h1>
+          <div class="header-sub" data-i18n="header.subtitle">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ — IGMG-faithful · Diyanet-Methode</div>
         </div>
       </div>
       <div class="header-meta">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="de" title="Deutsch">🇩🇪</button>
+          <button class="lang-btn" data-lang="tr" title="Türkçe">🇹🇷</button>
+          <button class="lang-btn" data-lang="ar" title="العربية">🇸🇦</button>
+          <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+        </div>
         <span class="badge" id="liveClock">--:--:--</span>
         <span class="badge" id="hijriDate">--.--.----</span>
-        <span class="badge badge-gold">v2.2</span>
+        <span class="badge badge-gold" data-i18n="header.version">v2.2</span>
       </div>
     </div>
   </div>
@@ -827,8 +878,8 @@
     <div class="banner-content">
       <div class="banner-icon">🕌</div>
       <div class="banner-text">
-        <div class="banner-title-tr">Hayırlı Cumalar!</div>
-        <div class="banner-title-de">Ein gesegneter Freitag</div>
+        <div class="banner-title-tr" data-i18n="friday.title_tr">Hayırlı Cumalar!</div>
+        <div class="banner-title-de" data-i18n="friday.title_de">Ein gesegneter Freitag</div>
       </div>
       <div class="banner-hadith" id="fridayHadith">—</div>
     </div>
@@ -840,10 +891,10 @@
       <div class="hadith-header">
         <div class="hadith-icon">📖</div>
         <div class="hadith-title">
-          <div class="title-tr">Günün Hadisi</div>
-          <div class="title-de">Hadith des Tages</div>
+          <div class="title-tr" data-i18n="hadith.title_tr">Günün Hadisi</div>
+          <div class="title-de" data-i18n="hadith.title_de">Hadith des Tages</div>
         </div>
-        <button class="hadith-refresh" onclick="loadDailyHadith()" title="Neuer Hadith">🔄</button>
+        <button class="hadith-refresh" onclick="loadDailyHadith()" data-i18n-title="hadith.refresh" title="Neuer Hadith">🔄</button>
       </div>
       <div class="hadith-content" id="dailyHadith">
         <div class="hadith-arabic" id="hadithArabic">—</div>
@@ -852,7 +903,7 @@
         <div class="hadith-source" id="hadithSource">—</div>
       </div>
       <div class="imam-rabbani" id="imamRabbani">
-        <div class="ir-header">İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:</div>
+        <div class="ir-header" data-i18n="hadith.imam_rabbani_de">İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:</div>
         <div class="ir-text" id="imamRabbaniText">—</div>
         <div class="ir-source" id="imamRabbaniSource">—</div>
       </div>
@@ -861,19 +912,19 @@
 
   <div class="container">
     <div class="tabs">
-      <button class="tab active" data-tab="times">🕌 Gebetszeiten</button>
-      <button class="tab" data-tab="seferi">🧳 Seferi-Check</button>
-      <button class="tab" data-tab="keys">🔑 API-Keys</button>
-      <button class="tab" data-tab="api">📡 API-Doku</button>
+      <button class="tab active" data-tab="times" data-i18n="tabs.times">🕌 Gebetszeiten</button>
+      <button class="tab" data-tab="seferi" data-i18n="tabs.seferi">🧳 Seferi-Check</button>
+      <button class="tab" data-tab="keys" data-i18n="tabs.keys">🔑 API-Keys</button>
+      <button class="tab" data-tab="api" data-i18n="tabs.api">📡 API-Doku</button>
     </div>
 
     <!-- GEBETSZEITEN PANEL -->
     <div class="panel active" id="panel-times">
       <div class="card">
         <div class="search-row">
-          <input class="input" type="text" id="citySearch" placeholder="Stadt suchen (z.B. Offenbach, München, Istanbul)...">
+          <input class="input" type="text" id="citySearch" data-i18n-placeholder="search.placeholder" placeholder="Stadt suchen (z.B. Offenbach, München, Istanbul)...">
           <select class="select" id="countryFilter" style="min-width:120px">
-            <option value="">🌍 Alle Länder</option>
+            <option value="" data-i18n="search.all_countries">🌍 Alle Länder</option>
           </select>
           <select class="select" id="dateSelect" style="min-width:200px"></select>
         </div>
@@ -881,11 +932,11 @@
         <div id="prayerCard"></div>
       </div>
       <div class="card" style="margin-top:20px">
-        <h2 class="card-title">📍 Eigene Stadt hinzufügen</h2>
-        <p class="card-subtitle">Stadt ist nicht in der IGMG-Liste? Gib einen beliebigen Ort ein — wir berechnen die Zeiten lokal (Diyanet-Methode) in der örtlichen Zeitzone.</p>
+        <h2 class="card-title" data-i18n="custom_city.title">📍 Eigene Stadt hinzufügen</h2>
+        <p class="card-subtitle" data-i18n="custom_city.subtitle">Stadt ist nicht in der IGMG-Liste? Gib einen beliebigen Ort ein — wir berechnen die Zeiten lokal (Diyanet-Methode) in der örtlichen Zeitzone.</p>
         <div class="search-row">
-          <input class="input" type="text" id="customCityInput" placeholder="z.B. Yozgat, Schönefeld, Ankara, München-Augsburg ...">
-          <button class="btn" id="customCityBtn">+ Stadt laden</button>
+          <input class="input" type="text" id="customCityInput" data-i18n-placeholder="custom_city.input_placeholder" placeholder="z.B. Yozgat, Schönefeld, Ankara, München-Augsburg ...">
+          <button class="btn" id="customCityBtn" data-i18n="custom_city.button">+ Stadt laden</button>
         </div>
         <div id="customCityResult"></div>
         <div id="customCityCard"></div>
@@ -901,25 +952,22 @@
           <span class="ornament-right">۞</span>
         </div>
         <h2 class="seferi-title">
-          <div class="title-ar">السَّفَر</div>
-          <div class="title-tr">Seferî (Yolcu) Kontrolü</div>
-          <div class="title-de">Reisestatus prüfen — Hanafi-Fiqh</div>
+          <div class="title-ar" data-i18n="seferi.title_ar">السَّفَر</div>
+          <div class="title-tr" data-i18n="seferi.title_tr">Seferî (Yolcu) Kontrolü</div>
+          <div class="title-de" data-i18n="seferi.title_de">Reisestatus prüfen — Hanafi-Fiqh</div>
         </h2>
-        <p class="seferi-subtitle">
-          Prüfe, ob deine Reise als <em>seferî</em> (Yolculuk/Musâfir) im islamischen Recht gilt und welche Erleichterungen (Ruhsat) dir dann zustehen.
-          Berechnung nach <strong>Hanefî-Mezhebi</strong> (Diyanet/IGMG) — Distanz: ≥ <strong>90 km</strong>.
-        </p>
+        <p class="seferi-subtitle" data-i18n="seferi.subtitle">Prüfe, ob deine Reise als <em>seferî</em> (Yolculuk/Musâfir) im islamischen Recht gilt und welche Erleichterungen (Ruhsat) dir dann zustehen. Berechnung nach <strong>Hanefî-Mezhebi</strong> (Diyanet/IGMG) — Distanz: ≥ <strong>90 km</strong>.</p>
         <div class="seferi-input-row">
           <div class="input-group">
-            <label>Von (Heimatstadt)</label>
-            <input class="input" type="text" id="seferiFrom" placeholder="z.B. Offenbach, Berlin, Istanbul">
+            <label data-i18n="seferi.from_label">Von (Heimatstadt)</label>
+            <input class="input" type="text" id="seferiFrom" data-i18n-placeholder="seferi.from_placeholder" placeholder="z.B. Offenbach, Berlin, Istanbul">
           </div>
           <div class="arrow">→</div>
           <div class="input-group">
-            <label>Nach (Zielort)</label>
-            <input class="input" type="text" id="seferiTo" placeholder="z.B. München, Mekka, Ankara">
+            <label data-i18n="seferi.to_label">Nach (Zielort)</label>
+            <input class="input" type="text" id="seferiTo" data-i18n-placeholder="seferi.to_placeholder" placeholder="z.B. München, Mekka, Ankara">
           </div>
-          <button class="btn btn-primary" id="seferiBtn">🔍 Prüfen</button>
+          <button class="btn btn-primary" id="seferiBtn" data-i18n="seferi.button">🔍 Prüfen</button>
         </div>
         <div id="seferiResult"></div>
       </div>
@@ -928,15 +976,15 @@
         <div class="ornament-divider">
           <span class="ornament-icon">📜</span>
         </div>
-        <h2 class="card-title">📖 Seferî Nedir? — Was bedeutet Musafir?</h2>
+        <h2 class="card-title" data-i18n="seferi.what_is_title">📖 Seferî Nedir? — Was bedeutet Musafir?</h2>
         <div id="seferiInfoContent">⏳ Yükleniyor…</div>
       </div>
 
       <div class="card igmg-card">
-        <h3>🌐 Offizielle IGMG-Quelle</h3>
-        <p>Für den vollständigen IGMG-Gebetskalender und offizielle Fetwas:</p>
+        <h3 data-i18n="seferi.igmg_title">🌐 Offizielle IGMG-Quelle</h3>
+        <p data-i18n="seferi.igmg_desc">Für den vollständigen IGMG-Gebetskalender und offizielle Fetwas:</p>
         <a href="https://www.igmg.org/gebetskalender?stadt=_DEUTSCHLAND_&id=please_choose" target="_blank" rel="noopener" class="igmg-link">
-          🔗 igmg.org/gebetskalender →
+          <span data-i18n="seferi.igmg_link_text">🔗 igmg.org/gebetskalender →</span>
         </a>
       </div>
     </div>
@@ -1028,6 +1076,84 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
   <div class="toast" id="toast"></div>
 
   <script>
+    // ============ i18n (Multi-Language) ============
+    let I18N = null;
+    let CURRENT_LANG = 'de';
+
+    async function loadI18n() {
+      if (I18N) return I18N;
+      try {
+        I18N = await fetch('/api/i18n').then(r => r.json());
+      } catch (e) {
+        console.error('i18n load failed:', e);
+        I18N = {};
+      }
+      return I18N;
+    }
+
+    function t(key, vars = {}) {
+      if (!I18N) return key;
+      // Key like "header.title" — try direct lookup with lang suffix
+      const parts = key.split('.');
+      let base = I18N;
+      for (const p of parts) base = base?.[p];
+      if (typeof base === 'string') return interpolate(base, vars);
+      // Try with language suffix
+      const suffixed = base?.[CURRENT_LANG];
+      if (typeof suffixed === 'string') return interpolate(suffixed, vars);
+      // Fallback chain
+      for (const fb of ['de', 'en']) {
+        if (typeof base?.[fb] === 'string') return interpolate(base[fb], vars);
+      }
+      return key;
+    }
+    function interpolate(s, vars) {
+      return s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`);
+    }
+
+    function renderI18n() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        el.textContent = t(key);
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        el.placeholder = t(key);
+      });
+      // Update html lang + dir
+      const html = document.documentElement;
+      html.lang = CURRENT_LANG;
+      html.dir = (I18N?._meta?.rtl || []).includes(CURRENT_LANG) ? 'rtl' : 'ltr';
+      // Update active lang button
+      document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.lang === CURRENT_LANG);
+      });
+      // Update title
+      document.title = t('header.title');
+    }
+
+    function setLang(lang) {
+      CURRENT_LANG = lang;
+      localStorage.setItem('gebetszeiten-lang', lang);
+      renderI18n();
+      // Re-render any open cards with dynamic content
+      if (typeof checkFridayBanner === 'function') checkFridayBanner();
+    }
+
+    // Initialize
+    (async () => {
+      await loadI18n();
+      const saved = localStorage.getItem('gebetszeiten-lang');
+      if (saved && (I18N?._meta?.languages || []).includes(saved)) {
+        CURRENT_LANG = saved;
+      }
+      renderI18n();
+      // Wire up language buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLang(btn.dataset.lang));
+      });
+    })();
+
     // ============ LIVE CLOCK + HIJRI DATE ============
     function updateClock() {
       const now = new Date();
@@ -1085,10 +1211,11 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       const to = document.getElementById('seferiTo').value.trim();
       const resultEl = document.getElementById('seferiResult');
       if (!from || !to) {
-        resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">Bitte beide Städte eingeben.</div>';
+        const msg = CURRENT_LANG === 'de' ? 'Bitte beide Städte eingeben.' : (CURRENT_LANG === 'tr' ? 'Lütfen iki şehri de girin.' : (CURRENT_LANG === 'ar' ? 'يرجى إدخال المدينتين.' : 'Please enter both cities.'));
+        resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">' + msg + '</div>';
         return;
       }
-      resultEl.innerHTML = '<div class="result-empty">⏳ Berechne Entfernung und prüfe Seferi-Status…</div>';
+      resultEl.innerHTML = `<div class="result-empty">${t('seferi.loading')}</div>`;
       try {
         const r = await fetch('/api/distance?from=' + encodeURIComponent(from) + '&to=' + encodeURIComponent(to));
         const d = await r.json();
@@ -1098,34 +1225,33 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         }
         const verY = d.seferi.hanafi.is_musafir;
         const verdictClass = verY ? 'yes' : 'no';
-        const verdictText = verY
-          ? '✅ Du bist <strong>SEFERÎ</strong> (Yolcu / Musâfir) — die islamischen Reiseerleichterungen gelten für dich.'
-          : '❌ Du bist <strong>MUKÎM</strong> (Ansässig) — die Entfernung ist unter der Sefer-Mesafesi, keine Reiseerleichterungen.';
+        const verdictText = verY ? t('seferi.verdict_yes') : t('seferi.verdict_no');
         const madhabs = [
-          { name: 'Hanefî (Diyanet/IGMG)', v: d.seferi.hanafi.is_musafir, km: d.seferi.hanafi.threshold_km },
-          { name: 'Şâfiî', v: d.seferi.shafii.is_musafir, km: d.seferi.shafii.threshold_km },
-          { name: 'Mâlikî', v: d.seferi.maliki.is_musafir, km: d.seferi.maliki.threshold_km },
-          { name: 'Hanbelî', v: d.seferi.hanbali.is_musafir, km: d.seferi.hanbali.threshold_km },
+          { name: t('seferi.madhab_hanafi'), v: d.seferi.hanafi.is_musafir, km: d.seferi.hanafi.threshold_km, statusY: t('seferi.musafir'), statusN: t('seferi.mukim') },
+          { name: 'Şâfiî', v: d.seferi.shafii.is_musafir, km: d.seferi.shafii.threshold_km, statusY: t('seferi.musafir'), statusN: t('seferi.mukim') },
+          { name: 'Mâlikî', v: d.seferi.maliki.is_musafir, km: d.seferi.maliki.threshold_km, statusY: t('seferi.musafir'), statusN: t('seferi.mukim') },
+          { name: 'Hanbelî', v: d.seferi.hanbali.is_musafir, km: d.seferi.hanbali.threshold_km, statusY: t('seferi.musafir'), statusN: t('seferi.mukim') },
         ];
+        const numLocale = CURRENT_LANG === 'tr' ? 'tr-TR' : (CURRENT_LANG === 'ar' ? 'ar-SA' : (CURRENT_LANG === 'en' ? 'en-US' : 'de-DE'));
         resultEl.innerHTML = `
           <div class="seferi-result-card">
             <div style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-bottom:8px">
               ${d.from.name} (${d.from.country}) <span style="color:var(--accent)">→</span> ${d.to.name} (${d.to.country})
             </div>
-            <div class="seferi-distance">${d.distance_km.toLocaleString('de-DE')} km</div>
-            <div class="seferi-distance-label">Großkreisentfernung (Luftlinie)</div>
+            <div class="seferi-distance">${d.distance_km.toLocaleString(numLocale)} km</div>
+            <div class="seferi-distance-label">${t('seferi.distance_label')}</div>
             <div class="seferi-verdict ${verdictClass}">${verdictText}</div>
-            <div style="text-align:center;color:var(--text-muted);font-size:0.8rem;margin-bottom:8px">Nach den 4 sunnitischen Rechtsschulen:</div>
+            <div style="text-align:center;color:var(--text-muted);font-size:0.8rem;margin-bottom:8px">${CURRENT_LANG === 'de' ? 'Nach den 4 sunnitischen Rechtsschulen:' : (CURRENT_LANG === 'tr' ? '4 sünni mezhebine göre:' : (CURRENT_LANG === 'ar' ? 'حسب المذاهب السنية الأربعة:' : 'Per the 4 Sunni madhabs:'))}</div>
             <div class="seferi-madhab-grid">
               ${madhabs.map(m => `
                 <div class="madhab-cell ${m.v ? 'musafir' : 'mukim'}">
                   <div class="madhab-name">${m.name}</div>
-                  <div class="madhab-status">${m.v ? '✈️ Seferî' : '🏠 Mukîm'} (≥ ${m.km} km)</div>
+                  <div class="madhab-status">${m.v ? m.statusY : m.statusN} (≥ ${m.km} km)</div>
                 </div>
               `).join('')}
             </div>
             <div style="font-size:0.8rem;color:var(--text-muted);margin-top:12px;text-align:center;line-height:1.5">
-              ${d.rationale.hanafi}
+              ${CURRENT_LANG === 'tr' || CURRENT_LANG === 'ar' ? d.rationale.hanafi_tr : d.rationale.hanafi}
             </div>
           </div>
         `;
@@ -1137,20 +1263,23 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
             resultEl.innerHTML += `
               <div class="seferi-concessions">
                 <h3 style="text-align:center;color:var(--accent);margin-bottom:16px;font-size:1.15rem">
-                  📜 Seferî Ruhsatları — Reiseerleichterungen
+                  ${t('seferi.concessions_title')}
                 </h3>
-                ${conc.map(c => `
+                ${conc.map(c => {
+                  const desc = CURRENT_LANG === 'tr' || CURRENT_LANG === 'ar' ? c.description_tr : c.description_de;
+                  const name = CURRENT_LANG === 'en' ? c.name_de : c.name_tr;
+                  return `
                   <div class="concession-item">
-                    <div class="concession-title">${c.name_tr} <span style="color:var(--text-muted);font-weight:400">— ${c.name_de}</span></div>
-                    <div class="concession-de">${c.description_de}</div>
-                    <div class="concession-tr">${c.description_tr}</div>
+                    <div class="concession-title">${name} <span style="color:var(--text-muted);font-weight:400">— ${c.name_de}</span></div>
+                    <div class="concession-de">${desc}</div>
+                    <div class="concession-tr">${CURRENT_LANG === 'en' ? c.description_tr : c.description_de}</div>
                     <div class="concession-refs">
                       ${c.quran_ref ? '<div>📖 <strong>Quran:</strong> ' + c.quran_ref + '</div>' : ''}
                       ${c.hadith_ref ? '<div>📚 <strong>Hadith:</strong> ' + c.hadith_ref + '</div>' : ''}
                       ${c.imam_rabbani_ref ? '<div>📜 <strong>İmâm-ı Rabbânî:</strong> ' + c.imam_rabbani_ref + '</div>' : ''}
                     </div>
                   </div>
-                `).join('')}
+                `;}).join('')}
               </div>
             `;
           }
@@ -1258,7 +1387,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         const addBtn = document.createElement('div');
         addBtn.className = 'result-empty';
         addBtn.style.cssText = 'cursor:pointer;color:#3498db;border:1px dashed #3498db;border-radius:6px;padding:10px;text-align:center;background:rgba(52,152,219,0.08)';
-        addBtn.textContent = `➕ "${citySearch.value.trim()}" als eigene Stadt hinzufügen + Zeiten berechnen`;
+        addBtn.textContent = t('search.add_custom', { query: citySearch.value.trim() });
         addBtn.onclick = () => addCustomCityFromTop(citySearch.value.trim());
         cityResults.appendChild(addBtn);
       }
@@ -1266,7 +1395,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
 
     // When the user types something not in the list, this auto-geocodes and adds it
     async function addCustomCityFromTop(q) {
-      cityResults.innerHTML = `<div class="result-empty">⏳ Suche "${q}" und berechne Zeiten (IGMG/Diyanet)…</div>`;
+      cityResults.innerHTML = `<div class="result-empty">${t('search.searching', { query: q })}</div>`;
       try {
         const r1 = await fetch('/api/cities/custom', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ q }) });
         if (!r1.ok) {
@@ -1307,12 +1436,17 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         SG:'🇸🇬 Singapur', BA:'🇧🇦 Bosnien', MK:'🇲🇰 Mazedonien', MD:'🇲🇩 Moldau',
         LI:'🇱🇮 Liechtenstein', NZ:'🇳🇿 Neuseeland', MY:'🇲🇾 Malaysia', QA:'🇶🇦 Katar',
       };
+      // Don't wipe the first "all" option — just preserve + re-render if it has data-i18n
+      const firstOpt = sel.querySelector('option[value=""]');
       const sorted = Object.keys(cc).sort();
       for (const k of sorted) {
         const opt = document.createElement('option');
         opt.value = k;
         opt.textContent = (labels[k] || k) + ' (' + cc[k] + ')';
         sel.appendChild(opt);
+      }
+      if (firstOpt && firstOpt.dataset.i18n && I18N) {
+        firstOpt.textContent = t(firstOpt.dataset.i18n);
       }
     }
 
@@ -1348,40 +1482,38 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       const r = await fetch(`/api/times?city=${encodeURIComponent(city.name)}&date=${date}`);
       const d = await r.json();
       if (d.error) { toast(d.error, 'error'); return; }
-      if (!d.imsak) { toast('Keine Daten für diese Stadt', 'error'); return; }
+      if (!d.imsak) { toast(t('city_card.no_data'), 'error'); return; }
       const card = document.getElementById('prayerCard');
-      const labels = {
-        imsak:   { de: 'Morgen (İmsak)',  tr: 'İmsak' },
-        sunrise: { de: 'Sonnenaufgang',   tr: 'Güneş' },
-        dhuhr:   { de: 'Mittag (Öğle)',   tr: 'Öğle' },
-        asr:     { de: 'Nachmittag (İkindi)', tr: 'İkindi' },
-        maghrib: { de: 'Abend (Akşam)',   tr: 'Akşam' },
-        isha:    { de: 'Nacht (Yatsı)',   tr: 'Yatsı' },
-      };
       const nextP = getNextPrayer(d);
-      const dateStr = new Date(d.date).toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+      const dateStr = new Date(d.date).toLocaleDateString(
+        (CURRENT_LANG === 'tr' ? 'tr-TR' : (CURRENT_LANG === 'ar' ? 'ar-SA' : (CURRENT_LANG === 'en' ? 'en-US' : 'de-DE'))),
+        { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }
+      );
       // Load holidays for this date
       const holidaysRes = await fetch(`/api/holidays?from=${d.date}&to=${d.date}`).then(r => r.json()).catch(() => ({ holidays: [] }));
       const holiday = (holidaysRes.holidays || [])[0];
       const holidayBanner = holiday ? `<div class="holiday-banner"><span class="icon">${holiday.type === 'bayram' ? '🌙' : '✨'}</span> <strong>${holiday.name}</strong> <span class="hijri">(${holiday.hijri_date})</span></div>` : '';
+      const sourceTag = d.city && d.city.source
+        ? ' · <span class="source">' + (d.city.source === 'bundled' ? t('city_card.source_bundled') : t('city_card.source_custom')) + '</span>'
+        : '';
       card.innerHTML = `
         <div class="prayer-card">
           <h2>${city.name}</h2>
-          <div class="date">${dateStr}${d.city && d.city.source ? ' · <span class="source">' + (d.city.source === 'bundled' ? 'IGMG-Liste' : (d.city.source === 'custom' ? 'Eigene Stadt' : 'Berechnet')) + '</span>' : ''}</div>
+          <div class="date">${dateStr}${sourceTag}</div>
           ${holidayBanner}
           <div class="prayer-grid">
             ${['imsak','sunrise','dhuhr','asr','maghrib','isha'].map(k => `
               <div class="prayer ${k === nextP ? 'current' : ''}">
-                <div class="name">${labels[k].de}<span class="tr">${labels[k].tr}</span></div>
+                <div class="name">${t('city_card.label_' + k)}</div>
                 <div class="time">${d[k]}</div>
-                ${k === nextP ? '<div class="next-badge">Als Nächstes</div>' : ''}
+                ${k === nextP ? '<div class="next-badge">' + t('city_card.next') + '</div>' : ''}
               </div>
             `).join('')}
           </div>
           <div class="multi-day-toggle">
-            <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 7)">📅 7 Tage</button>
-            <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 30)">📅 30 Tage</button>
-            <button class="btn btn-sm" onclick="loadMonth('${encodeURIComponent(city.name)}', '${d.date}')">📆 Monat</button>
+            <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 7)">${t('range.days_7')}</button>
+            <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 30)">${t('range.days_30')}</button>
+            <button class="btn btn-sm" onclick="loadMonth('${encodeURIComponent(city.name)}', '${d.date}')">${t('range.month')}</button>
           </div>
           <div id="multiDayCard" class="multi-day-card"></div>
         </div>
@@ -1394,7 +1526,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
     async function loadRange(cityName, startDate, numDays) {
       const card = document.getElementById('multiDayCard');
       if (!card) return;
-      card.innerHTML = `<div class="result-empty">⏳ Lade ${numDays} Tage + schreibe in Appwrite-Cache…</div>`;
+      card.innerHTML = `<div class="result-empty">${t('range.loading', { n: numDays })}</div>`;
       try {
         const r = await fetch(`/api/times/range?city=${cityName}&start=${startDate}&days=${numDays}`);
         const d = await r.json();
@@ -1404,16 +1536,17 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         const hols = await fetch(`/api/holidays?from=${startDate}&to=${lastDate}`).then(r => r.json()).catch(() => ({ holidays: [] }));
         const holMap = {};
         for (const h of (hols.holidays || [])) holMap[h.greg_date] = h;
-        const labels = { imsak: 'İmsak', sunrise: 'Güneş', dhuhr: 'Öğle', asr: 'İkindi', maghrib: 'Akşam', isha: 'Yatsı' };
+        const dateLocale = (CURRENT_LANG === 'tr' ? 'tr-TR' : (CURRENT_LANG === 'ar' ? 'ar-SA' : (CURRENT_LANG === 'en' ? 'en-US' : 'de-DE')));
+        const labels = { imsak: t('city_card.label_imsak'), sunrise: t('city_card.label_sunrise'), dhuhr: t('city_card.label_dhuhr'), asr: t('city_card.label_asr'), maghrib: t('city_card.label_maghrib'), isha: t('city_card.label_isha') };
         card.innerHTML = `
           <table class="range-table">
             <thead>
-              <tr><th>Datum</th>${Object.values(labels).map(l => `<th>${l}</th>`).join('')}<th>🎉</th></tr>
+              <tr><th>${CURRENT_LANG === 'de' ? 'Datum' : (CURRENT_LANG === 'tr' ? 'Tarih' : (CURRENT_LANG === 'ar' ? 'التاريخ' : 'Date'))}</th>${Object.values(labels).map(l => `<th>${l}</th>`).join('')}<th>🎉</th></tr>
             </thead>
             <tbody>
               ${d.times.map(t => {
                 const ds = new Date(t.date + 'T00:00:00');
-                const dateLabel = ds.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' });
+                const dateLabel = ds.toLocaleDateString(dateLocale, { weekday: 'short', day: '2-digit', month: '2-digit' });
                 const h = holMap[t.date];
                 return `<tr class="${h ? 'has-holiday' : ''}">
                   <td><strong>${dateLabel}</strong>${h ? `<br><small>${h.type === 'bayram' ? '🌙' : '✨'} ${h.name}</small>` : ''}</td>
@@ -1424,7 +1557,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
               }).join('')}
             </tbody>
           </table>
-          <div class="range-info">✅ ${d.times.length} Tage in Appwrite gecached (prayer_times_data) · Berechnet mit IGMG/Diyanet (Adhan)</div>
+          <div class="range-info">${t('range.cached_info', { n: d.times.length })}</div>
         `;
       } catch (e) {
         card.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${e.message}</div>`;
@@ -1457,11 +1590,11 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       resultEl.innerHTML = '';
       cardEl.innerHTML = '';
       if (q.length < 2) {
-        resultEl.innerHTML = '<div class="result-empty">Bitte mindestens 2 Zeichen eingeben.</div>';
+        resultEl.innerHTML = `<div class="result-empty">${CURRENT_LANG === 'de' ? 'Bitte mindestens 2 Zeichen eingeben.' : (CURRENT_LANG === 'tr' ? 'En az 2 karakter girin.' : (CURRENT_LANG === 'ar' ? 'أدخل حرفين على الأقل.' : 'Enter at least 2 characters.'))}</div>`;
         return;
       }
       const date = dateSelect.value;
-      resultEl.innerHTML = '<div class="result-empty">⏳ Suche "' + q + '" und berechne Zeiten (IGMG/Diyanet-Methode)…</div>';
+      resultEl.innerHTML = `<div class="result-empty">${t('search.searching', { query: q })}</div>`;
       try {
         // Step 1: geocode + save to Appwrite via POST /api/cities/custom
         const r1 = await fetch('/api/cities/custom', {
@@ -1488,35 +1621,30 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         resultEl.innerHTML = cityLine;
         // Reload the main city list so this new custom city is available in the top search
         await reloadCities();
-        const labels = {
-          imsak:   { de: 'Morgen (İmsak)',  tr: 'İmsak' },
-          sunrise: { de: 'Sonnenaufgang',   tr: 'Güneş' },
-          dhuhr:   { de: 'Mittag (Öğle)',   tr: 'Öğle' },
-          asr:     { de: 'Nachmittag (İkindi)', tr: 'İkindi' },
-          maghrib: { de: 'Abend (Akşam)',   tr: 'Akşam' },
-          isha:    { de: 'Nacht (Yatsı)',   tr: 'Yatsı' },
-        };
-        const dateStr = new Date(d.date).toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+        const dateStr = new Date(d.date).toLocaleDateString(
+          (CURRENT_LANG === 'tr' ? 'tr-TR' : (CURRENT_LANG === 'ar' ? 'ar-SA' : (CURRENT_LANG === 'en' ? 'en-US' : 'de-DE'))),
+          { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }
+        );
         const customTimes = { imsak: d.imsak, sunrise: d.sunrise, dhuhr: d.dhuhr, asr: d.asr, maghrib: d.maghrib, isha: d.isha };
         cardEl.innerHTML = `
           <div class="prayer-card">
             <h2>${d.city.name} <span style="font-size:14px;color:#7f8c8d;font-weight:400">(${d.method || 'Adhan Diyanet/IGMG'})</span></h2>
-            <div class="date">${dateStr} · örtliche Zeit (${d.city.timezone})</div>
+            <div class="date">${dateStr} · ${d.city.timezone}</div>
             <div class="prayer-grid">
               ${['imsak','sunrise','dhuhr','asr','maghrib','isha'].map(k => `
                 <div class="prayer">
-                  <div class="name">${labels[k].de}<span class="tr">${labels[k].tr}</span></div>
+                  <div class="name">${t('city_card.label_' + k)}</div>
                   <div class="time">${customTimes[k]}</div>
                 </div>
               `).join('')}
             </div>
             <div class="multi-day-toggle">
-              <button class="btn btn-sm" onclick="loadCustomRange('${encodeURIComponent(d.city.name)}', '${d.date}', 7)">📅 7 Tage</button>
-              <button class="btn btn-sm" onclick="loadCustomRange('${encodeURIComponent(d.city.name)}', '${d.date}', 30)">📅 30 Tage</button>
+              <button class="btn btn-sm" onclick="loadCustomRange('${encodeURIComponent(d.city.name)}', '${d.date}', 7)">${t('range.days_7')}</button>
+              <button class="btn btn-sm" onclick="loadCustomRange('${encodeURIComponent(d.city.name)}', '${d.date}', 30)">${t('range.days_30')}</button>
             </div>
             <div id="customMultiDay" class="multi-day-card"></div>
             <div style="margin-top:14px;font-size:12px;color:#7f8c8d;text-align:center">
-              ✅ In Appwrite gespeichert (custom_cities) · Berechnet mit IGMG/Diyanet-Methode (Adhan)
+              ${t('city_card.saved_appwrite')}
             </div>
           </div>
         `;
