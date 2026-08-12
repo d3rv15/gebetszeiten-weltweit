@@ -125,7 +125,32 @@ async function getTimesForCity(city, date) {
   const hit = cacheGet(cacheKey);
   if (hit) return hit;
 
-  // Compute locally (Adhan Turkey/Diyanet = IGMG-faithful)
+  // PRIORITY 1: Check Appwrite for real IGMG server data (source='igmg')
+  // This is the ground truth from igmg.org
+  if (city.source === 'bundled' || !city.source) {
+    try {
+      const igmgId = city.igmg_id || city.id;
+      const docId = `${igmgId}_${date}`;
+      const doc = await db.getDocument(CONFIG.appwrite.dbId, CONFIG.appwrite.prayersColl, docId);
+      if (doc && doc.source === 'igmg') {
+        const result = {
+          date: doc.date,
+          imsak: doc.imsak,
+          sunrise: doc.sunrise,
+          dhuhr: doc.dhuhr,
+          asr: doc.asr,
+          maghrib: doc.maghrib,
+          isha: doc.isha,
+          source: 'igmg',
+          method: 'Turkey (Diyanet/IGMG)',
+        };
+        cacheSet(cacheKey, result);
+        return result;
+      }
+    } catch (e) { /* not found, fall through */ }
+  }
+
+  // PRIORITY 2: Compute locally (Adhan Turkey/Diyanet — used as fallback only)
   const calc = await getCalc();
   const local = calc.calcIGMG(city.lat, city.lng, city.timezone, date);
   const result = {
@@ -141,8 +166,10 @@ async function getTimesForCity(city, date) {
   };
   cacheSet(cacheKey, result);
 
-  // Write to Appwrite (best-effort, don't block response)
-  writeTimesToAppwrite(city, result).catch(e => logErr('appwrite write failed:', e.message));
+  // Write to Appwrite (best-effort, don't block response) — only for non-igmg cities
+  if (result.source !== 'igmg') {
+    writeTimesToAppwrite(city, result).catch(e => logErr('appwrite write failed:', e.message));
+  }
 
   return result;
 }
@@ -215,11 +242,20 @@ async function geocodeAndSave(q) {
 
 async function writeTimesToAppwrite(city, result) {
   try {
+    // CRITICAL: Never overwrite real IGMG data with our local calculation
+    if (result.source === 'igmg') return; // already real IGMG data
+
     // Bundled cities use `igmg_id`, custom cities use `id` (Appwrite doc id like 'cst_xxx'),
     // direct lat/lng use synthesized 'coord:lat_lng' id.
     const rawId = city.igmg_id || city.id || '';
     const safeCityId = String(rawId).replace(/[^a-zA-Z0-9_-]/g, '_');
     const docId = `${safeCityId}_${result.date}`;
+    // If a real IGMG record exists for this date, do NOT overwrite
+    try {
+      const existing = await db.getDocument(CONFIG.appwrite.dbId, CONFIG.appwrite.prayersColl, docId);
+      if (existing && existing.source === 'igmg') return; // keep real IGMG data
+    } catch (e) { /* not found, proceed */ }
+
     // prayer_times_data collection has: city_igmg_id, date, imsak..isha, source,
     // lat, lng, calc_method. NO timezone column — keep this lean.
     const data = {
@@ -597,16 +633,26 @@ app.get('/widget', async (req, res) => {
 });
 
 // Health
-app.get('/health', (req, res) => {
+app.get('/health', async (req, res) => {
+  // Check IGMG data availability for Offenbach today
+  let igmgStatus = 'unknown';
+  try {
+    const today = new Date().toISOString().slice(0, 10);
+    const doc = await db.getDocument(CONFIG.appwrite.dbId, CONFIG.appwrite.prayersColl, `20166_${today}`);
+    igmgStatus = doc && doc.source === 'igmg' ? 'available' : 'missing';
+  } catch (e) {
+    igmgStatus = 'error: ' + e.message;
+  }
   res.json({
     status: 'ok',
     service: 'gebetszeiten-weltweit',
-    version: '2.1.0',
+    version: '2.2.0',
     node: process.version,
     env: NODE_ENV,
     cities: { bundled: BUNDLED_CITIES.length, custom_querying_appwrite: true, cache: calcCache.size },
-    calculator: 'Adhan Turkey/Diyanet method (IGMG-faithful, 0-7 min diff vs IGMG server)',
+    calculator: 'Real IGMG server data (priority) + Adhan Turkey/Diyanet (fallback for custom cities)',
     database: `Appwrite (${CONFIG.appwrite.endpoint}, db=${CONFIG.appwrite.dbId})`,
+    igmg_data_for_offenbach_today: igmgStatus,
   });
 });
 
