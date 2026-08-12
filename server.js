@@ -283,6 +283,85 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ============ EMBED (read-only widget for other sites) ============
+// Returns a minimal HTML page with today's times for ?city=X
+app.get('/embed', async (req, res) => {
+  try {
+    const { city, date, lang } = req.query;
+    if (!city) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(`<!doctype html><html><body style="font-family:sans-serif;padding:1rem;color:#c14545">Missing ?city= parameter</body></html>`);
+    }
+    const langNorm = (lang || 'de').toLowerCase();
+    const supported = ['de', 'tr', 'ar', 'en'];
+    const L = supported.includes(langNorm) ? langNorm : 'de';
+    const resolved = await resolveCityWithAutoCreate(city);
+    if (!resolved) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(`<!doctype html><html><body style="font-family:sans-serif;padding:1rem;color:#c14545">City "${city}" not found</body></html>`);
+    }
+    const c = resolved.city;
+    const calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) ? date : new Date().toISOString().slice(0, 10);
+    const times = await getTimesForCity(c, calcDate);
+    const labelMap = {
+      de: { imsak:'İmsak (Morgen)', sunrise:'Sonnenaufgang', dhuhr:'Öğle (Mittag)', asr:'İkindi (Nachmittag)', maghrib:'Akşam (Abend)', isha:'Yatsı (Nacht)' },
+      tr: { imsak:'İmsak', sunrise:'Güneş', dhuhr:'Öğle', asr:'İkindi', maghrib:'Akşam', isha:'Yatsı' },
+      ar: { imsak:'الإمساك', sunrise:'الشروق', dhuhr:'الظهر', asr:'العصر', maghrib:'المغرب', isha:'العشاء' },
+      en: { imsak:'Imsak (Dawn)', sunrise:'Sunrise', dhuhr:'Dhuhr (Noon)', asr:'Asr (Afternoon)', maghrib:'Maghrib (Sunset)', isha:'Isha (Night)' },
+    };
+    const LBL = labelMap[L];
+    const cityName = c.name;
+    const dateObj = new Date(calcDate + 'T00:00:00Z');
+    const localeMap = { de:'de-DE', tr:'tr-TR', ar:'ar-SA', en:'en-US' };
+    const dateStr = dateObj.toLocaleDateString(localeMap[L], { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+    // Build minimal self-contained HTML
+    const isRtl = L === 'ar';
+    const html = `<!doctype html>
+<html lang="${L}" dir="${isRtl ? 'rtl' : 'ltr'}">
+<head>
+<meta charset="utf-8">
+<title>${cityName} - Namaz Vakitleri</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: ${L === 'ar' ? "'Amiri', serif" : "'Inter', -apple-system, sans-serif"}; margin: 0; background: linear-gradient(135deg, #0a4a32 0%, #0d8055 100%); color: #f0f5e8; min-height: 100vh; padding: 12px; }
+  .card { background: rgba(0,0,0,0.25); border: 1px solid #c8a86b; border-radius: 8px; padding: 12px 14px; max-width: 420px; margin: 0 auto; }
+  h2 { margin: 0 0 4px; font-size: 1.1rem; color: #c8a86b; }
+  .date { font-size: 0.8rem; color: #b8c9a8; margin-bottom: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; border-${isRtl ? 'right' : 'left'}: 3px solid #c8a86b; }
+  .label { font-size: 0.78rem; color: #b8c9a8; }
+  .time { font-family: 'Courier New', monospace; font-size: 1rem; color: #f0f5e8; font-weight: 600; }
+  .footer { margin-top: 8px; font-size: 0.65rem; color: #6b8270; text-align: center; }
+  .footer a { color: #c8a86b; text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>☪ ${cityName}</h2>
+    <div class="date">${dateStr}${c.timezone ? ' · ' + c.timezone : ''}</div>
+    <div class="grid">
+      ${['imsak','sunrise','dhuhr','asr','maghrib','isha'].map(k => `
+      <div class="row">
+        <span class="label">${LBL[k]}</span>
+        <span class="time">${times[k]}</span>
+      </div>`).join('')}
+    </div>
+    <div class="footer">
+      <a href="https://salah.chargedesk.de" target="_blank" rel="noopener">salah.chargedesk.de</a> · IGMG/Diyanet
+    </div>
+  </div>
+</body>
+</html>`;
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN'); // allow iframe embedding
+    res.send(html);
+  } catch (e) {
+    logErr('/embed error:', e);
+    res.status(500).send(`<!doctype html><body>Error: ${e.message}</body>`);
+  }
+});
+
 // Health
 app.get('/health', (req, res) => {
   res.json({

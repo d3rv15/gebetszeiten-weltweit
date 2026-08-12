@@ -694,6 +694,81 @@
     [dir="rtl"] .hadith-arabic { direction: rtl; text-align: right; }
     [dir="rtl"] .header-sub { direction: ltr; text-align: right; }
 
+    /* API Snippet card */
+    .api-snippet-card {
+      margin-top: 16px;
+      background: var(--bg-page);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .api-snippet-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .api-snippet-header strong { color: var(--accent); flex: 1; font-size: 1rem; }
+    .api-icon { font-size: 1.2rem; }
+    .api-docs-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .api-docs-link:hover { background: var(--accent); color: var(--bg-page); }
+
+    .api-snippet { margin-bottom: 12px; }
+    .api-snippet:last-child { margin-bottom: 0; }
+    .api-snippet-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lang-tag {
+      font-size: 0.65rem;
+      background: var(--bg-card);
+      color: var(--accent);
+      padding: 1px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-family: 'Courier New', monospace;
+    }
+    .api-snippet-code {
+      background: var(--bg-page-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin: 4px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .api-copy-btn {
+      background: var(--emerald);
+      color: white;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .api-copy-btn:hover { background: var(--emerald-light); }
+    .api-copy-btn.copied { background: var(--accent); color: var(--bg-page); }
+
     .friday-banner {
       background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 50%, #2d4a3a 100%);
       border: 1px solid rgba(241,196,15,0.4);
@@ -1516,11 +1591,80 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
             <button class="btn btn-sm" onclick="loadMonth('${encodeURIComponent(city.name)}', '${d.date}')">${t('range.month')}</button>
           </div>
           <div id="multiDayCard" class="multi-day-card"></div>
+          ${renderApiSnippet(city.name, city.id)}
         </div>
       `;
       // Auto-load 7-day preview
       loadRange(city.name, d.date, 7);
     }
+
+    // API-Snippet Generator — easy to copy for the selected city
+    function renderApiSnippet(cityName, cityId) {
+      const enc = encodeURIComponent(cityName);
+      const baseUrl = window.location.origin;
+      const idParam = cityId ? `&city=${cityId}` : '';
+      const dateStr = document.getElementById('dateSelect').value;
+      const dateParam = dateStr ? `&date=${dateStr}` : '';
+      const snippets = [
+        {
+          label: CURRENT_LANG === 'de' ? 'Tagesansicht (JSON)' : (CURRENT_LANG === 'tr' ? 'Günlük görünüm (JSON)' : (CURRENT_LANG === 'ar' ? 'العرض اليومي (JSON)' : 'Daily view (JSON)')),
+          lang: 'bash',
+          code: `curl "${baseUrl}/api/times?city=${enc}${idParam}${dateParam}"`,
+        },
+        {
+          label: CURRENT_LANG === 'de' ? '7-Tage-Vorschau' : (CURRENT_LANG === 'tr' ? '7 günlük önizleme' : (CURRENT_LANG === 'ar' ? 'معاينة ٧ أيام' : '7-day preview')),
+          lang: 'bash',
+          code: `curl "${baseUrl}/api/times/range?city=${enc}&start=${dateStr}&days=7"`,
+        },
+        {
+          label: CURRENT_LANG === 'de' ? 'Monatsansicht' : (CURRENT_LANG === 'tr' ? 'Aylık görünüm' : (CURRENT_LANG === 'ar' ? 'العرض الشهري' : 'Monthly view')),
+          lang: 'bash',
+          code: `curl "${baseUrl}/api/times/month?city=${enc}&year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}"`,
+        },
+        {
+          label: CURRENT_LANG === 'de' ? 'Browser-Widget (iframe)' : (CURRENT_LANG === 'tr' ? 'Tarayıcı widget\'ı (iframe)' : (CURRENT_LANG === 'ar' ? 'أداة المتصفح (iframe)' : 'Browser widget (iframe)')),
+          lang: 'html',
+          code: `<iframe src="${baseUrl}/embed?city=${enc}" width="100%" height="380" frameborder="0" style="border:1px solid #c8a86b;border-radius:8px"></iframe>`,
+        },
+      ];
+      return `
+        <div class="api-snippet-card">
+          <div class="api-snippet-header">
+            <span class="api-icon">🔌</span>
+            <strong>${CURRENT_LANG === 'de' ? 'API für ' : (CURRENT_LANG === 'tr' ? 'API — ' : (CURRENT_LANG === 'ar' ? 'API لـ ' : 'API for '))}${cityName}</strong>
+            <a href="#panel-api" class="api-docs-link" onclick="document.querySelector('[data-tab=api]').click()">📡 ${CURRENT_LANG === 'de' ? 'Doku' : (CURRENT_LANG === 'tr' ? 'Dök.' : 'Docs')}</a>
+          </div>
+          ${snippets.map(s => `
+            <div class="api-snippet">
+              <div class="api-snippet-label">${s.label} <span class="lang-tag">${s.lang}</span></div>
+              <pre class="api-snippet-code"><code>${escapeHtml(s.code)}</code></pre>
+              <button class="api-copy-btn" data-copy="${escapeHtml(s.code)}">📋 ${CURRENT_LANG === 'de' ? 'Kopieren' : (CURRENT_LANG === 'tr' ? 'Kopyala' : (CURRENT_LANG === 'ar' ? 'نسخ' : 'Copy'))}</button>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Event-delegation: handle copy buttons in dynamically-rendered cards
+    document.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.api-copy-btn');
+      if (!btn) return;
+      const text = btn.dataset.copy.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = btn.textContent;
+        btn.textContent = '✅ ' + (CURRENT_LANG === 'de' ? 'Kopiert!' : (CURRENT_LANG === 'tr' ? 'Kopyalandı!' : (CURRENT_LANG === 'ar' ? 'تم النسخ!' : 'Copied!')));
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+      } catch (e) {
+        // Fallback: prompt
+        prompt(CURRENT_LANG === 'de' ? 'Code zum Kopieren:' : 'Code to copy:', text);
+      }
+    });
 
     // Load N days starting at startDate and show as table
     async function loadRange(cityName, startDate, numDays) {
