@@ -630,14 +630,15 @@
     }
     .concession-refs > div { margin-bottom: 2px; }
 
-    .igmg-card {
+    .igmg-card, .official-sources-card {
       background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
       border: 1px solid var(--accent);
       color: var(--text-primary);
     }
-    .igmg-link {
+    .igmg-link, .diyanet-link {
       display: inline-block;
       margin-top: 8px;
+      margin-right: 8px;
       color: var(--accent);
       font-weight: 600;
       text-decoration: none;
@@ -646,10 +647,11 @@
       border-radius: 6px;
       transition: all 0.2s;
     }
-    .igmg-link:hover {
+    .igmg-link:hover, .diyanet-link:hover {
       background: var(--accent);
       color: var(--bg-page);
     }
+    .official-links { display: flex; gap: 8px; flex-wrap: wrap; }
 
     /* Language switcher */
     .lang-switcher {
@@ -1055,15 +1057,20 @@
         <div id="seferiInfoContent">⏳ Yükleniyor…</div>
       </div>
 
-      <div class="card igmg-card">
-        <h3 data-i18n="seferi.igmg_title">🌐 Offizielle IGMG-Quelle</h3>
-        <p data-i18n="seferi.igmg_desc">Für den vollständigen IGMG-Gebetskalender und offizielle Fetwas:</p>
-        <a href="https://www.igmg.org/islam" target="_blank" rel="noopener" class="igmg-link">
-          <span data-i18n="seferi.igmg_link_text">🔗 igmg.org/islam →</span>
-        </a>
+      <div class="card official-sources-card">
+        <h3 data-i18n="seferi.official_sources_title">🏛️ Offizielle Quellen — IGMG &amp; Diyanet</h3>
+        <p data-i18n="seferi.official_sources_desc">Beide Institutionen verwenden dieselbe Diyanet-Turkey-Berechnungsmethode. Diese App nutzt exakt diese Methode (Adhan-Bibliothek, validiert gegen IGMG-Serverdaten).</p>
+        <div class="official-links">
+          <a href="https://www.igmg.org/islam" target="_blank" rel="noopener" class="igmg-link">
+            <span data-i18n="seferi.igmg_link_text">🔗 igmg.org/islam →</span>
+          </a>
+          <a href="https://namazvakti.diyanet.gov.tr/" target="_blank" rel="noopener" class="diyanet-link">
+            <span data-i18n="seferi.diyanet_link_text">🔗 namazvakti.diyanet.gov.tr →</span>
+          </a>
+        </div>
         <p style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:8px;line-height:1.5">
           ℹ️ Hinweis: Der IGMG-Gebetskalender (<code style="background:rgba(0,0,0,0.2);padding:1px 5px;border-radius:3px">igmg.org/gebetskalender</code>) erfordert die manuelle Stadtauswahl auf deren Seite.
-          Diese App berechnet die Zeiten lokal nach derselben IGMG/Diyanet-Methode und ist immer verfügbar.
+          Diese App berechnet die Zeiten lokal nach derselben Diyanet-Methode (die IGMG &amp; Diyanet teilen) und ist immer verfügbar.
         </p>
       </div>
     </div>
@@ -1606,14 +1613,16 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
     function renderApiSnippet(cityName, cityId) {
       const enc = encodeURIComponent(cityName);
       const baseUrl = window.location.origin;
-      const idParam = cityId ? `&city=${cityId}` : '';
       const dateStr = document.getElementById('dateSelect').value;
-      const dateParam = dateStr ? `&date=${dateStr}` : '';
+      const year = new Date().getFullYear();
+      const month = new Date().getMonth() + 1;
+      // Use city name only (cleaner, works for both bundled + custom cities)
+      // cityId is NOT used as a query param to avoid double-city= bug
       const snippets = [
         {
           label: CURRENT_LANG === 'de' ? 'Tagesansicht (JSON)' : (CURRENT_LANG === 'tr' ? 'Günlük görünüm (JSON)' : (CURRENT_LANG === 'ar' ? 'العرض اليومي (JSON)' : 'Daily view (JSON)')),
           lang: 'bash',
-          code: `curl "${baseUrl}/api/times?city=${enc}${idParam}${dateParam}"`,
+          code: `curl "${baseUrl}/api/times?city=${enc}&date=${dateStr}"`,
         },
         {
           label: CURRENT_LANG === 'de' ? '7-Tage-Vorschau' : (CURRENT_LANG === 'tr' ? '7 günlük önizleme' : (CURRENT_LANG === 'ar' ? 'معاينة ٧ أيام' : '7-day preview')),
@@ -1623,12 +1632,17 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         {
           label: CURRENT_LANG === 'de' ? 'Monatsansicht' : (CURRENT_LANG === 'tr' ? 'Aylık görünüm' : (CURRENT_LANG === 'ar' ? 'العرض الشهري' : 'Monthly view')),
           lang: 'bash',
-          code: `curl "${baseUrl}/api/times/month?city=${enc}&year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}"`,
+          code: `curl "${baseUrl}/api/times/month?city=${enc}&year=${year}&month=${month}"`,
         },
         {
           label: CURRENT_LANG === 'de' ? 'Browser-Widget (iframe)' : (CURRENT_LANG === 'tr' ? 'Tarayıcı widget\'ı (iframe)' : (CURRENT_LANG === 'ar' ? 'أداة المتصفح (iframe)' : 'Browser widget (iframe)')),
           lang: 'html',
           code: `<iframe src="${baseUrl}/embed?city=${enc}" width="100%" height="380" frameborder="0" style="border:1px solid #c8a86b;border-radius:8px"></iframe>`,
+        },
+        {
+          label: CURRENT_LANG === 'de' ? 'AI-Prompt (für Greta/ChatGPT/etc.)' : (CURRENT_LANG === 'tr' ? 'AI-İstemi (Greta/ChatGPT vs.)' : (CURRENT_LANG === 'ar' ? 'موجه AI (لـ Greta/ChatGPT)' : 'AI prompt (for Greta/ChatGPT/etc.)')),
+          lang: 'text',
+          code: `Hole die heutigen Gebetszeiten für ${cityName} per HTTP:\nGET ${baseUrl}/api/times?city=${enc}&date=${dateStr}\n\nDie Antwort ist JSON mit Feldern:\n- imsak, sunrise, dhuhr, asr, maghrib, isha (jeweils "HH:MM" in lokaler Zeit)\n- method: "Turkey (Diyanet)" (= IGMG-treu)\n- city.name, city.timezone, city.lat, city.lng\n\nZeige die Zeiten in der Landessprache des Users an.`,
         },
       ];
       return `
