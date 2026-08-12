@@ -149,11 +149,10 @@ async function getTimesForCity(city, date) {
 
 async function writeTimesToAppwrite(city, result) {
   try {
-    const cityId = String(city.id).startsWith('cst_') || /^\d+$/.test(String(city.id)) || String(city.id).startsWith('coord:')
-      ? city.id
-      : city.id;
-    // Strip 'coord:' prefix for Appwrite (it doesn't allow : in IDs)
-    const safeCityId = String(cityId).replace(/[^a-zA-Z0-9_-]/g, '_');
+    // Bundled cities use `igmg_id`, custom cities use `id` (Appwrite doc id like 'cst_xxx'),
+    // direct lat/lng use synthesized 'coord:lat_lng' id.
+    const rawId = city.igmg_id || city.id || '';
+    const safeCityId = String(rawId).replace(/[^a-zA-Z0-9_-]/g, '_');
     const docId = `${safeCityId}_${result.date}`;
     // prayer_times_data collection has: city_igmg_id, date, imsak..isha, source,
     // lat, lng, calc_method. NO timezone column — keep this lean.
