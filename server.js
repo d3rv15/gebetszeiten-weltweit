@@ -88,10 +88,15 @@ function findCustomCity(query) {
   // Try id first
   const byId = stmtCustomGet.get(query);
   if (byId) return formatCustomCity(byId);
-  // Try name (case-insensitive)
-  const q = String(query).toLowerCase().trim();
+  // Try diacritic-insensitive fuzzy match (same as bundled)
+  const normalize = (s) => s
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/ı/g, 'i').replace(/İ/g, 'i')
+    .replace(/ß/g, 'ss').replace(/ø/g, 'o').replace(/æ/g, 'ae');
+  const needle = normalize(String(query));
   for (const c of stmtCustomList.all()) {
-    if (c.name.toLowerCase() === q) return formatCustomCity(c);
+    if (normalize(c.name) === needle) return formatCustomCity(c);
   }
   return null;
 }
