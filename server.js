@@ -14,7 +14,7 @@ const HOST = process.env.HOST || '0.0.0.0';
 const NODE_ENV = process.env.NODE_ENV || 'production';
 
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
-const CITIES_FILE = path.join(DATA_DIR, 'cities.json');
+const CITIES_FILE = process.env.CITIES_FILE || path.join(__dirname, 'cities.json');
 const SQLITE_PATH = process.env.SQLITE_PATH || path.join(DATA_DIR, 'api_keys.db');
 
 const log = (...args) => console.log('[gebetszeiten]', ...args);
