@@ -15,6 +15,9 @@ const DB_ID = 'igmg';
 const CITIES_COLL = 'cities2';
 const PRAYERS_COLL = 'prayer_times_data';
 
+const log = (...args) => console.log('[gebetszeiten]', ...args);
+const logErr = (...args) => console.error('[gebetszeiten][ERROR]', ...args);
+
 // Appwrite client
 const appwrite = new Client()
   .setEndpoint(APPWRITE_ENDPOINT)
@@ -174,6 +177,163 @@ app.get('/api/times/month', async (req, res) => {
       })),
     });
   } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ============ CUSTOM CITY (geocoding + local calc) ============
+
+// Cache for adhan module (loaded once, lazily)
+let _calcModule = null;
+async function getCalcModule() {
+  if (!_calcModule) {
+    _calcModule = await import('./igmg-calc.mjs');
+  }
+  return _calcModule;
+}
+
+// Geocoding via Open-Meteo (free, no key). Returns first match.
+async function geocode(query) {
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=1&language=de&format=json`;
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), 8000);
+  try {
+    const resp = await fetch(url, { signal: ctrl.signal });
+    if (!resp.ok) throw new Error(`Geocoding HTTP ${resp.status}`);
+    const d = await resp.json();
+    if (!d.results || d.results.length === 0) return null;
+    const r = d.results[0];
+    return {
+      name: r.name,
+      country: r.country_code || r.country || 'XX',
+      countryName: r.country,
+      admin1: r.admin1,
+      lat: r.latitude,
+      lng: r.longitude,
+      timezone: r.timezone || 'UTC',
+      population: r.population,
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+// Geocode + calculate times for a custom (non-IGMG) city
+app.get('/api/times/custom', async (req, res) => {
+  try {
+    const { q, lat, lng, tz, date } = req.query;
+    let latN = parseFloat(lat);
+    let lngN = parseFloat(lng);
+    let tzStr = tz;
+    let name = null;
+    let country = null;
+    let geocoded = null;
+
+    // Either lat+lng+tz OR q (auto-geocode)
+    if (!isNaN(latN) && !isNaN(lngN) && tzStr) {
+      name = req.query.name || `Custom (${latN.toFixed(2)}, ${lngN.toFixed(2)})`;
+    } else if (q && q.trim().length >= 2) {
+      geocoded = await geocode(q.trim());
+      if (!geocoded) return res.status(404).json({
+        error: 'Stadt nicht gefunden. Versuche es mit einem anderen Namen (z.B. "Yozgat", "Ankara", "Berlin").',
+      });
+      latN = geocoded.lat;
+      lngN = geocoded.lng;
+      tzStr = geocoded.timezone;
+      name = geocoded.name;
+      country = geocoded.country;
+    } else {
+      return res.status(400).json({
+        error: 'Provide either "q" (city name) or "lat", "lng", "tz" parameters',
+      });
+    }
+
+    // Validate coords
+    if (Math.abs(latN) > 90 || Math.abs(lngN) > 180) {
+      return res.status(400).json({ error: 'Invalid lat/lng' });
+    }
+    if (!tzStr || !tzStr.includes('/')) {
+      return res.status(400).json({ error: 'tz must be an IANA timezone (e.g. Europe/Istanbul)' });
+    }
+
+    const calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date))
+      ? date
+      : new Date().toISOString().slice(0, 10);
+
+    const calc = await getCalcModule();
+    let times;
+    try {
+      times = calc.calcIGMG(latN, lngN, tzStr, calcDate);
+    } catch (e) {
+      return res.status(422).json({
+        error: 'Cannot calculate times for this location. Latitude too high for Diyanet method.',
+        detail: e.message,
+        lat: latN,
+      });
+    }
+
+    res.json({
+      city: { name, country, lat: latN, lng: lngN, timezone: tzStr },
+      geocoded: !!geocoded,
+      ...times,
+    });
+  } catch (e) {
+    logErr('/api/times/custom error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Geocode a free-text city and return location info (for the UI "add custom city" flow)
+app.get('/api/cities/custom', async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q || q.trim().length < 2) {
+      return res.status(400).json({ error: 'q (city name) required, min 2 chars' });
+    }
+    const result = await geocode(q.trim());
+    if (!result) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+    res.json(result);
+  } catch (e) {
+    logErr('/api/cities/custom error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Month of prayer times for a custom city
+app.get('/api/times/custom/month', async (req, res) => {
+  try {
+    const { q, lat, lng, tz, year, month } = req.query;
+    let latN = parseFloat(lat), lngN = parseFloat(lng), tzStr = tz;
+    let name = null;
+
+    if (!isNaN(latN) && !isNaN(lngN) && tzStr) {
+      name = req.query.name || `Custom (${latN.toFixed(2)}, ${lngN.toFixed(2)})`;
+    } else if (q && q.trim().length >= 2) {
+      const g = await geocode(q.trim());
+      if (!g) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+      latN = g.lat; lngN = g.lng; tzStr = g.timezone; name = g.name;
+    } else {
+      return res.status(400).json({ error: 'q OR (lat, lng, tz) required' });
+    }
+
+    const y = parseInt(year, 10) || new Date().getFullYear();
+    const m = parseInt(month, 10) || (new Date().getMonth() + 1);
+    if (m < 1 || m > 12) return res.status(400).json({ error: 'month must be 1-12' });
+
+    const calc = await getCalcModule();
+    let days;
+    try {
+      days = calc.calcIGMGMonth(latN, lngN, tzStr, y, m);
+    } catch (e) {
+      return res.status(422).json({ error: 'Cannot calculate: ' + e.message, lat: latN });
+    }
+    res.json({
+      city: { name, lat: latN, lng: lngN, timezone: tzStr },
+      year: y, month: m,
+      days: days.map(({ date, imsak, sunrise, dhuhr, asr, maghrib, isha }) => ({ date, imsak, sunrise, dhuhr, asr, maghrib, isha })),
+    });
+  } catch (e) {
+    logErr('/api/times/custom/month error:', e);
     res.status(500).json({ error: e.message });
   }
 });
