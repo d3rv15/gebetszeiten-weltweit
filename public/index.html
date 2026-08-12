@@ -319,6 +319,70 @@
       font-size: 0.85rem;
     }
     pre code { background: none; padding: 0; }
+
+    .holiday-banner {
+      background: linear-gradient(90deg, rgba(241,196,15,0.15), rgba(241,196,15,0.05));
+      border: 1px solid rgba(241,196,15,0.4);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    .holiday-banner .hijri { color: var(--text-muted); font-size: 0.8rem; margin-left: 6px; }
+    .holiday-banner .icon { font-size: 1.2rem; margin-right: 4px; }
+
+    .multi-day-toggle { display: flex; gap: 8px; margin-top: 16px; justify-content: center; flex-wrap: wrap; }
+    .multi-day-toggle .btn { padding: 4px 10px; font-size: 0.8rem; }
+
+    .multi-day-card { margin-top: 12px; }
+
+    .range-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.85rem;
+    }
+    .range-table th, .range-table td {
+      padding: 6px 8px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .range-table th {
+      background: var(--bg-page);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+    }
+    .range-table tr:hover { background: rgba(255,255,255,0.03); }
+    .range-table tr.has-holiday { background: rgba(241,196,15,0.06); }
+    .range-table tr.has-holiday:hover { background: rgba(241,196,15,0.12); }
+    .range-table small { display: block; color: var(--accent); font-size: 0.7rem; }
+    .holiday-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(241,196,15,0.2);
+      color: var(--accent);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .range-info {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .source {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--bg-page);
+      color: var(--text-muted);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-left: 6px;
+    }
   </style>
 </head>
 <body>
@@ -502,21 +566,60 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       const needle = normalize(q);
       let candidates = allCities;
       if (country) candidates = candidates.filter(c => c.country === country);
-      const matches = candidates.filter(c => normalize(c.name).includes(needle)).slice(0, 50);
+      // Match against: name, admin1, country, country_name, and "name + admin1" (e.g. "Offenbach am Main")
+      const matches = candidates.filter(c => {
+        const n = normalize(c.name);
+        const a = normalize(c.admin1 || '');
+        const fullName = n + (a ? ' ' + a : '');
+        return n.includes(needle) || a.includes(needle) || fullName.includes(needle);
+      }).slice(0, 50);
       matches.forEach(c => {
         const div = document.createElement('div');
         div.className = 'result-item';
-        div.innerHTML = `<span class="name">${c.name}</span><span class="country">${c.country}</span>`;
+        div.innerHTML = `<span class="name">${c.name}</span><span class="country">${c.country}${c.admin1 ? ' · ' + c.admin1 : ''}</span>`;
         div.onclick = () => selectCity(c);
         cityResults.appendChild(div);
       });
       if (matches.length === 0) {
-        const div = document.createElement('div');
-        div.className = 'result-empty';
-        div.textContent = 'Keine Stadt gefunden. Versuche: münchen, istanbul, paris, oslo …';
-        cityResults.appendChild(div);
+        // No match in bundled + custom → offer to add as custom city
+        const addBtn = document.createElement('div');
+        addBtn.className = 'result-empty';
+        addBtn.style.cssText = 'cursor:pointer;color:#3498db;border:1px dashed #3498db;border-radius:6px;padding:10px;text-align:center;background:rgba(52,152,219,0.08)';
+        addBtn.textContent = `➕ "${citySearch.value.trim()}" als eigene Stadt hinzufügen + Zeiten berechnen`;
+        addBtn.onclick = () => addCustomCityFromTop(citySearch.value.trim());
+        cityResults.appendChild(addBtn);
       }
     });
+
+    // When the user types something not in the list, this auto-geocodes and adds it
+    async function addCustomCityFromTop(q) {
+      cityResults.innerHTML = `<div class="result-empty">⏳ Suche "${q}" und berechne Zeiten (IGMG/Diyanet)…</div>`;
+      try {
+        const r1 = await fetch('/api/cities/custom', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ q }) });
+        if (!r1.ok) {
+          const e = await r1.json().catch(() => ({ error: 'Fehler ' + r1.status }));
+          cityResults.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${e.error || 'Fehler'}</div>`;
+          return;
+        }
+        const city = await r1.json();
+        // Reload full city list so the new city is now in allCities
+        await reloadCities();
+        // Trigger the search again to show the newly-added city
+        citySearch.dispatchEvent(new Event('input'));
+        // Then auto-select it
+        const found = allCities.find(c => c.id === city.id);
+        if (found) selectCity(found);
+        else toast(`✅ ${city.name} hinzugefügt (custom)`, 'success');
+      } catch (e) {
+        cityResults.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ Netzwerkfehler: ${e.message}</div>`;
+      }
+    }
+
+    async function reloadCities() {
+      const d = await fetch('/api/cities').then(r => r.json());
+      allCities = d.cities;
+      console.log('Reloaded ' + d.total + ' cities');
+    }
 
     // Populate country filter from loaded cities
     function populateCountryFilter() {
@@ -568,9 +671,11 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       citySearch.value = city.name;
       cityResults.innerHTML = '';
       const date = dateSelect.value;
-      const r = await fetch(`/api/times?city=${city.id}&date=${date}`);
+      // Use name in URL (not id) so the server can fall back to auto-geocode if city was removed
+      const r = await fetch(`/api/times?city=${encodeURIComponent(city.name)}&date=${date}`);
       const d = await r.json();
-      if (!d.times) { toast('Keine Daten für diese Stadt', 'error'); return; }
+      if (d.error) { toast(d.error, 'error'); return; }
+      if (!d.imsak) { toast('Keine Daten für diese Stadt', 'error'); return; }
       const card = document.getElementById('prayerCard');
       const labels = {
         imsak:   { de: 'Morgen (İmsak)',  tr: 'İmsak' },
@@ -580,28 +685,92 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         maghrib: { de: 'Abend (Akşam)',   tr: 'Akşam' },
         isha:    { de: 'Nacht (Yatsı)',   tr: 'Yatsı' },
       };
-      const nextP = getNextPrayer(d.times);
+      const nextP = getNextPrayer(d);
       const dateStr = new Date(d.date).toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+      // Load holidays for this date
+      const holidaysRes = await fetch(`/api/holidays?from=${d.date}&to=${d.date}`).then(r => r.json()).catch(() => ({ holidays: [] }));
+      const holiday = (holidaysRes.holidays || [])[0];
+      const holidayBanner = holiday ? `<div class="holiday-banner"><span class="icon">${holiday.type === 'bayram' ? '🌙' : '✨'}</span> <strong>${holiday.name}</strong> <span class="hijri">(${holiday.hijri_date})</span></div>` : '';
       card.innerHTML = `
         <div class="prayer-card">
           <h2>${city.name}</h2>
-          <div class="date">${dateStr}</div>
+          <div class="date">${dateStr}${d.city && d.city.source ? ' · <span class="source">' + (d.city.source === 'bundled' ? 'IGMG-Liste' : (d.city.source === 'custom' ? 'Eigene Stadt' : 'Berechnet')) + '</span>' : ''}</div>
+          ${holidayBanner}
           <div class="prayer-grid">
-            ${Object.entries(d.times).filter(([k]) => labels[k]).map(([k, v]) => `
+            ${['imsak','sunrise','dhuhr','asr','maghrib','isha'].map(k => `
               <div class="prayer ${k === nextP ? 'current' : ''}">
                 <div class="name">${labels[k].de}<span class="tr">${labels[k].tr}</span></div>
-                <div class="time">${v}</div>
+                <div class="time">${d[k]}</div>
                 ${k === nextP ? '<div class="next-badge">Als Nächstes</div>' : ''}
               </div>
             `).join('')}
           </div>
+          <div class="multi-day-toggle">
+            <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 7)">📅 7 Tage</button>
+            <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 30)">📅 30 Tage</button>
+            <button class="btn btn-sm" onclick="loadMonth('${encodeURIComponent(city.name)}', '${d.date}')">📆 Monat</button>
+          </div>
+          <div id="multiDayCard" class="multi-day-card"></div>
         </div>
       `;
+      // Auto-load 7-day preview
+      loadRange(city.name, d.date, 7);
+    }
+
+    // Load N days starting at startDate and show as table
+    async function loadRange(cityName, startDate, numDays) {
+      const card = document.getElementById('multiDayCard');
+      if (!card) return;
+      card.innerHTML = `<div class="result-empty">⏳ Lade ${numDays} Tage + schreibe in Appwrite-Cache…</div>`;
+      try {
+        const r = await fetch(`/api/times/range?city=${cityName}&start=${startDate}&days=${numDays}`);
+        const d = await r.json();
+        if (d.error) { card.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${d.error}</div>`; return; }
+        // Load holidays for the range
+        const lastDate = d.times[d.times.length - 1].date;
+        const hols = await fetch(`/api/holidays?from=${startDate}&to=${lastDate}`).then(r => r.json()).catch(() => ({ holidays: [] }));
+        const holMap = {};
+        for (const h of (hols.holidays || [])) holMap[h.greg_date] = h;
+        const labels = { imsak: 'İmsak', sunrise: 'Güneş', dhuhr: 'Öğle', asr: 'İkindi', maghrib: 'Akşam', isha: 'Yatsı' };
+        card.innerHTML = `
+          <table class="range-table">
+            <thead>
+              <tr><th>Datum</th>${Object.values(labels).map(l => `<th>${l}</th>`).join('')}<th>🎉</th></tr>
+            </thead>
+            <tbody>
+              ${d.times.map(t => {
+                const ds = new Date(t.date + 'T00:00:00');
+                const dateLabel = ds.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' });
+                const h = holMap[t.date];
+                return `<tr class="${h ? 'has-holiday' : ''}">
+                  <td><strong>${dateLabel}</strong>${h ? `<br><small>${h.type === 'bayram' ? '🌙' : '✨'} ${h.name}</small>` : ''}</td>
+                  <td>${t.imsak}</td><td>${t.sunrise}</td><td>${t.dhuhr}</td>
+                  <td>${t.asr}</td><td>${t.maghrib}</td><td>${t.isha}</td>
+                  <td>${h ? `<span class="holiday-pill">${h.type === 'bayram' ? '🌙 Bayram' : '✨ Kandil'}</span>` : ''}</td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+          <div class="range-info">✅ ${d.times.length} Tage in Appwrite gecached (prayer_times_data) · Berechnet mit IGMG/Diyanet (Adhan)</div>
+        `;
+      } catch (e) {
+        card.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${e.message}</div>`;
+      }
+    }
+
+    async function loadMonth(cityName, anyDate) {
+      const d = new Date(anyDate + 'T00:00:00');
+      const y = d.getFullYear(), m = d.getMonth() + 1;
+      const firstOfMonth = `${y}-${String(m).padStart(2,'0')}-01`;
+      loadRange(cityName, firstOfMonth, new Date(y, m, 0).getDate());
     }
 
     dateSelect.addEventListener('change', () => {
       if (citySearch.value) {
-        const c = allCities.find(x => x.name === citySearch.value);
+        // Try exact match first
+        let c = allCities.find(x => x.name === citySearch.value);
+        // Then case-insensitive
+        if (!c) c = allCities.find(x => x.name.toLowerCase() === citySearch.value.toLowerCase());
         if (c) selectCity(c);
       }
     });
@@ -644,6 +813,8 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         resultEl.innerHTML = '';
         const cityLine = `<div class="result-item" style="cursor:default"><span class="name">${d.city.name}</span><span class="country">${d.city.country || ''}</span><div style="font-size:11px;color:#7f8c8d;margin-top:2px">📍 ${d.city.lat ? d.city.lat.toFixed(3) : '?'}, ${d.city.lng ? d.city.lng.toFixed(3) : '?'} · ${d.city.timezone}</div></div>`;
         resultEl.innerHTML = cityLine;
+        // Reload the main city list so this new custom city is available in the top search
+        await reloadCities();
         const labels = {
           imsak:   { de: 'Morgen (İmsak)',  tr: 'İmsak' },
           sunrise: { de: 'Sonnenaufgang',   tr: 'Güneş' },
@@ -659,18 +830,25 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
             <h2>${d.city.name} <span style="font-size:14px;color:#7f8c8d;font-weight:400">(${d.method || 'Adhan Diyanet/IGMG'})</span></h2>
             <div class="date">${dateStr} · örtliche Zeit (${d.city.timezone})</div>
             <div class="prayer-grid">
-              ${Object.entries(customTimes).filter(([k]) => labels[k]).map(([k, v]) => `
+              ${['imsak','sunrise','dhuhr','asr','maghrib','isha'].map(k => `
                 <div class="prayer">
                   <div class="name">${labels[k].de}<span class="tr">${labels[k].tr}</span></div>
-                  <div class="time">${v}</div>
+                  <div class="time">${customTimes[k]}</div>
                 </div>
               `).join('')}
             </div>
+            <div class="multi-day-toggle">
+              <button class="btn btn-sm" onclick="loadCustomRange('${encodeURIComponent(d.city.name)}', '${d.date}', 7)">📅 7 Tage</button>
+              <button class="btn btn-sm" onclick="loadCustomRange('${encodeURIComponent(d.city.name)}', '${d.date}', 30)">📅 30 Tage</button>
+            </div>
+            <div id="customMultiDay" class="multi-day-card"></div>
             <div style="margin-top:14px;font-size:12px;color:#7f8c8d;text-align:center">
               ✅ In Appwrite gespeichert (custom_cities) · Berechnet mit IGMG/Diyanet-Methode (Adhan)
             </div>
           </div>
         `;
+        // Auto-load 7-day preview
+        loadCustomRange(d.city.name, d.date, 7);
       } catch (e) {
         resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">❌ Netzwerkfehler: ' + e.message + '</div>';
       }
@@ -679,6 +857,33 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
     document.getElementById('customCityInput').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') loadCustomCity();
     });
+
+    // Multi-day preview for custom city form
+    async function loadCustomRange(cityName, startDate, numDays) {
+      const card = document.getElementById('customMultiDay');
+      if (!card) return;
+      card.innerHTML = `<div class="result-empty">⏳ Lade ${numDays} Tage…</div>`;
+      try {
+        const r = await fetch(`/api/times/range?city=${cityName}&start=${startDate}&days=${numDays}`);
+        const d = await r.json();
+        if (d.error) { card.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${d.error}</div>`; return; }
+        const labels = { imsak: 'İmsak', sunrise: 'Güneş', dhuhr: 'Öğle', asr: 'İkindi', maghrib: 'Akşam', isha: 'Yatsı' };
+        card.innerHTML = `
+          <table class="range-table">
+            <thead><tr><th>Datum</th>${Object.values(labels).map(l => `<th>${l}</th>`).join('')}</tr></thead>
+            <tbody>
+              ${d.times.map(t => {
+                const ds = new Date(t.date + 'T00:00:00');
+                const dateLabel = ds.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' });
+                return `<tr><td><strong>${dateLabel}</strong></td><td>${t.imsak}</td><td>${t.sunrise}</td><td>${t.dhuhr}</td><td>${t.asr}</td><td>${t.maghrib}</td><td>${t.isha}</td></tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        `;
+      } catch (e) {
+        card.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${e.message}</div>`;
+      }
+    }
 
     // ============ API KEYS ============
     async function refreshKeys() {
