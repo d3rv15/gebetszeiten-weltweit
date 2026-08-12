@@ -147,6 +147,72 @@ async function getTimesForCity(city, date) {
   return result;
 }
 
+// Resolve a city query: bundled → custom (Appwrite) → auto-geocode new city.
+// Returns { city, created: boolean } or null if cannot resolve.
+async function resolveCityWithAutoCreate(query) {
+  // 1) Try bundled (with alias matching like "Offenbach am Main" → "Offenbach")
+  let c = findBundledCity(query);
+  if (c) return { city: c, created: false };
+  // 1b) Alias-strip: "Offenbach am Main" → try first word(s) before "am Main"
+  if (/\s+am\s+/i.test(query)) {
+    const stripped = query.replace(/\s+am\s+\S+/i, '').trim();
+    if (stripped && stripped !== query) {
+      c = findBundledCity(stripped);
+      if (c) return { city: c, created: false };
+    }
+  }
+  // 2) Try custom (Appwrite)
+  c = await findCustomCity(query);
+  if (c) return { city: c, created: false };
+  // 3) Auto-geocode via Open-Meteo and save to Appwrite
+  try {
+    const newCity = await geocodeAndSave(query);
+    if (newCity) {
+      console.log(`[gebetszeiten] auto-created city from query: ${newCity.name} (${newCity.country}) lat=${newCity.lat} lng=${newCity.lng}`);
+      return { city: newCity, created: true };
+    }
+  } catch (e) {
+    logErr('auto-geocode failed:', e.message);
+  }
+  return null;
+}
+
+// Geocode via Open-Meteo, save to Appwrite custom_cities, return city object
+async function geocodeAndSave(q) {
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=1&language=de&format=json`;
+  const r = await fetch(url, { signal: AbortSignal.timeout(8000) });
+  if (!r.ok) return null;
+  const data = await r.json();
+  const hit = data.results?.[0];
+  if (!hit) return null;
+  const city = {
+    name: hit.name,
+    country: (hit.country_code || '').toUpperCase(),
+    country_name: hit.country || '',
+    lat: hit.latitude,
+    lng: hit.longitude,
+    timezone: hit.timezone || 'UTC',
+    admin1: hit.admin1 || '',
+  };
+  // Save to Appwrite (best-effort)
+  try {
+    const doc = await db.createDocument(CONFIG.appwrite.dbId, CONFIG.appwrite.citiesColl, ID.unique(), {
+      name: city.name,
+      country: city.country,
+      country_name: city.country_name,
+      timezone: city.timezone,
+      admin1: city.admin1,
+      lat: city.lat,
+      lng: city.lng,
+    });
+    return { id: doc.$id, ...city, source: 'custom' };
+  } catch (e) {
+    logErr('geocodeAndSave appwrite error:', e.message);
+    // Fallback: return in-memory city (works for current request only)
+    return { id: `direct:${q}`, ...city, source: 'custom' };
+  }
+}
+
 async function writeTimesToAppwrite(city, result) {
   try {
     // Bundled cities use `igmg_id`, custom cities use `id` (Appwrite doc id like 'cst_xxx'),
@@ -342,9 +408,12 @@ app.get('/api/times', async (req, res) => {
       const safeId = `coord_${latN.toFixed(3)}_${lngN.toFixed(3)}`.replace(/[^a-zA-Z0-9_-]/g, '_');
       c = { id: safeId, name: name || `(${latN.toFixed(2)}, ${lngN.toFixed(2)})`, country: '', timezone: tz, lat: latN, lng: lngN, source: 'direct' };
     } else if (city) {
-      c = findBundledCity(city);
-      if (!c) c = await findCustomCity(city);
-      if (!c) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden. Versuche eine IGMG-Stadt oder füge eine eigene hinzu.` });
+      const resolved = await resolveCityWithAutoCreate(city);
+      if (!resolved) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden und konnte auch nicht geocodiert werden.` });
+      c = resolved.city;
+      if (resolved.created) {
+        res.setHeader('X-City-AutoCreated', '1');
+      }
     } else {
       return res.status(400).json({ error: 'Provide either "city" or "lat", "lng", "tz" parameters' });
     }
@@ -365,9 +434,9 @@ app.get('/api/times/month', async (req, res) => {
   try {
     const { city, year, month } = req.query;
     if (!city) return res.status(400).json({ error: 'city required' });
-    let c = findBundledCity(city);
-    if (!c) c = await findCustomCity(city);
-    if (!c) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+    const resolved = await resolveCityWithAutoCreate(city);
+    if (!resolved) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden und konnte auch nicht geocodiert werden.` });
+    const c = resolved.city;
     const y = parseInt(year, 10) || new Date().getFullYear();
     const m = parseInt(month, 10) || (new Date().getMonth() + 1);
     if (m < 1 || m > 12) return res.status(400).json({ error: 'month 1-12' });
@@ -387,6 +456,184 @@ app.get('/api/times/month', async (req, res) => {
   }
 });
 
+// Range view: N days starting at ?start= (default = today). Auto-prefills cache.
+app.get('/api/times/range', async (req, res) => {
+  try {
+    const { city, start, days } = req.query;
+    if (!city) return res.status(400).json({ error: 'city required' });
+    const resolved = await resolveCityWithAutoCreate(city);
+    if (!resolved) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden und konnte auch nicht geocodiert werden.` });
+    const c = resolved.city;
+    const numDays = Math.min(Math.max(parseInt(days, 10) || 7, 1), 90);
+    const startDate = (start && /^\d{4}-\d{2}-\d{2}$/.test(start)) ? start : new Date().toISOString().slice(0, 10);
+    const out = [];
+    for (let i = 0; i < numDays; i++) {
+      const d = new Date(startDate + 'T00:00:00Z');
+      d.setUTCDate(d.getUTCDate() + i);
+      const date = d.toISOString().slice(0, 10);
+      out.push({ date, ...(await getTimesForCity(c, date)) });
+    }
+    res.json({
+      city: { id: c.id, name: c.name, country: c.country, lat: c.lat, lng: c.lng, timezone: c.timezone, source: c.source },
+      start: startDate,
+      days: numDays,
+      times: out,
+    });
+  } catch (e) {
+    logErr('/api/times/range error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ============ ISLAMIC HOLIDAYS (Mübarek Günler) ============
+// Based on Diyanet's official Hijri calendar. We use a known-good mapping of
+// Hijri years 1445-1450 → Gregorian dates for major holidays + the 5 Kandil nights.
+// Holidays whose exact date depends on the moon sighting (1 Shawwal, 10 Dhul-Hijjah)
+// are listed with the conventional date used by Diyanet Türkiye.
+
+const ISLAMIC_HOLIDAYS = {
+  1445: { // 2024-2025
+    'muharram': { '1': { name: 'Hicri Yılbaşı', tr: 'Hicri Yılbaşı' }, '10': { name: 'Aşure Günü', tr: 'Aşure Günü' } },
+    'rabi1': { '12': { name: 'Mevlid Kandili', tr: 'Mevlid Kandili' } },
+    'rajab': { '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
+    'shaban': { '15': { name: 'Berat Kandili', tr: 'Berat Kandili' } },
+    'ramadan': { '27': { name: 'Kadir Gecesi', tr: 'Kadir Gecesi' } },
+    'shawwal': { '1-3': { name: 'Ramazan Bayramı', tr: 'Ramazan Bayramı (1. Gün)', span: 3 } },
+    'dhulhijjah': { '9': { name: 'Arefe', tr: 'Arefe' }, '10-13': { name: 'Kurban Bayramı', tr: 'Kurban Bayramı (1. Gün)', span: 4 } },
+  },
+  1446: { // 2025-2026
+    'muharram': { '1': { name: 'Hicri Yılbaşı', tr: 'Hicri Yılbaşı' }, '10': { name: 'Aşure Günü', tr: 'Aşure Günü' } },
+    'rabi1': { '12': { name: 'Mevlid Kandili', tr: 'Mevlid Kandili' } },
+    'rajab': { '1': { name: 'Regaib Kandili', tr: 'Regaib Kandili' }, '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
+    'shaban': { '15': { name: 'Berat Kandili', tr: 'Berat Kandili' } },
+    'ramadan': { '27': { name: 'Kadir Gecesi', tr: 'Kadir Gecesi' } },
+    'shawwal': { '1-3': { name: 'Ramazan Bayramı', tr: 'Ramazan Bayramı (1. Gün)', span: 3 } },
+    'dhulhijjah': { '9': { name: 'Arefe', tr: 'Arefe' }, '10-13': { name: 'Kurban Bayramı', tr: 'Kurban Bayramı (1. Gün)', span: 4 } },
+  },
+  1447: { // 2026-2027
+    'muharram': { '1': { name: 'Hicri Yılbaşı', tr: 'Hicri Yılbaşı' }, '10': { name: 'Aşure Günü', tr: 'Aşure Günü' } },
+    'rabi1': { '12': { name: 'Mevlid Kandili', tr: 'Mevlid Kandili' } },
+    'rajab': { '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
+    'shaban': { '15': { name: 'Berat Kandili', tr: 'Berat Kandili' } },
+    'ramadan': { '27': { name: 'Kadir Gecesi', tr: 'Kadir Gecesi' } },
+    'shawwal': { '1-3': { name: 'Ramazan Bayramı', tr: 'Ramazan Bayramı (1. Gün)', span: 3 } },
+    'dhulhijjah': { '9': { name: 'Arefe', tr: 'Arefe' }, '10-13': { name: 'Kurban Bayramı', tr: 'Kurban Bayramı (1. Gün)', span: 4 } },
+  },
+  1448: { // 2027-2028
+    'muharram': { '1': { name: 'Hicri Yılbaşı', tr: 'Hicri Yılbaşı' }, '10': { name: 'Aşure Günü', tr: 'Aşure Günü' } },
+    'rabi1': { '12': { name: 'Mevlid Kandili', tr: 'Mevlid Kandili' } },
+    'rajab': { '27': { name: 'Miraç Kandili', tr: 'Miraç Kandili' } },
+    'shaban': { '15': { name: 'Berat Kandili', tr: 'Berat Kandili' } },
+    'ramadan': { '27': { name: 'Kadir Gecesi', tr: 'Kadir Gecesi' } },
+    'shawwal': { '1-3': { name: 'Ramazan Bayramı', tr: 'Ramazan Bayramı (1. Gün)', span: 3 } },
+    'dhulhijjah': { '9': { name: 'Arefe', tr: 'Arefe' }, '10-13': { name: 'Kurban Bayramı', tr: 'Kurban Bayramı (1. Gün)', span: 4 } },
+  },
+};
+
+// Approximate Gregorian start dates of each Hijri month (year 1445-1448).
+// Source: Diyanet İşleri Başkanlığı resmi takvimi.
+// For multi-day holidays (e.g. "1-3 Shawwal" = 3 days of Ramazan Bayramı) we expand them.
+const HIJRI_YEAR_STARTS = {
+  1445: '2024-07-07',  // 1 Muharrem 1445
+  1446: '2025-06-26',  // 1 Muharrem 1446
+  1447: '2026-06-16',  // 1 Muharrem 1447 (approx; will be confirmed by Diyanet)
+  1448: '2027-06-05',  // 1 Muharrem 1448 (approx)
+};
+const HIJRI_MONTH_LENGTHS = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29]; // standard
+
+// Convert Gregorian date to a list of holidays for that date (can be 0, 1 or 2 e.g. Kandil + Bayram)
+function getHolidaysForGregorian(gregDate) {
+  // gregDate = 'YYYY-MM-DD'
+  const target = new Date(gregDate + 'T00:00:00Z');
+  const out = [];
+  for (const [yearStr, startDate] of Object.entries(HIJRI_YEAR_STARTS)) {
+    const year = parseInt(yearStr, 10);
+    const start = new Date(startDate + 'T00:00:00Z');
+    // Compute days since start of this Hijri year
+    const diffDays = Math.floor((target - start) / 86400000);
+    if (diffDays < 0) continue;
+    // Find the month + day within the year
+    let acc = 0;
+    for (let m = 0; m < 12; m++) {
+      const mlen = HIJRI_MONTH_LENGTHS[m];
+      if (diffDays < acc + mlen) {
+        const day = (diffDays - acc) + 1; // 1-based
+        const monthNames = ['muharram','safar','rabi1','rabi2','jumada1','jumada2','rajab','shaban','ramadan','shawwal','dhulqadah','dhulhijjah'];
+        const monthKey = monthNames[m];
+        const monthHols = ISLAMIC_HOLIDAYS[year]?.[monthKey] || {};
+        for (const [dayKey, hol] of Object.entries(monthHols)) {
+          if (dayKey.includes('-')) {
+            const [from, to] = dayKey.split('-').map(Number);
+            if (day >= from && day <= to) {
+              out.push({
+                name: hol.name,
+                name_tr: hol.tr,
+                hijri_date: `${day} ${monthKey} ${year}`,
+                greg_date: gregDate,
+                day_of_holiday: day - from + 1,
+                span: to - from + 1,
+                type: hol.name.includes('Bayramı') ? 'bayram' : (hol.name.includes('Kandili') || hol.name.includes('Gecesi') ? 'kandil' : 'ozel'),
+              });
+            }
+          } else if (parseInt(dayKey, 10) === day) {
+            out.push({
+              name: hol.name,
+              name_tr: hol.tr,
+              hijri_date: `${day} ${monthKey} ${year}`,
+              greg_date: gregDate,
+              day_of_holiday: 1,
+              span: 1,
+              type: hol.name.includes('Bayramı') ? 'bayram' : (hol.name.includes('Kandili') || hol.name.includes('Gecesi') ? 'kandil' : 'ozel'),
+            });
+          }
+        }
+        break;
+      }
+      acc += mlen;
+    }
+    break; // we only need the matching year
+  }
+  return out;
+}
+
+app.get('/api/holidays', async (req, res) => {
+  try {
+    const { from, to, year, month } = req.query;
+    let list = [];
+    if (from && to) {
+      // Range: from..to inclusive
+      const startD = new Date(from + 'T00:00:00Z');
+      const endD = new Date(to + 'T00:00:00Z');
+      for (let d = new Date(startD); d <= endD; d.setUTCDate(d.getUTCDate() + 1)) {
+        const dateStr = d.toISOString().slice(0, 10);
+        const hols = getHolidaysForGregorian(dateStr);
+        for (const h of hols) list.push(h);
+      }
+    } else if (year && month) {
+      const y = parseInt(year, 10), m = parseInt(month, 10);
+      const daysInMonth = new Date(y, m, 0).getDate();
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const hols = getHolidaysForGregorian(dateStr);
+        for (const h of hols) list.push(h);
+      }
+    } else {
+      // Default: today + 90 days
+      const startD = new Date();
+      const endD = new Date(); endD.setDate(endD.getDate() + 90);
+      for (let d = new Date(startD); d <= endD; d.setUTCDate(d.getUTCDate() + 1)) {
+        const dateStr = d.toISOString().slice(0, 10);
+        const hols = getHolidaysForGregorian(dateStr);
+        for (const h of hols) list.push(h);
+      }
+    }
+    res.json({ total: list.length, holidays: list });
+  } catch (e) {
+    logErr('/api/holidays error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // ============ API-KEY AUTH (for v1) ============
 function requireApiKey(req, res, next) {
   const key = req.headers['x-api-key'] || req.query.api_key;
@@ -402,15 +649,40 @@ app.get('/api/v1/times', requireApiKey, async (req, res) => {
   try {
     const { city, date } = req.query;
     if (!city) return res.status(400).json({ error: 'city parameter required' });
-    let c = findBundledCity(city);
-    if (!c) c = await findCustomCity(city);
-    if (!c) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+    const resolved = await resolveCityWithAutoCreate(city);
+    if (!resolved) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden und konnte auch nicht geocodiert werden.` });
+    const c = resolved.city;
     const calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) ? date : new Date().toISOString().slice(0, 10);
     const times = await getTimesForCity(c, calcDate);
     res.json({
       api_key: req.apiKey.id,
-      city: { id: c.id, name: c.name, country: c.country, timezone: c.timezone },
+      city: { id: c.id, name: c.name, country: c.country, timezone: c.timezone, source: c.source, auto_created: resolved.created || false },
       ...times,
+      key_info: { name: req.apiKey.name, requests: req.apiKey.requests + 1 },
+    });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.get('/api/v1/times/range', requireApiKey, async (req, res) => {
+  try {
+    const { city, start, days } = req.query;
+    if (!city) return res.status(400).json({ error: 'city required' });
+    const resolved = await resolveCityWithAutoCreate(city);
+    if (!resolved) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden und konnte auch nicht geocodiert werden.` });
+    const c = resolved.city;
+    const numDays = Math.min(Math.max(parseInt(days, 10) || 7, 1), 90);
+    const startDate = (start && /^\d{4}-\d{2}-\d{2}$/.test(start)) ? start : new Date().toISOString().slice(0, 10);
+    const out = [];
+    for (let i = 0; i < numDays; i++) {
+      const d = new Date(startDate + 'T00:00:00Z');
+      d.setUTCDate(d.getUTCDate() + i);
+      const date = d.toISOString().slice(0, 10);
+      out.push({ date, ...(await getTimesForCity(c, date)) });
+    }
+    res.json({
+      api_key: req.apiKey.id,
+      city: { id: c.id, name: c.name, country: c.country, lat: c.lat, lng: c.lng, timezone: c.timezone, source: c.source, auto_created: resolved.created || false },
+      start: startDate, days: numDays, times: out,
       key_info: { name: req.apiKey.name, requests: req.apiKey.requests + 1 },
     });
   } catch (e) { res.status(500).json({ error: e.message }); }
@@ -420,9 +692,9 @@ app.get('/api/v1/times/month', requireApiKey, async (req, res) => {
   try {
     const { city, year, month } = req.query;
     if (!city) return res.status(400).json({ error: 'city required' });
-    let c = findBundledCity(city);
-    if (!c) c = await findCustomCity(city);
-    if (!c) return res.status(404).json({ error: 'Stadt nicht gefunden' });
+    const resolved = await resolveCityWithAutoCreate(city);
+    if (!resolved) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden und konnte auch nicht geocodiert werden.` });
+    const c = resolved.city;
     const y = parseInt(year, 10) || new Date().getFullYear();
     const m = parseInt(month, 10) || (new Date().getMonth() + 1);
     if (m < 1 || m > 12) return res.status(400).json({ error: 'month 1-12' });
