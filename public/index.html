@@ -844,14 +844,16 @@
     }
     .quick-chip .chip-flag { font-size: 1.1rem; }
 
-    /* Compact collapsible card (for custom city) */
-    .collapsible-card {
+    /* Compact collapsible card (for custom city + API) */
+    .collapsible-card, .api-collapsible {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 12px;
       margin-top: 16px;
       overflow: hidden;
     }
+    .api-collapsible .collapsible-body { display: none; }
+    .api-collapsible.open .collapsible-body { display: block; }
     .collapsible-header {
       display: flex;
       justify-content: space-between;
@@ -869,7 +871,8 @@
       transition: transform 0.2s;
     }
     .collapsible-body { padding: 0 18px 18px; }
-    .collapsible-card.open .collapsible-icon { transform: rotate(180deg); }
+    .collapsible-card.open .collapsible-icon,
+    .api-collapsible.open .collapsible-icon { transform: rotate(180deg); }
 
     /* PRAYER HERO CARD (when city is selected) */
     .prayer-hero {
@@ -1112,19 +1115,13 @@
       margin-bottom: 12px;
       padding: 8px 0;
     }
-    .hadith-de {
-      font-size: 1rem;
+    .hadith-de, .hadith-tr, .hadith-translation {
+      font-size: 1.05rem;
       color: var(--text-primary);
-      font-style: italic;
-      margin-bottom: 6px;
-      line-height: 1.6;
+      margin-bottom: 8px;
+      line-height: 1.7;
     }
-    .hadith-tr {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
+    [dir="rtl"] .hadith-translation { direction: rtl; text-align: right; font-family: 'Amiri', serif; }
     .hadith-source {
       font-size: 0.75rem;
       color: var(--text-muted);
@@ -1198,25 +1195,25 @@
     </div>
   </div>
 
-  <!-- TÄGLICHER HADITH + IMAM RABBANI -->
+  <!-- TÄGLICHER HADITH + IMAM RABBANI (single language based on CURRENT_LANG) -->
   <div class="hadith-section" id="hadithSection">
     <div class="hadith-card">
       <div class="hadith-header">
         <div class="hadith-icon">📖</div>
         <div class="hadith-title">
-          <div class="title-tr" data-i18n="hadith.title.tr">Günün Hadisi</div>
-          <div class="title-de" data-i18n="hadith.title.de">Hadith des Tages</div>
+          <div class="title-primary" data-i18n="hadith.title_primary">Hadith des Tages</div>
         </div>
         <button class="hadith-refresh" onclick="loadDailyHadith()" data-i18n-title="hadith.refresh" title="Neuer Hadith">🔄</button>
       </div>
       <div class="hadith-content" id="dailyHadith">
+        <!-- Arabic text is ALWAYS shown (it's the original hadith language) -->
         <div class="hadith-arabic" id="hadithArabic">—</div>
-        <div class="hadith-de" id="hadithDe">—</div>
-        <div class="hadith-tr" id="hadithTr">—</div>
+        <!-- Translation in the current language only (DE/TR/AR/EN) -->
+        <div class="hadith-translation" id="hadithTranslation">—</div>
         <div class="hadith-source" id="hadithSource">—</div>
       </div>
       <div class="imam-rabbani" id="imamRabbani">
-        <div class="ir-header" data-i18n="hadith.imam_rabbani.de">İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:</div>
+        <div class="ir-header" data-i18n="hadith.imam_rabbani_primary">İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:</div>
         <div class="ir-text" id="imamRabbaniText">—</div>
         <div class="ir-source" id="imamRabbaniSource">—</div>
       </div>
@@ -1572,20 +1569,24 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         const r = await fetch('/api/hadith/today');
         const d = await r.json();
         if (d.hadith) {
+          // Arabic is the original — always show
           document.getElementById('hadithArabic').textContent = d.hadith.ar;
-          document.getElementById('hadithDe').textContent = d.hadith.de;
-          document.getElementById('hadithTr').textContent = d.hadith.tr;
+          // Translation in the CURRENT language only (no German+Turkish side-by-side)
+          const translation = d.hadith[CURRENT_LANG] || d.hadith.de;
+          document.getElementById('hadithTranslation').textContent = translation;
           document.getElementById('hadithSource').textContent = '📚 ' + d.hadith.source;
         }
         if (d.imam_rabbani) {
-          document.getElementById('imamRabbaniText').innerHTML =
-            '<div style="margin-bottom:4px">' + d.imam_rabbani.de + '</div>' +
-            '<div style="color:var(--text-muted);font-size:0.9em">' + d.imam_rabbani.tr + '</div>';
+          const irText = d.imam_rabbani[CURRENT_LANG] || d.imam_rabbani.de;
+          document.getElementById('imamRabbaniText').textContent = irText;
           document.getElementById('imamRabbaniSource').textContent = '📖 ' + d.imam_rabbani.source;
         }
       } catch (e) { console.error('loadDailyHadith:', e); }
     }
     loadDailyHadith();
+    // Reload hadith when language changes
+    const origSetLang = setLang;
+    setLang = function(lang) { origSetLang(lang); loadDailyHadith(); };
 
     // ============ FRIDAY BANNER ============
     async function checkFridayBanner() {
@@ -1926,10 +1927,25 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
           </div>
         </div>
         <div id="multiDayCard" class="multi-day-card"></div>
-        ${renderApiSnippet(city.name, city.id)}
+        ${renderCollapsibleApi(city.name, city.id)}
       `;
-      // Auto-load 7-day preview
+      // Auto-load 7-day preview (default expanded)
       loadRange(city.name, d.date, 7);
+    }
+
+    // Collapsible API snippets (closed by default — user clicks to expand)
+    function renderCollapsibleApi(cityName, cityId) {
+      return `
+        <div class="card api-collapsible">
+          <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+            <span>🔌 ${CURRENT_LANG === 'de' ? 'API für ' + cityName : (CURRENT_LANG === 'tr' ? cityName + ' için API' : (CURRENT_LANG === 'ar' ? 'API لـ ' + cityName : cityName + ' API'))}</span>
+            <span class="collapsible-icon">▼</span>
+          </div>
+          <div class="collapsible-body">
+            ${renderApiSnippet(cityName, cityId)}
+          </div>
+        </div>
+      `;
     }
 
     // API-Snippet Generator — easy to copy for the selected city
