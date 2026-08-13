@@ -360,18 +360,24 @@
       "ar": "✅ تم تخزين {n} يوم مؤقتًا في Appwrite (prayer_times_data) · محسوب بـ IGMG/Diyanet (Adhan)",
       "en": "✅ {n} days cached in Appwrite (prayer_times_data) · Computed with IGMG/Diyanet (Adhan)"
     },
-    "next_de": "Nächste",
-    "next_tr": "Sıradaki",
-    "next_ar": "التالي",
-    "next_en": "Next",
-    "source_igmg_de": "Echte IGMG-Daten",
-    "source_igmg_tr": "Gerçek IGMG verisi",
-    "source_igmg_ar": "بيانات IGMG الحقيقية",
-    "source_igmg_en": "Real IGMG data",
-    "source_local_de": "Lokal berechnet (Adhan)",
-    "source_local_tr": "Lokal hesaplandı (Adhan)",
-    "source_local_ar": "محسوب محليًا (Adhan)",
-    "source_local_en": "Locally computed (Adhan)"
+    "source_igmg": {
+      "de": "Echte IGMG-Daten",
+      "tr": "Gerçek IGMG verisi",
+      "ar": "بيانات IGMG الحقيقية",
+      "en": "Real IGMG data"
+    },
+    "source_local": {
+      "de": "Lokal berechnet (Adhan)",
+      "tr": "Lokal hesaplandı (Adhan)",
+      "ar": "محسوب محليًا (Adhan)",
+      "en": "Locally computed (Adhan)"
+    },
+    "next": {
+      "de": "Nächste",
+      "tr": "Sıradaki",
+      "ar": "التالي",
+      "en": "Next"
+    }
   },
   "meta": {
     "language": {
