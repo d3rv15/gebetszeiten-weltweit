@@ -1892,8 +1892,9 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       const holidaysRes = await fetch(`/api/holidays?from=${d.date}&to=${d.date}`).then(r => r.json()).catch(() => ({ holidays: [] }));
       const holiday = (holidaysRes.holidays || [])[0];
       const holidayBanner = holiday ? `<div class="holiday-banner"><span class="icon">${holiday.type === 'bayram' ? '🌙' : '✨'}</span> <strong>${holiday.name}</strong> <span class="hijri">(${holiday.hijri_date})</span></div>` : '';
-      const sourceLabel = d.source === 'igmg' ? t('range.source_igmg') : t('range.source_local');
-      const sourcePill = `<span class="source-pill">${sourceLabel}</span>`;
+      const sourceLabel = d.source === 'igmg' ? '✅ ' + t('range.source_igmg') : '⚠️ ' + t('range.source_local');
+      const sourceStyle = d.source === 'igmg' ? 'background:rgba(34,197,94,0.25);border:1px solid rgba(34,197,94,0.5);color:#86efac' : 'background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);color:#fde68a';
+      const sourcePill = `<span class="source-pill" style="${sourceStyle}">${sourceLabel}</span>`;
       card.innerHTML = `
         <div class="prayer-hero">
           ${holidayBanner}
