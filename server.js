@@ -78,6 +78,41 @@ async function getCalc() {
   return _calcModule;
 }
 
+// ============ DIYANET (via AlAdhan API) ============
+// AlAdhan's method=13 is "Diyanet İşleri Başkanlığı, Turkey"
+// (the same convention Diyanet uses for namazvakti.diyanet.gov.tr).
+// This is the closest API-accessible equivalent to direct Diyanet data.
+// Docs: https://aladhan.com/prayer-times-api
+const DIYANET_METHOD = 13;
+async function fetchFromDiyanet(city, date) {
+  try {
+    const url = `https://api.aladhan.com/v1/timings/${date}?latitude=${city.lat}&longitude=${city.lng}&method=${DIYANET_METHOD}&timezonestring=${encodeURIComponent(city.timezone || 'UTC')}&school=1`;
+    const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!r.ok) return null;
+    const j = await r.json();
+    if (j.code !== 200 || !j.data || !j.data.timings) return null;
+    const t = j.data.timings;
+    // AlAdhan format: Imsak, Fajr, Sunrise, Dhuhr, Asr, Sunset, Maghrib, Isha
+    // We use: Imsak, Sunrise, Dhuhr, Asr, Maghrib, Isha
+    // Strip timezone suffix if present (e.g. "06:04 (CEST)" → "06:04")
+    const strip = (s) => (s || '').split(' ')[0].trim();
+    return {
+      date,
+      imsak: strip(t.Imsak),
+      sunrise: strip(t.Sunrise),
+      dhuhr: strip(t.Dhuhr),
+      asr: strip(t.Asr),
+      maghrib: strip(t.Maghrib),
+      isha: strip(t.Isha),
+      source: 'diyanet',
+      method: 'Diyanet Turkey (AlAdhan API)',
+    };
+  } catch (e) {
+    logErr('fetchFromDiyanet failed:', e.message);
+    return null;
+  }
+}
+
 // ============ IN-MEMORY CACHE ============
 const CACHE_TTL_MS = 60 * 60 * 1000;
 const calcCache = new Map();
@@ -125,8 +160,7 @@ async function getTimesForCity(city, date) {
   const hit = cacheGet(cacheKey);
   if (hit) return hit;
 
-  // PRIORITY 1: Check Appwrite for real IGMG server data (source='igmg')
-  // This is the ground truth from igmg.org
+  // PRIORITY 1: IGMG (real data from igmg.org) — only for bundled cities in our 765 list
   if (city.source === 'bundled' || !city.source) {
     try {
       const igmgId = city.igmg_id || city.id;
@@ -142,36 +176,27 @@ async function getTimesForCity(city, date) {
           maghrib: doc.maghrib,
           isha: doc.isha,
           source: 'igmg',
-          method: 'Turkey (Diyanet/IGMG)',
+          method: 'IGMG (igmg.org)',
         };
         cacheSet(cacheKey, result);
         return result;
       }
-    } catch (e) { /* not found, fall through */ }
+    } catch (e) { /* not found, fall through to Diyanet */ }
   }
 
-  // PRIORITY 2: Compute locally (Adhan Turkey/Diyanet — used as fallback only)
-  const calc = await getCalc();
-  const local = calc.calcIGMG(city.lat, city.lng, city.timezone, date);
-  const result = {
-    date: local.date,
-    imsak: local.imsak,
-    sunrise: local.sunrise,
-    dhuhr: local.dhuhr,
-    asr: local.asr,
-    maghrib: local.maghrib,
-    isha: local.isha,
-    source: city.source === 'custom' ? 'local-custom' : (city.source === 'direct' ? 'local-direct' : 'local'),
-    method: local.method,
-  };
-  cacheSet(cacheKey, result);
-
-  // Write to Appwrite (best-effort, don't block response) — only for non-igmg cities
-  if (result.source !== 'igmg') {
-    writeTimesToAppwrite(city, result).catch(e => logErr('appwrite write failed:', e.message));
+  // PRIORITY 2: Diyanet (via AlAdhan API, method=13 = Diyanet Turkey)
+  // For cities NOT in IGMG list (custom cities, non-IGMG Turkish cities, etc.)
+  // NEVER use Adhan local calculation as the user requires authoritative data only
+  const diyanetResult = await fetchFromDiyanet(city, date);
+  if (diyanetResult) {
+    cacheSet(cacheKey, diyanetResult);
+    // Save to Appwrite for caching (don't block response)
+    writeTimesToAppwrite(city, diyanetResult).catch(e => logErr('appwrite write failed:', e.message));
+    return diyanetResult;
   }
 
-  return result;
+  // No data source available — return null so the API can return a clear 404
+  return null;
 }
 
 // Resolve a city query: bundled → custom (Appwrite) → auto-geocode new city.
@@ -778,6 +803,12 @@ app.get('/api/times', async (req, res) => {
     }
 
     const times = await getTimesForCity(c, calcDate);
+    if (!times) {
+      return res.status(404).json({
+        error: `Keine Gebetszeiten für "${c.name}" verfügbar. Weder IGMG (igmg.org) noch Diyanet (AlAdhan) konnten Daten liefern.`,
+        city: { id: c.id, name: c.name, country: c.country, lat: c.lat, lng: c.lng, timezone: c.timezone },
+      });
+    }
     res.json({
       city: { id: c.id, name: c.name, country: c.country, lat: c.lat, lng: c.lng, timezone: c.timezone, source: c.source },
       ...times,
