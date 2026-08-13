@@ -377,6 +377,12 @@
       "tr": "Sıradaki",
       "ar": "التالي",
       "en": "Next"
+    },
+    "source_diyanet": {
+      "de": "Diyanet Turkey (Live)",
+      "tr": "Diyanet Türkiye (Canlı)",
+      "ar": "ديانت تركيا (مباشر)",
+      "en": "Diyanet Turkey (Live)"
     }
   },
   "meta": {
