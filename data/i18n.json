@@ -359,7 +359,19 @@
       "tr": "✅ {n} gün Appwrite'a önbelleğe alındı (prayer_times_data) · IGMG/Diyanet (Adhan) ile hesaplandı",
       "ar": "✅ تم تخزين {n} يوم مؤقتًا في Appwrite (prayer_times_data) · محسوب بـ IGMG/Diyanet (Adhan)",
       "en": "✅ {n} days cached in Appwrite (prayer_times_data) · Computed with IGMG/Diyanet (Adhan)"
-    }
+    },
+    "next_de": "Nächste",
+    "next_tr": "Sıradaki",
+    "next_ar": "التالي",
+    "next_en": "Next",
+    "source_igmg_de": "Echte IGMG-Daten",
+    "source_igmg_tr": "Gerçek IGMG verisi",
+    "source_igmg_ar": "بيانات IGMG الحقيقية",
+    "source_igmg_en": "Real IGMG data",
+    "source_local_de": "Lokal berechnet (Adhan)",
+    "source_local_tr": "Lokal hesaplandı (Adhan)",
+    "source_local_ar": "محسوب محليًا (Adhan)",
+    "source_local_en": "Locally computed (Adhan)"
   },
   "meta": {
     "language": {
@@ -381,5 +393,31 @@
     "rtl": [
       "ar"
     ]
+  },
+  "hero": {
+    "title": {
+      "de": "Gebetszeiten für jede Stadt der Welt",
+      "tr": "Dünyanın her şehri için namaz vakitleri",
+      "ar": "مواقيت الصلاة لكل مدينة في العالم",
+      "en": "Prayer times for every city in the world"
+    },
+    "subtitle": {
+      "de": "Offizielle IGMG/Diyanet-Berechnung. 765 Städte weltweit — oder gib einen beliebigen Ort ein.",
+      "tr": "Resmi IGMG/Diyanet hesaplaması. Dünyada 765 şehir — ya da istediğiniz yeri girin.",
+      "ar": "حساب رسمي من IGMG/Diyanet. 765 مدينة حول العالم — أو أدخل أي مكان.",
+      "en": "Official IGMG/Diyanet calculation. 765 cities worldwide — or enter any place."
+    },
+    "quick_pick": {
+      "de": "Schnellauswahl",
+      "tr": "Hızlı seçim",
+      "ar": "اختيار سريع",
+      "en": "Quick pick"
+    },
+    "open_full": {
+      "de": "Alle Städte anzeigen",
+      "tr": "Tüm şehirleri göster",
+      "ar": "عرض كل المدن",
+      "en": "Show all cities"
+    }
   }
 }
