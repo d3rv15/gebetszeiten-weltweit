@@ -327,6 +327,18 @@
       "tr": "İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:",
       "ar": "من الإمام الرباني -رحمه الله-:",
       "en": "From İmâm-ı Rabbânî -may Allah have mercy on him-:"
+    },
+    "title_primary": {
+      "de": "Hadith des Tages",
+      "tr": "Günün Hadisi",
+      "ar": "حديث اليوم",
+      "en": "Hadith of the Day"
+    },
+    "imam_rabbani_primary": {
+      "de": "İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:",
+      "tr": "İmâm-ı Rabbânî -rahmetullâhi aleyh- Hazretleri'nden:",
+      "ar": "من الإمام الرباني -رحمه الله- رضي الله عنه:",
+      "en": "From İmâm-ı Rabbânî -may Allah have mercy on him-:"
     }
   },
   "range": {
@@ -383,6 +395,12 @@
       "tr": "Diyanet Türkiye (Canlı)",
       "ar": "ديانت تركيا (مباشر)",
       "en": "Diyanet Turkey (Live)"
+    },
+    "all_times_table": {
+      "de": "📋 Alle Zeiten als Tabelle",
+      "tr": "📋 Tablo olarak tüm zamanlar",
+      "ar": "📋 كل الأوقات كجدول",
+      "en": "📋 Show all times as table"
     }
   },
   "meta": {
