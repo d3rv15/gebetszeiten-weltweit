@@ -173,6 +173,12 @@
       "de": "Reisestatus prüfen — Hanafi-Fiqh",
       "en": "Check Travel Status — Hanafi Jurisprudence"
     },
+    "title_short": {
+      "de": "🧳 Seferi-Check — Reisestatus (Hanefî-Fiqh)",
+      "tr": "🧳 Seferî Kontrolü — Yolculuk Durumu (Hanefî Fıkhı)",
+      "ar": "🧳 فحص السفر — حالة المسافر (المذهب الحنفي)",
+      "en": "🧳 Seferi Check — Travel Status (Hanafi Jurisprudence)"
+    },
     "subtitle": {
       "de": "Prüfe, ob deine Reise als <em>seferî</em> (Yolculuk/Musâfir) im islamischen Recht gilt und welche Erleichterungen (Ruhsat) dir dann zustehen. Berechnung nach <strong>Hanefî-Mezhebi</strong> (Diyanet/IGMG) — Distanz: ≥ <strong>90 km</strong>.",
       "tr": "Yolculuğun İslam hukukunda <em>seferî</em> (Yolcu/Müsafir) sayılıp sayılmayacağını ve hangi ruhsatların geçerli olduğunu kontrol et. Hesaplama <strong>Hanefî Mezhebi</strong>'ne göre (Diyanet/IGMG) — Mesafe: ≥ <strong>90 km</strong>.",

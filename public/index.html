@@ -117,6 +117,36 @@
       margin-bottom: 1.5rem;
       box-shadow: 0 1px 4px rgba(184, 148, 95, 0.05);
     }
+
+    /* ============ COLLAPSIBLE CARDS ============ */
+    .collapsible { padding: 0; overflow: hidden; }
+    .collapsible-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .collapsible-header:hover { background: var(--bg-card-hover); }
+    .collapsible-header h2 { margin: 0; font-size: 1.05rem; }
+    .collapsible-arrow {
+      color: var(--accent);
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    .collapsible.open .collapsible-arrow { transform: rotate(180deg); }
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 1.5rem;
+    }
+    .collapsible.open .collapsible-content {
+      max-height: 5000px;
+      padding: 0 1.5rem 1.25rem 1.5rem;
+    }
     .card-title {
       margin: 0 0 1rem 0;
       font-size: 1.1rem;
@@ -1231,7 +1261,6 @@
     <div class="tabs">
       <button class="tab active" data-tab="times" data-i18n="tabs.times">🕌 Gebetszeiten</button>
       <button class="tab" data-tab="seferi" data-i18n="tabs.seferi">🧳 Seferi-Check</button>
-      <button class="tab" data-tab="keys" data-i18n="tabs.keys">🔑 API-Keys</button>
       <button class="tab" data-tab="api" data-i18n="tabs.api">📡 API-Doku</button>
     </div>
 
@@ -1279,17 +1308,8 @@
     <!-- SEFERI CHECK PANEL -->
     <div class="panel" id="panel-seferi">
       <div class="card seferi-intro">
-        <div class="ornament-divider">
-          <span class="ornament-left">۞</span>
-          <span class="ornament-icon">🧭</span>
-          <span class="ornament-right">۞</span>
-        </div>
-        <h2 class="seferi-title">
-          <div class="title-ar" data-i18n="seferi.title.ar">السَّفَر</div>
-          <div class="title-tr" data-i18n="seferi.title.tr">Seferî (Yolcu) Kontrolü</div>
-          <div class="title-de" data-i18n="seferi.title.de">Reisestatus prüfen — Hanafi-Fiqh</div>
-        </h2>
-        <p class="seferi-subtitle" data-i18n="seferi.subtitle">Prüfe, ob deine Reise als <em>seferî</em> (Yolculuk/Musâfir) im islamischen Recht gilt und welche Erleichterungen (Ruhsat) dir dann zustehen. Berechnung nach <strong>Hanefî-Mezhebi</strong> (Diyanet/IGMG) — Distanz: ≥ <strong>90 km</strong>.</p>
+        <h2 class="card-title" data-i18n="seferi.title_short">🧳 Seferi-Check — Reisestatus (Hanefî-Fiqh)</h2>
+        <p class="seferi-subtitle" data-i18n="seferi.subtitle" data-i18n-html="true">Prüfe, ob deine Reise als <em>seferî</em> (Yolculuk/Musâfir) im islamischen Recht gilt und welche Erleichterungen (Ruhsat) dir dann zustehen. Berechnung nach <strong>Hanefî-Mezhebi</strong> (Diyanet/IGMG) — Distanz: ≥ <strong>90 km</strong>.</p>
         <div class="seferi-input-row">
           <div class="input-group">
             <label data-i18n="seferi.from_label">Von (Heimatstadt)</label>
@@ -1305,49 +1325,12 @@
         <div id="seferiResult"></div>
       </div>
 
-      <div class="card" id="seferiInfoCard">
-        <div class="ornament-divider">
-          <span class="ornament-icon">📜</span>
+      <div class="card collapsible" id="seferiInfoCard">
+        <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+          <h2 class="card-title" data-i18n="seferi.what_is_title">📖 Was bedeutet Seferî / Musafir?</h2>
+          <span class="collapsible-arrow">▼</span>
         </div>
-        <h2 class="card-title" data-i18n="seferi.what_is_title">📖 Seferî Nedir? — Was bedeutet Musafir?</h2>
-        <div id="seferiInfoContent">⏳ Yükleniyor…</div>
-      </div>
-
-      <div class="card official-sources-card">
-        <h3 data-i18n="seferi.official_sources_title">🏛️ Offizielle Quellen — IGMG &amp; Diyanet</h3>
-        <p data-i18n="seferi.official_sources_desc">Beide Institutionen verwenden dieselbe Diyanet-Turkey-Berechnungsmethode. Diese App nutzt exakt diese Methode (Adhan-Bibliothek, validiert gegen IGMG-Serverdaten).</p>
-        <div class="official-links">
-          <a href="https://www.igmg.org/islam" target="_blank" rel="noopener" class="igmg-link">
-            <span data-i18n="seferi.igmg_link_text">🔗 igmg.org/islam →</span>
-          </a>
-          <a href="https://namazvakti.diyanet.gov.tr/" target="_blank" rel="noopener" class="diyanet-link">
-            <span data-i18n="seferi.diyanet_link_text">🔗 namazvakti.diyanet.gov.tr →</span>
-          </a>
-        </div>
-        <p style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:8px;line-height:1.5">
-          ℹ️ Hinweis: Der IGMG-Gebetskalender (<code style="background:rgba(0,0,0,0.2);padding:1px 5px;border-radius:3px">igmg.org/gebetskalender</code>) erfordert die manuelle Stadtauswahl auf deren Seite.
-          Diese App berechnet die Zeiten lokal nach derselben Diyanet-Methode (die IGMG &amp; Diyanet teilen) und ist immer verfügbar.
-        </p>
-      </div>
-    </div>
-
-    <!-- API KEYS PANEL -->
-    <div class="panel" id="panel-keys">
-      <div class="card">
-        <h2 class="card-title">API-Keys verwalten</h2>
-        <p class="card-subtitle">Erstelle API-Keys für deine Kiosk-Stationen, Mobile-Apps und Tests.</p>
-        <div class="key-box hidden" id="newKeyBox">
-          <div class="label">✓ Neuer Key erstellt (wird nur EINMAL angezeigt!)</div>
-          <code id="newKeyValue"></code>
-        </div>
-        <div class="key-form">
-          <input class="input" type="text" id="keyName" placeholder="Name (z.B. 'Kiosk Station 1', 'Mobile App')">
-          <button class="btn" id="createKeyBtn">+ Key erstellen</button>
-        </div>
-        <table id="keyList">
-          <thead><tr><th>ID</th><th>Name</th><th>Status</th><th>Requests</th><th>Letzte Nutzung</th><th>Aktion</th></tr></thead>
-          <tbody></tbody>
-        </table>
+        <div class="collapsible-content" id="seferiInfoContent">⏳ Yükleniyor…</div>
       </div>
     </div>
 
@@ -1355,62 +1338,39 @@
     <div class="panel" id="panel-api">
       <div class="card">
         <h2 class="card-title">API-Dokumentation</h2>
-        <p class="card-subtitle">Alle Endpoints geben JSON zurück.</p>
+        <p class="card-subtitle">JSON API — alle Endpoints sind <strong>keyless</strong> und CORS-aktiviert.</p>
 
-        <h3>🌐 Öffentliche Endpoints (kein Key)</h3>
-        <pre><code>GET /api/cities?country=DE&q=münchen
-GET /api/times?city=20166&date=2026-07-25
-GET /api/times/month?city=20166&year=2026&month=7</code></pre>
+        <h3>📡 Endpoints</h3>
+        <pre><code>GET /api/cities?country=DE&amp;q=münchen       # Städte suchen
+GET /api/times?city=Offenbach&amp;date=2026-08-13  # Tageszeiten
+GET /api/times/range?city=Offenbach&amp;start=2026-08-13&amp;days=7  # mehrtägig
+GET /api/times/month?city=Offenbach&amp;year=2026&amp;month=8  # Monat
+GET /api/distance?from=Offenbach&amp;to=Mekka  # Seferi-Distanz
+GET /api/hadith/today                       # Hadith des Tages
+GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</code></pre>
 
-        <h3 style="margin-top:1.5rem">🔐 Authentifizierte Endpoints (X-Api-Key Header)</h3>
-        <pre><code>curl https://gebetszeiten.chargedesk.de/api/v1/times?city=20166 \
-  -H "X-Api-Key: gk_xxxxxxxxxxxxxxxxxxxxxxxx"</code></pre>
-
-        <h3 style="margin-top:1.5rem">📋 Verfügbare Städte</h3>
-        <p>331 deutsche Städte + 434 Weltstädte. Liste abrufen: <code>GET /api/cities</code></p>
-
-        <h3 style="margin-top:1.5rem">📅 Antwort-Format (Tagesansicht)</h3>
+        <h3>📅 Antwort (Tagesansicht)</h3>
         <pre><code>{
-  "city": "20166",
-  "date": "2026-07-25",
+  "city": { "name": "Offenbach", "country": "DE", "timezone": "Europe/Berlin" },
+  "date": "2026-08-13",
   "times": {
-    "imsak":   "03:45",   ← Morgengebet (İmsak)
-    "sunrise": "05:09",   ← Sonnenaufgang
-    "dhuhr":   "13:33",   ← Mittag (Öğle)
-    "asr":     "17:51",   ← Nachmittag (İkindi)
-    "maghrib": "21:46",   ← Abend (Akşam)
-    "isha":    "23:01"    ← Nacht (Yatsı)
-  }
+    "imsak":   "04:10",   ← Morgengebet
+    "sunrise": "06:04",   ← Sonnenaufgang
+    "dhuhr":   "13:35",   ← Mittag
+    "asr":     "17:35",   ← Nachmittag
+    "maghrib": "20:58",   ← Abend
+    "isha":    "22:40"    ← Nacht
+  },
+  "source": "igmg"  ← IGMG / Diyanet
 }</code></pre>
 
-        <h3 style="margin-top:1.5rem">📆 Antwort-Format (Monatsansicht)</h3>
-        <pre><code>GET /api/v1/times/month?city=20166&year=2026&month=7
+        <h3>🧩 Direkt einbetten</h3>
+        <pre><code>&lt;iframe src="https://salah.chargedesk.de/widget?city=Offenbach&amp;lang=de"
+        width="100%" height="380" frameborder="0"&gt;&lt;/iframe&gt;</code></pre>
 
-{
-  "city": "20166",
-  "year": 2026,
-  "month": 7,
-  "days": [
-    {"date": "2026-07-01", "imsak": "03:47", "sunrise": "05:12", "dhuhr": "13:34", "asr": "17:52", "maghrib": "21:45", "isha": "23:01"},
-    ... (31 Einträge)
-  ]
-}</code></pre>
-
-        <h3 style="margin-top:1.5rem">🤖 KI-Integration (für Krispy AI)</h3>
-        <pre><code>Du bist eine Gebetszeiten-Anzeige. 
-
-API:
-- Base: https://gebetszeiten.chargedesk.de
-- Key: &lt;aus API-Keys erstellen&gt;
-- Standort: Offenbach (city=20166)
-
-Wenn der User nach Gebetszeiten fragt:
-1. Für heute: GET {base}/api/v1/times?city=20166
-   Header: X-Api-Key: ***
-2. Für ein Datum: GET {base}/api/v1/times?city=20166&date=2026-07-25
-3. Für einen Monat: GET {base}/api/v1/times/month?city=20166&year=2026&month=7
-
-Zeige die Zeiten in der Landessprache des Users an.</code></pre>
+        <p style="margin-top:1rem;font-size:0.85rem;color:var(--text-muted)">
+          Vollständige Doku und Postman-Collection auf Anfrage. CORS offen für alle Origins (Greta, eigene Moschee-Websites, KI-Agenten).
+        </p>
       </div>
     </div>
   </div>
@@ -1519,7 +1479,12 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
     function renderI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
-        el.textContent = t(key);
+        const val = t(key);
+        if (el.dataset.i18nHtml === 'true') {
+          el.innerHTML = val;
+        } else {
+          el.textContent = val;
+        }
       });
       document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.dataset.i18nPlaceholder;
