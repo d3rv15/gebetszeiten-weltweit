@@ -10,21 +10,22 @@
   <style>
     * { box-sizing: border-box; }
     :root {
-      --bg-page: #0a1a14;
-      --bg-page-light: #0d2419;
-      --bg-card: #122d22;
-      --bg-card-hover: #1a3d2e;
-      --border: #1e4d3a;
-      --border-gold: #c8a86b;
-      --text-primary: #f0f5e8;
-      --text-secondary: #b8c9a8;
-      --text-muted: #6b8270;
-      --accent: #c8a86b;       /* Osmanisches Gold */
-      --accent-glow: rgba(200, 168, 107, 0.25);
-      --emerald: #0d8055;       /* Islamisch Grün */
-      --emerald-dark: #0a5a3c;
-      --emerald-light: #16a36e;
-      --secondary: #1f7a5a;
+      /* Helles Osmanisch-Manuskript Theme */
+      --bg-page: #faf5e8;            /* warmes Pergament */
+      --bg-page-light: #f5efd8;     /* etwas dunkler */
+      --bg-card: #ffffff;            /* reine weiße Karten */
+      --bg-card-hover: #fdf8ed;     /* sehr leichter Cream-Hover */
+      --border: #e6d9b8;            /* sanftes Gold-Beige */
+      --border-gold: #c8a86b;       /* Osmanisches Gold */
+      --text-primary: #2d2417;      /* tiefes Braun (Tinte) */
+      --text-secondary: #6b5a3e;    /* mittelbraun */
+      --text-muted: #8b7860;        /* helles Braun */
+      --accent: #b8945f;            /* raffiniertes Gold (etwas dunkler) */
+      --accent-glow: rgba(184, 148, 95, 0.2);
+      --emerald: #1a6b48;           /* tiefes Osmanisch-Grün */
+      --emerald-dark: #0e4a30;
+      --emerald-light: #2d8259;
+      --secondary: #2d6048;
       --danger: #c14545;
       --warning: #d4a017;
       --gold-light: #e6c97f;
@@ -34,11 +35,11 @@
       margin: 0;
       color: var(--text-primary);
       background: var(--bg-page);
-      /* Osmanisch-grüner Gradient + Islamic Geometric Pattern */
+      /* Osmanisch-Manuskript: warmes Pergament + sehr subtile Gold-Muster */
       background-image:
-        radial-gradient(circle at 0% 0%, rgba(13, 128, 85, 0.18) 0%, transparent 45%),
-        radial-gradient(circle at 100% 100%, rgba(200, 168, 107, 0.10) 0%, transparent 45%),
-        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><defs><pattern id='p' x='0' y='0' width='120' height='120' patternUnits='userSpaceOnUse'><g fill='none' stroke='%230d8055' stroke-width='0.5' opacity='0.18'><path d='M60 0 L120 60 L60 120 L0 60 Z'/><path d='M60 20 L100 60 L60 100 L20 60 Z'/><path d='M60 30 L90 60 L60 90 L30 60 Z'/><path d='M60 40 L80 60 L60 80 L40 60 Z'/><circle cx='60' cy='60' r='20'/><path d='M0 0 L60 60 M120 0 L60 60 M0 120 L60 60 M120 120 L60 60'/><path d='M30 30 L90 30 L90 90 L30 90 Z'/><path d='M30 30 L90 90 M90 30 L30 90'/></g></pattern></defs><rect width='120' height='120' fill='url(%23p)'/></svg>");
+        radial-gradient(ellipse at top left, rgba(184, 148, 95, 0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(26, 107, 72, 0.06) 0%, transparent 50%),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23b8945f' stroke-width='0.4' opacity='0.12'><path d='M40 0 L80 40 L40 80 L0 40 Z'/><path d='M40 12 L68 40 L40 68 L12 40 Z'/><path d='M40 20 L60 40 L40 60 L20 40 Z'/><circle cx='40' cy='40' r='12'/><path d='M0 0 L40 40 M80 0 L40 40 M0 80 L40 40 M80 80 L40 40'/></g></svg>");
       background-attachment: fixed;
       min-height: 100vh;
       color: var(--text-primary);
@@ -99,20 +100,22 @@
       transition: all 0.2s;
       margin-bottom: -1px;
     }
-    .tab:hover { color: var(--text-primary); }
+    .tab:hover { color: var(--emerald-dark); }
     .tab.active {
-      color: var(--accent);
+      color: var(--emerald-dark);
       border-bottom-color: var(--accent);
+      font-weight: 600;
     }
     .panel { display: none; }
     .panel.active { display: block; }
 
     .card {
-      background: var(--bg-card);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.5rem;
       margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(184, 148, 95, 0.05);
     }
     .card-title {
       margin: 0 0 1rem 0;
@@ -132,14 +135,15 @@
       font-size: 0.95rem;
       border: 1px solid var(--border);
       border-radius: 8px;
-      background: var(--bg-page);
+      background: #ffffff;
       color: var(--text-primary);
       font-family: inherit;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .input:focus, .select:focus {
       outline: none;
       border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(184, 148, 95, 0.15);
     }
     .input { flex: 1; min-width: 200px; }
 
@@ -149,7 +153,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       margin-bottom: 1.5rem;
-      background: var(--bg-page);
+      background: #ffffff;
     }
     .results:empty { display: none; }
     .result-item {
@@ -406,28 +410,29 @@
     .header-meta .badge {
       font-size: 0.75rem;
       padding: 4px 10px;
-      background: rgba(200,168,107,0.1);
-      border: 1px solid rgba(200,168,107,0.3);
+      background: rgba(184, 148, 95, 0.12);
+      border: 1px solid rgba(184, 148, 95, 0.35);
       color: var(--text-primary);
     }
     .header-meta .badge-gold {
       background: var(--accent);
-      color: var(--bg-page);
+      color: white;
       font-weight: 700;
+      border-color: var(--accent);
     }
-    #liveClock { font-family: 'Courier New', monospace; font-weight: 600; }
+    #liveClock { font-family: 'Courier New', monospace; font-weight: 600; color: var(--emerald-dark); }
     #hijriDate { color: var(--accent); }
 
     .header {
       position: relative;
-      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, #0a4a32 100%);
-      border-bottom: 3px solid var(--accent);
-      padding: 24px 20px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, #faf5e8 0%, #f5efd8 50%, #efe7cf 100%);
+      border-bottom: 2px solid var(--accent);
+      padding: 22px 20px;
+      box-shadow: 0 2px 12px rgba(184, 148, 95, 0.15);
     }
     .header-pattern {
       position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23c8a86b' stroke-width='0.6' opacity='0.35'><path d='M40 0 L80 40 L40 80 L0 40 Z'/><path d='M40 12 L68 40 L40 68 L12 40 Z'/><path d='M40 20 L60 40 L40 60 L20 40 Z'/><circle cx='40' cy='40' r='10'/><path d='M0 0 L40 40 M80 0 L40 40 M0 80 L40 40 M80 80 L40 40 M0 40 L40 40 M80 40 L40 40 M40 0 L40 80 M40 0 L40 80'/></g></svg>");
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23b8945f' stroke-width='0.5' opacity='0.18'><path d='M40 0 L80 40 L40 80 L0 40 Z'/><path d='M40 12 L68 40 L40 68 L12 40 Z'/><path d='M40 20 L60 40 L40 60 L20 40 Z'/><circle cx='40' cy='40' r='10'/><path d='M0 0 L40 40 M80 0 L40 40 M0 80 L40 40 M80 80 L40 40 M0 40 L40 40 M80 40 L40 40 M40 0 L40 80 M40 0 L40 80'/></g></svg>");
       background-size: 80px 80px;
       pointer-events: none;
     }
@@ -448,15 +453,15 @@
     }
     .logo {
       font-size: 2.6rem;
-      color: var(--accent);
-      text-shadow: 0 0 20px var(--accent-glow);
+      color: var(--emerald);
+      text-shadow: 0 1px 2px rgba(184, 148, 95, 0.2);
       line-height: 1;
     }
     .header h1 {
       margin: 0;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--emerald-dark);
       letter-spacing: 0.3px;
     }
     .h1-light {
@@ -465,7 +470,7 @@
     }
     .header-sub {
       font-size: 0.8rem;
-      color: var(--gold-light);
+      color: var(--text-secondary);
       margin-top: 4px;
       font-style: italic;
       letter-spacing: 0.5px;
@@ -657,10 +662,10 @@
     .lang-switcher {
       display: flex;
       gap: 4px;
-      background: rgba(0,0,0,0.2);
+      background: rgba(184, 148, 95, 0.12);
       padding: 4px;
       border-radius: 8px;
-      border: 1px solid rgba(200,168,107,0.3);
+      border: 1px solid rgba(184, 148, 95, 0.35);
     }
     .lang-btn {
       background: transparent;
@@ -669,15 +674,15 @@
       font-size: 1.1rem;
       cursor: pointer;
       border-radius: 6px;
-      opacity: 0.45;
+      opacity: 0.5;
       transition: all 0.2s;
       line-height: 1;
     }
-    .lang-btn:hover { opacity: 0.8; background: rgba(255,255,255,0.05); }
+    .lang-btn:hover { opacity: 0.85; background: rgba(184, 148, 95, 0.1); }
     .lang-btn.active {
       opacity: 1;
       background: var(--accent);
-      box-shadow: 0 0 8px var(--accent-glow);
+      box-shadow: 0 2px 6px rgba(184, 148, 95, 0.3);
     }
 
     /* RTL for Arabic */
@@ -773,7 +778,7 @@
 
     /* ============ HERO + QUICK-PICK ============ */
     .hero-card {
-      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(200, 168, 107, 0.08) 50%, var(--bg-card) 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #fdf8ed 50%, #faf5e8 100%);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 32px 28px;
@@ -781,24 +786,25 @@
       position: relative;
       overflow: hidden;
       margin-bottom: 20px;
+      box-shadow: 0 2px 12px rgba(184, 148, 95, 0.08);
     }
     .hero-card::before {
       content: '';
       position: absolute;
       top: -50%; left: -50%;
       width: 200%; height: 200%;
-      background: radial-gradient(circle at 30% 30%, rgba(200, 168, 107, 0.08) 0%, transparent 50%);
+      background: radial-gradient(circle at 30% 30%, rgba(184, 148, 95, 0.10) 0%, transparent 50%);
       pointer-events: none;
     }
     .hero-icon {
       font-size: 3.5rem;
       margin-bottom: 8px;
-      filter: drop-shadow(0 4px 12px var(--accent-glow));
+      filter: drop-shadow(0 4px 12px rgba(184, 148, 95, 0.3));
     }
     .hero-title {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--emerald-dark);
       margin: 0 0 6px;
       letter-spacing: 0.2px;
     }
@@ -828,17 +834,18 @@
       align-items: center;
       gap: 6px;
       padding: 8px 14px;
-      background: rgba(200, 168, 107, 0.1);
-      border: 1px solid rgba(200, 168, 107, 0.3);
+      background: rgba(184, 148, 95, 0.08);
+      border: 1px solid rgba(184, 148, 95, 0.35);
       border-radius: 20px;
-      color: var(--text-primary);
+      color: var(--emerald-dark);
       font-size: 0.88rem;
       cursor: pointer;
       transition: all 0.2s;
     }
     .quick-chip:hover {
       background: var(--accent);
-      color: var(--bg-page);
+      color: white;
+      border-color: var(--accent);
       transform: translateY(-1px);
       box-shadow: 0 4px 12px var(--accent-glow);
     }
@@ -876,12 +883,12 @@
 
     /* PRAYER HERO CARD (when city is selected) */
     .prayer-hero {
-      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 100%);
+      background: linear-gradient(135deg, #fdf8ed 0%, #f5ead0 100%);
       border: 2px solid var(--accent);
       border-radius: 16px;
       padding: 24px;
       color: var(--text-primary);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(184, 148, 95, 0.15);
       margin-bottom: 20px;
       position: relative;
       overflow: hidden;
@@ -891,7 +898,7 @@
       position: absolute;
       top: -50%; right: -30%;
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(200, 168, 107, 0.15) 0%, transparent 60%);
+      background: radial-gradient(circle, rgba(184, 148, 95, 0.18) 0%, transparent 60%);
       pointer-events: none;
     }
     .prayer-hero-header {
@@ -904,12 +911,12 @@
       position: relative;
       z-index: 1;
     }
-    .prayer-hero-title { margin: 0; font-size: 1.8rem; font-weight: 700; color: white; }
-    .prayer-hero-date { font-size: 0.9rem; color: rgba(255,255,255,0.85); }
+    .prayer-hero-title { margin: 0; font-size: 1.8rem; font-weight: 700; color: var(--emerald-dark); }
+    .prayer-hero-date { font-size: 0.9rem; color: var(--text-secondary); }
     .prayer-hero-next {
       display: inline-block;
       background: var(--accent);
-      color: var(--bg-page);
+      color: white;
       padding: 6px 14px;
       border-radius: 14px;
       font-size: 0.8rem;
@@ -924,8 +931,8 @@
       z-index: 1;
     }
     .prayer-cell {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(200, 168, 107, 0.2);
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(184, 148, 95, 0.25);
       border-radius: 10px;
       padding: 14px 12px;
       text-align: center;
@@ -933,16 +940,16 @@
     }
     .prayer-cell.current {
       background: var(--accent);
-      color: var(--bg-page);
+      color: white;
       transform: scale(1.05);
       box-shadow: 0 4px 16px var(--accent-glow);
       border-color: var(--accent);
     }
-    .prayer-cell.current .prayer-cell-label { color: rgba(10,26,20,0.7); }
-    .prayer-cell.current .prayer-cell-time { color: var(--bg-page); }
+    .prayer-cell.current .prayer-cell-label { color: rgba(255, 255, 255, 0.9); }
+    .prayer-cell.current .prayer-cell-time { color: white; }
     .prayer-cell-label {
       font-size: 0.78rem;
-      color: rgba(255,255,255,0.75);
+      color: var(--text-muted);
       margin-bottom: 4px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -951,17 +958,18 @@
       font-family: 'Courier New', monospace;
       font-size: 1.4rem;
       font-weight: 700;
-      color: white;
+      color: var(--emerald-dark);
     }
+    .prayer-cell.current .prayer-cell-time { color: white; }
     .prayer-cell .next-dot {
       display: none;
       width: 6px; height: 6px;
-      background: var(--emerald-light);
+      background: var(--emerald);
       border-radius: 50%;
       margin: 0 auto 4px;
       animation: pulse 1.5s ease-in-out infinite;
     }
-    .prayer-cell.current .next-dot { display: block; background: var(--bg-page); }
+    .prayer-cell.current .next-dot { display: block; background: white; }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
@@ -969,14 +977,15 @@
     .prayer-hero-source {
       text-align: center;
       font-size: 0.75rem;
-      color: rgba(255,255,255,0.7);
+      color: var(--text-secondary);
       margin-top: 14px;
       position: relative;
       z-index: 1;
     }
     .prayer-hero-source .source-pill {
       display: inline-block;
-      background: rgba(0,0,0,0.3);
+      background: rgba(184, 148, 95, 0.15);
+      color: var(--emerald-dark);
       padding: 2px 10px;
       border-radius: 10px;
       font-weight: 600;
@@ -995,7 +1004,7 @@
     .day-pill {
       flex-shrink: 0;
       padding: 6px 10px;
-      background: var(--bg-card);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 8px;
       text-align: center;
@@ -1004,20 +1013,20 @@
       transition: all 0.2s;
     }
     .day-pill:hover { border-color: var(--accent); background: var(--bg-card-hover); }
-    .day-pill.active { background: var(--accent); color: var(--bg-page); border-color: var(--accent); }
+    .day-pill.active { background: var(--accent); color: white; border-color: var(--accent); }
     .day-pill-name { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
-    .day-pill.active .day-pill-name { color: rgba(10,26,20,0.7); }
-    .day-pill-time { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-top: 2px; }
-    .day-pill.active .day-pill-time { color: var(--bg-page); }
+    .day-pill.active .day-pill-name { color: rgba(255, 255, 255, 0.95); }
+    .day-pill-time { font-size: 0.85rem; font-weight: 600; color: var(--emerald-dark); margin-top: 2px; }
+    .day-pill.active .day-pill-time { color: white; }
 
     .friday-banner {
-      background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 50%, #2d4a3a 100%);
-      border: 1px solid rgba(241,196,15,0.4);
+      background: linear-gradient(135deg, #faf5e8 0%, #f0e5c8 50%, #e8d9b0 100%);
+      border: 1px solid var(--accent);
       border-radius: 12px;
       margin: 20px auto 0;
       max-width: 1100px;
       padding: 18px 24px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 30px rgba(241,196,15,0.1);
+      box-shadow: 0 4px 16px rgba(184, 148, 95, 0.15);
       position: relative;
       overflow: hidden;
     }
@@ -1026,7 +1035,7 @@
       position: absolute;
       top: -50%; left: -50%;
       width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(241,196,15,0.08) 0%, transparent 50%);
+      background: radial-gradient(circle, rgba(184, 148, 95, 0.08) 0%, transparent 50%);
       animation: shimmer 6s ease-in-out infinite;
     }
     @keyframes shimmer {
@@ -1044,18 +1053,18 @@
     .banner-title-tr {
       font-size: 1.4rem;
       font-weight: 700;
-      color: #f1c40f;
+      color: var(--emerald-dark);
     }
     .banner-title-de {
       font-size: 0.9rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
     .banner-hadith {
       font-size: 0.9rem;
       color: var(--text-primary);
       line-height: 1.5;
       padding-left: 20px;
-      border-left: 2px solid rgba(241,196,15,0.4);
+      border-left: 2px solid var(--accent);
     }
     .hidden { display: none !important; }
 
@@ -1065,11 +1074,12 @@
       padding: 0 20px;
     }
     .hadith-card {
-      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(30,58,95,0.3) 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #fdf8ed 100%);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 20px 24px;
       position: relative;
+      box-shadow: 0 2px 8px rgba(184, 148, 95, 0.08);
     }
     .hadith-header {
       display: flex;
@@ -1080,17 +1090,10 @@
       border-bottom: 1px solid var(--border);
     }
     .hadith-icon { font-size: 1.8rem; }
-    .hadith-title .title-tr {
-      font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .hadith-title .title-de {
+    .hadith-title .title-primary {
       font-size: 1.1rem;
       font-weight: 600;
-      color: var(--text-primary);
+      color: var(--emerald-dark);
     }
     .hadith-refresh {
       margin-left: auto;
@@ -1106,27 +1109,31 @@
 
     .hadith-content { padding: 4px 0; }
     .hadith-arabic {
-      font-size: 1.3rem;
-      line-height: 1.9;
-      color: var(--text-primary);
+      font-size: 1.4rem;
+      line-height: 2.0;
+      color: var(--emerald-dark);
       font-family: 'Amiri', 'Times New Arabic', serif;
       direction: rtl;
       text-align: right;
-      margin-bottom: 12px;
-      padding: 8px 0;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      background: rgba(184, 148, 95, 0.06);
+      border-right: 3px solid var(--accent);
+      border-radius: 6px;
     }
+    [dir="ltr"] .hadith-arabic { border-right: 3px solid var(--accent); border-left: none; text-align: right; }
     .hadith-de, .hadith-tr, .hadith-translation {
       font-size: 1.05rem;
       color: var(--text-primary);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       line-height: 1.7;
     }
     [dir="rtl"] .hadith-translation { direction: rtl; text-align: right; font-family: 'Amiri', serif; }
     .hadith-source {
       font-size: 0.75rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       padding: 4px 10px;
-      background: var(--bg-page);
+      background: rgba(184, 148, 95, 0.1);
       border-left: 2px solid var(--accent);
       border-radius: 0 4px 4px 0;
       display: inline-block;
@@ -1138,8 +1145,8 @@
       border-top: 1px dashed var(--border);
     }
     .ir-header {
-      font-size: 0.8rem;
-      color: #f1c40f;
+      font-size: 0.85rem;
+      color: var(--emerald-dark);
       font-weight: 600;
       margin-bottom: 8px;
     }
