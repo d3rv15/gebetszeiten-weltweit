@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gebetszeiten Offenbach</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #faf5e8; color: #2d2417; margin: 0; padding: 20px; min-height: 100vh; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { color: #1a6b48; text-align: center; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b5a3e; margin-bottom: 24px; }
+    .loading { text-align: center; padding: 40px; color: #6b5a3e; }
+    .error { background: #f8d7da; color: #721c24; padding: 16px; border-radius: 8px; text-align: center; }
+    .prayer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .prayer-cell { background: white; border: 1px solid #e6d9b8; border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(184,148,95,0.08); }
+    .prayer-cell.current { background: #b8945f; color: white; border-color: #b8945f; transform: scale(1.05); }
+    .prayer-cell.current .label { color: rgba(255,255,255,0.9); }
+    .label { font-size: 0.75rem; color: #8b7860; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 600; }
+    .time { font-family: 'Courier New', monospace; font-size: 1.5rem; font-weight: 700; color: #1a6b48; }
+    .prayer-cell.current .time { color: white; }
+    .next-pill { display: inline-block; background: #1a6b48; color: white; padding: 8px 16px; border-radius: 14px; font-weight: 700; margin-bottom: 20px; }
+    table.week { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(184,148,95,0.1); }
+    table.week th { background: #1a6b48; color: white; padding: 10px 8px; text-align: center; font-size: 0.85rem; }
+    table.week td { padding: 10px 8px; text-align: center; border-bottom: 1px solid #f0e5c8; font-family: 'Courier New', monospace; }
+    table.week tr.today { background: #fff3cd; font-weight: 700; }
+    .source { text-align: center; margin-top: 16px; font-size: 0.85rem; color: #6b5a3e; }
+    .source a { color: #b8945f; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="city-name">Namaz Vakitleri</h1>
+    <p class="subtitle" id="date-display"></p>
+    <div id="next-pill" style="text-align:center"></div>
+    <div class="prayer-grid" id="prayer-grid">
+      <div class="loading">⏳ Gebetszeiten werden geladen…</div>
+    </div>
+    <table class="week" id="week-table" style="display:none">
+      <thead><tr>
+        <th>Tag</th><th>İmsak</th><th>Güneş</th><th>Öğle</th><th>İkindi</th><th>Akşam</th><th>Yatsı</th>
+      </tr></thead>
+      <tbody id="week-body"></tbody>
+    </table>
+    <p class="source">Daten: <a href="https://salah.chargedesk.de" target="_blank">salah.chargedesk.de</a> · IGMG/Diyanet-Methode (Türkei)</p>
+  </div>
+  <script>
+    const API = 'https://salah.chargedesk.de';
+    const CITY = 'Offenbach';
+    const today = new Date();
+    const isoDate = today.toISOString().slice(0, 10);
+    const startDate = isoDate;
+    const lang = navigator.language || 'de';
+
+    // 1) Today's prayer times
+    fetch(API + '/api/times?city=' + encodeURIComponent(CITY) + '&date=' + isoDate)
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('city-name').textContent = '🕌 ' + d.city.name;
+        const dateStr = new Date(d.date).toLocaleDateString(lang, { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+        document.getElementById('date-display').textContent = dateStr + ' · ' + d.city.timezone;
+
+        // Find next prayer
+        const order = ['imsak','sunrise','dhuhr','asr','maghrib','isha'];
+        const labels = { imsak:'İmsak', sunrise:'Güneş', dhuhr:'Öğle', asr:'İkindi', maghrib:'Akşam', isha:'Yatsı' };
+        const now = new Date();
+        const mins = now.getHours()*60 + now.getMinutes();
+        let next = null;
+        for (const k of order) {
+          const [h,m] = d[k].split(':').map(Number);
+          if (h*60+m > mins) { next = { key:k, time:d[k] }; break; }
+        }
+        if (next) {
+          document.getElementById('next-pill').innerHTML = '<span class="next-pill">Sıradaki: ' + labels[next.key] + ' ' + next.time + '</span>';
+        }
+
+        // Render today's 6 prayers
+        const grid = document.getElementById('prayer-grid');
+        grid.innerHTML = order.map(k =>
+          '<div class="prayer-cell' + (next && next.key===k ? ' current' : '') + '">' +
+            '<div class="label">' + labels[k] + '</div>' +
+            '<div class="time">' + d[k] + '</div>' +
+          '</div>'
+        ).join('');
+      })
+      .catch(e => {
+        document.getElementById('prayer-grid').innerHTML = '<div class="error">❌ ' + e.message + '</div>';
+      });
+
+    // 2) Week overview
+    fetch(API + '/api/times/range?city=' + encodeURIComponent(CITY) + '&start=' + startDate + '&days=7')
+      .then(r => r.json())
+      .then(d => {
+        const labels = { imsak:'İmsak', sunrise:'Güneş', dhuhr:'Öğle', asr:'İkindi', maghrib:'Akşam', isha:'Yatsı' };
+        const body = document.getElementById('week-body');
+        body.innerHTML = d.times.map(t => {
+          const ds = new Date(t.date + 'T00:00:00');
+          const isToday = t.date === isoDate;
+          const dayName = ds.toLocaleDateString(lang, { weekday:'short', day:'2-digit', month:'2-digit' });
+          return '<tr class="' + (isToday?'today':'') + '"><td><strong>' + dayName + '</strong></td>' +
+            '<td>' + t.imsak + '</td><td>' + t.sunrise + '</td>' +
+            '<td>' + t.dhuhr + '</td><td>' + t.asr + '</td>' +
+            '<td>' + t.maghrib + '</td><td>' + t.isha + '</td></tr>';
+        }).join('');
+        document.getElementById('week-table').style.display = 'table';
+      });
+  </script>
+</body>
+</html>
