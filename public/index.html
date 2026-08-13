@@ -523,7 +523,6 @@
     }
     .ornament-icon { font-size: 1.6rem; }
 
-    .seferi-intro { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(200,168,107,0.08) 100%); border: 1px solid var(--border); }
     .seferi-title { text-align: center; margin: 0 0 16px; }
     .seferi-title .title-ar {
       font-family: 'Amiri', serif;
@@ -555,7 +554,8 @@
       grid-template-columns: 1fr auto 1fr auto;
       gap: 12px;
       align-items: end;
-      margin-bottom: 16px;
+      margin: 20px auto 12px;
+      max-width: 720px;
     }
     .input-group { display: flex; flex-direction: column; gap: 6px; }
     .input-group label {
@@ -1307,9 +1307,10 @@
 
     <!-- SEFERI CHECK PANEL -->
     <div class="panel" id="panel-seferi">
-      <div class="card seferi-intro">
-        <h2 class="card-title" data-i18n="seferi.title_short">🧳 Seferi-Check — Reisestatus (Hanefî-Fiqh)</h2>
-        <p class="seferi-subtitle" data-i18n="seferi.subtitle" data-i18n-html="true">Prüfe, ob deine Reise als <em>seferî</em> (Yolculuk/Musâfir) im islamischen Recht gilt und welche Erleichterungen (Ruhsat) dir dann zustehen. Berechnung nach <strong>Hanefî-Mezhebi</strong> (Diyanet/IGMG) — Distanz: ≥ <strong>90 km</strong>.</p>
+      <div class="hero-card">
+        <div class="hero-icon">🧭</div>
+        <h2 class="hero-title" data-i18n="seferi.title_short">🧳 Seferi-Check</h2>
+        <p class="hero-subtitle" data-i18n="seferi.subtitle" data-i18n-html="true">Prüfe, ob deine Reise als <em>seferî</em> (Yolculuk/Musâfir) im islamischen Recht gilt und welche Erleichterungen (Ruhsat) dir dann zustehen. Berechnung nach <strong>Hanefî-Mezhebi</strong> (Diyanet/IGMG) — Distanz: ≥ <strong>90 km</strong>.</p>
         <div class="seferi-input-row">
           <div class="input-group">
             <label data-i18n="seferi.from_label">Von (Heimatstadt)</label>
@@ -1336,21 +1337,22 @@
 
     <!-- API DOCU PANEL -->
     <div class="panel" id="panel-api">
-      <div class="card">
-        <h2 class="card-title">API-Dokumentation</h2>
-        <p class="card-subtitle">JSON API — alle Endpoints sind <strong>keyless</strong> und CORS-aktiviert.</p>
+      <div class="hero-card">
+        <div class="hero-icon">🔌</div>
+        <h2 class="hero-title">API-Dokumentation</h2>
+        <p class="hero-subtitle">JSON API — alle Endpoints sind <strong>keyless</strong> und <strong>CORS-aktiviert</strong>. Direkt aus dem Browser abrufbar.</p>
 
-        <h3>📡 Endpoints</h3>
-        <pre><code>GET /api/cities?country=DE&amp;q=münchen       # Städte suchen
-GET /api/times?city=Offenbach&amp;date=2026-08-13  # Tageszeiten
-GET /api/times/range?city=Offenbach&amp;start=2026-08-13&amp;days=7  # mehrtägig
-GET /api/times/month?city=Offenbach&amp;year=2026&amp;month=8  # Monat
-GET /api/distance?from=Offenbach&amp;to=Mekka  # Seferi-Distanz
-GET /api/hadith/today                       # Hadith des Tages
+        <h3 style="text-align:left;margin:1.5rem 0 0.5rem;font-size:0.95rem;color:var(--emerald-dark)">📡 Endpoints</h3>
+        <pre style="text-align:left"><code>GET /api/cities?country=DE&amp;q=münchen          # Städte suchen
+GET /api/times?city=Offenbach&amp;date=2026-08-13   # Tageszeiten
+GET /api/times/range?city=Offenbach&amp;start=2026-08-13&amp;days=7
+GET /api/times/month?city=Offenbach&amp;year=2026&amp;month=8
+GET /api/distance?from=Offenbach&amp;to=Mekka       # Seferi-Distanz
+GET /api/hadith/today                            # Hadith des Tages
 GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</code></pre>
 
-        <h3>📅 Antwort (Tagesansicht)</h3>
-        <pre><code>{
+        <h3 style="text-align:left;margin:1.25rem 0 0.5rem;font-size:0.95rem;color:var(--emerald-dark)">📅 Antwort-Format</h3>
+        <pre style="text-align:left"><code>{
   "city": { "name": "Offenbach", "country": "DE", "timezone": "Europe/Berlin" },
   "date": "2026-08-13",
   "times": {
@@ -1361,15 +1363,15 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     "maghrib": "20:58",   ← Abend
     "isha":    "22:40"    ← Nacht
   },
-  "source": "igmg"  ← IGMG / Diyanet
+  "source": "igmg"
 }</code></pre>
 
-        <h3>🧩 Direkt einbetten</h3>
-        <pre><code>&lt;iframe src="https://salah.chargedesk.de/widget?city=Offenbach&amp;lang=de"
+        <h3 style="text-align:left;margin:1.25rem 0 0.5rem;font-size:0.95rem;color:var(--emerald-dark)">🧩 Direkt einbetten</h3>
+        <pre style="text-align:left"><code>&lt;iframe src="https://salah.chargedesk.de/widget?city=Offenbach&amp;lang=de"
         width="100%" height="380" frameborder="0"&gt;&lt;/iframe&gt;</code></pre>
 
-        <p style="margin-top:1rem;font-size:0.85rem;color:var(--text-muted)">
-          Vollständige Doku und Postman-Collection auf Anfrage. CORS offen für alle Origins (Greta, eigene Moschee-Websites, KI-Agenten).
+        <p style="margin-top:1rem;font-size:0.85rem;color:var(--text-muted);text-align:center">
+          Vollständige Doku und Postman-Collection auf Anfrage. CORS offen für alle Origins.
         </p>
       </div>
     </div>
