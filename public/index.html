@@ -771,6 +771,242 @@
     .api-copy-btn:hover { background: var(--emerald-light); }
     .api-copy-btn.copied { background: var(--accent); color: var(--bg-page); }
 
+    /* ============ HERO + QUICK-PICK ============ */
+    .hero-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(200, 168, 107, 0.08) 50%, var(--bg-card) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(200, 168, 107, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 4px 12px var(--accent-glow));
+    }
+    .hero-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 6px;
+      letter-spacing: 0.2px;
+    }
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin: 0 0 20px;
+      line-height: 1.5;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-search { margin: 16px 0 0; max-width: 720px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
+    .hero-input { font-size: 1rem; padding: 12px 16px; }
+
+    .quick-pick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .quick-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(200, 168, 107, 0.1);
+      border: 1px solid rgba(200, 168, 107, 0.3);
+      border-radius: 20px;
+      color: var(--text-primary);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quick-chip:hover {
+      background: var(--accent);
+      color: var(--bg-page);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+    .quick-chip .chip-flag { font-size: 1.1rem; }
+
+    /* Compact collapsible card (for custom city) */
+    .collapsible-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+    .collapsible-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .collapsible-header:hover { background: var(--bg-card-hover); }
+    .collapsible-icon {
+      color: var(--accent);
+      transition: transform 0.2s;
+    }
+    .collapsible-body { padding: 0 18px 18px; }
+    .collapsible-card.open .collapsible-icon { transform: rotate(180deg); }
+
+    /* PRAYER HERO CARD (when city is selected) */
+    .prayer-hero {
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 100%);
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      padding: 24px;
+      color: var(--text-primary);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .prayer-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -30%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200, 168, 107, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .prayer-hero-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .prayer-hero-title { margin: 0; font-size: 1.8rem; font-weight: 700; color: white; }
+    .prayer-hero-date { font-size: 0.9rem; color: rgba(255,255,255,0.85); }
+    .prayer-hero-next {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg-page);
+      padding: 6px 14px;
+      border-radius: 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .prayer-grid-hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .prayer-cell {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(200, 168, 107, 0.2);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .prayer-cell.current {
+      background: var(--accent);
+      color: var(--bg-page);
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px var(--accent-glow);
+      border-color: var(--accent);
+    }
+    .prayer-cell.current .prayer-cell-label { color: rgba(10,26,20,0.7); }
+    .prayer-cell.current .prayer-cell-time { color: var(--bg-page); }
+    .prayer-cell-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .prayer-cell-time {
+      font-family: 'Courier New', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+    }
+    .prayer-cell .next-dot {
+      display: none;
+      width: 6px; height: 6px;
+      background: var(--emerald-light);
+      border-radius: 50%;
+      margin: 0 auto 4px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .prayer-cell.current .next-dot { display: block; background: var(--bg-page); }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .prayer-hero-source {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .prayer-hero-source .source-pill {
+      display: inline-block;
+      background: rgba(0,0,0,0.3);
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    /* Horizontal mini-day strip */
+    .day-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 0 4px;
+      margin: 0 -4px;
+    }
+    .day-strip::-webkit-scrollbar { height: 4px; }
+    .day-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .day-pill {
+      flex-shrink: 0;
+      padding: 6px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      min-width: 80px;
+      transition: all 0.2s;
+    }
+    .day-pill:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+    .day-pill.active { background: var(--accent); color: var(--bg-page); border-color: var(--accent); }
+    .day-pill-name { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
+    .day-pill.active .day-pill-name { color: rgba(10,26,20,0.7); }
+    .day-pill-time { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-top: 2px; }
+    .day-pill.active .day-pill-time { color: var(--bg-page); }
+
     .friday-banner {
       background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 50%, #2d4a3a 100%);
       border: 1px solid rgba(241,196,15,0.4);
@@ -997,26 +1233,42 @@
 
     <!-- GEBETSZEITEN PANEL -->
     <div class="panel active" id="panel-times">
-      <div class="card">
-        <div class="search-row">
-          <input class="input" type="text" id="citySearch" data-i18n-placeholder="search.placeholder" placeholder="Stadt suchen (z.B. Offenbach, München, Istanbul)...">
-          <select class="select" id="countryFilter" style="min-width:120px">
+      <!-- QUICK-PICK HERO (shown when no city is selected) -->
+      <div class="hero-card" id="heroEmptyState">
+        <div class="hero-icon">🕌</div>
+        <h2 class="hero-title" data-i18n="hero.title">Gebetszeiten für jede Stadt der Welt</h2>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">Offizielle IGMG/Diyanet-Berechnung. 765 Städte weltweit — oder gib einen beliebigen Ort ein.</p>
+        <div class="quick-pick-chips" id="quickPickChips">
+          <!-- Populated by JS with top cities -->
+        </div>
+        <div class="search-row hero-search">
+          <input class="input hero-input" type="text" id="citySearch" data-i18n-placeholder="search.placeholder" placeholder="Stadt suchen (z.B. Offenbach, München, Istanbul)...">
+          <select class="select" id="countryFilter" style="min-width:140px">
             <option value="" data-i18n="search.all_countries">🌍 Alle Länder</option>
           </select>
           <select class="select" id="dateSelect" style="min-width:200px"></select>
         </div>
         <div class="results" id="cityResults"></div>
-        <div id="prayerCard"></div>
       </div>
-      <div class="card" style="margin-top:20px">
-        <h2 class="card-title" data-i18n="custom_city.title">📍 Eigene Stadt hinzufügen</h2>
-        <p class="card-subtitle" data-i18n="custom_city.subtitle">Stadt ist nicht in der IGMG-Liste? Gib einen beliebigen Ort ein — wir berechnen die Zeiten lokal (Diyanet-Methode) in der örtlichen Zeitzone.</p>
-        <div class="search-row">
-          <input class="input" type="text" id="customCityInput" data-i18n-placeholder="custom_city.input_placeholder" placeholder="z.B. Yozgat, Schönefeld, Ankara, München-Augsburg ...">
-          <button class="btn" id="customCityBtn" data-i18n="custom_city.button">+ Stadt laden</button>
+
+      <!-- PRAYER CARD (shown when city is selected) -->
+      <div id="prayerCard"></div>
+
+      <!-- COMPACT CUSTOM-CITY (collapsible / inline) -->
+      <div class="card collapsible-card" id="customCityCard">
+        <div class="collapsible-header" onclick="document.getElementById('customCityBody').classList.toggle('hidden')">
+          <span data-i18n="custom_city.title">📍 Eigene Stadt hinzufügen</span>
+          <span class="collapsible-icon">▼</span>
         </div>
-        <div id="customCityResult"></div>
-        <div id="customCityCard"></div>
+        <div class="collapsible-body" id="customCityBody">
+          <p class="card-subtitle" data-i18n="custom_city.subtitle">Stadt ist nicht in der IGMG-Liste? Gib einen beliebigen Ort ein — wir berechnen die Zeiten lokal (Diyanet-Methode) in der örtlichen Zeitzone.</p>
+          <div class="search-row">
+            <input class="input" type="text" id="customCityInput" data-i18n-placeholder="custom_city.input_placeholder" placeholder="z.B. Yozgat, Schönefeld, Ankara, München-Augsburg ...">
+            <button class="btn" id="customCityBtn" data-i18n="custom_city.button">+ Stadt laden</button>
+          </div>
+          <div id="customCityResult"></div>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -1162,6 +1414,69 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
   <div class="toast" id="toast"></div>
 
   <script>
+    // ============ QUICK-PICK CITIES (top cities for empty state) ============
+    const QUICK_PICKS = [
+      { name: 'Offenbach', country: 'DE', flag: '🇩🇪' },
+      { name: 'Berlin', country: 'DE', flag: '🇩🇪' },
+      { name: 'München', country: 'DE', flag: '🇩🇪' },
+      { name: 'Istanbul', country: 'TR', flag: '🇹🇷' },
+      { name: 'Ankara', country: 'TR', flag: '🇹🇷' },
+      { name: 'Köln', country: 'DE', flag: '🇩🇪' },
+      { name: 'Frankfurt', country: 'DE', flag: '🇩🇪' },
+      { name: 'Wien', country: 'AT', flag: '🇦🇹' },
+      { name: 'Zürich', country: 'CH', flag: '🇨🇭' },
+      { name: 'Hamburg', country: 'DE', flag: '🇩🇪' },
+      { name: 'Stuttgart', country: 'DE', flag: '🇩🇪' },
+      { name: 'Mekka', country: 'SA', flag: '🇸🇦' },
+    ];
+    function renderQuickPicks() {
+      const c = document.getElementById('quickPickChips');
+      if (!c) return;
+      c.innerHTML = QUICK_PICKS.map(p =>
+        `<div class="quick-chip" data-city="${p.name}" data-country="${p.country}">
+           <span class="chip-flag">${p.flag}</span>
+           <span>${p.name}</span>
+         </div>`
+      ).join('');
+      c.querySelectorAll('.quick-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const cityName = chip.dataset.city;
+          // Trigger city search + selection
+          const input = document.getElementById('citySearch');
+          input.value = cityName;
+          // Find the city in allCities and select it
+          const match = allCities.find(c => c.name === cityName);
+          if (match) {
+            selectCity(match);
+          } else {
+            // Trigger geocoding via the custom-city endpoint
+            document.getElementById('customCityInput').value = cityName;
+            loadCustomCity();
+          }
+        });
+      });
+    }
+    renderQuickPicks();
+
+    // Toggle empty state visibility based on prayer card
+    const origRender = renderI18n;
+    function updateEmptyState() {
+      const hero = document.getElementById('heroEmptyState');
+      const card = document.getElementById('prayerCard');
+      if (hero && card) {
+        if (card.children.length > 0) {
+          hero.classList.add('hidden');
+        } else {
+          hero.classList.remove('hidden');
+        }
+      }
+    }
+    // Watch prayerCard for changes (via MutationObserver)
+    const prayerCardEl = document.getElementById('prayerCard');
+    if (prayerCardEl) {
+      new MutationObserver(updateEmptyState).observe(prayerCardEl, { childList: true, subtree: true });
+    }
+
     // ============ i18n (Multi-Language) ============
     let I18N = null;
     let CURRENT_LANG = 'de';
@@ -1571,39 +1886,42 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       if (!d.imsak) { toast(t('city_card.no_data'), 'error'); return; }
       const card = document.getElementById('prayerCard');
       const nextP = getNextPrayer(d);
-      const dateStr = new Date(d.date).toLocaleDateString(
-        (CURRENT_LANG === 'tr' ? 'tr-TR' : (CURRENT_LANG === 'ar' ? 'ar-SA' : (CURRENT_LANG === 'en' ? 'en-US' : 'de-DE'))),
-        { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }
-      );
+      const dateLocale = (CURRENT_LANG === 'tr' ? 'tr-TR' : (CURRENT_LANG === 'ar' ? 'ar-SA' : (CURRENT_LANG === 'en' ? 'en-US' : 'de-DE')));
+      const dateStr = new Date(d.date).toLocaleDateString(dateLocale, { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
       // Load holidays for this date
       const holidaysRes = await fetch(`/api/holidays?from=${d.date}&to=${d.date}`).then(r => r.json()).catch(() => ({ holidays: [] }));
       const holiday = (holidaysRes.holidays || [])[0];
       const holidayBanner = holiday ? `<div class="holiday-banner"><span class="icon">${holiday.type === 'bayram' ? '🌙' : '✨'}</span> <strong>${holiday.name}</strong> <span class="hijri">(${holiday.hijri_date})</span></div>` : '';
-      const sourceTag = d.city && d.city.source
-        ? ' · <span class="source">' + (d.city.source === 'bundled' ? t('city_card.source_bundled') : t('city_card.source_custom')) + '</span>'
-        : '';
+      const sourceLabel = d.source === 'igmg' ? t('range.source_igmg') : t('range.source_local');
+      const sourcePill = `<span class="source-pill">${sourceLabel}</span>`;
       card.innerHTML = `
-        <div class="prayer-card">
-          <h2>${city.name}</h2>
-          <div class="date">${dateStr}${sourceTag}</div>
+        <div class="prayer-hero">
           ${holidayBanner}
-          <div class="prayer-grid">
+          <div class="prayer-hero-header">
+            <div>
+              <h2 class="prayer-hero-title">${city.name}</h2>
+              <div class="prayer-hero-date">${dateStr}</div>
+            </div>
+            ${nextP ? `<div class="prayer-hero-next">${t('city_card.next')}: ${t('city_card.label_' + nextP)} ${d[nextP]}</div>` : ''}
+          </div>
+          <div class="prayer-grid-hero">
             ${['imsak','sunrise','dhuhr','asr','maghrib','isha'].map(k => `
-              <div class="prayer ${k === nextP ? 'current' : ''}">
-                <div class="name">${t('city_card.label_' + k)}</div>
-                <div class="time">${d[k]}</div>
-                ${k === nextP ? '<div class="next-badge">' + t('city_card.next') + '</div>' : ''}
+              <div class="prayer-cell ${k === nextP ? 'current' : ''}">
+                ${k === nextP ? '<div class="next-dot"></div>' : ''}
+                <div class="prayer-cell-label">${t('city_card.label_' + k)}</div>
+                <div class="prayer-cell-time">${d[k]}</div>
               </div>
             `).join('')}
           </div>
-          <div class="multi-day-toggle">
+          <div class="prayer-hero-source">${sourcePill} · ${d.method || 'Turkey (Diyanet)'}</div>
+          <div class="multi-day-toggle" style="position:relative;z-index:1;margin-top:14px;justify-content:flex-start">
             <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 7)">${t('range.days_7')}</button>
             <button class="btn btn-sm" onclick="loadRange('${encodeURIComponent(city.name)}', '${d.date}', 30)">${t('range.days_30')}</button>
             <button class="btn btn-sm" onclick="loadMonth('${encodeURIComponent(city.name)}', '${d.date}')">${t('range.month')}</button>
           </div>
-          <div id="multiDayCard" class="multi-day-card"></div>
-          ${renderApiSnippet(city.name, city.id)}
         </div>
+        <div id="multiDayCard" class="multi-day-card"></div>
+        ${renderApiSnippet(city.name, city.id)}
       `;
       // Auto-load 7-day preview
       loadRange(city.name, d.date, 7);
@@ -1702,7 +2020,7 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
       }
     });
 
-    // Load N days starting at startDate and show as table
+    // Load N days starting at startDate and show as horizontal day strip + table
     async function loadRange(cityName, startDate, numDays) {
       const card = document.getElementById('multiDayCard');
       if (!card) return;
@@ -1718,26 +2036,46 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         for (const h of (hols.holidays || [])) holMap[h.greg_date] = h;
         const dateLocale = (CURRENT_LANG === 'tr' ? 'tr-TR' : (CURRENT_LANG === 'ar' ? 'ar-SA' : (CURRENT_LANG === 'en' ? 'en-US' : 'de-DE')));
         const labels = { imsak: t('city_card.label_imsak'), sunrise: t('city_card.label_sunrise'), dhuhr: t('city_card.label_dhuhr'), asr: t('city_card.label_asr'), maghrib: t('city_card.label_maghrib'), isha: t('city_card.label_isha') };
+        // Day strip (horizontal scroll) + table for details
         card.innerHTML = `
-          <table class="range-table">
-            <thead>
-              <tr><th>${CURRENT_LANG === 'de' ? 'Datum' : (CURRENT_LANG === 'tr' ? 'Tarih' : (CURRENT_LANG === 'ar' ? 'التاريخ' : 'Date'))}</th>${Object.values(labels).map(l => `<th>${l}</th>`).join('')}<th>🎉</th></tr>
-            </thead>
-            <tbody>
-              ${d.times.map(t => {
+          <div class="card" style="margin-top:14px">
+            <h3 class="card-title" style="font-size:1rem;margin-bottom:10px">📅 ${CURRENT_LANG === 'de' ? 'Vorschau' : (CURRENT_LANG === 'tr' ? 'Önizleme' : (CURRENT_LANG === 'ar' ? 'معاينة' : 'Preview'))}</h3>
+            <div class="day-strip">
+              ${d.times.map((t, i) => {
                 const ds = new Date(t.date + 'T00:00:00');
-                const dateLabel = ds.toLocaleDateString(dateLocale, { weekday: 'short', day: '2-digit', month: '2-digit' });
+                const dayName = ds.toLocaleDateString(dateLocale, { weekday: 'short' });
+                const dayNum = ds.toLocaleDateString(dateLocale, { day: '2-digit', month: '2-digit' });
                 const h = holMap[t.date];
-                return `<tr class="${h ? 'has-holiday' : ''}">
-                  <td><strong>${dateLabel}</strong>${h ? `<br><small>${h.type === 'bayram' ? '🌙' : '✨'} ${h.name}</small>` : ''}</td>
-                  <td>${t.imsak}</td><td>${t.sunrise}</td><td>${t.dhuhr}</td>
-                  <td>${t.asr}</td><td>${t.maghrib}</td><td>${t.isha}</td>
-                  <td>${h ? `<span class="holiday-pill">${h.type === 'bayram' ? '🌙 Bayram' : '✨ Kandil'}</span>` : ''}</td>
-                </tr>`;
+                return `<div class="day-pill ${i === 0 ? 'active' : ''}" data-date="${t.date}">
+                  <div class="day-pill-name">${dayName}${h ? ' ' + (h.type === 'bayram' ? '🌙' : '✨') : ''}</div>
+                  <div class="day-pill-time">${dayNum}</div>
+                  <div class="day-pill-time" style="font-size:0.75rem;color:var(--text-secondary)">${t.imsak}</div>
+                </div>`;
               }).join('')}
-            </tbody>
-          </table>
-          <div class="range-info">${t('range.cached_info', { n: d.times.length })}</div>
+            </div>
+            <details style="margin-top:14px">
+              <summary style="cursor:pointer;color:var(--accent);font-size:0.85rem">📋 ${CURRENT_LANG === 'de' ? 'Alle Zeiten als Tabelle' : (CURRENT_LANG === 'tr' ? 'Tablo olarak tüm zamanlar' : (CURRENT_LANG === 'ar' ? 'كل الأوقات كجدول' : 'Show all times as table'))}</summary>
+              <table class="range-table" style="margin-top:8px">
+                <thead>
+                  <tr><th>${CURRENT_LANG === 'de' ? 'Tag' : (CURRENT_LANG === 'tr' ? 'Gün' : (CURRENT_LANG === 'ar' ? 'يوم' : 'Day'))}</th>${Object.values(labels).map(l => `<th>${l}</th>`).join('')}<th>🎉</th></tr>
+                </thead>
+                <tbody>
+                  ${d.times.map(t => {
+                    const ds = new Date(t.date + 'T00:00:00');
+                    const dateLabel = ds.toLocaleDateString(dateLocale, { weekday: 'short', day: '2-digit', month: '2-digit' });
+                    const h = holMap[t.date];
+                    return `<tr class="${h ? 'has-holiday' : ''}">
+                      <td><strong>${dateLabel}</strong>${h ? `<br><small>${h.type === 'bayram' ? '🌙' : '✨'} ${h.name}</small>` : ''}</td>
+                      <td>${t.imsak}</td><td>${t.sunrise}</td><td>${t.dhuhr}</td>
+                      <td>${t.asr}</td><td>${t.maghrib}</td><td>${t.isha}</td>
+                      <td>${h ? `<span class="holiday-pill">${h.type === 'bayram' ? '🌙 Bayram' : '✨ Kandil'}</span>` : ''}</td>
+                    </tr>`;
+                  }).join('')}
+                </tbody>
+              </table>
+            </details>
+            <div class="range-info">${t('range.cached_info', { n: d.times.length })}</div>
+          </div>
         `;
       } catch (e) {
         card.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${e.message}</div>`;
@@ -1797,6 +2135,8 @@ Zeige die Zeiten in der Landessprache des Users an.</code></pre>
         const d = await r2.json();
         // Render result + card
         resultEl.innerHTML = '';
+        // Hide empty state and add to top-cities list
+        document.getElementById('heroEmptyState')?.classList.add('hidden');
         const cityLine = `<div class="result-item" style="cursor:default"><span class="name">${d.city.name}</span><span class="country">${d.city.country || ''}</span><div style="font-size:11px;color:#7f8c8d;margin-top:2px">📍 ${d.city.lat ? d.city.lat.toFixed(3) : '?'}, ${d.city.lng ? d.city.lng.toFixed(3) : '?'} · ${d.city.timezone}</div></div>`;
         resultEl.innerHTML = cityLine;
         // Reload the main city list so this new custom city is available in the top search
