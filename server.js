@@ -675,7 +675,7 @@ app.get('/health', async (req, res) => {
     node: process.version,
     env: NODE_ENV,
     cities: { bundled: BUNDLED_CITIES.length, custom_querying_appwrite: true, cache: calcCache.size },
-    calculator: 'Real IGMG server data (priority) + Adhan Turkey/Diyanet (fallback for custom cities)',
+    calculator: 'Real IGMG (igmg.org) for bundled cities + Diyanet (AlAdhan API method 13) for others. NO Adhan approximation.',
     database: `Appwrite (${CONFIG.appwrite.endpoint}, db=${CONFIG.appwrite.dbId})`,
     igmg_data_for_offenbach_today: igmgStatus,
   });
