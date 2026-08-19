@@ -27,6 +27,12 @@
       "ar": "🧭 فحص السفر",
       "en": "🧭 Travel Check"
     },
+    "hadith": {
+      "de": "📚 Hadith-Bibliothek",
+      "tr": "📚 Hadis Kütüphanesi",
+      "ar": "📚 مكتبة الأحاديث",
+      "en": "📚 Hadith Library"
+    },
     "keys": {
       "de": "🔑 API-Keys",
       "tr": "🔑 API Anahtarları",
