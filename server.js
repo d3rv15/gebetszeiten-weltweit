@@ -167,7 +167,117 @@ async function findCustomCity(query) {
   return null;
 }
 
-// ============ OFFICIAL IGMG APP SERVER API (PRIMARY) ============
+// ============ IGMG AJAX API (PRIMARY - matches IGMG website) ============
+// This is the same AJAX endpoint that igmg.org/gebetskalender uses internally.
+// Returns 31 days of data for a city. The browser renders it in a table.
+// We extract a single day. The data MATCHES the IGMG website exactly (validated
+// against the calendar at https://www.igmg.org/gebetskalender).
+//
+// IMPORTANT: requires a session cookie from igmg.org/gebetskalender first.
+// Without the cookie, the AJAX returns empty. So we establish the session on
+// first use, then reuse the cookie for subsequent calls.
+
+let igmgAjaxCookie = null;
+let igmgAjaxCookieFetched = 0;
+const IGMG_COOKIE_TTL = 30 * 60 * 1000; // 30 min
+
+const IGMG_AJAX_URL = 'https://www.igmg.org/wp-content/themes/igmg/include/gebetskalender_ajax_api.php';
+const IGMG_PAGE_URL = 'https://www.igmg.org/gebetskalender';
+
+async function ensureIGMGCookie() {
+  if (igmgAjaxCookie && (Date.now() - igmgAjaxCookieFetched) < IGMG_COOKIE_TTL) {
+    return igmgAjaxCookie;
+  }
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(IGMG_PAGE_URL, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (res.ok) {
+      // Extract Set-Cookie header (or all cookies)
+      const setCookie = res.headers.get('set-cookie') || '';
+      igmgAjaxCookie = setCookie.split(';')[0] || null;
+      igmgAjaxCookieFetched = Date.now();
+    }
+  } catch (e) {
+    logErr('ensureIGMGCookie failed:', e.message);
+  }
+  return igmgAjaxCookie;
+}
+
+async function fetchFromIGMGAjax(city, date) {
+  const igmgId = city.igmg_id || city.id;
+  if (!igmgId) return null;
+  const [yyyy, mm, dd] = date.split('-');
+  try {
+    await ensureIGMGCookie();
+    const body = new URLSearchParams({
+      show_ajax_variable: String(igmgId),
+      show_month: String(parseInt(mm, 10)),
+      show_year: String(yyyy),
+      lang: 'de',
+    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
+    const headers = {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Referer': IGMG_PAGE_URL,
+    };
+    if (igmgAjaxCookie) headers['Cookie'] = igmgAjaxCookie;
+    const res = await fetch(IGMG_AJAX_URL, {
+      method: 'POST',
+      headers,
+      body: body.toString(),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (!res.ok) {
+      logErr(`IGMG AJAX ${res.status} for cityId=${igmgId} date=${date}`);
+      // Invalidate cookie on auth failure
+      if (res.status === 403 || res.status === 401) { igmgAjaxCookie = null; igmgAjaxCookieFetched = 0; }
+      return null;
+    }
+    const html = await res.text();
+    if (!html || html.length < 100) {
+      logErr(`IGMG AJAX empty response for cityId=${igmgId} (cookie invalid?)`);
+      igmgAjaxCookie = null; igmgAjaxCookieFetched = 0;
+      return null;
+    }
+    // Parse: <span class='tarih'>DD.MM.YYYY</span> ... 6 times
+    const targetDate = `${dd}.${mm}.${yyyy}`;
+    const rowRe = /<span class='tarih'>(\d{2})\.(\d{2})\.(\d{4})<\/span>\s*<span class='imsak_time'>([^<]+)<\/span>\s*<span class='gunes_time'>([^<]+)<\/span>\s*<span class='ogle_time'>([^<]+)<\/span>\s*<span class='ikindi_time'>([^<]+)<\/span>\s*<span class='aksam_time'>([^<]+)<\/span>\s*<span class='yatsi_time'>([^<]+)<\/span>/g;
+    let m;
+    while ((m = rowRe.exec(html)) !== null) {
+      const [_, d, mth, y, imsak, sunrise, dhuhr, asr, maghrib, isha] = m;
+      if (d === dd && mth === mm && y === yyyy) {
+        return {
+          date: date,
+          imsak: imsak.trim(),
+          sunrise: sunrise.trim(),
+          dhuhr: dhuhr.trim(),
+          asr: asr.trim(),
+          maghrib: maghrib.trim(),
+          isha: isha.trim(),
+          source: 'igmg',
+          method: 'IGMG.org (Gebetskalender)',
+          cityId: igmgId,
+        };
+      }
+    }
+    logErr(`IGMG AJAX: date ${targetDate} not found in response (got ${html.length} bytes)`);
+    return null;
+  } catch (e) {
+    logErr('fetchFromIGMGAjax failed:', e.message);
+    return null;
+  }
+}
+
+// ============ OFFICIAL IGMG APP SERVER API (PRIMARY if reachable) ============
 // https://igmgapp.org:8081/api/Calendar/GetPrayerTimes
 // Docs: https://igmgapp.org:8081/apiDoc
 // Auth: X-API-Key header
@@ -175,13 +285,8 @@ async function findCustomCity(query) {
 //   GET /api/Calendar/GetPrayerTimesCities       — list of all IGMG cities with cityId
 //   GET /api/Calendar/GetPrayerTimes?cityId=X&fromDate=YYYY-MM-DD&toDate=YYYY-MM-DD
 //   GET /api/Calendar/GetPrayerTimesBulky        — bulk request
-// Response format (assumed, based on swagger structure):
-//   {
-//     "list": [
-//       { "cityId": 20166, "date": "2026-08-19", "imsak": "04:10", "sunrise": "06:04", ... }
-//     ]
-//   }
-// Or might use German keys: fajr/imsak, sunrise, dhuhr, asr, maghrib, isha
+// NOTE: This endpoint is currently DOWN (HTTP 503 from istio-envoy). Kept as
+// secondary source — will activate automatically when IGMG fixes their infrastructure.
 
 async function fetchFromIGMGApp(city, date) {
   const igmgId = city.igmg_id || city.id;
@@ -256,16 +361,20 @@ async function getTimesForCity(city, date) {
   const hit = cacheGet(cacheKey);
   if (hit) return hit;
 
-  // PRIORITY 1: OFFICIAL IGMG App Server API (igmgapp.org:8081) — real data, always fresh
+  // PRIORITY 1: IGMG AJAX (igmg.org) — exact data from the official Gebetskalender
+  // Matches the calendar shown at https://www.igmg.org/gebetskalender exactly
   if (city.source === 'bundled' || !city.source) {
-    const igmgAppResult = await fetchFromIGMGApp(city, date);
-    if (igmgAppResult) {
-      cacheSet(cacheKey, igmgAppResult);
+    const igmgAjaxResult = await fetchFromIGMGAjax(city, date);
+    if (igmgAjaxResult) {
+      cacheSet(cacheKey, igmgAjaxResult);
       // Save to Appwrite for offline cache (non-blocking)
-      writeTimesToAppwrite(city, igmgAppResult).catch(e => logErr('appwrite write failed:', e.message));
-      return igmgAppResult;
+      writeTimesToAppwrite(city, igmgAjaxResult).catch(e => logErr('appwrite write failed:', e.message));
+      return igmgAjaxResult;
     }
-    // If IGMG App API failed, try the Appwrite cache (might have older data)
+  }
+
+  // PRIORITY 2: Appwrite cache (might have older IGMG data from sync-igmg-final.mjs)
+  if (city.source === 'bundled' || !city.source) {
     try {
       const igmgId = city.igmg_id || city.id;
       const docId = `${igmgId}_${date}`;
@@ -280,7 +389,7 @@ async function getTimesForCity(city, date) {
           maghrib: doc.maghrib,
           isha: doc.isha,
           source: 'igmg',
-          method: 'IGMG App Server (cached)',
+          method: 'IGMG.org (cached)',
         };
         cacheSet(cacheKey, result);
         return result;
@@ -288,13 +397,24 @@ async function getTimesForCity(city, date) {
     } catch (e) { /* not in cache, fall through */ }
   }
 
-  // PRIORITY 2: Diyanet (via AlAdhan API, method=13 = Diyanet Turkey)
+  // PRIORITY 3: IGMG App Server API (igmgapp.org:8081) — currently DOWN (503)
+  // Will activate when IGMG fixes their infrastructure.
+  if (city.source === 'bundled' || !city.source) {
+    const igmgAppResult = await fetchFromIGMGApp(city, date);
+    if (igmgAppResult) {
+      cacheSet(cacheKey, igmgAppResult);
+      writeTimesToAppwrite(city, igmgAppResult).catch(e => logErr('appwrite write failed:', e.message));
+      return igmgAppResult;
+    }
+  }
+
+  // PRIORITY 4: Diyanet (via AlAdhan API, method=13)
   // For cities NOT in IGMG list (custom cities, non-IGMG Turkish cities, etc.)
-  // NEVER use Adhan local calculation as the user requires authoritative data only
+  // ⚠️ Note: AlAdhan method=13 differs from real Diyanet by ~15min for İmsak
+  // This is a known AlAdhan limitation. We tag the source so users see it.
   const diyanetResult = await fetchFromDiyanet(city, date);
   if (diyanetResult) {
     cacheSet(cacheKey, diyanetResult);
-    // Save to Appwrite for caching (don't block response)
     writeTimesToAppwrite(city, diyanetResult).catch(e => logErr('appwrite write failed:', e.message));
     return diyanetResult;
   }
@@ -766,6 +886,7 @@ app.get('/health', async (req, res) => {
   // Check IGMG data availability for Offenbach today
   let igmgStatus = 'unknown';
   let igmgAppApiStatus = 'unknown';
+  let igmgAjaxStatus = 'unknown';
   try {
     const today = new Date().toISOString().slice(0, 10);
     const doc = await db.getDocument(CONFIG.appwrite.dbId, CONFIG.appwrite.prayersColl, `20166_${today}`);
@@ -784,18 +905,29 @@ app.get('/health', async (req, res) => {
   } catch (e) {
     igmgAppApiStatus = 'error: ' + e.message;
   }
+  // Live ping the IGMG AJAX (matches IGMG website)
+  try {
+    const city = { id: 20166, igmg_id: 20166, name: 'Offenbach', source: 'bundled' };
+    const r = await fetchFromIGMGAjax(city, new Date().toISOString().slice(0, 10));
+    igmgAjaxStatus = r ? 'available' : 'failed';
+  } catch (e) {
+    igmgAjaxStatus = 'error: ' + e.message;
+  }
   res.json({
     status: 'ok',
     service: 'gebetszeiten-weltweit',
-    version: '2.3.0',
+    version: '2.4.0',
     node: process.version,
     env: NODE_ENV,
     cities: { bundled: BUNDLED_CITIES.length, custom_querying_appwrite: true, cache: calcCache.size },
-    primary_source: 'IGMG App Server API (igmgapp.org:8081) with X-API-Key auth',
-    fallback_source: 'Diyanet (AlAdhan API method 13) for non-IGMG cities. NO Adhan local calculation.',
+    primary_source: 'IGMG AJAX (igmg.org/gebetskalender) — matches official IGMG website',
+    secondary_source: 'IGMG App Server API (igmgapp.org:8081) — currently DOWN (503), auto-activates when up',
+    fallback_source: 'Diyanet via AlAdhan API method=13 for non-IGMG cities (⚠️ ~15min offset for İmsak)',
     database: `Appwrite (${CONFIG.appwrite.endpoint}, db=${CONFIG.appwrite.dbId})`,
     igmg_data_for_offenbach_today: igmgStatus,
+    igmg_ajax_live: igmgAjaxStatus,
     igmg_app_api_live: igmgAppApiStatus,
+    verify_endpoint: 'GET /api/verify?city=Offenbach&date=YYYY-MM-DD — compares all sources',
   });
 });
 
@@ -816,19 +948,76 @@ app.get('/api/igmg/test', async (req, res) => {
   }
   log(`[igmg-test] city=${city.name} (igmg_id=${city.igmg_id || city.id}) date=${date}`);
   const t0 = Date.now();
-  const result = await fetchFromIGMGApp(city, date);
+  // Test the AJAX endpoint (the one that works)
+  const result = await fetchFromIGMGAjax(city, date);
   const ms = Date.now() - t0;
   if (!result) {
     return res.status(502).json({
-      error: 'IGMG App API failed',
+      error: 'IGMG AJAX failed',
       city: city.name,
       igmg_id: city.igmg_id || city.id,
       date,
       latency_ms: ms,
-      hint: 'Check the server logs. The IGMG API may be unreachable from this host.',
+      hint: 'Cookie may have expired. Try again.',
     });
   }
-  res.json({ ok: true, latency_ms: ms, ...result });
+  res.json({ ok: true, latency_ms: ms, source: 'IGMG.org Gebetskalender (AJAX)', ...result });
+});
+
+// COMPREHENSIVE VERIFICATION: fetch from ALL sources and show comparison
+app.get('/api/verify', async (req, res) => {
+  const date = req.query.date || new Date().toISOString().slice(0, 10);
+  let city = null;
+  if (req.query.cityId) {
+    city = { id: parseInt(req.query.cityId), igmg_id: parseInt(req.query.cityId), name: 'Direct', country: '?', source: 'bundled' };
+  } else {
+    const q = req.query.city || 'Offenbach';
+    const c = findBundledCity(q);
+    if (!c) return res.status(404).json({ error: `City "${q}" not found` });
+    city = c;
+  }
+  log(`[verify] city=${city.name} date=${date}`);
+  // Try all sources in parallel
+  const [ajax, appApi, aladhan, cached] = await Promise.all([
+    fetchFromIGMGAjax(city, date).then(r => r ? { ok: true, ...r, latency: 0 } : { ok: false, error: 'failed' }),
+    fetchFromIGMGApp(city, date).then(r => r ? { ok: true, ...r } : { ok: false, error: 'failed (likely 503)' }),
+    fetchFromDiyanet(city, date).then(r => r ? { ok: true, ...r } : { ok: false, error: 'failed' }),
+    (async () => {
+      try {
+        const igmgId = city.igmg_id || city.id;
+        const doc = await db.getDocument(CONFIG.appwrite.dbId, CONFIG.appwrite.prayersColl, `${igmgId}_${date}`);
+        if (doc) return { ok: true, imsak: doc.imsak, sunrise: doc.sunrise, dhuhr: doc.dhuhr, asr: doc.asr, maghrib: doc.maghrib, isha: doc.isha, source: doc.source };
+      } catch (e) { /* not cached */ }
+      return { ok: false, error: 'not in appwrite cache' };
+    })(),
+  ]);
+  // Compute agreement stats
+  const sources = [ajax, appApi, aladhan, cached].filter(s => s.ok);
+  const fields = ['imsak', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  const agreement = {};
+  for (const f of fields) {
+    const values = new Set(sources.map(s => s[f]).filter(Boolean));
+    agreement[f] = {
+      values: Array.from(values),
+      all_agree: values.size === 1,
+      sources_count: sources.length,
+    };
+  }
+  res.json({
+    city: city.name,
+    igmg_id: city.igmg_id || city.id,
+    date,
+    sources: {
+      igmg_ajax: { ...ajax, label: 'IGMG.org Gebetskalender (AJAX)' },
+      igmg_app_api: { ...appApi, label: 'IGMG App Server (igmgapp.org:8081)' },
+      aladhan: { ...aladhan, label: 'Diyanet via AlAdhan API method=13' },
+      appwrite_cache: { ...cached, label: 'Appwrite offline cache' },
+    },
+    agreement,
+    recommendation: ajax.ok
+      ? 'Use IGMG AJAX (matches IGMG website exactly)'
+      : (appApi.ok ? 'Use IGMG App API' : (aladhan.ok ? 'Use AlAdhan (⚠️ off by ~15min for İmsak)' : 'No source available')),
+  });
 });
 
 // Fetch all available IGMG cities (for inspection)
