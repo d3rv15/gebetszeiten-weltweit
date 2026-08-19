@@ -1134,6 +1134,64 @@ app.get('/api/hadith/random', (req, res) => {
   }
 });
 
+// List all hadiths, optionally filtered by source or category
+app.get('/api/hadith/list', (req, res) => {
+  try {
+    const d = loadHadithData();
+    const { source, category, type, q } = req.query;
+    let pool = [];
+    const t = type || 'all';
+    if (t === 'friday') pool = d.friday_specifics;
+    else if (t === 'rabbani') pool = d.imam_rabbani;
+    else if (t === 'hadith') pool = d.hadiths;
+    else pool = [...d.hadiths, ...d.imam_rabbani];
+
+    let filtered = pool;
+    if (source) {
+      const srcLower = source.toLowerCase();
+      filtered = filtered.filter(h => (h.source || '').toLowerCase().includes(srcLower));
+    }
+    if (category) {
+      filtered = filtered.filter(h => h.category === category);
+    }
+    if (q) {
+      const qLower = q.toLowerCase();
+      filtered = filtered.filter(h =>
+        (h.ar || '').includes(q) ||
+        (h.de || '').toLowerCase().includes(qLower) ||
+        (h.tr || '').toLowerCase().includes(qLower) ||
+        (h.source || '').toLowerCase().includes(qLower)
+      );
+    }
+
+    // Build source list
+    const allItems = [...d.hadiths, ...d.imam_rabbani];
+    const sourceSet = new Set();
+    allItems.forEach(h => {
+      if (h.source) h.source.split(/[,;]/).forEach(s => {
+        const trimmed = s.trim();
+        // Extract first meaningful word (e.g. "Buhârî" from "Buhârî, Bed'ü'l-Vahy 1")
+        const match = trimmed.match(/^([^(]+?)\s*[,(]/);
+        const name = match ? match[1].trim() : trimmed;
+        if (name) sourceSet.add(name);
+      });
+    });
+    if (d.imam_rabbani.length) sourceSet.add('İmâm-ı Rabbânî');
+    const categories = new Set();
+    d.hadiths.forEach(h => h.category && categories.add(h.category));
+
+    res.json({
+      total: filtered.length,
+      total_all: pool.length,
+      items: filtered,
+      sources: Array.from(sourceSet).sort(),
+      categories: Array.from(categories).sort()
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // ============ SEFERI (Musafirlik) ============
 let SEFERI_DATA = null;
 function loadSefData() {

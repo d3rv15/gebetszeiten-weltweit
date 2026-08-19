@@ -147,6 +147,117 @@
       max-height: 5000px;
       padding: 0 1.5rem 1.25rem 1.5rem;
     }
+
+    /* ============ HADITH BIBLIOTHEK ============ */
+    .hadith-filters {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0 12px;
+    }
+    .filter-chip {
+      background: rgba(184, 148, 95, 0.08);
+      border: 1px solid rgba(184, 148, 95, 0.35);
+      color: var(--emerald-dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .filter-chip:hover { background: rgba(184, 148, 95, 0.18); }
+    .filter-chip.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .hadith-sources {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 8px 0 12px;
+    }
+    .source-chip {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 4px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .source-chip:hover { border-color: var(--accent); color: var(--emerald-dark); }
+    .source-chip.active {
+      background: var(--emerald-dark);
+      color: white;
+      border-color: var(--emerald-dark);
+    }
+    .hadith-search {
+      max-width: 480px;
+      margin: 8px auto 12px;
+    }
+    .hadith-search .input { width: 100%; }
+    .hadith-stats {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin: 8px 0 16px;
+    }
+    .hadith-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hadith-list-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hadith-list-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(184, 148, 95, 0.12);
+      transform: translateY(-1px);
+    }
+    .hadith-list-item .h-num {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-right: 8px;
+    }
+    .hadith-list-item .h-source {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+    .hadith-list-item .h-ar {
+      font-family: 'Amiri', 'Scheherazade', serif;
+      font-size: 1.15rem;
+      color: var(--emerald-dark);
+      direction: rtl;
+      text-align: right;
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+    .hadith-list-item .h-tr {
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
     .card-title {
       margin: 0 0 1rem 0;
       font-size: 1.1rem;
@@ -1138,6 +1249,8 @@
       transition: all 0.2s;
     }
     .hadith-refresh:hover { background: var(--bg-page); color: var(--accent); }
+    .hadith-actions { margin-left: auto; display: flex; gap: 6px; }
+    .hadith-actions .hadith-refresh { margin-left: 0; }
 
     .hadith-content { padding: 4px 0; }
     .hadith-arabic {
@@ -1242,7 +1355,10 @@
         <div class="hadith-title">
           <div class="title-primary" data-i18n="hadith.title_primary">Hadith des Tages</div>
         </div>
-        <button class="hadith-refresh" onclick="loadDailyHadith()" data-i18n-title="hadith.refresh" title="Neuer Hadith">🔄</button>
+        <div class="hadith-actions">
+          <button class="hadith-refresh" onclick="loadDailyHadith()" data-i18n-title="hadith.refresh" title="Neuer Hadith">🔄</button>
+          <button class="hadith-refresh" onclick="document.querySelector('[data-tab=hadith]').click()" data-i18n-title="hadith.library" title="Hadith-Bibliothek">📚</button>
+        </div>
       </div>
       <div class="hadith-content" id="dailyHadith">
         <!-- Arabic text is ALWAYS shown (it's the original hadith language) -->
@@ -1263,6 +1379,7 @@
     <div class="tabs">
       <button class="tab active" data-tab="times" data-i18n="tabs.times">🕌 Gebetszeiten</button>
       <button class="tab" data-tab="seferi" data-i18n="tabs.seferi">🧳 Seferi-Check</button>
+      <button class="tab" data-tab="hadith" data-i18n="tabs.hadith">📚 Hadith-Bibliothek</button>
       <button class="tab" data-tab="api" data-i18n="tabs.api">📡 API-Doku</button>
     </div>
 
@@ -1334,6 +1451,34 @@
           <span class="collapsible-arrow">▼</span>
         </div>
         <div class="collapsible-content" id="seferiInfoContent">⏳ Yükleniyor…</div>
+      </div>
+    </div>
+
+    <!-- HADITH BIBLIOTHEK PANEL -->
+    <div class="panel" id="panel-hadith">
+      <div class="hero-card">
+        <div class="hero-icon">📚</div>
+        <h2 class="hero-title">Hadith-Bibliothek</h2>
+        <p class="hero-subtitle">40 Hadithe + 12 İmâm-ı Rabbânî-Zitate aus den klassischen Quellen (Buhârî, Müslim, Tirmizî, Ebû Dâvûd, Mektûbât).</p>
+
+        <!-- Filter Chips -->
+        <div class="hadith-filters" id="hadithFilters">
+          <button class="filter-chip active" data-type="all">Alle</button>
+          <button class="filter-chip" data-type="hadith">📜 Hadithe</button>
+          <button class="filter-chip" data-type="rabbani">🌙 İmâm-ı Rabbânî</button>
+          <button class="filter-chip" data-type="friday">🕌 Freitag</button>
+        </div>
+
+        <!-- Source Filter -->
+        <div class="hadith-sources" id="hadithSources"></div>
+
+        <!-- Search -->
+        <div class="hadith-search">
+          <input class="input" type="text" id="hadithSearch" placeholder="🔍 Hadith durchsuchen (DE, TR, AR, Quellen)…" />
+        </div>
+
+        <div class="hadith-stats" id="hadithStats">⏳ Lädt…</div>
+        <div class="hadith-list" id="hadithList"></div>
       </div>
     </div>
 
@@ -1562,7 +1707,85 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     loadDailyHadith();
     // Reload hadith when language changes
     const origSetLang = setLang;
-    setLang = function(lang) { origSetLang(lang); loadDailyHadith(); };
+    setLang = function(lang) { origSetLang(lang); loadDailyHadith(); if (hadithLibraryData) renderHadithList(); };
+
+    // ============ HADITH BIBLIOTHEK ============
+    let hadithLibraryData = null;
+    let hadithActiveType = 'all';
+    let hadithActiveSource = '';
+    let hadithActiveQuery = '';
+
+    async function loadHadithLibrary() {
+      if (hadithLibraryData) { renderHadithList(); return; }
+      try {
+        const r = await fetch('/api/hadith/list?type=all');
+        const d = await r.json();
+        hadithLibraryData = d;
+        renderSourceChips(d.sources);
+        renderHadithList();
+      } catch (e) {
+        document.getElementById('hadithList').innerHTML = '<div class="result-empty" style="color:#e74c3c">❌ ' + e.message + '</div>';
+      }
+    }
+    function renderSourceChips(sources) {
+      const c = document.getElementById('hadithSources');
+      c.innerHTML = '<button class="source-chip active" data-source="">Alle Quellen</button>' +
+        sources.map(s => '<button class="source-chip" data-source="' + s.replace(/"/g, '&quot;') + '">' + s + '</button>').join('');
+      c.querySelectorAll('.source-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          c.querySelectorAll('.source-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          hadithActiveSource = chip.dataset.source;
+          renderHadithList();
+        });
+      });
+    }
+    async function renderHadithList() {
+      const params = new URLSearchParams({ type: hadithActiveType });
+      if (hadithActiveSource) params.set('source', hadithActiveSource);
+      if (hadithActiveQuery) params.set('q', hadithActiveQuery);
+      const r = await fetch('/api/hadith/list?' + params);
+      const d = await r.json();
+      const list = document.getElementById('hadithList');
+      const stats = document.getElementById('hadithStats');
+      stats.textContent = d.total + ' von ' + d.total_all + ' Hadithen';
+      if (!d.items.length) {
+        list.innerHTML = '<div class="result-empty">Keine Treffer — Filter zurücksetzen?</div>';
+        return;
+      }
+      list.innerHTML = d.items.map((h, i) => {
+        const tr = h.tr || h.de || '';
+        const ar = h.ar || '';
+        return '<div class="hadith-list-item" data-id="' + (h.id || i) + '">' +
+          '<div><span class="h-num">#' + (h.id || (i + 1)) + '</span>' +
+          '<span class="h-source">' + (h.source || '') + (h.category ? ' · ' + h.category : '') + '</span></div>' +
+          (ar ? '<div class="h-ar">' + ar + '</div>' : '') +
+          (tr ? '<div class="h-tr">' + tr + '</div>' : '') +
+        '</div>';
+      }).join('');
+    }
+    // Wire up filter chips
+    document.querySelectorAll('#hadithFilters .filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#hadithFilters .filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        hadithActiveType = chip.dataset.type;
+        renderHadithList();
+      });
+    });
+    // Search
+    let hadithSearchTimer;
+    document.getElementById('hadithSearch')?.addEventListener('input', (e) => {
+      clearTimeout(hadithSearchTimer);
+      hadithSearchTimer = setTimeout(() => {
+        hadithActiveQuery = e.target.value.trim();
+        renderHadithList();
+      }, 300);
+    });
+    // Load library when tab is opened
+    document.querySelector('[data-tab=hadith]')?.addEventListener('click', () => {
+      if (!hadithLibraryData) loadHadithLibrary();
+    });
 
     // ============ FRIDAY BANNER ============
     async function checkFridayBanner() {
