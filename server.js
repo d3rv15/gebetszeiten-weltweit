@@ -1020,6 +1020,130 @@ app.get('/api/verify', async (req, res) => {
   });
 });
 
+// COMPREHENSIVE WEEK VERIFICATION: deep test across multiple cities and days
+// Usage: GET /api/verify-week?days=7&cities=Offenbach,Berlin,Istanbul
+//        or just:  GET /api/verify-week (defaults: 7 days, top cities)
+app.get('/api/verify-week', async (req, res) => {
+  const days = parseInt(req.query.days) || 7;
+  const requestedCities = req.query.cities ? req.query.cities.split(',').map(s => s.trim()) : null;
+
+  // Default top test cities (diverse sample)
+  const defaultCityNames = ['Offenbach', 'Berlin', 'München', 'Frankfurt', 'Istanbul', 'Wien', 'Mekka'];
+  const cityNames = requestedCities || defaultCityNames;
+
+  // Resolve cities
+  const cities = [];
+  for (const name of cityNames) {
+    const c = findBundledCity(name);
+    if (c) cities.push(c);
+    else cities.push({ name, lat: 0, lng: 0, igmg_id: null, country: '??' });
+  }
+
+  // Generate date range (today and N-1 days before)
+  const today = new Date();
+  const dates = [];
+  for (let i = 0; i < days; i++) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    dates.push(d.toISOString().slice(0, 10));
+  }
+
+  log(`[verify-week] ${cities.length} cities × ${dates.length} days`);
+
+  // For each city, fetch all data in parallel
+  const results = [];
+  for (const city of cities) {
+    const cityResult = { name: city.name, country: city.country, igmg_id: city.igmg_id, lat: city.lat, lng: city.lng, days: [] };
+    for (const date of dates) {
+      // Fetch all sources in parallel
+      const [ajax, appApi, aladhan13, aladhan10] = await Promise.all([
+        city.igmg_id ? fetchFromIGMGAjax(city, date).catch(() => null) : Promise.resolve(null),
+        city.igmg_id ? fetchFromIGMGApp(city, date).catch(() => null) : Promise.resolve(null),
+        (city.lat && city.lng) ? fetchFromDiyanet(city, date).catch(() => null) : Promise.resolve(null),
+        (city.lat && city.lng)
+          ? fetch(`https://api.aladhan.com/v1/timings/${date}?latitude=${city.lat}&longitude=${city.lng}&method=10&timezonestring=auto`, { signal: AbortSignal.timeout(8000) })
+              .then(r => r.json()).then(d => d.data?.timings)
+              .then(t => t ? {
+                imsak: (t.Imsak || '').replace(/\s*\([^)]+\)/, '').trim(),
+                sunrise: (t.Sunrise || '').replace(/\s*\([^)]+\)/, '').trim(),
+                dhuhr: (t.Dhuhr || '').replace(/\s*\([^)]+\)/, '').trim(),
+                asr: (t.Asr || '').replace(/\s*\([^)]+\)/, '').trim(),
+                maghrib: (t.Maghrib || '').replace(/\s*\([^)]+\)/, '').trim(),
+                isha: (t.Isha || '').replace(/\s*\([^)]+\)/, '').trim(),
+              } : null)
+              .catch(() => null)
+          : Promise.resolve(null),
+      ]);
+      // Compute diff vs IGMG AJAX (the reference)
+      const ref = ajax;
+      const toMin = t => { if (!t) return null; const m = t.match(/^(\d{1,2}):(\d{2})$/); return m ? parseInt(m[1])*60+parseInt(m[2]) : null; };
+      const diff = (a, b) => { const am = toMin(a), bm = toMin(b); if (am === null || bm === null) return null; let d = am-bm; if (d > 720) d -= 1440; if (d < -720) d += 1440; return d; };
+      cityResult.days.push({
+        date,
+        igmg_ajax: ajax ? { imsak: ajax.imsak, sunrise: ajax.sunrise, dhuhr: ajax.dhuhr, asr: ajax.asr, maghrib: ajax.maghrib, isha: ajax.isha } : null,
+        igmg_app: appApi,
+        aladhan13,
+        aladhan10,
+        diffs: ref ? {
+          app_minus_aladhan13_imsak: diff(appApi?.imsak, aladhan13?.imsak),
+          app_minus_aladhan13_isha: diff(appApi?.isha, aladhan13?.isha),
+          aladhan13_minus_aladhan10_imsak: diff(aladhan13?.imsak, aladhan10?.imsak),
+        } : null,
+      });
+    }
+    results.push(cityResult);
+  }
+
+  // Compute aggregate statistics
+  const stats = {
+    cities_tested: results.length,
+    days_per_city: dates.length,
+    sources_compared: 4,
+    avg_offsets_vs_igmg: {},
+  };
+  // Average offset between IGMG App API and AlAdhan m=13 across all cities
+  const fields = ['imsak', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  for (const f of fields) {
+    const diffs = [];
+    for (const city of results) {
+      for (const day of city.days) {
+        if (day.igmg_app && day.aladhan13 && day.igmg_app[f] && day.aladhan13[f]) {
+          const ref = toMinLocal(day.igmg_app[f]);
+          const cmp = toMinLocal(day.aladhan13[f]);
+          if (ref !== null && cmp !== null) {
+            let d = ref - cmp;
+            if (d > 720) d -= 1440;
+            if (d < -720) d += 1440;
+            diffs.push(d);
+          }
+        }
+      }
+    }
+    if (diffs.length) {
+      stats.avg_offsets_vs_igmg[f] = {
+        avg: (diffs.reduce((a,b) => a+b, 0) / diffs.length).toFixed(1),
+        min: Math.min(...diffs),
+        max: Math.max(...diffs),
+        samples: diffs.length,
+      };
+    }
+  }
+  function toMinLocal(t) { const m = t.match(/^(\d{1,2}):(\d{2})$/); return m ? parseInt(m[1])*60+parseInt(m[2]) : null; }
+
+  res.json({
+    generated_at: new Date().toISOString(),
+    date_range: { from: dates[dates.length-1], to: dates[0], days: dates.length },
+    cities: results,
+    stats,
+    legend: {
+      'igmg_ajax': 'IGMG.org Gebetskalender (AJAX) — matches official IGMG website',
+      'igmg_app': 'IGMG App Server (igmgapp.org:8081) — currently DOWN (HTTP 503)',
+      'aladhan13': 'AlAdhan API method=13 (Diyanet) — ⚠️ off by ~15min for İmsak',
+      'aladhan10': 'AlAdhan API method=10 (Muslim World League) — different method',
+    },
+  });
+});
+
 // Fetch all available IGMG cities (for inspection)
 app.get('/api/igmg/cities', async (req, res) => {
   const cities = await fetchIGMGCities();
