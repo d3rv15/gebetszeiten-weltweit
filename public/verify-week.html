@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Prayer Times Verification Report</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background: #faf5e8; color: #2d2417; padding: 20px; }
+    h1 { color: #1a6b48; }
+    h2 { color: #1a6b48; margin-top: 30px; border-bottom: 2px solid #b8945f; padding-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: white; }
+    th { background: #1a6b48; color: white; padding: 8px; text-align: center; font-size: 0.85rem; }
+    td { padding: 6px 8px; text-align: center; border-bottom: 1px solid #f0e5c8; font-family: 'Courier New', monospace; font-size: 0.85rem; }
+    tr.match td { background: #e8f5e9; }
+    tr.diff td { background: #fff3e0; }
+    tr.diff-big td { background: #ffebee; }
+    .legend { background: white; padding: 12px; border-radius: 8px; margin: 12px 0; }
+    .stat { display: inline-block; margin-right: 20px; padding: 8px 12px; background: white; border-radius: 6px; }
+    .stat strong { color: #1a6b48; }
+    .controls { background: white; padding: 12px; border-radius: 8px; margin-bottom: 20px; }
+    .controls input, .controls button { padding: 6px 12px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>📊 Prayer Times Verification Report</h1>
+  <p>Multi-source comparison across cities and days. The server fetches from all sources and reports agreement statistics.</p>
+
+  <div class="controls">
+    <label>Cities (comma-separated): <input id="cities" value="Offenbach,Berlin,München,Frankfurt,Istanbul,Wien,Mekka" style="width:400px"></label>
+    <label>Days: <input id="days" type="number" value="7" min="1" max="30" style="width:60px"></label>
+    <button onclick="loadData()">🔄 Reload</button>
+  </div>
+
+  <div id="stats" class="legend"></div>
+  <div id="results"></div>
+
+  <h2>📋 Legend</h2>
+  <div class="legend">
+    <strong>igmg_ajax</strong> — IGMG.org Gebetskalender (AJAX) — matches official IGMG website<br>
+    <strong>igmg_app</strong> — IGMG App Server (igmgapp.org:8081) — currently DOWN (HTTP 503)<br>
+    <strong>aladhan13</strong> — AlAdhan API method=13 (Diyanet) — ⚠️ off by ~15min for İmsak<br>
+    <strong>aladhan10</strong> — AlAdhan API method=10 (Muslim World League) — different method<br>
+    <span style="color:#1a6b48">GREEN = match</span> · <span style="color:#b8945f">ORANGE = 1-2 min off</span> · <span style="color:#c62828">RED = >2 min off</span>
+  </div>
+
+  <script>
+    async function loadData() {
+      const cities = document.getElementById('cities').value;
+      const days = document.getElementById('days').value;
+      const url = '/api/verify-week?cities=' + encodeURIComponent(cities) + '&days=' + days;
+      document.getElementById('results').innerHTML = '<p>⏳ Loading…</p>';
+      const r = await fetch(url);
+      const d = await r.json();
+      renderResults(d);
+    }
+    function renderResults(d) {
+      // Stats
+      const stats = d.stats;
+      let statsHtml = '<strong>Stats:</strong> ' + stats.cities_tested + ' cities × ' + stats.days_per_city + ' days = ' + (stats.cities_tested * stats.days_per_city) + ' comparisons';
+      if (stats.avg_offsets_vs_igmg) {
+        statsHtml += '<br><strong>Avg offset (IGMG-App vs AlAdhan13):</strong> ';
+        for (const [f, s] of Object.entries(stats.avg_offsets_vs_igmg)) {
+          statsHtml += '<span class="stat">' + f + ': <strong>' + s.avg + '</strong> min (n=' + s.samples + ')</span>';
+        }
+      }
+      document.getElementById('stats').innerHTML = statsHtml;
+      // Tables per city
+      let html = '';
+      for (const city of d.cities) {
+        html += '<h2>' + city.name + ' (' + city.country + ')' + (city.igmg_id ? ' — IGMG ID ' + city.igmg_id : ' — kein IGMG') + '</h2>';
+        html += '<table><thead><tr><th>Datum</th><th>Quelle</th><th>İmsak</th><th>Güneş</th><th>Öğle</th><th>İkindi</th><th>Akşam</th><th>Yatsı</th></tr></thead><tbody>';
+        for (const day of city.days) {
+          const sources = [
+            { name: 'igmg_ajax', data: day.igmg_ajax },
+            { name: 'igmg_app', data: day.igmg_app },
+            { name: 'aladhan13', data: day.aladhan13 },
+            { name: 'aladhan10', data: day.aladhan10 },
+          ];
+          // Reference: igmg_ajax or first available
+          const ref = sources.find(s => s.data)?.data;
+          for (const src of sources) {
+            if (!src.data) continue;
+            const diffClass = getDiffClass(src.data, ref);
+            html += '<tr class="' + diffClass + '"><td>' + day.date + '</td><td>' + src.name + '</td>';
+            for (const f of ['imsak', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha']) {
+              html += '<td>' + (src.data[f] || '—') + '</td>';
+            }
+            html += '</tr>';
+          }
+        }
+        html += '</tbody></table>';
+      }
+      document.getElementById('results').innerHTML = html;
+    }
+    function getDiffClass(data, ref) {
+      if (!ref) return '';
+      const toMin = t => { const m = t?.match(/^(\d{1,2}):(\d{2})$/); return m ? parseInt(m[1])*60+parseInt(m[2]) : null; };
+      let maxDiff = 0;
+      for (const f of ['imsak', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha']) {
+        const d = toMin(data[f]) - toMin(ref[f]);
+        if (Math.abs(d) > Math.abs(maxDiff)) maxDiff = d;
+      }
+      if (Math.abs(maxDiff) === 0) return 'match';
+      if (Math.abs(maxDiff) <= 2) return 'diff';
+      return 'diff-big';
+    }
+    loadData();
+  </script>
+</body>
+</html>
