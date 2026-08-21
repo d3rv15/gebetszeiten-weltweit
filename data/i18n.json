@@ -488,12 +488,6 @@
         "ar": "IGMG / DITIB",
         "en": "IGMG / DITIB"
       },
-      "ditib": {
-        "de": "DITIB",
-        "tr": "DITIB",
-        "ar": "DITIB",
-        "en": "DITIB"
-      },
       "diyanet": {
         "de": "Diyanet (Türkei)",
         "tr": "Diyanet (Türkiye)",
@@ -537,12 +531,6 @@
         "tr": "IGMG ve DITIB, Diyanet İşleri Başkanlığı'nın resmi yöntemini kullanır. Saatler aynıdır.",
         "ar": "IGMG و DITIB تستخدمان طريقة ديانت الرسمية. الأوقات متطابقة.",
         "en": "IGMG and DITIB both use the official Diyanet (Turkey) method. Times identical."
-      },
-      "ditib": {
-        "de": "Türkisch-Islamische Union der Anstalt für Religion (DITIB). Verwendet die offizielle Diyanet-Methode — identisch mit IGMG.",
-        "tr": "Türk-İslam Birliği DITIB. Resmi Diyanet yöntemini kullanır — IGMG ile aynı.",
-        "ar": "الاتحاد التركي الإسلامي للشؤون الدينية (DITIB). يستخدم طريقة ديانت الرسمية.",
-        "en": "Turkish-Islamic Union (DITIB). Uses official Diyanet method — identical to IGMG."
       },
       "diyanet": {
         "de": "Direkt vom Präsidium für religiöse Angelegenheiten (Türkei). Die offizielle Quelle aller großen islamischen Verbände in Deutschland. Identisch mit IGMG/DITIP/DITIB/VIKZ.",
@@ -607,12 +595,6 @@
     },
     "calculation": {
       "igmg_ditib": {
-        "de": "Diyanet",
-        "tr": "Diyanet",
-        "ar": "ديانت",
-        "en": "Diyanet"
-      },
-      "ditib": {
         "de": "Diyanet",
         "tr": "Diyanet",
         "ar": "ديانت",
