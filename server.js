@@ -126,6 +126,50 @@ async function fetchFromDiyanet(city, date) {
   }
 }
 
+// Fetch with a SPECIFIC AlAdhan method (MWL=3, ISNA=2, etc.) for non-Diyanet communities
+async function fetchFromAladhanMethod(lat, lng, date, method) {
+  try {
+    const url = `https://api.aladhan.com/v1/timings/${date}?latitude=${lat}&longitude=${lng}&method=${method}&timezonestring=auto&school=1`;
+    const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!r.ok) return null;
+    const j = await r.json();
+    if (j.code !== 200 || !j.data || !j.data.timings) return null;
+    const t = j.data.timings;
+    const strip = (s) => (s || '').split(' ')[0].trim();
+    const methodNames = {
+      1: 'University of Islamic Sciences, Karachi',
+      2: 'ISNA (Islamic Society of North America)',
+      3: 'Muslim World League (MWL)',
+      4: 'Umm Al-Qura University, Makkah',
+      5: 'Egyptian General Authority of Survey',
+      7: 'Institute of Geophysics, Tehran',
+      8: 'Gulf Region',
+      9: 'Kuwait',
+      10: 'Qatar',
+      11: 'Majlis Ugama Islam Singapura',
+      12: 'Union Organization Islamic de France',
+      13: 'Diyanet İşleri Başkanlığı, Turkey',
+      14: 'Spiritual Administration of Muslims of Russia',
+      15: 'Moonsighting Committee Worldwide',
+    };
+    return {
+      date,
+      imsak: strip(t.Imsak),
+      sunrise: strip(t.Sunrise),
+      dhuhr: strip(t.Dhuhr),
+      asr: strip(t.Asr),
+      maghrib: strip(t.Maghrib),
+      isha: strip(t.Isha),
+      source: 'aladhan',
+      method: methodNames[method] || `AlAdhan method=${method}`,
+      aladhanMethod: method,
+    };
+  } catch (e) {
+    logErr('fetchFromAladhanMethod failed:', e.message);
+    return null;
+  }
+}
+
 // ============ IN-MEMORY CACHE ============
 const CACHE_TTL_MS = 60 * 60 * 1000;
 const calcCache = new Map();
@@ -1258,9 +1302,11 @@ app.get('/api/geocode', async (req, res) => {
 // ============ PRAYER TIMES ============
 app.get('/api/times', async (req, res) => {
   try {
-    const { city, date, lat, lng, tz } = req.query;
+    const { city, date, lat, lng, tz, method, source } = req.query;
     let c = null;
     const calcDate = (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) ? date : new Date().toISOString().slice(0, 10);
+    // Method overrides: 'igmg' (default for German communities) or 'aladhan' (for MWL/ISNA)
+    const methodOverride = (source === 'aladhan') ? parseInt(method) || 13 : null;
 
     if (lat !== undefined && lng !== undefined && tz) {
       const latN = parseFloat(lat), lngN = parseFloat(lng);
@@ -1278,10 +1324,16 @@ app.get('/api/times', async (req, res) => {
       return res.status(400).json({ error: 'Provide either "city" or "lat", "lng", "tz" parameters' });
     }
 
-    const times = await getTimesForCity(c, calcDate);
+    // If user selected a non-Diyanet method (e.g. MWL, ISNA), use AlAdhan directly
+    let times = null;
+    if (methodOverride && methodOverride !== 13 && c.lat && c.lng) {
+      times = await fetchFromAladhanMethod(c.lat, c.lng, calcDate, methodOverride);
+    } else {
+      times = await getTimesForCity(c, calcDate);
+    }
     if (!times) {
       return res.status(404).json({
-        error: `Keine Gebetszeiten für "${c.name}" verfügbar. Weder IGMG (igmg.org) noch Diyanet (AlAdhan) konnten Daten liefern.`,
+        error: `Keine Gebetszeiten für "${c.name}" verfügbar.`,
         city: { id: c.id, name: c.name, country: c.country, lat: c.lat, lng: c.lng, timezone: c.timezone },
       });
     }
@@ -1325,24 +1377,32 @@ app.get('/api/times/month', async (req, res) => {
 // Range view: N days starting at ?start= (default = today). Auto-prefills cache.
 app.get('/api/times/range', async (req, res) => {
   try {
-    const { city, start, days } = req.query;
+    const { city, start, days, method, source } = req.query;
     if (!city) return res.status(400).json({ error: 'city required' });
     const resolved = await resolveCityWithAutoCreate(city);
     if (!resolved) return res.status(404).json({ error: `Stadt "${city}" nicht gefunden und konnte auch nicht geocodiert werden.` });
     const c = resolved.city;
     const numDays = Math.min(Math.max(parseInt(days, 10) || 7, 1), 90);
     const startDate = (start && /^\d{4}-\d{2}-\d{2}$/.test(start)) ? start : new Date().toISOString().slice(0, 10);
+    const methodOverride = (source === 'aladhan') ? parseInt(method) || 13 : null;
     const out = [];
     for (let i = 0; i < numDays; i++) {
       const d = new Date(startDate + 'T00:00:00Z');
       d.setUTCDate(d.getUTCDate() + i);
       const date = d.toISOString().slice(0, 10);
-      out.push({ date, ...(await getTimesForCity(c, date)) });
+      let times = null;
+      if (methodOverride && methodOverride !== 13 && c.lat && c.lng) {
+        times = await fetchFromAladhanMethod(c.lat, c.lng, date, methodOverride);
+      } else {
+        times = await getTimesForCity(c, date);
+      }
+      out.push({ date, ...(times || {}) });
     }
     res.json({
       city: { id: c.id, name: c.name, country: c.country, lat: c.lat, lng: c.lng, timezone: c.timezone, source: c.source },
       start: startDate,
       days: numDays,
+      method: methodOverride || 'igmg',
       times: out,
     });
   } catch (e) {

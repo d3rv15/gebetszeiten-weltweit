@@ -918,6 +918,29 @@
       color: var(--text-secondary);
       line-height: 1.4;
     }
+    .community-option-calc {
+      font-size: 0.78rem;
+      color: var(--emerald-dark);
+      background: rgba(26, 107, 72, 0.06);
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .community-option-calc strong {
+      color: var(--emerald-dark);
+    }
+    .community-same {
+      font-size: 0.7rem;
+      background: rgba(184, 148, 95, 0.15);
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      font-weight: 600;
+      font-style: italic;
+    }
     .modal-note {
       background: rgba(184, 148, 95, 0.1);
       border-left: 4px solid var(--accent);
@@ -1837,9 +1860,24 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     setLang = function(lang) { origSetLang(lang); loadDailyHadith(); if (hadithLibraryData) renderHadithList(); renderCommunityLabel(); };
 
     // ============ COMMUNITY SELECTOR ============
-    const COMMUNITY_KEYS = ['igmg_ditip', 'ditib', 'vikz', 'diyanet', 'local', 'other'];
-    const DEFAULT_COMMUNITY = 'igmg_ditip';
+    // Ordered list: Diyanet-method communities first (default), then alternative methods
+    const COMMUNITY_KEYS = ['igmg_ditip', 'ditib', 'diyanet', 'vikz', 'mwl', 'isna', 'local', 'other'];
+    const DEFAULT_COMMUNITY = 'igmg_ditip';  // IGMG / DITIP — default for German Muslims
     let activeCommunity = localStorage.getItem('gebetszeiten-community') || DEFAULT_COMMUNITY;
+
+    // Map community → AlAdhan method (for fetch routing)
+    // Diyanet-method communities use IGMG AJAX (live data, exact)
+    // Other methods use AlAdhan with the matching calculation method
+    const COMMUNITY_TO_METHOD = {
+      'igmg_ditip': { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
+      'ditib':     { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
+      'diyanet':   { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
+      'vikz':      { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
+      'mwl':       { source: 'aladhan', aladhanMethod: 3, desc: 'Muslim World League (Fajr 18°, Isha 17°)' },
+      'isna':      { source: 'aladhan', aladhanMethod: 2, desc: 'ISNA (Fajr 15°, Isha 15°)' },
+      'local':     { source: 'aladhan', aladhanMethod: 13, desc: 'Lokale Berechnung' },
+      'other':     { source: 'aladhan', aladhanMethod: 13, desc: 'Andere' },
+    };
 
     function renderCommunityLabel() {
       const el = document.getElementById('communityLabel');
@@ -1854,9 +1892,14 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       c.innerHTML = COMMUNITY_KEYS.map(key => {
         const title = t(`community.options.${key}`);
         const desc = t(`community.descriptions.${key}`);
+        const calc = t(`community.calculation.${key}`);
         const isActive = key === activeCommunity;
+        // Mark Diyanet-method as "same" so user understands equivalence
+        const sameAsIGMG = ['ditib', 'diyanet', 'vikz'].includes(key);
+        const sameBadge = sameAsIGMG ? `<span class="community-same">= ${t('community.options.igmg_ditip')}</span>` : '';
         return `<div class="community-option${isActive ? ' active' : ''}" data-key="${key}" onclick="selectCommunity('${key}')">
-          <div class="community-option-title">${isActive ? '✓ ' : ''}${title}</div>
+          <div class="community-option-title">${isActive ? '✓ ' : ''}${title}${sameBadge}</div>
+          <div class="community-option-calc">${t('community.show_calc')} <strong>${calc}</strong></div>
           <div class="community-option-desc">${desc}</div>
         </div>`;
       }).join('');
@@ -2268,8 +2311,11 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       citySearch.value = city.name;
       cityResults.innerHTML = '';
       const date = dateSelect.value;
+      // Pass the active community's calculation method so server routes to right source
+      const method = COMMUNITY_TO_METHOD[activeCommunity]?.aladhanMethod || 13;
+      const source = COMMUNITY_TO_METHOD[activeCommunity]?.source || 'igmg';
       // Use name in URL (not id) so the server can fall back to auto-geocode if city was removed
-      const r = await fetch(`/api/times?city=${encodeURIComponent(city.name)}&date=${date}`);
+      const r = await fetch(`/api/times?city=${encodeURIComponent(city.name)}&date=${date}&method=${method}&source=${source}`);
       const d = await r.json();
       if (d.error) { toast(d.error, 'error'); return; }
       if (!d.imsak) { toast(t('city_card.no_data'), 'error'); return; }
@@ -2560,7 +2606,9 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       if (!card) return;
       card.innerHTML = `<div class="result-empty">${t('range.loading', { n: numDays })}</div>`;
       try {
-        const r = await fetch(`/api/times/range?city=${cityName}&start=${startDate}&days=${numDays}`);
+        const method = COMMUNITY_TO_METHOD[activeCommunity]?.aladhanMethod || 13;
+        const source = COMMUNITY_TO_METHOD[activeCommunity]?.source || 'igmg';
+        const r = await fetch(`/api/times/range?city=${cityName}&start=${startDate}&days=${numDays}&method=${method}&source=${source}`);
         const d = await r.json();
         if (d.error) { card.innerHTML = `<div class="result-empty" style="color:#e74c3c">❌ ${d.error}</div>`; return; }
         // Load holidays for the range
@@ -2661,7 +2709,9 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
         }
         const city = await r1.json();
         // Step 2: fetch prayer times via GET /api/times (now works since city is saved)
-        const r2 = await fetch(`/api/times?city=${encodeURIComponent(city.name)}&date=${date}`);
+        const method = COMMUNITY_TO_METHOD[activeCommunity]?.aladhanMethod || 13;
+        const source = COMMUNITY_TO_METHOD[activeCommunity]?.source || 'aladhan';
+        const r2 = await fetch(`/api/times?city=${encodeURIComponent(city.name)}&date=${date}&method=${method}&source=${source}`);
         if (!r2.ok) {
           resultEl.innerHTML = '<div class="result-empty" style="color:#e74c3c">❌ Stadt gefunden, aber Zeiten nicht: ' + r2.status + '</div>';
           return;

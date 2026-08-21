@@ -494,17 +494,29 @@
         "ar": "DITIB",
         "en": "DITIB"
       },
+      "diyanet": {
+        "de": "Diyanet (Türkei)",
+        "tr": "Diyanet (Türkiye)",
+        "ar": "ديانت (تركيا)",
+        "en": "Diyanet (Turkey)"
+      },
       "vikz": {
         "de": "VIKZ",
         "tr": "VIKZ",
         "ar": "VIKZ",
         "en": "VIKZ"
       },
-      "diyanet": {
-        "de": "Diyanet (Türkei)",
-        "tr": "Diyanet (Türkiye)",
-        "ar": "ديانت (تركيا)",
-        "en": "Diyanet (Turkey)"
+      "mwl": {
+        "de": "Muslim World League",
+        "tr": "Muslim World League",
+        "ar": "رابطة العالم الإسلامي",
+        "en": "Muslim World League"
+      },
+      "isna": {
+        "de": "ISNA (Nordamerika)",
+        "tr": "ISNA (Kuzey Amerika)",
+        "ar": "ISNA (أمريكا الشمالية)",
+        "en": "ISNA (North America)"
       },
       "local": {
         "de": "Lokale Moschee",
@@ -513,55 +525,67 @@
         "en": "Local mosque"
       },
       "other": {
-        "de": "Andere / Eigene",
-        "tr": "Diğer / Özel",
-        "ar": "أخرى / خاصة",
-        "en": "Other / Custom"
+        "de": "Andere (Schura, ZMD, Alevi)",
+        "tr": "Diğer (Schura, ZMD, Alevi)",
+        "ar": "أخرى (شورا، ZMD، علوي)",
+        "en": "Other (Schura, ZMD, Alevi)"
       }
     },
     "descriptions": {
       "igmg_ditip": {
-        "de": "Islamische Gemeinschaft Millî Görüş (IGMG) — Standard in unserer App. Verwendet die Diyanet-Türkei-Methode, identisch mit DITIP (Dachverband der Türkisch-Islamischen Kulturvereine in Österreich).",
-        "tr": "İslam Toplumu Millî Görüş (IGMG) — Uygulamamızın standardı. Diyanet-Türkiye yöntemini kullanır, Avusturya'daki DITIP (Türk-İslam Kültür Dernekleri Çatı Örgütü) ile aynıdır.",
-        "ar": "الجماعة الإسلامية ملي غورش (IGMG) — معيارنا في التطبيق. تستخدم طريقة ديانت تركيا، مطابقة لـ DITIP.",
-        "en": "Islamic Community Millî Görüş (IGMG) — our app standard. Uses Diyanet Turkey method, identical to DITIP."
+        "de": "Islamische Gemeinschaft Millî Görüş (IGMG) — Diyanet-İşleri-Başkanlığı. Standard für die meisten Moscheen in Deutschland. Identisch mit DITIP (Dachverband der Türkisch-Islamischen Kulturvereine in Österreich).",
+        "tr": "İslam Toplumu Millî Görüş (IGMG) — Diyanet İşleri Başkanlığı. Almanya'daki camilerin çoğu için standart. Avusturya'daki DITIP ile aynı.",
+        "ar": "الجماعة الإسلامية ملي غورش (IGMG) — رئاسة الشؤون الدينية. المعيار لمعظم المساجد في ألمانيا.",
+        "en": "Islamic Community Millî Görüş (IGMG) — Diyanet (Turkish Religious Affairs). Standard for most mosques in Germany. Identical to DITIP."
       },
       "ditib": {
-        "de": "Türkisch-Islamische Union der Anstalt für Religion (DITIB). Verwendet die offizielle Diyanet-Türkei-Methode. Zeiten identisch mit IGMG.",
-        "tr": "Türk-İslam Birliği DITIB. Resmi Diyanet-Türkiye yöntemini kullanır. IGMG ile aynı saatler.",
-        "ar": "الاتحاد التركي الإسلامي للشؤون الدينية (DITIB). يستخدم طريقة ديانت تركيا الرسمية. الأوقات مطابقة لـ IGMG.",
-        "en": "Turkish-Islamic Union (DITIB). Uses official Diyanet Turkey method. Times identical to IGMG."
-      },
-      "vikz": {
-        "de": "Verband der Islamischen Kulturzentren (VIKZ). Verwendet ebenfalls die Diyanet-Methode (Hanafi-Fiqh), Zeiten identisch. Unterscheidet sich hauptsächlich in der theologischen Ausrichtung.",
-        "tr": "İslam Kültür Merkezleri Birliği (VIKZ). Diyanet yöntemini kullanır (Hanefi fıkhı), saatler aynı. Farklılık daha çok teolojik yönelimdedir.",
-        "ar": "اتحاد المراكز الثقافية الإسلامية (VIKZ). يستخدم طريقة ديانت (المذهب الحنفي)، الأوقات متطابقة. الاختلاف في التوجه اللاهوتي بشكل أساسي.",
-        "en": "Association of Islamic Cultural Centers (VIKZ). Also uses Diyanet method (Hanafi fiqh), times identical. Differs mainly in theological orientation."
+        "de": "Türkisch-Islamische Union der Anstalt für Religion (DITIB). Verwendet die offizielle Diyanet-Berechnung. Zeiten identisch mit IGMG/DITIP/VIKZ.",
+        "tr": "Türk-İslam Birliği DITIB. Resmi Diyanet hesaplamasını kullanır. IGMG/DITIP/VIKZ ile aynı saatler.",
+        "ar": "الاتحاد التركي الإسلامي للشؤون الدينية (DITIB). يستخدم حساب ديانت الرسمي. الأوقات مطابقة لـ IGMG/DITIP/VIKZ.",
+        "en": "Turkish-Islamic Union (DITIB). Uses official Diyanet calculation. Times identical to IGMG/DITIP/VIKZ."
       },
       "diyanet": {
-        "de": "Direkt vom Diyanet İşleri Başkanlığı (Türkei). Identisch mit IGMG/DITIP/DITIB — alle verwenden dieselbe Berechnung.",
-        "tr": "Doğrudan Diyanet İşleri Başkanlığı'ndan (Türkiye). IGMG/DITIP/DITIB ile aynı — hepsi aynı hesaplamayı kullanır.",
-        "ar": "مباشرة من رئاسة الشؤون الدينية (ديانت) التركية. مطابقة لـ IGMG/DITIP/DITIB — كلها تستخدم نفس الحساب.",
-        "en": "Directly from Diyanet (Turkey). Same as IGMG/DITIP/DITIB — all use the same calculation."
+        "de": "Direkt vom Präsidium für religiöse Angelegenheiten (Türkei). Die offizielle Quelle aller großen islamischen Verbände in Deutschland. Identisch mit IGMG/DITIP/DITIB/VIKZ.",
+        "tr": "Doğrudan Diyanet İşleri Başkanlığı'ndan (Türkiye). Almanya'daki tüm büyük İslam birliklerinin resmi kaynağı. IGMG/DITIP/DITIB/VIKZ ile aynı.",
+        "ar": "مباشرة من رئاسة الشؤون الدينية (تركيا). المصدر الرسمي لجميع الاتحادات الإسلامية الكبرى في ألمانيا.",
+        "en": "Directly from the Presidency of Religious Affairs (Turkey). The official source for all major Islamic federations in Germany."
+      },
+      "vikz": {
+        "de": "Verband der Islamischen Kulturzentren (VIKZ). Verwendet ebenfalls die Diyanet-Berechnung. Zeiten identisch mit IGMG/DITIP/DITIB.",
+        "tr": "İslam Kültür Merkezleri Birliği (VIKZ). Diyanet hesaplamasını kullanır. IGMG/DITIP/DITIB ile aynı saatler.",
+        "ar": "اتحاد المراكز الثقافية الإسلامية (VIKZ). يستخدم حساب ديانت. الأوقات مطابقة لـ IGMG/DITIP/DITIB.",
+        "en": "Association of Islamic Cultural Centers (VIKZ). Also uses Diyanet calculation. Times identical to IGMG/DITIP/DITIB."
+      },
+      "mwl": {
+        "de": "Muslim World League (MWL). Berechnung: Fajr 18°, Isha 17°. Etwas andere Zeiten als Diyanet (besonders Yatsı später, İmsak ähnlich).",
+        "tr": "Muslim World League (MWL). Hesaplama: Fajr 18°, Isha 17°. Diyanet'ten biraz farklı (özellikle Yatsı daha geç, İmsak benzer).",
+        "ar": "رابطة العالم الإسلامي (MWL). الحساب: الفجر 18°، العشاء 17°. يختلف قليلاً عن ديانت.",
+        "en": "Muslim World League (MWL). Calculation: Fajr 18°, Isha 17°. Slightly different from Diyanet (especially later Yatsı)."
+      },
+      "isna": {
+        "de": "Islamic Society of North America (ISNA). Berechnung: Fajr 15°, Isha 15°. In Deutschland selten verwendet, mehr in Nordamerika.",
+        "tr": "Islamic Society of North America (ISNA). Hesaplama: Fajr 15°, Isha 15°. Almanya'da nadiren, Kuzey Amerika'da yaygın.",
+        "ar": "الجمعية الإسلامية لأمريكا الشمالية (ISNA). الحساب: الفجر 15°، العشاء 15°.",
+        "en": "Islamic Society of North America (ISNA). Calculation: Fajr 15°, Isha 15°. Rarely used in Germany, more common in North America."
       },
       "local": {
         "de": "Deine lokale Moschee. Falls deine Moschee eine eigene Berechnung hat (z.B. lokal angepasste Zeiten), kontaktiere das Moschee-Büro für die genauen Zeiten.",
-        "tr": "Yerel cami. Camiinizin kendi hesaplaması varsa (örn. yerel olarak ayarlanmış saatler), doğru saatler için cami ofisiyle iletişime geçin.",
-        "ar": "مسجدك المحلي. إذا كان مسجدك لديه حساب خاص (مثل أوقات معدلة محليًا)، اتصل بمكتب المسجد للحصول على الأوقات الدقيقة.",
-        "en": "Your local mosque. If your mosque has its own calculation (e.g. locally adjusted times), contact the mosque office for exact times."
+        "tr": "Yerel cami. Camiinizin kendi hesaplaması varsa, doğru saatler için cami ofisiyle iletişime geçin.",
+        "ar": "مسجدك المحلي. إذا كان مسجدك لديه حساب خاص، اتصل بمكتب المسجد.",
+        "en": "Your local mosque. If your mosque has its own calculation, contact the mosque office."
       },
       "other": {
         "de": "Andere Gemeinde / Eigene Berechnung. Für Schura, ZMD, KRM, AABF (Aleviten) oder andere. Wähle diese Option und passe die Zeiten bei Bedarf lokal an.",
-        "tr": "Diğer cemaat / Özel hesaplama. Schura, ZMD, KRM, AABF (Aleviler) veya diğerleri için. Bu seçeneği seçin ve gerekirse saatleri yerel olarak ayarlayın.",
-        "ar": "جمعية أخرى / حساب خاص. لشورا، ZMD، KRM، AABF (علويون) أو غيرهم. اختر هذا الخيار وقم بتعديل الأوقات محليًا إذا لزم الأمر.",
-        "en": "Other community / custom calculation. For Schura, ZMD, KRM, AABF (Alevi) or others. Select this and adjust times locally if needed."
+        "tr": "Diğer cemaat / Özel hesaplama. Schura, ZMD, KRM, AABF (Aleviler) için.",
+        "ar": "جمعية أخرى / حساب خاص. لشورا، ZMD، KRM، علويين.",
+        "en": "Other community / custom calculation. For Schura, ZMD, KRM, Alevi."
       }
     },
     "method_note": {
-      "de": "Hinweis: Alle großen islamischen Verbände in Deutschland (IGMG, DITIP, DITIB, VIKZ) verwenden die Diyanet-Türkei-Berechnung. Die Zeiten sind daher identisch. Die App nutzt die offizielle IGMG AJAX API (gleiche Daten wie auf igmg.org/gebetskalender).",
-      "tr": "Not: Almanya'daki büyük İslam birlikleri (IGMG, DITIP, DITIB, VIKZ) Diyanet-Türkiye hesaplamasını kullanır. Saatler bu nedenle aynıdır. Uygulama resmi IGMG AJAX API'sini kullanır (igmg.org/gebetskalender ile aynı veri).",
-      "ar": "ملاحظة: جميع الاتحادات الإسلامية الكبرى في ألمانيا (IGMG، DITIP، DITIB، VIKZ) تستخدم حساب ديانت تركيا. لذلك الأوقات متطابقة. يستخدم التطبيق واجهة IGMG AJAX الرسمية (نفس البيانات في igmg.org/gebetskalender).",
-      "en": "Note: All major Islamic federations in Germany (IGMG, DITIP, DITIB, VIKZ) use the Diyanet Turkey calculation. Times are therefore identical. The app uses the official IGMG AJAX API (same data as igmg.org/gebetskalender)."
+      "de": "Wichtiger Hinweis: Die Berechnungsmethode beeinflusst die Zeiten! IGMG, DITIP, DITIB, Diyanet und VIKZ verwenden alle die offizielle Diyanet-Berechnung (identische Zeiten). Muslim World League (MWL) und ISNA verwenden andere Methoden (Fajr/Isha-Winkel) — die Zeiten unterscheiden sich um einige Minuten. Wähle die Methode, die deiner Gemeinde entspricht.",
+      "tr": "Önemli not: Hesaplama yöntemi saatleri etkiler! IGMG, DITIP, DITIB, Diyanet ve VIKZ'in hepsi resmi Diyanet hesaplamasını kullanır (aynı saatler). Muslim World League (MWL) ve ISNA farklı yöntemler kullanır (Fajr/Isha açıları) — saatler birkaç dakika farklıdır.",
+      "ar": "ملاحظة مهمة: طريقة الحساب تؤثر على الأوقات! IGMG و DITIP و DITIB وديانت و VIKZ تستخدم جميعها حساب ديانت الرسمي. MWL و ISNA تستخدمان طرقاً مختلفة (زوايا الفجر/العشاء).",
+      "en": "Important note: The calculation method affects the times! IGMG, DITIP, DITIB, Diyanet, and VIKZ all use the official Diyanet calculation (identical times). Muslim World League (MWL) and ISNA use different methods (Fajr/Isha angles) — times differ by a few minutes."
     },
     "switch_button": {
       "de": "Gemeinde wechseln",
@@ -580,6 +604,62 @@
       "tr": "Hepsi Diyanet-Türkiye kullanır",
       "ar": "الكل يستخدم ديانت تركيا",
       "en": "All use Diyanet Turkey"
+    },
+    "calculation": {
+      "igmg_ditip": {
+        "de": "Diyanet",
+        "tr": "Diyanet",
+        "ar": "ديانت",
+        "en": "Diyanet"
+      },
+      "ditib": {
+        "de": "Diyanet",
+        "tr": "Diyanet",
+        "ar": "ديانت",
+        "en": "Diyanet"
+      },
+      "diyanet": {
+        "de": "Diyanet (offiziell)",
+        "tr": "Diyanet (resmi)",
+        "ar": "ديانت (رسمي)",
+        "en": "Diyanet (official)"
+      },
+      "vikz": {
+        "de": "Diyanet",
+        "tr": "Diyanet",
+        "ar": "ديانت",
+        "en": "Diyanet"
+      },
+      "mwl": {
+        "de": "MWL (Fajr 18°)",
+        "tr": "MWL (Fajr 18°)",
+        "ar": "MWL (الفجر 18°)",
+        "en": "MWL (Fajr 18°)"
+      },
+      "isna": {
+        "de": "ISNA (Fajr 15°)",
+        "tr": "ISNA (Fajr 15°)",
+        "ar": "ISNA (الفجر 15°)",
+        "en": "ISNA (Fajr 15°)"
+      },
+      "local": {
+        "de": "Eigene",
+        "tr": "Özel",
+        "ar": "خاصة",
+        "en": "Custom"
+      },
+      "other": {
+        "de": "Andere",
+        "tr": "Diğer",
+        "ar": "أخرى",
+        "en": "Other"
+      }
+    },
+    "show_calc": {
+      "de": "Berechnung:",
+      "tr": "Hesaplama:",
+      "ar": "الحساب:",
+      "en": "Calc:"
     }
   }
 }
