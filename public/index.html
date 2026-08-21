@@ -941,6 +941,16 @@
       font-weight: 600;
       font-style: italic;
     }
+    .community-approx {
+      font-size: 0.7rem;
+      background: rgba(245, 158, 11, 0.15);
+      color: #b45309;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      font-weight: 600;
+      font-style: italic;
+    }
     .modal-note {
       background: rgba(184, 148, 95, 0.1);
       border-left: 4px solid var(--accent);
@@ -1861,23 +1871,30 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
 
     // ============ COMMUNITY SELECTOR ============
     // Ordered list: Diyanet-method communities first (default), then alternative methods
-    const COMMUNITY_KEYS = ['igmg_ditip', 'ditib', 'diyanet', 'vikz', 'mwl', 'isna', 'local', 'other'];
-    const DEFAULT_COMMUNITY = 'igmg_ditip';  // IGMG / DITIP — default for German Muslims
+    const COMMUNITY_KEYS = ['igmg_ditib', 'ditib', 'diyanet', 'vikz', 'mwl', 'isna', 'local', 'other'];
+    const DEFAULT_COMMUNITY = 'igmg_ditib';  // IGMG / DITIP — default for German Muslims
     let activeCommunity = localStorage.getItem('gebetszeiten-community') || DEFAULT_COMMUNITY;
 
-    // Map community → AlAdhan method (for fetch routing)
-    // Diyanet-method communities use IGMG AJAX (live data, exact)
-    // Other methods use AlAdhan with the matching calculation method
+    // Map community → calculation source
+    // - 'igmg': use IGMG AJAX (live, exact — matches Diyanet/Igmg/Ditib)
+    // - 'vikz_local': compute VIKZ Fazilet method locally (Süleymancılar: İmsak 20 min before sunrise)
+    // - 'aladhan': use AlAdhan API with the specified method (MWL=3, ISNA=2, Karachi=1, etc.)
+    // - 'aladhan_diyanet': AlAdhan Diyanet method (m=13) for custom cities
     const COMMUNITY_TO_METHOD = {
-      'igmg_ditip': { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
-      'ditib':     { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
-      'diyanet':   { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
-      'vikz':      { source: 'igmg', aladhanMethod: 13, desc: 'Diyanet-İşleri-Başkanlığı (Türkiye)' },
-      'mwl':       { source: 'aladhan', aladhanMethod: 3, desc: 'Muslim World League (Fajr 18°, Isha 17°)' },
-      'isna':      { source: 'aladhan', aladhanMethod: 2, desc: 'ISNA (Fajr 15°, Isha 15°)' },
-      'local':     { source: 'aladhan', aladhanMethod: 13, desc: 'Lokale Berechnung' },
-      'other':     { source: 'aladhan', aladhanMethod: 13, desc: 'Andere' },
+      'igmg_ditib': { source: 'igmg', aladhanMethod: 13, calc: 'diyanet',  desc: 'Diyanet-İşleri-Başkanlığı' },
+      'ditib':      { source: 'igmg', aladhanMethod: 13, calc: 'diyanet',  desc: 'Diyanet (selbe wie IGMG)' },
+      'diyanet':    { source: 'igmg', aladhanMethod: 13, calc: 'diyanet',  desc: 'Diyanet direkt' },
+      'vikz':       { source: 'vikz_local', aladhanMethod: null, calc: 'fazilet',  desc: 'Fazilet (Süleymancı) — İmsak 20 Min' },
+      'mwl':        { source: 'aladhan', aladhanMethod: 3, calc: 'mwl',  desc: 'MWL (Fajr 18°, Isha 17°)' },
+      'isna':       { source: 'aladhan', aladhanMethod: 2, calc: 'isna', desc: 'ISNA (Fajr 15°, Isha 15°)' },
+      'local':      { source: 'aladhan', aladhanMethod: 13, calc: 'diyanet', desc: 'Lokale Moschee (Diyanet)' },
+      'other':      { source: 'aladhan', aladhanMethod: 13, calc: 'diyanet', desc: 'Andere (Diyanet)' },
     };
+
+    // Adjust IGMG-same badge to use the renamed key
+    const sameAsIGMG = ['ditib', 'diyanet', 'local', 'other'];
+    // VIKZ has different times — show "≈ Diyanet" with warning
+    const approxIGMG = ['vikz'];
 
     function renderCommunityLabel() {
       const el = document.getElementById('communityLabel');
@@ -1895,8 +1912,12 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
         const calc = t(`community.calculation.${key}`);
         const isActive = key === activeCommunity;
         // Mark Diyanet-method as "same" so user understands equivalence
-        const sameAsIGMG = ['ditib', 'diyanet', 'vikz'].includes(key);
-        const sameBadge = sameAsIGMG ? `<span class="community-same">= ${t('community.options.igmg_ditip')}</span>` : '';
+        // Note: we use the outer-scope sameAsIGMG (defined at top of section)
+        const sameBadge = sameAsIGMG.includes(key)
+          ? `<span class="community-same">= ${t('community.options.igmg_ditib')}</span>`
+          : (approxIGMG.includes(key)
+            ? `<span class="community-approx">≈ ${t('community.options.igmg_ditib')}</span>`
+            : '');
         return `<div class="community-option${isActive ? ' active' : ''}" data-key="${key}" onclick="selectCommunity('${key}')">
           <div class="community-option-title">${isActive ? '✓ ' : ''}${title}${sameBadge}</div>
           <div class="community-option-calc">${t('community.show_calc')} <strong>${calc}</strong></div>

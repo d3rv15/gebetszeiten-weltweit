@@ -26,6 +26,7 @@ RUN npm ci --omit=dev --include=optional --no-audit --no-fund \
 # App-Code + gebündelte Städte
 COPY server.js ./
 COPY igmg-calc.mjs ./
+COPY fazilet-calc.mjs ./
 COPY public ./public
 # cities.json + hadith.json + seferi.json + i18n.json in /app/ (nicht /app/data/ - das wird vom Volume überschattet)
 COPY data/cities.json ./cities.json

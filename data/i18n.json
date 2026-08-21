@@ -482,11 +482,11 @@
       "en": "Current calculation"
     },
     "options": {
-      "igmg_ditip": {
-        "de": "IGMG / DITIP",
-        "tr": "IGMG / DITIP",
-        "ar": "IGMG / DITIP",
-        "en": "IGMG / DITIP"
+      "igmg_ditib": {
+        "de": "IGMG / DITIB",
+        "tr": "IGMG / DITIB",
+        "ar": "IGMG / DITIB",
+        "en": "IGMG / DITIB"
       },
       "ditib": {
         "de": "DITIB",
@@ -532,17 +532,17 @@
       }
     },
     "descriptions": {
-      "igmg_ditip": {
-        "de": "Islamische Gemeinschaft Millî Görüş (IGMG) — Diyanet-İşleri-Başkanlığı. Standard für die meisten Moscheen in Deutschland. Identisch mit DITIP (Dachverband der Türkisch-Islamischen Kulturvereine in Österreich).",
-        "tr": "İslam Toplumu Millî Görüş (IGMG) — Diyanet İşleri Başkanlığı. Almanya'daki camilerin çoğu için standart. Avusturya'daki DITIP ile aynı.",
-        "ar": "الجماعة الإسلامية ملي غورش (IGMG) — رئاسة الشؤون الدينية. المعيار لمعظم المساجد في ألمانيا.",
-        "en": "Islamic Community Millî Görüş (IGMG) — Diyanet (Turkish Religious Affairs). Standard for most mosques in Germany. Identical to DITIP."
+      "igmg_ditib": {
+        "de": "Islamische Gemeinschaft Millî Görüş (IGMG) und DITIB verwenden beide die offizielle Diyanet-İşleri-Başkanlığı-Methode (Türkei). Zeiten identisch.",
+        "tr": "IGMG ve DITIB, Diyanet İşleri Başkanlığı'nın resmi yöntemini kullanır. Saatler aynıdır.",
+        "ar": "IGMG و DITIB تستخدمان طريقة ديانت الرسمية. الأوقات متطابقة.",
+        "en": "IGMG and DITIB both use the official Diyanet (Turkey) method. Times identical."
       },
       "ditib": {
-        "de": "Türkisch-Islamische Union der Anstalt für Religion (DITIB). Verwendet die offizielle Diyanet-Berechnung. Zeiten identisch mit IGMG/DITIP/VIKZ.",
-        "tr": "Türk-İslam Birliği DITIB. Resmi Diyanet hesaplamasını kullanır. IGMG/DITIP/VIKZ ile aynı saatler.",
-        "ar": "الاتحاد التركي الإسلامي للشؤون الدينية (DITIB). يستخدم حساب ديانت الرسمي. الأوقات مطابقة لـ IGMG/DITIP/VIKZ.",
-        "en": "Turkish-Islamic Union (DITIB). Uses official Diyanet calculation. Times identical to IGMG/DITIP/VIKZ."
+        "de": "Türkisch-Islamische Union der Anstalt für Religion (DITIB). Verwendet die offizielle Diyanet-Methode — identisch mit IGMG.",
+        "tr": "Türk-İslam Birliği DITIB. Resmi Diyanet yöntemini kullanır — IGMG ile aynı.",
+        "ar": "الاتحاد التركي الإسلامي للشؤون الدينية (DITIB). يستخدم طريقة ديانت الرسمية.",
+        "en": "Turkish-Islamic Union (DITIB). Uses official Diyanet method — identical to IGMG."
       },
       "diyanet": {
         "de": "Direkt vom Präsidium für religiöse Angelegenheiten (Türkei). Die offizielle Quelle aller großen islamischen Verbände in Deutschland. Identisch mit IGMG/DITIP/DITIB/VIKZ.",
@@ -551,10 +551,10 @@
         "en": "Directly from the Presidency of Religious Affairs (Turkey). The official source for all major Islamic federations in Germany."
       },
       "vikz": {
-        "de": "Verband der Islamischen Kulturzentren (VIKZ). Verwendet ebenfalls die Diyanet-Berechnung. Zeiten identisch mit IGMG/DITIP/DITIB.",
-        "tr": "İslam Kültür Merkezleri Birliği (VIKZ). Diyanet hesaplamasını kullanır. IGMG/DITIP/DITIB ile aynı saatler.",
-        "ar": "اتحاد المراكز الثقافية الإسلامية (VIKZ). يستخدم حساب ديانت. الأوقات مطابقة لـ IGMG/DITIP/DITIB.",
-        "en": "Association of Islamic Cultural Centers (VIKZ). Also uses Diyanet calculation. Times identical to IGMG/DITIP/DITIB."
+        "de": "Verband der Islamischen Kulturzentren (VIKZ, Süleymancılar-Tradition). Verwendet die Fazilet-Berechnung: İmsak ca. 20 Min vor Sonnenaufgang (statt 10 Min bei Diyanet). Yatsı oft 90 Min nach Akşam. Zeiten UNTERSCHEIDEN sich um 5-15 Min von IGMG/DITIB.",
+        "tr": "İslam Kültür Merkezleri Birliği (VIKZ, Süleymancılar geleneği). Fazilet hesaplaması kullanır: İmsak güneşten yaklaşık 20 dk önce (Diyanet'te 10 dk). Yatsı genellikle Akşam'dan 90 dk sonra. Saatler IGMG/DITIB'den 5-15 dk farklıdır.",
+        "ar": "اتحاد المراكز الثقافية الإسلامية (VIKZ، تقليد السليمانية). يستخدم حساب فاضلت: الإمساك قبل الشروق بـ 20 دقيقة (بدلاً من 10 دقائق في ديانت). الأوقات تختلف عن IGMG/DITIB بـ 5-15 دقيقة.",
+        "en": "Association of Islamic Cultural Centers (VIKZ, Süleymancılar tradition). Uses Fazilet calculation: İmsak ~20 min before sunrise (vs 10 min for Diyanet). Yatsı often 90 min after Maghrib. Times DIFFER by 5-15 min from IGMG/DITIB."
       },
       "mwl": {
         "de": "Muslim World League (MWL). Berechnung: Fajr 18°, Isha 17°. Etwas andere Zeiten als Diyanet (besonders Yatsı später, İmsak ähnlich).",
@@ -582,10 +582,10 @@
       }
     },
     "method_note": {
-      "de": "Wichtiger Hinweis: Die Berechnungsmethode beeinflusst die Zeiten! IGMG, DITIP, DITIB, Diyanet und VIKZ verwenden alle die offizielle Diyanet-Berechnung (identische Zeiten). Muslim World League (MWL) und ISNA verwenden andere Methoden (Fajr/Isha-Winkel) — die Zeiten unterscheiden sich um einige Minuten. Wähle die Methode, die deiner Gemeinde entspricht.",
-      "tr": "Önemli not: Hesaplama yöntemi saatleri etkiler! IGMG, DITIP, DITIB, Diyanet ve VIKZ'in hepsi resmi Diyanet hesaplamasını kullanır (aynı saatler). Muslim World League (MWL) ve ISNA farklı yöntemler kullanır (Fajr/Isha açıları) — saatler birkaç dakika farklıdır.",
-      "ar": "ملاحظة مهمة: طريقة الحساب تؤثر على الأوقات! IGMG و DITIP و DITIB وديانت و VIKZ تستخدم جميعها حساب ديانت الرسمي. MWL و ISNA تستخدمان طرقاً مختلفة (زوايا الفجر/العشاء).",
-      "en": "Important note: The calculation method affects the times! IGMG, DITIP, DITIB, Diyanet, and VIKZ all use the official Diyanet calculation (identical times). Muslim World League (MWL) and ISNA use different methods (Fajr/Isha angles) — times differ by a few minutes."
+      "de": "Hinweis: Die Berechnungsmethode beeinflusst die Zeiten! IGMG und DITIB verwenden die offizielle Diyanet-İşleri-Başkanlığı-Methode (identische Zeiten). VIKZ (Süleymancılar) verwendet die Fazilet-Methode mit abweichendem İmsak (20 Min statt 10 Min vor Sonnenaufgang) — Zeiten unterscheiden sich um 5-15 Min. Muslim World League (MWL) und ISNA haben eigene Berechnungen.",
+      "tr": "Not: Hesaplama yöntemi saatleri etkiler! IGMG ve DITIB, resmi Diyanet yöntemini kullanır (aynı saatler). VIKZ (Süleymancılar) Fazilet yöntemini kullanır, farklı İmsak ile — saatler 5-15 dk farklıdır. MWL ve ISNA'nın kendi hesaplamaları vardır.",
+      "ar": "ملاحظة: طريقة الحساب تؤثر على الأوقات! IGMG و DITIB تستخدمان طريقة ديانت الرسمية. VIKZ (السليمانية) تستخدم طريقة فاضلت بإمساك مختلف — تختلف الأوقات بـ 5-15 دقيقة. MWL و ISNA لهما حساباتهما الخاصة.",
+      "en": "Note: The calculation method affects the times! IGMG and DITIB use the official Diyanet method (identical times). VIKZ (Süleymancılar) uses the Fazilet method with different İmsak — times differ by 5-15 min. MWL and ISNA have their own calculations."
     },
     "switch_button": {
       "de": "Gemeinde wechseln",
@@ -606,7 +606,7 @@
       "en": "All use Diyanet Turkey"
     },
     "calculation": {
-      "igmg_ditip": {
+      "igmg_ditib": {
         "de": "Diyanet",
         "tr": "Diyanet",
         "ar": "ديانت",
@@ -625,10 +625,10 @@
         "en": "Diyanet (official)"
       },
       "vikz": {
-        "de": "Diyanet",
-        "tr": "Diyanet",
-        "ar": "ديانت",
-        "en": "Diyanet"
+        "de": "Fazilet (Süleymancı)",
+        "tr": "Fazilet (Süleymancı)",
+        "ar": "فاضلت (سليمانية)",
+        "en": "Fazilet (Süleymancı)"
       },
       "mwl": {
         "de": "MWL (Fajr 18°)",
