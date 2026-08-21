@@ -820,6 +820,114 @@
       line-height: 1;
     }
     .lang-btn:hover { opacity: 0.85; background: rgba(184, 148, 95, 0.1); }
+    /* ============ COMMUNITY SELECTOR ============ */
+    .badge-community {
+      background: rgba(26, 107, 72, 0.08) !important;
+      border: 1px solid rgba(26, 107, 72, 0.3) !important;
+      color: var(--emerald-dark) !important;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.82rem !important;
+      padding: 6px 10px !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .badge-community:hover {
+      background: var(--emerald-dark) !important;
+      color: white !important;
+    }
+    .badge-community #communityLabel {
+      font-size: 0.82rem;
+    }
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(45, 36, 23, 0.6);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.hidden { display: none; }
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .modal-header {
+      background: linear-gradient(135deg, #1a6b48 0%, #2d8a64 100%);
+      color: white;
+      padding: 20px 24px;
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-header h2 { margin: 0; font-size: 1.3rem; color: white; }
+    .modal-close {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.35); }
+    .modal-body { padding: 20px 24px; }
+    .community-option {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+    }
+    .community-option:hover {
+      border-color: var(--accent);
+      background: rgba(184, 148, 95, 0.05);
+    }
+    .community-option.active {
+      border-color: var(--emerald-dark);
+      background: rgba(26, 107, 72, 0.08);
+    }
+    .community-option-title {
+      font-weight: 700;
+      color: var(--emerald-dark);
+      font-size: 1rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .community-option-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .modal-note {
+      background: rgba(184, 148, 95, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-top: 16px;
+    }
     .lang-btn.active {
       opacity: 1;
       background: var(--accent);
@@ -1328,9 +1436,12 @@
           <button class="lang-btn" data-lang="ar" title="العربية">🇸🇦</button>
           <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
         </div>
+        <button class="badge badge-community" id="communityBtn" onclick="openCommunityModal()" data-i18n-title="community.label" title="Gemeinde / Verband">
+          <span id="communityLabel">IGMG / DITIP</span> ⌄
+        </button>
         <span class="badge" id="liveClock">--:--:--</span>
         <span class="badge" id="hijriDate">--.--.----</span>
-        <span class="badge badge-gold" data-i18n="header.version">v2.2</span>
+        <span class="badge badge-gold" data-i18n="header.version">v2.4</span>
       </div>
     </div>
   </div>
@@ -1526,6 +1637,22 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
 
   <div class="toast" id="toast"></div>
 
+  <!-- COMMUNITY SELECTOR MODAL -->
+  <div class="modal-overlay hidden" id="communityModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 data-i18n="community.label">Gemeinde / Verband</h2>
+        <button class="modal-close" onclick="closeCommunityModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="communityOptions"></div>
+        <div class="modal-note" data-i18n="community.method_note">
+          Hinweis: Alle großen islamischen Verbände in Deutschland (IGMG, DITIP, DITIB, VIKZ) verwenden die Diyanet-Türkei-Berechnung. Die Zeiten sind daher identisch. Die App nutzt die offizielle IGMG AJAX API (gleiche Daten wie auf igmg.org/gebetskalender).
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ============ QUICK-PICK CITIES (top cities for empty state) ============
     const QUICK_PICKS = [
@@ -1707,7 +1834,69 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     loadDailyHadith();
     // Reload hadith when language changes
     const origSetLang = setLang;
-    setLang = function(lang) { origSetLang(lang); loadDailyHadith(); if (hadithLibraryData) renderHadithList(); };
+    setLang = function(lang) { origSetLang(lang); loadDailyHadith(); if (hadithLibraryData) renderHadithList(); renderCommunityLabel(); };
+
+    // ============ COMMUNITY SELECTOR ============
+    const COMMUNITY_KEYS = ['igmg_ditip', 'ditib', 'vikz', 'diyanet', 'local', 'other'];
+    const DEFAULT_COMMUNITY = 'igmg_ditip';
+    let activeCommunity = localStorage.getItem('gebetszeiten-community') || DEFAULT_COMMUNITY;
+
+    function renderCommunityLabel() {
+      const el = document.getElementById('communityLabel');
+      if (el && I18N?.community?.options?.[activeCommunity]?.[CURRENT_LANG]) {
+        el.textContent = I18N.community.options[activeCommunity][CURRENT_LANG];
+      }
+    }
+
+    function buildCommunityOptions() {
+      const c = document.getElementById('communityOptions');
+      if (!c) return;
+      c.innerHTML = COMMUNITY_KEYS.map(key => {
+        const title = t(`community.options.${key}`);
+        const desc = t(`community.descriptions.${key}`);
+        const isActive = key === activeCommunity;
+        return `<div class="community-option${isActive ? ' active' : ''}" data-key="${key}" onclick="selectCommunity('${key}')">
+          <div class="community-option-title">${isActive ? '✓ ' : ''}${title}</div>
+          <div class="community-option-desc">${desc}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function openCommunityModal() {
+      buildCommunityOptions();
+      document.getElementById('communityModal').classList.remove('hidden');
+    }
+
+    function closeCommunityModal() {
+      document.getElementById('communityModal').classList.add('hidden');
+    }
+
+    function selectCommunity(key) {
+      activeCommunity = key;
+      localStorage.setItem('gebetszeiten-community', key);
+      renderCommunityLabel();
+      buildCommunityOptions();
+      // Update source pill on prayer card to show community
+      updateSourcePill();
+      // Close after a short delay so user sees the selection
+      setTimeout(closeCommunityModal, 300);
+    }
+
+    function updateSourcePill() {
+      // Update the source method in the prayer hero card if it exists
+      const methodEl = document.querySelector('[data-community-method]');
+      if (methodEl) {
+        const label = t(`community.options.${activeCommunity}`);
+        methodEl.textContent = `✓ ${label} · ${t('community.all_use_diyanet')}`;
+      }
+    }
+
+    // Close modal on backdrop click
+    document.getElementById('communityModal')?.addEventListener('click', (e) => {
+      if (e.target.id === 'communityModal') closeCommunityModal();
+    });
+    // Initialize community label
+    setTimeout(renderCommunityLabel, 500);
 
     // ============ HADITH BIBLIOTHEK ============
     let hadithLibraryData = null;
@@ -2092,9 +2281,10 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       const holidaysRes = await fetch(`/api/holidays?from=${d.date}&to=${d.date}`).then(r => r.json()).catch(() => ({ holidays: [] }));
       const holiday = (holidaysRes.holidays || [])[0];
       const holidayBanner = holiday ? `<div class="holiday-banner"><span class="icon">${holiday.type === 'bayram' ? '🌙' : '✨'}</span> <strong>${holiday.name}</strong> <span class="hijri">(${holiday.hijri_date})</span></div>` : '';
-      const sourceLabel = d.source === 'igmg' ? '✅ ' + t('range.source_igmg')
-        : d.source === 'diyanet' ? '✅ ' + t('range.source_diyanet')
-        : '⚠️ ' + t('range.source_local');
+      const sourceLabel = d.source === 'igmg'
+        ? '✅ ' + t('community.options.' + activeCommunity) + ' · ' + t('range.source_igmg')
+        : d.source === 'diyanet' ? '✅ ' + t('community.options.' + activeCommunity) + ' · ' + t('range.source_diyanet')
+        : '⚠️ ' + t('community.options.' + activeCommunity) + ' · ' + t('range.source_local');
       const sourceStyle = (d.source === 'igmg' || d.source === 'diyanet')
         ? 'background:rgba(34,197,94,0.25);border:1px solid rgba(34,197,94,0.5);color:#86efac'
         : 'background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);color:#fde68a';
@@ -2418,7 +2608,7 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
                 </tbody>
               </table>
             </details>
-            <div class="range-info">${t('range.cached_info', { n: d.times.length })}</div>
+            <div class="range-info">${t('range.cached_info', { n: d.times.length })} · <span data-community-method>✓ ${t('community.options.' + activeCommunity)} · ${t('community.all_use_diyanet')}</span></div>
           </div>
         `;
       } catch (e) {
