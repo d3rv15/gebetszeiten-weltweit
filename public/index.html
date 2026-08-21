@@ -1766,7 +1766,7 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     }
 
     function t(key, vars = {}) {
-      if (!I18N) return key;
+      if (!I18N) return '…';  // I18N not loaded yet — show ellipsis (NOT raw key)
       // Key like "header.title" — try direct lookup with lang suffix
       const parts = key.split('.');
       let base = I18N;
@@ -1779,7 +1779,8 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       for (const fb of ['de', 'en']) {
         if (typeof base?.[fb] === 'string') return interpolate(base[fb], vars);
       }
-      return key;
+      // Last resort: friendly fallback (last segment of the key), NOT raw key
+      return '[' + (key.split('.').pop() || '') + ']';
     }
     function interpolate(s, vars) {
       return s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`);
@@ -1871,7 +1872,7 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
 
     // ============ COMMUNITY SELECTOR ============
     // Ordered list: Diyanet-method communities first (default), then alternative methods
-    const COMMUNITY_KEYS = ['igmg_ditib', 'ditib', 'diyanet', 'vikz', 'mwl', 'isna', 'local', 'other'];
+    const COMMUNITY_KEYS = ['igmg_ditib', 'diyanet', 'vikz', 'mwl', 'isna', 'local', 'other'];
     const DEFAULT_COMMUNITY = 'igmg_ditib';  // IGMG / DITIP — default for German Muslims
     let activeCommunity = localStorage.getItem('gebetszeiten-community') || DEFAULT_COMMUNITY;
 
@@ -1882,7 +1883,6 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     // - 'aladhan_diyanet': AlAdhan Diyanet method (m=13) for custom cities
     const COMMUNITY_TO_METHOD = {
       'igmg_ditib': { source: 'igmg', aladhanMethod: 13, calc: 'diyanet',  desc: 'Diyanet-İşleri-Başkanlığı' },
-      'ditib':      { source: 'igmg', aladhanMethod: 13, calc: 'diyanet',  desc: 'Diyanet (selbe wie IGMG)' },
       'diyanet':    { source: 'igmg', aladhanMethod: 13, calc: 'diyanet',  desc: 'Diyanet direkt' },
       'vikz':       { source: 'vikz_local', aladhanMethod: null, calc: 'fazilet',  desc: 'Fazilet (Süleymancı) — İmsak 20 Min' },
       'mwl':        { source: 'aladhan', aladhanMethod: 3, calc: 'mwl',  desc: 'MWL (Fajr 18°, Isha 17°)' },
@@ -1891,9 +1891,9 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       'other':      { source: 'aladhan', aladhanMethod: 13, calc: 'diyanet', desc: 'Andere (Diyanet)' },
     };
 
-    // Adjust IGMG-same badge to use the renamed key
-    const sameAsIGMG = ['ditib', 'diyanet', 'local', 'other'];
-    // VIKZ has different times — show "≈ Diyanet" with warning
+    // Communities whose times are IDENTICAL to IGMG/DITIB (Diyanet calc)
+    const sameAsIGMG = ['diyanet', 'local', 'other'];
+    // Communities whose times are APPROXIMATELY the same as IGMG (different method but close)
     const approxIGMG = ['vikz'];
 
     function renderCommunityLabel() {
