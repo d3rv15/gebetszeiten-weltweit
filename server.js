@@ -166,6 +166,33 @@ async function fetchFromAladhanMethod(lat, lng, date, method) {
     };
   } catch (e) {
     logErr('fetchFromAladhanMethod failed:', e.message);
+// ============ VIKZ/FAZILET (Süleymancılar) — local calculation ============
+// VIKZ uses the Fazilet calendar which has ~20 min İmsak (vs ~10 min for Diyanet).
+// Otherwise same angles as Diyanet. Computed locally with the Adhan library.
+async function fetchFromVIKZ(city, date) {
+  if (!city.lat || !city.lng || !city.timezone) return null;
+  try {
+    const mod = await import('./fazilet-calc.mjs');
+    const result = mod.calcVIKZ(city.lat, city.lng, city.timezone, date);
+    if (!result || !result.imsak) return null;
+    return {
+      date: result.date,
+      imsak: result.imsak,
+      sunrise: result.sunrise,
+      dhuhr: result.dhuhr,
+      asr: result.asr,
+      maghrib: result.maghrib,
+      isha: result.isha,
+      source: 'vikz',
+      method: 'VIKZ/Fazilet (Süleymancı)',
+      cityId: city.igmg_id,
+    };
+  } catch (e) {
+    logErr('fetchFromVIKZ failed:', e.message);
+    return null;
+  }
+}
+
     return null;
   }
 }
@@ -1325,8 +1352,11 @@ app.get('/api/times', async (req, res) => {
     }
 
     // If user selected a non-Diyanet method (e.g. MWL, ISNA), use AlAdhan directly
+    // If user selected VIKZ/Fazilet, use local calcVIKZ (Süleymancılar method)
     let times = null;
-    if (methodOverride && methodOverride !== 13 && c.lat && c.lng) {
+    if (source === 'vikz_local' && c.lat && c.lng) {
+      times = await fetchFromVIKZ(c, calcDate);
+    } else if (methodOverride && methodOverride !== 13 && c.lat && c.lng) {
       times = await fetchFromAladhanMethod(c.lat, c.lng, calcDate, methodOverride);
     } else {
       times = await getTimesForCity(c, calcDate);
@@ -1391,7 +1421,9 @@ app.get('/api/times/range', async (req, res) => {
       d.setUTCDate(d.getUTCDate() + i);
       const date = d.toISOString().slice(0, 10);
       let times = null;
-      if (methodOverride && methodOverride !== 13 && c.lat && c.lng) {
+      if (source === 'vikz_local' && c.lat && c.lng) {
+        times = await fetchFromVIKZ(c, date);
+      } else if (methodOverride && methodOverride !== 13 && c.lat && c.lng) {
         times = await fetchFromAladhanMethod(c.lat, c.lng, date, methodOverride);
       } else {
         times = await getTimesForCity(c, date);
@@ -1402,7 +1434,7 @@ app.get('/api/times/range', async (req, res) => {
       city: { id: c.id, name: c.name, country: c.country, lat: c.lat, lng: c.lng, timezone: c.timezone, source: c.source },
       start: startDate,
       days: numDays,
-      method: methodOverride || 'igmg',
+      method: source === 'vikz_local' ? 'vikz' : (methodOverride || 'igmg'),
       times: out,
     });
   } catch (e) {
