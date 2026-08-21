@@ -12,7 +12,7 @@
       "ar": "حسبنا الله ونعم الوكيل — وفق IGMG · طريقة ديانت",
       "en": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ — IGMG-faithful · Diyanet method"
     },
-    "version": "v2.2"
+    "version": "v2.4"
   },
   "tabs": {
     "times": {
@@ -460,6 +460,126 @@
       "tr": "Tüm şehirleri göster",
       "ar": "عرض كل المدن",
       "en": "Show all cities"
+    }
+  },
+  "community": {
+    "label": {
+      "de": "Gemeinde / Verband",
+      "tr": "Cemaat / Birlik",
+      "ar": "الجمعية / الاتحاد",
+      "en": "Community / Federation"
+    },
+    "choose": {
+      "de": "Gemeinde wählen",
+      "tr": "Cemaat seç",
+      "ar": "اختر الجمعية",
+      "en": "Choose community"
+    },
+    "current": {
+      "de": "Aktuelle Berechnung",
+      "tr": "Mevcut hesaplama",
+      "ar": "الحساب الحالي",
+      "en": "Current calculation"
+    },
+    "options": {
+      "igmg_ditip": {
+        "de": "IGMG / DITIP",
+        "tr": "IGMG / DITIP",
+        "ar": "IGMG / DITIP",
+        "en": "IGMG / DITIP"
+      },
+      "ditib": {
+        "de": "DITIB",
+        "tr": "DITIB",
+        "ar": "DITIB",
+        "en": "DITIB"
+      },
+      "vikz": {
+        "de": "VIKZ",
+        "tr": "VIKZ",
+        "ar": "VIKZ",
+        "en": "VIKZ"
+      },
+      "diyanet": {
+        "de": "Diyanet (Türkei)",
+        "tr": "Diyanet (Türkiye)",
+        "ar": "ديانت (تركيا)",
+        "en": "Diyanet (Turkey)"
+      },
+      "local": {
+        "de": "Lokale Moschee",
+        "tr": "Yerel Cami",
+        "ar": "المسجد المحلي",
+        "en": "Local mosque"
+      },
+      "other": {
+        "de": "Andere / Eigene",
+        "tr": "Diğer / Özel",
+        "ar": "أخرى / خاصة",
+        "en": "Other / Custom"
+      }
+    },
+    "descriptions": {
+      "igmg_ditip": {
+        "de": "Islamische Gemeinschaft Millî Görüş (IGMG) — Standard in unserer App. Verwendet die Diyanet-Türkei-Methode, identisch mit DITIP (Dachverband der Türkisch-Islamischen Kulturvereine in Österreich).",
+        "tr": "İslam Toplumu Millî Görüş (IGMG) — Uygulamamızın standardı. Diyanet-Türkiye yöntemini kullanır, Avusturya'daki DITIP (Türk-İslam Kültür Dernekleri Çatı Örgütü) ile aynıdır.",
+        "ar": "الجماعة الإسلامية ملي غورش (IGMG) — معيارنا في التطبيق. تستخدم طريقة ديانت تركيا، مطابقة لـ DITIP.",
+        "en": "Islamic Community Millî Görüş (IGMG) — our app standard. Uses Diyanet Turkey method, identical to DITIP."
+      },
+      "ditib": {
+        "de": "Türkisch-Islamische Union der Anstalt für Religion (DITIB). Verwendet die offizielle Diyanet-Türkei-Methode. Zeiten identisch mit IGMG.",
+        "tr": "Türk-İslam Birliği DITIB. Resmi Diyanet-Türkiye yöntemini kullanır. IGMG ile aynı saatler.",
+        "ar": "الاتحاد التركي الإسلامي للشؤون الدينية (DITIB). يستخدم طريقة ديانت تركيا الرسمية. الأوقات مطابقة لـ IGMG.",
+        "en": "Turkish-Islamic Union (DITIB). Uses official Diyanet Turkey method. Times identical to IGMG."
+      },
+      "vikz": {
+        "de": "Verband der Islamischen Kulturzentren (VIKZ). Verwendet ebenfalls die Diyanet-Methode (Hanafi-Fiqh), Zeiten identisch. Unterscheidet sich hauptsächlich in der theologischen Ausrichtung.",
+        "tr": "İslam Kültür Merkezleri Birliği (VIKZ). Diyanet yöntemini kullanır (Hanefi fıkhı), saatler aynı. Farklılık daha çok teolojik yönelimdedir.",
+        "ar": "اتحاد المراكز الثقافية الإسلامية (VIKZ). يستخدم طريقة ديانت (المذهب الحنفي)، الأوقات متطابقة. الاختلاف في التوجه اللاهوتي بشكل أساسي.",
+        "en": "Association of Islamic Cultural Centers (VIKZ). Also uses Diyanet method (Hanafi fiqh), times identical. Differs mainly in theological orientation."
+      },
+      "diyanet": {
+        "de": "Direkt vom Diyanet İşleri Başkanlığı (Türkei). Identisch mit IGMG/DITIP/DITIB — alle verwenden dieselbe Berechnung.",
+        "tr": "Doğrudan Diyanet İşleri Başkanlığı'ndan (Türkiye). IGMG/DITIP/DITIB ile aynı — hepsi aynı hesaplamayı kullanır.",
+        "ar": "مباشرة من رئاسة الشؤون الدينية (ديانت) التركية. مطابقة لـ IGMG/DITIP/DITIB — كلها تستخدم نفس الحساب.",
+        "en": "Directly from Diyanet (Turkey). Same as IGMG/DITIP/DITIB — all use the same calculation."
+      },
+      "local": {
+        "de": "Deine lokale Moschee. Falls deine Moschee eine eigene Berechnung hat (z.B. lokal angepasste Zeiten), kontaktiere das Moschee-Büro für die genauen Zeiten.",
+        "tr": "Yerel cami. Camiinizin kendi hesaplaması varsa (örn. yerel olarak ayarlanmış saatler), doğru saatler için cami ofisiyle iletişime geçin.",
+        "ar": "مسجدك المحلي. إذا كان مسجدك لديه حساب خاص (مثل أوقات معدلة محليًا)، اتصل بمكتب المسجد للحصول على الأوقات الدقيقة.",
+        "en": "Your local mosque. If your mosque has its own calculation (e.g. locally adjusted times), contact the mosque office for exact times."
+      },
+      "other": {
+        "de": "Andere Gemeinde / Eigene Berechnung. Für Schura, ZMD, KRM, AABF (Aleviten) oder andere. Wähle diese Option und passe die Zeiten bei Bedarf lokal an.",
+        "tr": "Diğer cemaat / Özel hesaplama. Schura, ZMD, KRM, AABF (Aleviler) veya diğerleri için. Bu seçeneği seçin ve gerekirse saatleri yerel olarak ayarlayın.",
+        "ar": "جمعية أخرى / حساب خاص. لشورا، ZMD، KRM، AABF (علويون) أو غيرهم. اختر هذا الخيار وقم بتعديل الأوقات محليًا إذا لزم الأمر.",
+        "en": "Other community / custom calculation. For Schura, ZMD, KRM, AABF (Alevi) or others. Select this and adjust times locally if needed."
+      }
+    },
+    "method_note": {
+      "de": "Hinweis: Alle großen islamischen Verbände in Deutschland (IGMG, DITIP, DITIB, VIKZ) verwenden die Diyanet-Türkei-Berechnung. Die Zeiten sind daher identisch. Die App nutzt die offizielle IGMG AJAX API (gleiche Daten wie auf igmg.org/gebetskalender).",
+      "tr": "Not: Almanya'daki büyük İslam birlikleri (IGMG, DITIP, DITIB, VIKZ) Diyanet-Türkiye hesaplamasını kullanır. Saatler bu nedenle aynıdır. Uygulama resmi IGMG AJAX API'sini kullanır (igmg.org/gebetskalender ile aynı veri).",
+      "ar": "ملاحظة: جميع الاتحادات الإسلامية الكبرى في ألمانيا (IGMG، DITIP، DITIB، VIKZ) تستخدم حساب ديانت تركيا. لذلك الأوقات متطابقة. يستخدم التطبيق واجهة IGMG AJAX الرسمية (نفس البيانات في igmg.org/gebetskalender).",
+      "en": "Note: All major Islamic federations in Germany (IGMG, DITIP, DITIB, VIKZ) use the Diyanet Turkey calculation. Times are therefore identical. The app uses the official IGMG AJAX API (same data as igmg.org/gebetskalender)."
+    },
+    "switch_button": {
+      "de": "Gemeinde wechseln",
+      "tr": "Cemaat değiştir",
+      "ar": "تغيير الجمعية",
+      "en": "Switch community"
+    },
+    "note_label": {
+      "de": "Berechnungsmethode:",
+      "tr": "Hesaplama yöntemi:",
+      "ar": "طريقة الحساب:",
+      "en": "Calculation method:"
+    },
+    "all_use_diyanet": {
+      "de": "Alle verwenden Diyanet-Türkei",
+      "tr": "Hepsi Diyanet-Türkiye kullanır",
+      "ar": "الكل يستخدم ديانت تركيا",
+      "en": "All use Diyanet Turkey"
     }
   }
 }
