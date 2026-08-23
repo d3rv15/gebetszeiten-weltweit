@@ -564,17 +564,18 @@
     #liveClock { font-family: 'Courier New', monospace; font-weight: 600; color: var(--emerald-dark); }
     #hijriDate { color: var(--accent); }
 
-    /* Community bar — eigene Zeile unter dem Header, prominent sichtbar */
-    .community-bar {
+    /* Community selector — prominent im Hero-Bereich der Gebetszeiten-Card */
+    .community-selector-hero {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .community-selector-inline {
       display: flex;
       justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 28px 14px;
-      background: linear-gradient(180deg, transparent 0%, rgba(184, 148, 95, 0.06) 100%);
-      border-top: 1px solid rgba(184, 148, 95, 0.18);
+      margin-bottom: 10px;
     }
-    .community-bar-btn {
+    .community-selector-btn {
       display: inline-flex;
       align-items: center;
       gap: 12px;
@@ -589,42 +590,53 @@
       transition: all 0.18s ease;
       box-shadow: 0 2px 6px rgba(184, 148, 95, 0.12);
     }
-    .community-bar-btn:hover {
+    .community-selector-btn:hover {
       background: linear-gradient(135deg, #fdf9ee 0%, #f5e9c8 100%);
       border-color: var(--accent);
       box-shadow: 0 4px 14px rgba(184, 148, 95, 0.28);
       transform: translateY(-1px);
     }
-    .community-bar-icon {
-      font-size: 1.15rem;
+    .community-selector-icon {
+      font-size: 1.25rem;
       line-height: 1;
     }
-    .community-bar-label {
+    .community-selector-text {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+      line-height: 1.1;
+    }
+    .community-selector-label {
       color: var(--text-secondary);
       font-weight: 500;
-      font-size: 0.85rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
-    .community-bar-value {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      background: linear-gradient(135deg, var(--emerald-dark) 0%, #1a6b48 100%);
-      color: #fff;
-      border-radius: 999px;
-      font-size: 0.85rem;
+    .community-selector-value {
+      color: var(--emerald-dark);
       font-weight: 700;
+      font-size: 0.95rem;
     }
-    .community-bar-arrow {
-      font-size: 0.9rem;
+    .community-selector-method {
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.75rem;
+      margin-left: 4px;
+    }
+    .community-selector-arrow {
+      font-size: 1rem;
+      color: var(--accent);
       opacity: 0.85;
     }
     @media (max-width: 700px) {
-      .community-bar { padding: 8px 14px 12px; }
-      .community-bar-label { display: none; }
-      .community-bar-btn { padding: 8px 12px; }
+      .community-selector-label { display: none; }
+      .community-selector-btn { padding: 8px 14px; }
+      .community-selector-text { gap: 0; }
     }
-    [dir="rtl"] .community-bar { justify-content: flex-start; }
+    [dir="rtl"] .community-selector-text { align-items: flex-end; }
+    [dir="rtl"] .community-selector-inline { justify-content: flex-start; }
 
     .header {
       position: relative;
@@ -1536,17 +1548,6 @@
         <span class="badge badge-gold" data-i18n="header.version">v2.4.1</span>
       </div>
     </div>
-    <!-- Community bar — always visible, prominent, below header -->
-    <div class="community-bar">
-      <button class="community-bar-btn" id="communityBtn" onclick="openCommunityModal()" data-i18n-title="community.label" title="Gemeinde / Verband">
-        <span class="community-bar-icon">🕌</span>
-        <span class="community-bar-label" data-i18n="community.label">Gemeinde / Verband</span>
-        <span class="community-bar-value">
-          <span id="communityLabel">IGMG / DITIB</span>
-          <span class="community-bar-arrow">⌄</span>
-        </span>
-      </button>
-    </div>
   </div>
 
   <!-- HAYIRLI CUMALAR BANNER (shown on Fridays) -->
@@ -1601,6 +1602,20 @@
     <div class="panel active" id="panel-times">
       <!-- QUICK-PICK HERO (shown when no city is selected) -->
       <div class="hero-card" id="heroEmptyState">
+        <!-- Community selector — prominent, at the top of the hero card -->
+        <div class="community-selector-hero">
+          <button class="community-selector-btn" id="communityBtn" onclick="openCommunityModal()" data-i18n-title="community.label" title="Gemeinde / Verband">
+            <span class="community-selector-icon">🕌</span>
+            <span class="community-selector-text">
+              <span class="community-selector-label" data-i18n="community.label">Gemeinde / Verband</span>
+              <span class="community-selector-value">
+                <span id="communityLabel">IGMG / DITIB</span>
+                <span class="community-selector-method" id="communityMethod">Diyanet</span>
+              </span>
+            </span>
+            <span class="community-selector-arrow">⌄</span>
+          </button>
+        </div>
         <div class="hero-icon">🕌</div>
         <h2 class="hero-title" data-i18n="hero.title">Gebetszeiten für jede Stadt der Welt</h2>
         <p class="hero-subtitle" data-i18n="hero.subtitle">Offizielle IGMG/Diyanet-Berechnung. 765 Städte weltweit — oder gib einen beliebigen Ort ein.</p>
@@ -1967,10 +1982,23 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     const approxIGMG = ['vikz'];
 
     function renderCommunityLabel() {
-      const el = document.getElementById('communityLabel');
-      if (el && I18N?.community?.options?.[activeCommunity]?.[CURRENT_LANG]) {
-        el.textContent = I18N.community.options[activeCommunity][CURRENT_LANG];
-      }
+      const labelText = I18N?.community?.options?.[activeCommunity]?.[CURRENT_LANG] || activeCommunity;
+      // Update all instances (hero + prayer card)
+      document.querySelectorAll('#communityLabel, #communityLabel2').forEach(el => {
+        el.textContent = labelText;
+      });
+      // Update method subtitle
+      const methodMap = {
+        'igmg_ditib': 'Diyanet',
+        'diyanet':    'Diyanet',
+        'vikz':       'Fazilet',
+        'mwl':        'MWL',
+        'isna':       'ISNA',
+        'local':      'Diyanet',
+        'other':      'Diyanet',
+      };
+      const methodEl = document.getElementById('communityMethod');
+      if (methodEl) methodEl.textContent = methodMap[activeCommunity] || '';
     }
 
     function buildCommunityOptions() {
@@ -2429,6 +2457,19 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       card.innerHTML = `
         <div class="prayer-hero">
           ${holidayBanner}
+          <!-- Community selector — auch hier sichtbar, oben in der prayer card -->
+          <div class="community-selector-inline">
+            <button class="community-selector-btn" onclick="openCommunityModal()" data-i18n-title="community.label" title="Gemeinde / Verband">
+              <span class="community-selector-icon">🕌</span>
+              <span class="community-selector-text">
+                <span class="community-selector-label" data-i18n="community.label">Gemeinde / Verband</span>
+                <span class="community-selector-value">
+                  <span id="communityLabel2">${escapeHtml(t('community.options.' + activeCommunity))}</span>
+                </span>
+              </span>
+              <span class="community-selector-arrow">⌄</span>
+            </button>
+          </div>
           <div class="prayer-hero-header">
             <div>
               <h2 class="prayer-hero-title">${city.name}</h2>
