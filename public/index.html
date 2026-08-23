@@ -564,6 +564,68 @@
     #liveClock { font-family: 'Courier New', monospace; font-weight: 600; color: var(--emerald-dark); }
     #hijriDate { color: var(--accent); }
 
+    /* Community bar — eigene Zeile unter dem Header, prominent sichtbar */
+    .community-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 28px 14px;
+      background: linear-gradient(180deg, transparent 0%, rgba(184, 148, 95, 0.06) 100%);
+      border-top: 1px solid rgba(184, 148, 95, 0.18);
+    }
+    .community-bar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 18px 8px 14px;
+      background: linear-gradient(135deg, #ffffff 0%, #fdf9ee 100%);
+      border: 1.5px solid rgba(184, 148, 95, 0.55);
+      border-radius: 999px;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      box-shadow: 0 2px 6px rgba(184, 148, 95, 0.12);
+    }
+    .community-bar-btn:hover {
+      background: linear-gradient(135deg, #fdf9ee 0%, #f5e9c8 100%);
+      border-color: var(--accent);
+      box-shadow: 0 4px 14px rgba(184, 148, 95, 0.28);
+      transform: translateY(-1px);
+    }
+    .community-bar-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+    .community-bar-label {
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .community-bar-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, #1a6b48 100%);
+      color: #fff;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .community-bar-arrow {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    @media (max-width: 700px) {
+      .community-bar { padding: 8px 14px 12px; }
+      .community-bar-label { display: none; }
+      .community-bar-btn { padding: 8px 12px; }
+    }
+    [dir="rtl"] .community-bar { justify-content: flex-start; }
+
     .header {
       position: relative;
       background: linear-gradient(135deg, #faf5e8 0%, #f5efd8 50%, #efe7cf 100%);
@@ -1459,7 +1521,7 @@
           <h1>
             <span data-i18n="header.title" data-i18n-attr="text">Gebetszeiten Weltweit</span>
           </h1>
-          <div class="header-sub" data-i18n="header.subtitle">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ — IGMG-faithful · Diyanet-Methode</div>
+          <div class="header-sub" data-i18n="header.subtitle">حَسْبُنَا اللَّهُ وَنْعْمُ الْوَكِيلُ — IGMG-faithful · Diyanet-Methode</div>
         </div>
       </div>
       <div class="header-meta">
@@ -1469,13 +1531,21 @@
           <button class="lang-btn" data-lang="ar" title="العربية">🇸🇦</button>
           <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
         </div>
-        <button class="badge badge-community" id="communityBtn" onclick="openCommunityModal()" data-i18n-title="community.label" title="Gemeinde / Verband">
-          <span id="communityLabel">IGMG / DITIP</span> ⌄
-        </button>
         <span class="badge" id="liveClock">--:--:--</span>
         <span class="badge" id="hijriDate">--.--.----</span>
-        <span class="badge badge-gold" data-i18n="header.version">v2.4</span>
+        <span class="badge badge-gold" data-i18n="header.version">v2.4.1</span>
       </div>
+    </div>
+    <!-- Community bar — always visible, prominent, below header -->
+    <div class="community-bar">
+      <button class="community-bar-btn" id="communityBtn" onclick="openCommunityModal()" data-i18n-title="community.label" title="Gemeinde / Verband">
+        <span class="community-bar-icon">🕌</span>
+        <span class="community-bar-label" data-i18n="community.label">Gemeinde / Verband</span>
+        <span class="community-bar-value">
+          <span id="communityLabel">IGMG / DITIB</span>
+          <span class="community-bar-arrow">⌄</span>
+        </span>
+      </button>
     </div>
   </div>
 
@@ -1680,7 +1750,7 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
       <div class="modal-body">
         <div id="communityOptions"></div>
         <div class="modal-note" data-i18n="community.method_note">
-          Hinweis: Alle großen islamischen Verbände in Deutschland (IGMG, DITIP, DITIB, VIKZ) verwenden die Diyanet-Türkei-Berechnung. Die Zeiten sind daher identisch. Die App nutzt die offizielle IGMG AJAX API (gleiche Daten wie auf igmg.org/gebetskalender).
+          Hinweis: Alle großen islamischen Verbände in Deutschland (IGMG, DITIB, VIKZ) verwenden die Diyanet-Türkei-Berechnung. Die Zeiten sind daher identisch. Die App nutzt die offizielle IGMG AJAX API (gleiche Daten wie auf igmg.org/gebetskalender).
         </div>
       </div>
     </div>
@@ -1873,7 +1943,7 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     // ============ COMMUNITY SELECTOR ============
     // Ordered list: Diyanet-method communities first (default), then alternative methods
     const COMMUNITY_KEYS = ['igmg_ditib', 'diyanet', 'vikz', 'mwl', 'isna', 'local', 'other'];
-    const DEFAULT_COMMUNITY = 'igmg_ditib';  // IGMG / DITIP — default for German Muslims
+    const DEFAULT_COMMUNITY = 'igmg_ditib';  // IGMG / DITIB — default for German Muslims
     let activeCommunity = localStorage.getItem('gebetszeiten-community') || DEFAULT_COMMUNITY;
 
     // Map community → calculation source

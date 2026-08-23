@@ -987,7 +987,7 @@ app.get('/health', async (req, res) => {
   res.json({
     status: 'ok',
     service: 'gebetszeiten-weltweit',
-    version: '2.4.0',
+    version: '2.4.1',
     node: process.version,
     env: NODE_ENV,
     cities: { bundled: BUNDLED_CITIES.length, custom_querying_appwrite: true, cache: calcCache.size },

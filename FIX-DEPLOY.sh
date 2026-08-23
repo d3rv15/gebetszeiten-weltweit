@@ -1,6 +1,6 @@
 #!/bin/bash
 # FIX: Force a clean redeploy when Dokploy is serving old code
-# Run this on the Hetzner server: ssh root@88.214.56.102
+# Run on the Hetzner server: ssh root@88.214.56.102
 
 set -e
 
@@ -29,7 +29,7 @@ git fetch origin
 git reset --hard origin/main
 git log --oneline -3
 echo ""
-docker build --no-cache --pull -t $APP:latest . 2>&1 | tail -10
+docker build --no-cache --pull -t $APP:latest . 2>&1 | tail -8
 echo ""
 docker run -d \
   --name $APP \
@@ -45,13 +45,38 @@ echo ""
 echo "=== Step 5: Verify ==="
 docker ps --filter "name=$APP" --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
 echo ""
-echo "API health:"
-curl -sm 10 https://salah.chargedesk.de/api/health 2>&1 | python3 -m json.tool 2>&1 | head -20
+echo "=== i18n community check ==="
+curl -sm 10 https://salah.chargedesk.de/api/i18n 2>&1 | python3 -c "
+import sys, json
+try:
+    d = json.load(sys.stdin)
+    if 'community' in d:
+        print('✓ community OK')
+        print('  Options:', list(d['community'].get('options', {}).keys()))
+    else:
+        print('✗ community MISSING')
+except: print('  Error parsing i18n')
+"
 echo ""
-echo "Frontend version (should be v2.4 now):"
-curl -sm 10 https://salah.chargedesk.de/ 2>&1 | grep -o 'data-i18n="header.version">v[0-9.]*'
+echo "=== Times check (Offenbach) ==="
+curl -sm 10 'https://salah.chargedesk.de/api/times?city=Offenbach&date=2026-08-23' 2>&1 | python3 -c "
+import sys, json
+try:
+    d = json.load(sys.stdin)
+    print('  Method:', d.get('method'))
+    print('  Source:', d.get('source'))
+    print('  Times:', d.get('imsak'), d.get('sunrise'), d.get('dhuhr'), d.get('asr'), d.get('maghrib'), d.get('isha'))
+except: print('  Error')
+"
 echo ""
-echo "API times method (should be IGMG.org Gebetskalender):"
-curl -sm 10 'https://salah.chargedesk.de/api/times?city=Offenbach&date=2026-08-21' 2>&1 | python3 -c "import sys,json; d=json.load(sys.stdin); print('Method:', d.get('method'))" 2>&1
+echo "=== VIKZ check (Offenbach with source=vikz_local) ==="
+curl -sm 10 'https://salah.chargedesk.de/api/times?city=Offenbach&date=2026-08-23&source=vikz_local' 2>&1 | python3 -c "
+import sys, json
+try:
+    d = json.load(sys.stdin)
+    print('  Method:', d.get('method'))
+    print('  Times:', d.get('imsak'), d.get('sunrise'), d.get('dhuhr'), d.get('asr'), d.get('maghrib'), d.get('isha'))
+except: print('  Error')
+"
 echo ""
 echo "✅ Done! Reload browser with Ctrl+Shift+R (hard reload)"
