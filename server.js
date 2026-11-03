@@ -24,15 +24,17 @@ const CONFIG = {
   appwrite: {
     endpoint: process.env.APPWRITE_ENDPOINT || 'https://appwrite.chargedesk.de/v1',
     project: process.env.APPWRITE_PROJECT || '6a20bfcd000e9e4ca544',
-    key: process.env.APPWRITE_KEY || '__APPWRITE_KEY_REDACTED__',
+    // Secret — must be provided via env (APPWRITE_KEY). Never hardcode.
+    key: process.env.APPWRITE_KEY || '',
     dbId: process.env.APPWRITE_DB_ID || 'igmg',
     prayersColl: process.env.APPWRITE_PRAYERS_COLL || 'prayer_times_data',
     citiesColl: process.env.APPWRITE_CITIES_COLL || 'custom_cities',
   },
   // Official IGMG App Server API (igmgapp.org)
   igmgApp: {
-    baseUrl: 'https://igmgapp.org:8081',
-    apiKey: '__IGMG_API_KEY_REDACTED__', // X-API-Key header
+    baseUrl: process.env.IGMG_APP_BASE_URL || 'https://igmgapp.org:8081',
+    // Secret — must be provided via env (IGMG_API_KEY). Never hardcode.
+    apiKey: process.env.IGMG_API_KEY || '',
     // Self-signed cert behind istio-envoy — disable strict verification
     rejectUnauthorized: false,
   },
@@ -63,6 +65,12 @@ const appwrite = new Client()
   .setKey(CONFIG.appwrite.key);
 const db = new Databases(appwrite);
 log(`Appwrite: ${CONFIG.appwrite.endpoint} db=${CONFIG.appwrite.dbId} prayers=${CONFIG.appwrite.prayersColl} cities=${CONFIG.appwrite.customCitiesColl || CONFIG.appwrite.citiesColl}`);
+if (!CONFIG.appwrite.key) {
+  logErr('APPWRITE_KEY is not set — Appwrite cache & custom-cities lookup are disabled. Set it in the deployment environment.');
+}
+if (!CONFIG.igmgApp.apiKey) {
+  log('IGMG_API_KEY not set — official IGMG App Server API will be skipped (AJAX source remains active).');
+}
 
 // ============ SQLITE (API keys) ============
 const sqlite = new Database(CONFIG.sqlitePath);
@@ -362,6 +370,7 @@ async function fetchFromIGMGAjax(city, date) {
 async function fetchFromIGMGApp(city, date) {
   const igmgId = city.igmg_id || city.id;
   if (!igmgId) return null;
+  if (!CONFIG.igmgApp.apiKey) return null; // no key configured — skip silently
   const url = `${CONFIG.igmgApp.baseUrl}/api/Calendar/GetPrayerTimes?cityId=${igmgId}&fromDate=${date}&toDate=${date}`;
   try {
     const controller = new AbortController();

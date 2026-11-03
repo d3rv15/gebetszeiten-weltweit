@@ -9,12 +9,18 @@ import { Client, Databases, ID, Query } from 'node-appwrite';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const APPWRITE = {
-  endpoint: 'https://appwrite.chargedesk.de/v1',
-  project: '6a20bfcd000e9e4ca544',
-  key: '__APPWRITE_KEY_REDACTED__',
-  dbId: 'igmg',
-  prayersColl: 'prayer_times_data',
+  endpoint: process.env.APPWRITE_ENDPOINT || 'https://appwrite.chargedesk.de/v1',
+  project: process.env.APPWRITE_PROJECT || '6a20bfcd000e9e4ca544',
+  // Secret — provide via env APPWRITE_KEY
+  key: process.env.APPWRITE_KEY || '',
+  dbId: process.env.APPWRITE_DB_ID || 'igmg',
+  prayersColl: process.env.APPWRITE_PRAYERS_COLL || 'prayer_times_data',
 };
+if (!APPWRITE.key) {
+  console.error('[sync] APPWRITE_KEY is not set. Export it before running:');
+  console.error('        export APPWRITE_KEY=standard_...');
+  process.exit(1);
+}
 const client = new Client()
   .setEndpoint(APPWRITE.endpoint)
   .setProject(APPWRITE.project)

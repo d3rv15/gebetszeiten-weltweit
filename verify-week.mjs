@@ -9,7 +9,7 @@ import https from 'https';
 const IGMG_AJAX_URL = 'https://www.igmg.org/wp-content/themes/igmg/include/gebetskalender_ajax_api.php';
 const IGMG_PAGE_URL = 'https://www.igmg.org/gebetskalender';
 const IGMG_APP_URL = 'https://igmgapp.org:8081/api/Calendar/GetPrayerTimes';
-const IGMG_APP_KEY = '__IGMG_API_KEY_REDACTED__';
+const IGMG_APP_KEY = process.env.IGMG_API_KEY || '';
 const ALADHAN_URL = 'https://api.aladhan.com/v1/timings';
 const DIYANET_URL_BASE = 'https://namazvakitleri.diyanet.gov.tr';
 
@@ -110,6 +110,7 @@ async function fetchIGMGAjax(city, yyyy, mm) {
 
 async function fetchIGMGApp(city, yyyy, mm, dd) {
   if (!city.igmg_id) return null;
+  if (!IGMG_APP_KEY) return null; // no key configured — skip this source
   const date = `${yyyy}-${String(mm).padStart(2,'0')}-${String(dd).padStart(2,'0')}`;
   try {
     const r = await fetch(`${IGMG_APP_URL}?cityId=${city.igmg_id}&fromDate=${date}&toDate=${date}`, {
