@@ -5,7 +5,7 @@
 # WICHTIG: Secrets kommen aus ENV, nicht aus dem Repo.
 # Vor dem ersten Lauf einmalig setzen (oder in /root/.gebetszeiten.env speichern):
 #   export APPWRITE_KEY=standard_<neuer-key>
-#   export IGMG_API_KEY=9a5f2fc3a030490ebebcd811e9d5c761
+#   export IGMG_API_KEY=<key-aus-igmgapp>
 
 set -e
 
