@@ -2923,20 +2923,33 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     }
 
     // ============ API KEYS ============
-    async function refreshKeys() {
-      const r = await fetch('/api/keys');
-      const d = await r.json();
+    // Verwaltung braucht das Admin-Token (ADMIN_TOKEN auf dem Server); es bleibt nur in diesem Tab.
+    async function adminFetch(url, opts = {}) {
+      let t = sessionStorage.getItem('adminToken');
+      if (!t) { t = prompt('Admin-Token für die Key-Verwaltung:'); if (!t) return null; sessionStorage.setItem('adminToken', t); }
+      const r = await fetch(url, { ...opts, headers: { ...(opts.headers || {}), 'X-Admin-Token': t } });
+      if (r.status === 401) { sessionStorage.removeItem('adminToken'); toast('Admin-Token falsch', 'error'); return null; }
+      return r;
+    }
+    async function refreshKeys(ask = false) {
       const tbody = document.querySelector('#keyList tbody');
+      if (!ask && !sessionStorage.getItem('adminToken')) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem"><button class="btn btn-sm" onclick="refreshKeys(true)">Als Admin anmelden</button></td></tr>';
+        return;
+      }
+      const r = await adminFetch('/api/keys');
+      if (!r) return refreshKeys(false);
+      const d = await r.json();
       tbody.innerHTML = d.keys.map(k => `
         <tr>
-          <td><code>${k.id.substring(0, 16)}…</code></td>
-          <td>${k.name}</td>
+          <td><code>${escapeHtml(k.id.substring(0, 16))}…</code></td>
+          <td>${escapeHtml(k.name)}</td>
           <td><span class="badge ${k.enabled ? 'badge-on' : 'badge-off'}">${k.enabled ? 'aktiv' : 'aus'}</span></td>
-          <td>${k.requests}</td>
-          <td>${k.last_used || '—'}</td>
+          <td>${Number(k.requests) || 0}</td>
+          <td>${escapeHtml(k.last_used || '—')}</td>
           <td>
-            ${k.enabled ? `<button class="btn btn-sm btn-danger" onclick="disableKey('${k.id}')">Deaktivieren</button>` : ''}
-            <button class="btn btn-sm btn-danger" onclick="deleteKey('${k.id}')">Löschen</button>
+            ${k.enabled ? `<button class="btn btn-sm btn-danger" onclick="disableKey('${escapeHtml(k.id)}')">Deaktivieren</button>` : ''}
+            <button class="btn btn-sm btn-danger" onclick="deleteKey('${escapeHtml(k.id)}')">Löschen</button>
           </td>
         </tr>
       `).join('') || '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:2rem">Noch keine Keys erstellt</td></tr>';
@@ -2946,7 +2959,8 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     document.getElementById('createKeyBtn').addEventListener('click', async () => {
       const name = document.getElementById('keyName').value.trim();
       if (!name) { toast('Name eingeben', 'error'); return; }
-      const r = await fetch('/api/keys', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name }) });
+      const r = await adminFetch('/api/keys', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name }) });
+      if (!r) return;
       const d = await r.json();
       if (d.error) { toast(d.error, 'error'); return; }
       document.getElementById('newKeyValue').textContent = d.id;
@@ -2957,13 +2971,13 @@ GET /api/holidays?from=2026-08-01&amp;to=2026-08-31  # Islamische Feiertage</cod
     });
 
     async function disableKey(id) {
-      await fetch(`/api/keys/${id}/disable`, { method: 'POST' });
+      if (!await adminFetch(`/api/keys/${id}/disable`, { method: 'POST' })) return;
       refreshKeys();
       toast('Key deaktiviert');
     }
     async function deleteKey(id) {
       if (!confirm('Key wirklich löschen?')) return;
-      await fetch(`/api/keys/${id}`, { method: 'DELETE' });
+      if (!await adminFetch(`/api/keys/${id}`, { method: 'DELETE' })) return;
       refreshKeys();
       toast('Key gelöscht');
     }

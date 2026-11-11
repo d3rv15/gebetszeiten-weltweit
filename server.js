@@ -11,6 +11,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
+const crypto = require('crypto');
 const Database = require('better-sqlite3');
 const { v4: uuidv4 } = require('uuid');
 const { Client, Databases, Query, ID } = require('node-appwrite');
@@ -1938,16 +1939,25 @@ app.get('/api/v1/times/month', requireApiKey, async (req, res) => {
 });
 
 // ============ API-KEY MANAGEMENT ============
-app.post('/api/keys', (req, res) => {
+// Nur mit ADMIN_TOKEN (Umgebung); ohne gesetztes Token bleibt die Verwaltung gesperrt.
+function requireAdmin(req, res, next) {
+  const want = Buffer.from(process.env.ADMIN_TOKEN || '');
+  const got = Buffer.from(String(req.headers['x-admin-token'] || ''));
+  if (!want.length || got.length !== want.length || !crypto.timingSafeEqual(got, want)) {
+    return res.status(401).json({ error: 'Admin-Token erforderlich.' });
+  }
+  next();
+}
+app.post('/api/keys', requireAdmin, (req, res) => {
   const { name } = req.body || {};
   if (!name) return res.status(400).json({ error: 'name required' });
   const id = 'gk_' + uuidv4().replace(/-/g, '');
   try { stmtKeyCreate.run(id, name); res.json({ id, name, message: 'Save this key - it will not be shown again.' }); }
   catch (e) { res.status(500).json({ error: e.message }); }
 });
-app.get('/api/keys', (req, res) => res.json({ keys: stmtKeyList.all() }));
-app.post('/api/keys/:id/disable', (req, res) => { stmtKeyDisable.run(req.params.id); res.json({ ok: true }); });
-app.delete('/api/keys/:id', (req, res) => { stmtKeyDelete.run(req.params.id); res.json({ ok: true }); });
+app.get('/api/keys', requireAdmin, (req, res) => res.json({ keys: stmtKeyList.all() }));
+app.post('/api/keys/:id/disable', requireAdmin, (req, res) => { stmtKeyDisable.run(req.params.id); res.json({ ok: true }); });
+app.delete('/api/keys/:id', requireAdmin, (req, res) => { stmtKeyDelete.run(req.params.id); res.json({ ok: true }); });
 
 // ============ STARTUP & GRACEFUL SHUTDOWN ============
 const server = app.listen(PORT, HOST, () => {
